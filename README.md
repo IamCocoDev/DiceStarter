@@ -1,2 +1,2 @@
 # DiceStarter
-Esto es el dev prueba
+este es el data models de prueba
