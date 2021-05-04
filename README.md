@@ -1,2 +1,2 @@
 # DiceStarter
-Main esto es una prueba para no romper nada
+Esto es el dev
