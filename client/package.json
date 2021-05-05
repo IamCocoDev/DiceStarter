@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^1.1.1",
+    "@heroicons/react": "^1.0.1",
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -13,8 +15,10 @@
     "@types/react-dom": "^16.9.12",
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
+    "autoprefixer": "^10.2.5",
     "axios": "^0.21.1",
     "eslint-config-airbnb-typescript": "^12.3.1",
+    "postcss-cli": "^8.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -22,13 +26,17 @@
     "react-scripts": "4.0.3",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
+    "tailwindcss": "^2.1.2",
     "typescript": "^4.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start-tailwind": "concurrently -n tailwind,react \"npm run watch:css\" \"react-scripts start\"",
+    "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:css": "tailwind build src/components/landing/landing.build.css -o src/components/landing/landing.css",
+    "watch:css": "chokidar \"src/components/landing/landing.build.css\" -c \"npm run build:css\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,6 +56,8 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
+    "chokidar-cli": "^2.1.0",
+    "concurrently": "^6.0.2",
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-google": "^0.14.0",
