@@ -1,3 +1,4 @@
 # DiceStarter
-este es el data models de prueba
+esta es la rama de la nav Bar 
+
 
