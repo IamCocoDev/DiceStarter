@@ -16,11 +16,11 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     fulfilled: {
-      type: DataTypes.ENUM('true', 'false'),
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
     paid: {
-      type: DataTypes.ENUM('true', 'false'),
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
     paymentDate: {
@@ -42,6 +42,16 @@ module.exports = (sequelize) => {
     shippingPostalCode: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.fn('NOW'),
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.fn('NOW'),
     },
   });
 };
