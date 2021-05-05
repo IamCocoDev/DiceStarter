@@ -1,10 +1,11 @@
 import React from 'react';
 import './home.css';
+import NavBar from '../NavBar/NavBar';
 
 function Home() {
   return (
     <div>
-        hola esto es una prueba
+      <NavBar />
     </div>
   );
 }
