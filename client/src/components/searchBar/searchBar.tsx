@@ -13,8 +13,9 @@ function searchBar(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" onChange={(e) => setInput(e.target.value)} />
-      <button>save</button>
+      <input type="text" onChange={(e) => setInput(e.target.value)}
+        className="searchBarText" />
+      <input type="submit" value="Search" className="searchBarSubmit"/>
     </form>
   );
 }
