@@ -1,2 +1,2 @@
 # DiceStarter
-Esto es feature/home
+esta es la rama de la nav Bar 
