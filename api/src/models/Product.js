@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     size: {
-      type: DataTypes.ARRAY(DataTypes.DECIMAL),
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     color: {
@@ -20,11 +20,11 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     available: {
-      type: DataTypes.ENUM('false', 'true'),
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
     picture: {
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     price: {
@@ -42,6 +42,16 @@ module.exports = (sequelize) => {
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.fn('NOW'),
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.fn('NOW'),
     },
   });
 };
