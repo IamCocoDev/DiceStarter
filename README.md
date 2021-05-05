@@ -1,2 +1,3 @@
 # DiceStarter
-Esto es feature/home
+este es el data models de prueba
+
