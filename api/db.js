@@ -18,14 +18,14 @@ const modelDefiners = [];
 
 // Leemos todos los archivos de la carpeta Models,
 // los requerimos y agregamos al arreglo modelDefiners
-fs.readdirSync(path.join(__dirname, '/models'))
+fs.readdirSync(path.join(__dirname, './src/models'))
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
     // eslint-disable-next-line global-require
     // eslint-disable-next-line import/no-dynamic-require
     // eslint-disable-next-line global-require
     // eslint-disable-next-line import/no-dynamic-require
-    modelDefiners.push(require(path.join(__dirname, '/models', file)));
+    modelDefiners.push(require(path.join(__dirname, './src/models', file)));
   });
 
 // Injectamos la conexion (sequelize) a todos los modelos
@@ -40,8 +40,25 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 // const { Dog, Temperament } = sequelize.models;
 
+const {
+  User, Role, Product, OrderDetail, Order, Category,
+} = sequelize.models;
+
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+
+User.belongsToMany(Role, { through: 'user_roles' });
+Role.belongsToMany(User, { through: 'user_roles' });
+Product.belongsToMany(Category, { through: 'product_categories' });
+Category.belongsToMany(Product, { through: 'product_categories' });
+User.hasMany(Product);
+Product.belongsTo(User);
+User.hasMany(Order);
+Order.belongsTo(User);
+Order.hasOne(OrderDetail);
+OrderDetail.belongsTo(Order);
+Product.belongsToMany(OrderDetail, { through: 'product_orderdetail' });
+OrderDetail.belongsToMany(Product, { through: 'product_orderdetail' });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así:
