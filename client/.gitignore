@@ -129,3 +129,8 @@ yarn-error.log*
 
 # package-lock.json
 package-lock.json
+
+#postcss and tailwind
+postcss.config.js
+tailwind.config.js
+src/components/landing/landing.build.css
