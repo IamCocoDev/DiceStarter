@@ -41,7 +41,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // const { Dog, Temperament } = sequelize.models;
 
 const {
-  User, Role, Product, OrderDetail, Order, Category,
+  User, Role, Product, Order, Category,
 } = sequelize.models;
 
 // Aca vendrian las relaciones
@@ -55,10 +55,8 @@ User.hasMany(Product);
 Product.belongsTo(User);
 User.hasMany(Order);
 Order.belongsTo(User);
-Order.hasOne(OrderDetail);
-OrderDetail.belongsTo(Order);
-Product.belongsToMany(OrderDetail, { through: 'product_orderdetail' });
-OrderDetail.belongsToMany(Product, { through: 'product_orderdetail' });
+Product.belongsToMany(Order, { through: 'product_order' });
+Order.belongsToMany(Product, { through: 'product_order' });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así:
