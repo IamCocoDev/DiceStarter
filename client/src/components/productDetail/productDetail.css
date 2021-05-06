@@ -1,0 +1,109 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.ProductDetailAll {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 100vw;
+    max-height: 100vh;
+}
+.ProductDetailImage{
+    grid-column: 2/3;
+    grid-row: 3/5;
+    width: 50vw;
+    height: auto;
+    align-self: center;
+    justify-self: center;
+    background-color: #6D999B;
+    border-radius: 1vw;
+    position: relative;
+    top: 0;
+    transition: all .1s ease-in;
+}
+.ProductDetailImage:hover {
+    top: -1vh;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.2);
+}
+.ProductDetailName {
+    grid-column: 4/5;
+    grid-row: 2/3;
+    align-self: center;
+    justify-self: center;
+    background-color: #6D999B;
+    border-radius: 1vw;
+    font-size: 20px;
+    width: 25vw;
+    height: 15vh;
+    padding-top: 2.5vw;
+    padding-left: 5.5vw;
+    position: relative;
+    top: 0;
+    transition: all .1s ease-in;
+}
+.ProductDetailName:hover {
+    top: -1vh;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.2);
+}
+.ProductDetailPrice {
+    grid-column: 4/5;
+    grid-row: 3/4;
+    align-self: center;
+    justify-self: center;
+    background-color: #6D999B;
+    border-radius: 1vw;
+    font-size: 20px;
+    width: 25vw;
+    height: 15vh;
+    padding-top: 2.5vw;
+    padding-left: 5.5vw;
+    position: relative;
+    top: 0;
+    transition: all .1s ease-in;
+}
+.ProductDetailPrice:hover {
+    top: -1vh;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.2);
+}
+.ProductDetailStock {
+    grid-column: 4/5;
+    grid-row: 4/5;
+    align-self: center;
+    justify-self: center;
+    background-color: #6D999B;
+    border-radius: 1vw;
+    font-size: 20px;
+    width: 25vw;
+    height: 15vh;
+    padding-top: 2.5vw;
+    padding-left: 5.5vw;
+    position: relative;
+    top: 0;
+    transition: all .1s ease-in;
+}
+.ProductDetailRating:hover {
+    top: -1vh;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.2);
+}
+.ProductDetailRating {
+    grid-column: 4/5;
+    grid-row: 5/6;
+    align-self: center;
+    justify-self: center;
+    background-color: #6D999B;
+    border-radius: 1vw;
+    font-size: 20px;
+    width: 25vw;
+    height: 15vh;
+    padding-top: 2.5vw;
+    padding-left: 5.5vw;
+    position: relative;
+    top: 0;
+    transition: all .1s ease-in;
+}
+.ProductDetailStock:hover {
+    top: -1vh;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.2);
+}

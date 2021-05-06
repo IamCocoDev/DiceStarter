@@ -1,4 +1,5 @@
 import React from 'react';
+import './productDetail.css';
 
 type productAsign = {
     name:string,
@@ -18,11 +19,17 @@ const product: productAsign = {
 function ProductDetail() {
   return (
     <div className='ProductDetailAll'>
-      <h1 contentEditable>{product.name}</h1>
-      <img src={product.image}/>
-      <h1 contentEditable>{product.image}</h1>
-      <p contentEditable>{product.stock}</p>
-      <p contentEditable>{product.rating}</p>
+      <h1 className='ProductDetailName' contentEditable>{product.name}</h1>
+      <img className='ProductDetailImage' src={product.image}/>
+      <p className='ProductDetailPrice' contentEditable>
+        Price: {product.price}
+      </p>
+      <p className='ProductDetailStock' contentEditable>
+       Stock: {product.stock}
+      </p>
+      <p className='ProductDetailRating'contentEditable>
+       Rating: {product.rating}
+      </p>
     </div>
   );
 }
