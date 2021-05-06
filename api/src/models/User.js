@@ -25,9 +25,10 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     profilePicture: {
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    addres: {
+    address: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -59,6 +60,16 @@ module.exports = (sequelize) => {
     },
     status: {
       type: DataTypes.STRING,
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.fn('NOW'),
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.fn('NOW'),
     },
   });
 };
