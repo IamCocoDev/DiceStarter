@@ -12,10 +12,13 @@ function searchBar(): JSX.Element {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" onChange={(e) => setInput(e.target.value)}
+    <form className='searchBarFlex' onSubmit={handleSubmit}>
+      <input type="text" placeholder='Busca tu juego favorito'
+        onChange={(e) => setInput(e.target.value)}
         className="searchBarText" />
-      <input type="submit" value="Search" className="searchBarSubmit"/>
+      <button className='searchBarButton'>
+        <i className='material-icons'>search</i>
+      </button>
     </form>
   );
 }
