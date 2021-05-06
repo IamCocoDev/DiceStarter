@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useAppDispatch} from '../../app/hooks';
-import {saveForm} from '../../app/reducers/formSlice';
+// import {useAppDispatch} from '../../app/hooks';
 import Select from 'react-select';
 import {
   formData,
@@ -11,7 +10,21 @@ import {
   errorsInput,
 } from '../../types';
 
-export function validate(input: Inputs) {
+function deepEqualError(a: errorsInput) {
+  return JSON.stringify(a) === JSON.stringify({
+    name: '',
+    price: '',
+    categories: '',
+    colors: '',
+    size: '',
+    stock: '',
+    rating: '',
+    description: '',
+    picture: '',
+  });
+};
+
+function validate(input: Inputs) {
   const errors : errorsInput = {
     name: '',
     price: '',
@@ -24,26 +37,64 @@ export function validate(input: Inputs) {
     picture: '',
   };
   if (!input.name) {
-    errors.name = 'name is required';
+    errors.name = 'Name is required';
   }
 
   if (!input.price) {
-    errors.price = 'price is required';
+    errors.price = 'Price is required';
+  }
+
+  if (!input.categories.length) {
+    errors.categories = 'categories are required';
+  }
+
+  if (!input.colors.length) {
+    errors.colors = 'colors are required';
+  }
+
+  if (input.size === '0') {
+    errors.size = 'size is required';
+  }
+
+  if (!input.stock) {
+    errors.stock = 'stock is required';
+  }
+
+  if (!input.rating) {
+    errors.rating = 'rating is required';
+  }
+
+  if (!input.description) {
+    errors.description = 'description is required';
+  }
+
+  if (!input.picture) {
+    errors.picture = 'picture is required';
   }
   return errors;
 };
 
 const FormCreateProduct = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const [color, setColor] = useState('');
-  // const [errors, setErrors] = useState();
+  const [errors, setErrors] = useState<errorsInput>({
+    name: '',
+    price: '',
+    categories: '',
+    colors: '',
+    size: '',
+    stock: '',
+    rating: '',
+    description: '',
+    picture: '',
+  });
   const [input, setInput] =
     useState<Inputs>({
       name: '',
       price: 0,
       categories: [],
       colors: [],
-      size: '',
+      size: '0',
       stock: 0,
       rating: 0,
       description: '',
@@ -51,8 +102,8 @@ const FormCreateProduct = () => {
     });
   useEffect(() => {
     console.log(input);
+    setErrors(validate(input));
   }, [input]);
-
 
   const Cate: Categories[] =
     [{value: 'D&D 5e', label: 'D&D 5e'},
@@ -60,7 +111,12 @@ const FormCreateProduct = () => {
       {value: 'Pathfinder', label: 'Pathfinder'}];
   const handleSubmit = (e: formData) => {
     e.preventDefault();
-    dispatch(saveForm(input));
+    console.log(errors);
+    if (deepEqualError(errors)) {
+      alert('1111');
+    } else {
+      alert('Comple the requires spaces!');
+    }
   };
   const handleChange = (e: formInputData) => {
     let data: string | number = e.target.value;
@@ -96,6 +152,7 @@ const FormCreateProduct = () => {
             name="picture"
             onChange={handleChange}
           />
+          <p>{errors.picture}</p>
         </div>
         <div>
           <label htmlFor="">Product name</label>
@@ -105,6 +162,7 @@ const FormCreateProduct = () => {
             name="name"
             onChange={handleChange}
           />
+          <p>{errors.name}</p>
         </div>
         <div>
           <label
@@ -118,6 +176,7 @@ const FormCreateProduct = () => {
             min="0"
             onChange={handleChange}
           />
+          <p>{errors.price}</p>
         </div>
         <div>
           <label
@@ -130,11 +189,29 @@ const FormCreateProduct = () => {
             min="0"
             onChange={handleChange}
           />
+          <p>{errors.stock}</p>
+        </div>
+        <div>
+          <label
+            htmlFor="">Product size
+          </label>
+          <input
+            type="number"
+            value={input.size}
+            name = "size"
+            min="0"
+            onChange={handleChange}
+          />
+          <p>{errors.size}</p>
         </div>
         <div>
           <label
             htmlFor="">Product color
           </label>
+          {input.colors.length ?
+            input.colors.map((el) => <p key={el}
+              style={{'color': el}} >{el}</p>) :
+            null}
           <input
             type="color"
             value={input.colors}
@@ -145,6 +222,7 @@ const FormCreateProduct = () => {
             value="add color"
             onClick={() => addColor(color)} />
         </div>
+        <p>{errors.colors}</p>
         <div>
           <label
             htmlFor="">Product description
@@ -155,6 +233,7 @@ const FormCreateProduct = () => {
             onChange={handleTextAreaChange}
           >
           </textarea>
+          <p>{errors.description}</p>
         </div>
         <div>
           <label
@@ -169,6 +248,7 @@ const FormCreateProduct = () => {
             name = "rating"
             onChange={handleChange}
           />
+          <p>{errors.rating}</p>
         </div>
         <div>
           <Select
@@ -179,6 +259,7 @@ const FormCreateProduct = () => {
             onChange={handleSelectChange}
           >
           </Select>
+          <p>{errors.categories}</p>
         </div>
         <input
           type="submit"
