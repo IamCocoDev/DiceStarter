@@ -12,10 +12,10 @@ import About from './components/about/about';
 function App() {
   return (
     <div className="">
-      <Route exact path={['/home']} component={NavBar}></Route>
+      <Route path={['/home', '/product']} component={NavBar}></Route>
       <Route exact path='/' component={Landing}></Route>
       <Route exact path='/about' component={About}></Route>
-      <Route exact path='/home' component={Home}></Route>.
+      <Route exact path='/home' component={Home}></Route>
       <Route exact path='/product/:id' component={ProductDetail}></Route>
     </div>
   );
