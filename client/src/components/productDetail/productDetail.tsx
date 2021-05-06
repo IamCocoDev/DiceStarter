@@ -19,6 +19,10 @@ function ProductDetail() {
   return (
     <div className='ProductDetailAll'>
       <h1 contentEditable>{product.name}</h1>
+      <img src={product.image}/>
+      <h1 contentEditable>{product.image}</h1>
+      <p contentEditable>{product.stock}</p>
+      <p contentEditable>{product.rating}</p>
     </div>
   );
 }
