@@ -4,7 +4,7 @@ import {
   formData,
   formInputData,
   formTextAreaData,
-} from '../../app/types/types';
+} from '../../types';
 
 interface Categories {
   value: string,
