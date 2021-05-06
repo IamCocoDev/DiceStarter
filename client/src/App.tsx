@@ -7,7 +7,6 @@ import ProductDetail from '../src/components/productDetail/productDetail';
 import formCreateProduct
   from '../src/components/formCreateProduct/formCreateProduct';
 import ProductList from '../src/components/productList/productList';
-
 import './App.css';
 import About from './components/about/about';
 

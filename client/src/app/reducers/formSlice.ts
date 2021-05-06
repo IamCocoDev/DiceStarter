@@ -1,17 +1,27 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Form, FormState} from '../../types';
+import {Inputs, FormState} from '../../types';
 import {RootState} from '../store';
 
 // {name: , price: , categories: }
 const initialState: FormState = {
-  form: {name: '', price: 0, categories: []},
+  form: {
+    categories: [],
+    description: '',
+    colors: [],
+    name: '',
+    picture: '',
+    price: 0,
+    rating: 0,
+    size: '',
+    stock: 0,
+  },
   status: 'idle',
 };
 
 
 export const sendDataThunk = createAsyncThunk(
     'formReducer/sendDataThunk',
-    async (form: Form) => {
+    async (form: Inputs) => {
       const response = new Promise((resolve, reject) => {
         if (form.name !== 'error') {
           setTimeout(() => resolve(form), 2000);
@@ -28,7 +38,7 @@ export const formSlice = createSlice({ // Te creo al reducer, acciones y estados
   initialState, // Le pasas el estado inicial
   reducers: {
     // Acá metes tus acciones normales de toda la vida
-    saveForm: (state, action : PayloadAction<Form>) => {
+    saveForm: (state, action : PayloadAction<Inputs>) => {
       state.form = action.payload;
     },
   },

@@ -1,30 +1,42 @@
 import React, {useState, useEffect} from 'react';
+import {useAppDispatch} from '../../app/hooks';
+import {saveForm} from '../../app/reducers/formSlice';
 import Select from 'react-select';
 import {
   formData,
   formInputData,
   formTextAreaData,
+  Inputs,
+  Categories,
+  errorsInput,
 } from '../../types';
 
-interface Categories {
-  value: string,
-  label: string
+export function validate(input: Inputs) {
+  const errors : errorsInput = {
+    name: '',
+    price: '',
+    categories: '',
+    colors: '',
+    size: '',
+    stock: '',
+    rating: '',
+    description: '',
+    picture: '',
+  };
+  if (!input.name) {
+    errors.name = 'name is required';
+  }
+
+  if (!input.price) {
+    errors.price = 'price is required';
+  }
+  return errors;
 };
 
-interface Inputs {
-  name: string;
-  price: number;
-  categories: Categories[];
-  colors: string[];
-  size: string;
-  stock: number;
-  rating: number;
-  description: string;
-  picture: string;
-}
-
-const formCreateProduct = () => {
+const FormCreateProduct = () => {
+  const dispatch = useAppDispatch();
   const [color, setColor] = useState('');
+  // const [errors, setErrors] = useState();
   const [input, setInput] =
     useState<Inputs>({
       name: '',
@@ -47,7 +59,8 @@ const formCreateProduct = () => {
       {value: 'D&D 3.5', label: 'D&D 3.5'},
       {value: 'Pathfinder', label: 'Pathfinder'}];
   const handleSubmit = (e: formData) => {
-    return;
+    e.preventDefault();
+    dispatch(saveForm(input));
   };
   const handleChange = (e: formInputData) => {
     let data: string | number = e.target.value;
@@ -176,4 +189,4 @@ const formCreateProduct = () => {
   );
 };
 
-export default formCreateProduct;
+export default FormCreateProduct;
