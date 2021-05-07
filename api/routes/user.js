@@ -3,6 +3,8 @@ const { v4: uuidv4 } = require('uuid');
 
 const router = express.Router();
 
+const bcrypt = require('bcrypt');
+
 const { User } = require('../db');
 
 /* GET users listing. */
@@ -20,6 +22,7 @@ router.post('/', async (req, res, next) => {
   const status = 'Active';
 
   try {
+    let { password } = req.body.password;
     const {
       name,
       firstName,
@@ -32,8 +35,13 @@ router.post('/', async (req, res, next) => {
       phone,
       country,
       email,
-      password,
     } = req.body;
+
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(password, salt, (e, hash) => {
+        password = hash;
+      });
+    });
 
     const newUser = {
       id,

@@ -1,9 +1,3 @@
-export type Form = {
-    name: string,
-    price: number,
-    categories: string[]
-}
-
 export interface FormState {
     inputs: Inputs,
     status: 'idle' | 'failed' | 'loading',
@@ -17,6 +11,7 @@ export type Products = {
     productsListStatus: 'idle' | 'failed' | 'loading',
     productByIdStatus: 'idle' | 'failed' | 'loading',
     deleteByIdStatus: 'idle' | 'failed' | 'loading' | 'deleted',
+
 };
 
 export interface Categories {

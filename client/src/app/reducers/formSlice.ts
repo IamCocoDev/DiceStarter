@@ -20,11 +20,13 @@ const initialState: FormState = {
 };
 
 
+
 export const sendFormAsync = createAsyncThunk(
     'formReducer/sendFormAsync',
     async (form: Inputs) => {
       const res = await axios.post(`http://localhost:3001/product/`);
       return res.data;
+
     },
 );
 
