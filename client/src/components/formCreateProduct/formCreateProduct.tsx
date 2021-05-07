@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from 'react';
 // import {useAppDispatch} from '../../app/hooks';
+import {useAppDispatch} from '../../app/hooks';
+import {sendFormAsync} from '../../app/reducers/formSlice';
+
 import Select from 'react-select';
 import {
   formData,
@@ -15,7 +18,7 @@ function deepEqualError(a: errorsInput) {
     name: '',
     price: '',
     categories: '',
-    colors: '',
+    color: '',
     size: '',
     stock: '',
     rating: '',
@@ -29,7 +32,7 @@ function validate(input: Inputs) {
     name: '',
     price: '',
     categories: '',
-    colors: '',
+    color: '',
     size: '',
     stock: '',
     rating: '',
@@ -46,10 +49,10 @@ function validate(input: Inputs) {
 
   if (!input.categories.length) {
     errors.categories = 'categories are required';
-  }
+  };
 
-  if (!input.colors.length) {
-    errors.colors = 'colors are required';
+  if (!input.color.length) {
+    errors.color = 'colors are required';
   }
 
   if (input.size === '0') {
@@ -75,13 +78,13 @@ function validate(input: Inputs) {
 };
 
 const FormCreateProduct = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const [color, setColor] = useState('');
   const [errors, setErrors] = useState<errorsInput>({
     name: '',
     price: '',
     categories: '',
-    colors: '',
+    color: '',
     size: '',
     stock: '',
     rating: '',
@@ -93,15 +96,15 @@ const FormCreateProduct = () => {
       name: '',
       price: 0,
       categories: [],
-      colors: [],
+      color: [],
       size: '0',
       stock: 0,
       rating: 0,
       description: '',
       picture: '',
+      available: true,
     });
   useEffect(() => {
-    console.log(input);
     setErrors(validate(input));
   }, [input]);
 
@@ -109,13 +112,13 @@ const FormCreateProduct = () => {
     [{value: 'D&D 5e', label: 'D&D 5e'},
       {value: 'D&D 3.5', label: 'D&D 3.5'},
       {value: 'Pathfinder', label: 'Pathfinder'}];
+
   const handleSubmit = (e: formData) => {
     e.preventDefault();
-    console.log(errors);
     if (deepEqualError(errors)) {
-      alert('1111');
+      dispatch(sendFormAsync(input));
     } else {
-      alert('Comple the requires spaces!');
+      alert('Complete the requires spaces!');
     }
   };
   const handleChange = (e: formInputData) => {
@@ -128,10 +131,10 @@ const FormCreateProduct = () => {
   };
 
   const addColor = (color: string) => {
-    const repColor = input.colors.find((el: string) => el === color);
+    const repColor = input.color.find((el: string) => el === color);
     if (!repColor) {
-      const newcolor = [...input.colors, color];
-      setInput({...input, colors: newcolor});
+      const newcolor = [...input.color, color];
+      setInput({...input, color: newcolor});
     }
   };
   const handleTextAreaChange = (e: formTextAreaData) => {
@@ -207,21 +210,21 @@ const FormCreateProduct = () => {
           <label
             htmlFor="">Product color
           </label>
-          {input.colors.length ?
-            input.colors.map((el) => <p key={el}
+          {input.color.length ?
+            input.color.map((el) => <p key={el}
               style={{'color': el}} >{el}</p>) :
             null}
           <input
             type="color"
-            value={input.colors}
-            name = "colors"
+            value={input.color}
+            name = "color"
             onChange={(e)=> setColor(e.target.value)}
           />
           <input type="button"
             value="add color"
             onClick={() => addColor(color)} />
         </div>
-        <p>{errors.colors}</p>
+        <p>{errors.color}</p>
         <div>
           <label
             htmlFor="">Product description
@@ -265,6 +268,20 @@ const FormCreateProduct = () => {
           value="Create"
         />
       </form>
+      <button onClick={() => {
+        setInput({
+          name: 'Nuevo',
+          price: 5,
+          categories: [{value: 'D&D 5e', label: 'D&D 5e'}],
+          color: ['#030303'],
+          size: '200',
+          stock: 200,
+          rating: 4,
+          description: 'Dasdkjalsdjlaskd',
+          picture: 'Dalsdkjalksdjl',
+          available: true,
+        });
+      }}>Set new product</button>
     </div>
   );
 };
