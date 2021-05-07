@@ -2,9 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-const { User } = require('../db')
+const { User } = require('../db');
 
-/* GET users listing. */
 router.get('/', (req, res, next) => {
   User.findAll()
     .then((response) => {

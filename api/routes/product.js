@@ -5,7 +5,6 @@ const router = express.Router();
 
 const { Product } = require('../db');
 
-/* GET users listing. */
 router.get('/:id', (req, res, next) => {
   Product.findByPk(req.params.id)
     .then((response) => {
@@ -33,12 +32,14 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', (req, res, next) => {
   const { id } = req.params;
   const { body } = req;
   Product.update(body, { where: { id } })
     .then((result) => {
       res.json(result);
+    }).catch((e) => {
+      next(e);
     });
 });
 

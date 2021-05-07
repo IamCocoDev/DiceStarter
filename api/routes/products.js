@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
+const { Op } = require('sequelize');
+
 const { Product, Category } = require('../db');
 
 function onOrder(param, array) {
@@ -41,8 +43,8 @@ function onOrder(param, array) {
 }
 
 router.get('/', (req, res, next) => {
-  const { page, filter, order } = req.query;
-  Product.findAll({ include: Category })
+  const { page, filter, order, name } = req.query;
+  Product.findAll({ where: { name: { [Op.like]: `%${name}%` } }, include: Category })
     .then((response) => {
       if (order) {
         onOrder(order, response);

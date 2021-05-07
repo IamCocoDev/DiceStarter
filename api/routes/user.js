@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt');
 
 const { User } = require('../db');
 
-/* GET users listing. */
 router.get('/:id', (req, res, next) => {
   User.findByPk(req.params.id)
     .then((response) => {
@@ -19,7 +18,6 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   const id = uuidv4();
-  const status = 'Active';
 
   try {
     let { password } = req.body.password;
@@ -28,11 +26,6 @@ router.post('/', async (req, res, next) => {
       firstName,
       lastName,
       birthday,
-      profilePicture,
-      address,
-      city,
-      postalCode,
-      phone,
       country,
       email,
     } = req.body;
@@ -49,15 +42,9 @@ router.post('/', async (req, res, next) => {
       firstName,
       lastName,
       birthday,
-      profilePicture,
-      address,
-      city,
-      postalCode,
-      phone,
       country,
       email,
       password,
-      status,
     };
     const info = await User.create(newUser);
     res.json(info);
@@ -66,12 +53,14 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', (req, res, next) => {
   const { id } = req.params;
   const { body } = req;
   User.update(body, { where: { id } })
     .then((result) => {
       res.json(result);
+    }).catch((e) => {
+      next(e);
     });
 });
 
