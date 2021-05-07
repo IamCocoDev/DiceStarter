@@ -1,13 +1,15 @@
 import React from 'react';
 import './productDetail.css';
+// import {useAppDispatch} from '../../app/hooks';
+// import {RouteComponentProps} from 'react-router';
 
-type productAsign = {
+
+/* type productAsign = {
     name:string,
     price:string,
     image:string,
     stock:string,
     rating:string};
-
 const product: productAsign = {
   name: `Dragon's Quest`,
   price: `$30`,
@@ -15,9 +17,12 @@ const product: productAsign = {
   stock: `30`,
   rating: `4.5`,
 };
-
-function ProductDetail() {
+ */
+function ProductDetail(props:object) {
+//  let id = props.match.id;
   return (
+    <div>
+      {/*
     <div className='ProductDetailAll'>
       <h1 className='ProductDetailName' contentEditable>{product.name}</h1>
       <img className='ProductDetailImage' src={product.image}/>
@@ -30,6 +35,8 @@ function ProductDetail() {
       <p className='ProductDetailRating'contentEditable>
        Rating: {product.rating}
       </p>
+    </div>
+  */}
     </div>
   );
 }

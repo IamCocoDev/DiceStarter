@@ -30,7 +30,7 @@ function onOrder(param, array) {
       if (a.rating < b.rating) return 1;
       if (b.rating < a.rating) return -1;
       return 0;
-    })
+    });
     case 'maxRating': return array.sort((a, b) => {
       if (a.rating < b.rating) return 1;
       if (b.rating < a.rating) return -1;

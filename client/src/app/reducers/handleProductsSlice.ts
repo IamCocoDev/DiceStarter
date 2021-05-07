@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {Products} from '../../types';
+import {Products, ProductRes} from '../../types';
 import {RootState} from '../store';
 // import {RootState} from '../store';
 
@@ -10,15 +10,25 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
   deleteByIdStatus: 'idle',
   productByIdStatus: 'idle',
   // Data
-  productsList: [],
+  productsList: null,
   productById: {},
 };
 
 export const getProductsAsync = createAsyncThunk(
     'handleProducts/getProducts',
-    async (thunkApi) => {
-      const res = await axios.get('http://localhost:3001/products/');
-      return res.data;
+    async () => {
+      const res = await axios.get('http://localhost:3001/products?page=1');
+      console.log(res);
+      const product = res.data.map((product: ProductRes) => {
+        return {
+          id: product.id,
+          name: product.name,
+          picture: product.picture,
+          price: product.price,
+        };
+      });
+      console.log(product);
+      return product;
     },
 );
 
