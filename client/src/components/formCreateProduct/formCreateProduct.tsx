@@ -121,8 +121,7 @@ const FormCreateProduct = () => {
   const handleChange = (e: formInputData) => {
     let data: string | number = e.target.value;
     if (e.target.name === 'rating' ||
-    e.target.name === 'stock' ||
-    e.target.name === 'price') {
+    e.target.name === 'stock') {
       data = parseFloat(data);
     }
     setInput({...input, [e.target.name]: data});
