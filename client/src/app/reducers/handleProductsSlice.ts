@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {Products} from '../../types';
+import {RootState} from '../store';
 // import {RootState} from '../store';
 
 const initialState: Products = {/* Acá definanse un Type en types.ts*/
@@ -42,6 +43,9 @@ export const handleProductsSlice = createSlice({
   name: 'products',
   initialState, // Le pasas el estado inicial
   reducers: {
+    resetDeletedByIdStatus: (state) => {
+      state.deleteByIdStatus = 'idle';
+    },
     // Acá metes tus acciones normales de toda la vida
   },
   extraReducers: (builder) => {
@@ -81,5 +85,17 @@ export const handleProductsSlice = createSlice({
   },
 });
 
+export const productsListStatus = (state: RootState) =>
+  state.productsReducer.productsListStatus;
+export const deletedProductStatus = (state: RootState) =>
+  state.productsReducer.deleteByIdStatus;
+export const productByIdStatus = (state: RootState) =>
+  state.productsReducer.productByIdStatus;
+export const productsList = (state: RootState) =>
+  state.productsReducer.productsList;
+export const productDetail = (state: RootState) =>
+  state.productsReducer.productById;
+
+export const {resetDeletedByIdStatus} = handleProductsSlice.actions;
 
 export default handleProductsSlice.reducer;
