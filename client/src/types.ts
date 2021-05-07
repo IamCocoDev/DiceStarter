@@ -1,17 +1,24 @@
 export interface FormState {
-    form: Inputs;
-    status: 'idle' | 'failed' | 'loading';
+    inputs: Inputs,
+    status: 'idle' | 'failed' | 'loading',
 }
 
-export type ToDelete = {
-    id: number,
-    status: string,
+export type Products = {
+    // Data
+    productsList: object[],
+    productById: object
+    // Status
+    productsListStatus: 'idle' | 'failed' | 'loading',
+    productByIdStatus: 'idle' | 'failed' | 'loading',
+    deleteByIdStatus: 'idle' | 'failed' | 'loading' | 'deleted',
+
 };
 
 export interface Categories {
     value: string,
     label: string
 };
+
 export interface Inputs {
     name: string;
     price: number;
