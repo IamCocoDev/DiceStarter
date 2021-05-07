@@ -1,14 +1,18 @@
 import React, {useState} from 'react';
 import './searchBar.css';
+import {useAppDispatch} from '../../app/hooks';
+import {getProductsAsync} from '../../app/reducers/handleProductsSlice';
 
 type formData = React.FormEvent<HTMLElement>;
 
 function searchBar(): JSX.Element {
+  const dispatch = useAppDispatch();
   const [input, setInput] = useState('');
 
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     console.log(input);
+    dispatch(getProductsAsync());
   };
 
   return (

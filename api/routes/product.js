@@ -27,7 +27,7 @@ router.post('/', async (req, res, next) => {
       id, name, size, color, available, picture, price, stock, rating, description,
     };
     const info = await Product.create(newProduct);
-    res.json(info);
+    res.status(200).json(info);
   } catch (e) {
     next(e);
   }

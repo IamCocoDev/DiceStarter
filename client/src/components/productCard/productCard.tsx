@@ -7,7 +7,7 @@ function ProductCard(
     name:string,
     price:string,
     image:string,
-    id:number}) {
+    id:string}) {
   return (
     <div className='productCardGrid'>
       <h1 className='productCardName'>{props.name}</h1>
