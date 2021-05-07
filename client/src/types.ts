@@ -3,6 +3,11 @@ export interface FormState {
     status: 'idle' | 'failed' | 'loading',
 }
 
+export interface SearchInput{
+    name:string,
+    page:number,
+}
+
 export type ProductRes = {
     id:string,
     name:string,
