@@ -11,32 +11,64 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
   productByIdStatus: 'idle',
   // Data
   productsList: null,
-  productById: {},
+  productById: {
+    id: '',
+    name: '',
+    picture: '',
+    price: '',
+    size: '',
+    color: '',
+    available: true,
+    stock: '',
+    description: '',
+    rating: '',
+  },
 };
 
 export const getProductsAsync = createAsyncThunk(
     'handleProducts/getProducts',
     async (SearchInput: SearchInput) => {
       const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}`);
-      console.log(res);
       const product = res.data.map((product: ProductRes) => {
         return {
           id: product.id,
           name: product.name,
           picture: product.picture,
           price: product.price,
+          rating: product.rating,
         };
       });
-      console.log(product);
       return product;
     },
 );
-
+// id name size color available picture price stock rating description userId
 export const getProductByIdAsync = createAsyncThunk(
     'handleProducts/getProductById',
     async (id: string) => {
       const res = await axios.get(`http://localhost:3001/product/${id}`);
-      return res.data;
+      const {name,
+        picture,
+        price,
+        stock,
+        color,
+        size,
+        available,
+        description,
+        rating,
+      } = res.data;
+      const productResponse: ProductRes = {
+        id,
+        name,
+        picture,
+        price,
+        stock,
+        color,
+        available,
+        description,
+        size,
+        rating,
+      };
+      return productResponse;
     },
 );
 

@@ -8,8 +8,8 @@ export interface SearchInput{
     page:number,
 }
 
-export type ProductRes = {
-    id:string,
+export interface ProductRes {
+        id:string,
     name:string,
     picture:string,
     price:string,
@@ -18,8 +18,7 @@ export type ProductRes = {
     available:boolean,
     stock:string,
     description:string,
-    createdAt:string,
-    updatedAt:string,
+    rating:string,
 }
 export interface Products {
     // Data
@@ -28,7 +27,7 @@ export interface Products {
           picture:string,
            price:string
         }] | null,
-    productById: object
+    productById: ProductRes
     // Status
     productsListStatus: 'idle' | 'failed' | 'loading',
     productByIdStatus: 'idle' | 'failed' | 'loading',
