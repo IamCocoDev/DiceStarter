@@ -20,13 +20,11 @@ const initialState: FormState = {
 };
 
 
-
 export const sendFormAsync = createAsyncThunk(
     'formReducer/sendFormAsync',
     async (form: Inputs) => {
       const res = await axios.post(`http://localhost:3001/product/`);
       return res.data;
-
     },
 );
 
@@ -55,6 +53,9 @@ export const formSlice = createSlice({ // Te creo al reducer, acciones y estados
   },
 });
 
-export const inputs = (state: RootState) => state.formReducer.inputs;
+export const formStatus = (state: RootState) =>
+  state.formReducer.status;
+export const inputs = (state: RootState) =>
+  state.formReducer.inputs;
 
 export default formSlice.reducer;
