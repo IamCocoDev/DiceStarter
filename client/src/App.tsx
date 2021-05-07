@@ -6,15 +6,18 @@ import NavBar from '../src/components/navBar/navBar';
 import ProductDetail from '../src/components/productDetail/productDetail';
 import formCreateProduct
   from '../src/components/formCreateProduct/formCreateProduct';
-import ProductList from '../src/components/productList/productList';
+import ProductsList from '../src/components/productsList/productsList';
 import './App.css';
 import About from './components/about/about';
 
 function App() {
   return (
     <div className="">
-      <Route path={['/home', '/product', '/create']} component={NavBar}></Route>
-      <Route exact path='/list' component={ProductList}></Route>
+      <Route path={['/home',
+        '/product',
+        '/create',
+        '/list']} component={NavBar}></Route>
+      <Route exact path='/list' component={ProductsList}></Route>
       <Route exact path='/' component={Landing}></Route>
       <Route exact path='/about' component={About}></Route>
       <Route exact path='/home' component={Home}></Route>
