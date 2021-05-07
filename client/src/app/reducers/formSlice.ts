@@ -55,7 +55,5 @@ export const formSlice = createSlice({ // Te creo al reducer, acciones y estados
 
 export const formStatus = (state: RootState) =>
   state.formReducer.status;
-export const inputs = (state: RootState) =>
-  state.formReducer.inputs;
 
 export default formSlice.reducer;
