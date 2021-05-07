@@ -3,9 +3,26 @@ export interface FormState {
     status: 'idle' | 'failed' | 'loading',
 }
 
-export type Products = {
+export type ProductRes = {
+    id:string,
+    name:string,
+    picture:string,
+    price:string,
+    size:string,
+    color:string,
+    available:boolean,
+    stock:string,
+    description:string,
+    createdAt:string,
+    updatedAt:string,
+}
+export interface Products {
     // Data
-    productsList: object[],
+    productsList: [{id:string,
+         name:string,
+          picture:string,
+           price:string
+        }] | null,
     productById: object
     // Status
     productsListStatus: 'idle' | 'failed' | 'loading',
