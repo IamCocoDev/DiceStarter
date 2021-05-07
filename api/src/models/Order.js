@@ -15,10 +15,6 @@ module.exports = (sequelize) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    fulfilled: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
     paid: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -43,8 +39,14 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    shippingStatus: {
+      type: DataTypes.ENUM('Cancel', 'Pending', 'Fulfilled'),
+      defaultValue: 'Pending',
+      allowNull: false,
+    },
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('Pending', 'Canceled', 'In cart', 'Paid'),
+      defaultValue: 'Pending',
       allowNull: false,
     },
     price: {

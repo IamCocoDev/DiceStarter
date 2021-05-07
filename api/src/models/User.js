@@ -26,19 +26,15 @@ module.exports = (sequelize) => {
     },
     profilePicture: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     city: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     postalCode: {
       type: DataTypes.INTEGER,
-      allowNull: false,
     },
     phone: {
       type: DataTypes.STRING,
@@ -59,7 +55,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('Active', 'Closed', 'Banned'),
+      defaultValue: 'Active',
     },
   }, {
     timestamps: false,
