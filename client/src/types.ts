@@ -1,6 +1,6 @@
 export interface FormState {
     inputs: Inputs,
-    status: 'idle' | 'failed' | 'loading',
+    status: 'idle' | 'failed' | 'loading' | 'done',
 }
 
 export type ProductRes = {
@@ -46,19 +46,20 @@ export interface Inputs {
     name: string;
     price: number;
     categories: Categories[];
-    colors: string[];
+    color: string[];
     size: string;
     stock: number;
     rating: number;
     description: string;
     picture: string;
+    available: boolean;
 }
 
 export interface errorsInput {
     name: string;
     price: string;
     categories: string;
-    colors: string;
+    color: string;
     size: string;
     stock: string;
     rating: string;
