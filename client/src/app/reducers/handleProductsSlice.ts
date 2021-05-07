@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {Products, ProductRes} from '../../types';
+import {Products, ProductRes, SearchInput} from '../../types';
 import {RootState} from '../store';
 // import {RootState} from '../store';
 
@@ -16,8 +16,8 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
 
 export const getProductsAsync = createAsyncThunk(
     'handleProducts/getProducts',
-    async () => {
-      const res = await axios.get('http://localhost:3001/products?page=1');
+    async (SearchInput: SearchInput) => {
+      const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}`);
       console.log(res);
       const product = res.data.map((product: ProductRes) => {
         return {
