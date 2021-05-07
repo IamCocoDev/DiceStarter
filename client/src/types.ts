@@ -31,6 +31,12 @@ export interface Products {
 
 };
 
+export type productsAsing = {
+    id: number,
+    name: string,
+    price: string,
+    image: string,
+};
 export interface Categories {
     value: string,
     label: string
