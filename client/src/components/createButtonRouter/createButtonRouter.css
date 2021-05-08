@@ -17,7 +17,7 @@
     grid-column: 2/3;
     grid-row: 2/3;
     justify-self: center;
-    align-self: center;
+    align-self:flex-end;
 }
 
 .createButtonRouterProductButton{
@@ -31,7 +31,7 @@
     grid-column: 2/3;
     grid-row: 4/5;
     justify-self: center;
-    align-self: center;
+    align-self: flex-start;
 }
 
 .createButtonRouterCategoryButton{
