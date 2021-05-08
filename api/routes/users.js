@@ -2,10 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
-const { User } = require('../db');
+const { User, Role } = require('../db');
 
 router.get('/', (req, res, next) => {
-  User.findAll()
+  User.findAll({ include: Role })
     .then((response) => {
       res.json(response);
     }).catch((e) => {

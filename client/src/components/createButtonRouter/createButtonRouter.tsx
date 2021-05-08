@@ -1,14 +1,17 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
+import './createButtonRouter.css';
 
 function CreateButtonRouter() {
   return (
-    <div>
-      <NavLink to='/create/product'>
-        <button>Go to create new product </button>
+    <div className='createButtonRouterGrid'>
+      <NavLink to='/create/product' className='createButtonRouterProduct'>
+        <button className='createButtonRouterProductButton'>
+          Go to create new product </button>
       </NavLink>
-      <NavLink to='/create/category'>
-        <button>Go to create new category</button>
+      <NavLink to='/create/category' className='createButtonRouterCategory'>
+        <button className='createButtonRouterCategoryButton'>
+          Go to create new category</button>
       </NavLink>
     </div>
   );
