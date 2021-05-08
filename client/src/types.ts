@@ -14,19 +14,16 @@ export interface ProductRes {
     picture:string,
     price:string,
     size:string,
-    color:string,
+    colors:string[],
     available:boolean,
     stock:string,
     description:string,
     rating:string,
+    categories:string[],
 }
 export interface Products {
     // Data
-    productsList: [{id:string,
-         name:string,
-          picture:string,
-           price:string
-        }] | null,
+    productsList: ProductRes[] | null,
     productById: ProductRes
     // Status
     productsListStatus: 'idle' | 'failed' | 'loading',
@@ -35,12 +32,6 @@ export interface Products {
 
 };
 
-export type productsAsing = {
-    id: number,
-    name: string,
-    price: string,
-    image: string,
-};
 export interface Categories {
     value: string,
     label: string

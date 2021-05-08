@@ -17,11 +17,12 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
     picture: '',
     price: '',
     size: '',
-    color: '',
+    colors: [],
     available: true,
     stock: '',
     description: '',
     rating: '',
+    categories: [],
   },
 };
 
@@ -36,6 +37,10 @@ export const getProductsAsync = createAsyncThunk(
           picture: product.picture,
           price: product.price,
           rating: product.rating,
+          stock: product.stock,
+          categories: product.categories,
+          colors: product.colors,
+          available: product.available,
         };
       });
       return product;
@@ -50,11 +55,12 @@ export const getProductByIdAsync = createAsyncThunk(
         picture,
         price,
         stock,
-        color,
+        colors,
         size,
         available,
         description,
         rating,
+        categories,
       } = res.data;
       const productResponse: ProductRes = {
         id,
@@ -62,11 +68,12 @@ export const getProductByIdAsync = createAsyncThunk(
         picture,
         price,
         stock,
-        color,
+        colors,
         available,
         description,
         size,
         rating,
+        categories,
       };
       return productResponse;
     },
