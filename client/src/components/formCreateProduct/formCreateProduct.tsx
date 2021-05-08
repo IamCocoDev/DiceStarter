@@ -109,9 +109,9 @@ const FormCreateProduct = () => {
   }, [input]);
 
   const Cate: Categories[] =
-    [{value: 'D&D 5e', label: 'D&D 5e'},
-      {value: 'D&D 3.5', label: 'D&D 3.5'},
-      {value: 'Pathfinder', label: 'Pathfinder'}];
+    [{value: 1, label: 'D&D 5e'},
+      {value: 2, label: 'D&D 3.5'},
+      {value: 3, label: 'Pathfinder'}];
 
   const handleSubmit = (e: formData) => {
     e.preventDefault();
@@ -272,7 +272,7 @@ const FormCreateProduct = () => {
         setInput({
           name: 'Nuevo',
           price: 5,
-          categories: [{value: 'D&D 5e', label: 'D&D 5e'}],
+          categories: [1],
           color: ['#030303'],
           size: '200',
           stock: 200,
