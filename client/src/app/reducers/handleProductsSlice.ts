@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {Products, ProductRes, SearchInput} from '../../types';
+import {Products, ProductRes, SearchInput, dbCategories} from '../../types';
 import {RootState} from '../store';
 // import {RootState} from '../store';
 
@@ -115,7 +115,13 @@ export const getCategoriesAsync = createAsyncThunk(
     'handleProducts/getCategories',
     async () => {
       const res = await axios.get(`http://localhost:3001/categories`);
-      return res.data;
+      const categories = res.data.map((categorie: dbCategories) => {
+        return {
+          value: categorie.id,
+          label: categorie.name,
+        };
+      });
+      return categories;
     },
 );
 

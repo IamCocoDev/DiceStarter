@@ -36,6 +36,11 @@ export interface Products {
 };
 
 export interface Categories {
+    value: number,
+    label: string
+};
+
+export interface dbCategories {
     id: number,
     name: string
 };
@@ -52,7 +57,7 @@ export interface registerInput {
 export interface Inputs {
     name: string;
     price: number;
-    categories: Categories[];
+    categories: number[];
     color: string[];
     size: string;
     stock: number;
