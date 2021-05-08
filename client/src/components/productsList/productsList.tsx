@@ -8,18 +8,21 @@ import ProductList from '../productList/productList';
 function ProductsList(props: any) {
   const adminProducts = useAppSelector(productsList);
   return (
-    <div className="productsListGrid">
-      <h1>Name</h1>
-      <h1>Price</h1>
-      <h1>Categories</h1>
-      <h1>Description</h1>
-      <h1>Stock</h1>
-      <h1>Rating</h1>
-      <h1>Available</h1>
-      <h1>Size</h1>
-      <h1>Colors</h1>
-      <h1>Image Url</h1>
-      {adminProducts !== null &&
+    <div>
+      <div className="productsListGrid">
+        <h1 className='productsListName'>Name</h1>
+        <h1 className='productsListPrice'>Price</h1>
+        {/* <h1 className='productsListCategories'>Categories</h1> */}
+        <h1 className='productsListDescription'>Description</h1>
+        <h1 className='productsListRating'>Rating</h1>
+        <h1 className='productsListStock'>Stock</h1>
+        {/* <h1 className='productsListAvailable'>Available</h1> */}
+        <h1 className='productsListSize'>Size</h1>
+        <h1 className='productsListColors'>Colors</h1>
+        <h1 className='productsListImageUrl'>Image Url</h1>
+      </div>
+      <div>
+        {adminProducts !== null &&
         adminProducts.map((listProduct) => (
           <ProductList
             key={listProduct.id}
@@ -29,13 +32,14 @@ function ProductsList(props: any) {
             id={listProduct.id}
             picture={listProduct.picture}
             description={listProduct.description}
-            colors={listProduct.colors}
+            color={listProduct.color}
             available={listProduct.available}
             stock={listProduct.stock}
             size={listProduct.size}
             rating={listProduct.rating}
           />
         ))}
+      </div>
     </div>
   );
 }

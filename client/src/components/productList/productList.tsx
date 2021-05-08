@@ -1,30 +1,45 @@
 import React from 'react';
 import {ProductRes} from '../../types';
-import {Link} from 'react-router-dom';
+/* import {Link} from 'react-router-dom'; */
+import './productList.css';
 
 function ProductList(props: ProductRes): JSX.Element {
+  console.log(props.description);
   return (
-    <div>
-      <p contentEditable>{props.name}</p>
-      <p contentEditable>{props.price}</p>
-      <p contentEditable>{props.categories}</p>
-      <p contentEditable>{props.description}</p>
-      <p contentEditable>{props.rating}</p>
-      <p contentEditable>{props.stock}</p>
-      <p contentEditable>{props.available}</p>
-      <p contentEditable>{props.size}</p>
-      <p contentEditable>{props.colors}</p>
-      <p contentEditable>{props.picture}</p>
-      <Link className="productCardEdit" to={`/product/${props.id}`}>
-        <button className="productCardEditButton" value="edit">
-          Edit
-        </button>
-      </Link>
-      <Link className="productCardDelete" to={`/home`}>
-        <button className="productCardDeleteButton" value="delete">
-          Delete
-        </button>
-      </Link>
+    <div className= 'productListGrid'>
+      <div className='productListName'>
+        {props.name}
+      </div>
+      <div className='productListPrice'>
+        {props.price}
+      </div>
+      {/* <div className='productListCategories'>
+        <p contentEditable>
+          {props.categories}</p>
+      </div> */}
+      <div className='productListDescription'>
+        <p contentEditable>
+          {props.description}</p>
+      </div>
+      <div contentEditable className='productListRating'>
+        <p>{props.rating}</p>
+      </div>
+      <div className='productListStock'>
+        <p contentEditable>{props.stock}</p>
+      </div>
+      {/* <div className='productListAvailable'>
+        <p contentEditable>{props.available}
+        </p>
+      </div> */}
+      <div className='productListSize'>
+        <p contentEditable>{props.size}</p>
+      </div>
+      <div className='productListColors'>
+        <p contentEditable>{props.color}</p>
+      </div>
+      {/*  <div className='productListImageUrl'>
+        <p contentEditable>{props.picture}</p>
+      </div> */}
     </div>
   );
 }
