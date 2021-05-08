@@ -5,7 +5,7 @@ const router = express.Router();
 
 const bcrypt = require('bcrypt');
 
-const { User, Role } = require('../db');
+const { User } = require('../db');
 
 router.get('/:id', (req, res, next) => {
   User.findByPk(req.params.id)
@@ -20,7 +20,7 @@ router.post('/', async (req, res, next) => {
   const id = uuidv4();
 
   try {
-    let { password } = req.body.password;
+    let { password } = req.body;
     const {
       name,
       firstName,
@@ -29,28 +29,24 @@ router.post('/', async (req, res, next) => {
       country,
       email,
     } = req.body;
-
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(password, salt, (e, hash) => {
-        password = hash;
-      });
+    bcrypt.hash(password, 10, (err, hash) => {
+      password = hash;
+      if (err) {
+        next(err);
+      }
+      const newUser = {
+        id,
+        name,
+        firstName,
+        lastName,
+        birthday,
+        country,
+        email,
+        password,
+      };
+      User.create(newUser).then((info) => { info.addRole(1); res.send(info); })
+        .catch((error) => next(error));
     });
-
-    const newUser = {
-      id,
-      name,
-      firstName,
-      lastName,
-      birthday,
-      country,
-      email,
-      password,
-    };
-    const info = await User.create(newUser);
-    Role.findOne({ id: 1 }).then((role) => {
-      info.addRole(role);
-    });
-    res.json(info);
   } catch (e) {
     next(e);
   }
