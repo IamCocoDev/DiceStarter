@@ -9,7 +9,7 @@ export interface SearchInput{
 }
 
 export interface ProductRes {
-        id:string,
+    id:string,
     name:string,
     picture:string,
     price:string,
@@ -21,20 +21,23 @@ export interface ProductRes {
     rating:string,
     categories:string[],
 }
+
 export interface Products {
     // Data
     productsList: ProductRes[] | null,
     productById: ProductRes
+    productCategories: Categories[]
     // Status
     productsListStatus: 'idle' | 'failed' | 'loading',
     productByIdStatus: 'idle' | 'failed' | 'loading',
+    getCategoriesStatus: 'idle' | 'failed' | 'loading',
     deleteByIdStatus: 'idle' | 'failed' | 'loading' | 'deleted',
 
 };
 
 export interface Categories {
-    value: string,
-    label: string
+    id: number,
+    name: string
 };
 
 export interface Inputs {

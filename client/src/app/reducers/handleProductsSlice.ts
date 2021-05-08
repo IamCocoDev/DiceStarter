@@ -9,6 +9,7 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
   productsListStatus: 'idle',
   deleteByIdStatus: 'idle',
   productByIdStatus: 'idle',
+  getCategoriesStatus: 'idle',
   // Data
   productsList: null,
   productById: {
@@ -24,6 +25,7 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
     rating: '',
     categories: [],
   },
+  productCategories: [],
 };
 
 export const getProductsAsync = createAsyncThunk(
@@ -89,6 +91,34 @@ export const deleteProductByIdAsync = createAsyncThunk(
     },
 );
 // PUT to Edit
+export const changeProductInDBAsync = createAsyncThunk(
+    'handleProducts/changeProductInDB',
+    async (product: Products['productById']) => {
+      const toSend = {
+        name: product.name,
+        available: product.available,
+        categories: product.categories,
+        color: product.color,
+        description: product.description,
+        picture: product.picture,
+        price: product.price,
+        rating: product.rating,
+        size: product.size,
+        stock: product.stock,
+      };
+      const res = await axios.put(`http://localhost:3001/product/${product.id}`, toSend);
+      return res.data;
+    },
+);
+
+export const getCategoriesAsync = createAsyncThunk(
+    'handleProducts/getCategories',
+    async () => {
+      const res = await axios.get(`http://localhost:3001/categories`);
+      return res.data;
+    },
+);
+
 export const handleProductsSlice = createSlice({
   // Te creo al reducer, acciones y estados
   name: 'products',
@@ -132,9 +162,22 @@ export const handleProductsSlice = createSlice({
         })
         .addCase(deleteProductByIdAsync.rejected, (state) => {
           state.deleteByIdStatus = 'failed';
+        })
+        // ----------------------
+        // Get categories
+        .addCase(getCategoriesAsync.pending, (state) => {
+          state.getCategoriesStatus = 'loading';
+        })
+        .addCase(getCategoriesAsync.fulfilled, (state, action) => {
+          state.getCategoriesStatus = 'idle';
+          state.productCategories = action.payload;
+        })
+        .addCase(getCategoriesAsync.rejected, (state) => {
+          state.getCategoriesStatus = 'failed';
         });
   },
 });
+
 
 export const productsListStatus = (state: RootState) =>
   state.productsReducer.productsListStatus;
