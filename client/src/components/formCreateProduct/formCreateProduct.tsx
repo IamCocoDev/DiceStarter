@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react';
 // import {useAppDispatch} from '../../app/hooks';
-import {useAppDispatch} from '../../app/hooks';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {sendFormAsync} from '../../app/reducers/formSlice';
+import {
+  getCategoriesAsync,
+  productCategories,
+} from '../../app/reducers/handleProductsSlice';
 
 import Select from 'react-select';
 import {
@@ -9,8 +13,8 @@ import {
   formInputData,
   formTextAreaData,
   Inputs,
-  Categories,
   errorsInput,
+  Categories,
 } from '../../types';
 
 function deepEqualError(a: errorsInput) {
@@ -78,7 +82,12 @@ function validate(input: Inputs) {
 };
 
 const FormCreateProduct = () => {
+  useEffect(() => {
+    dispatch(getCategoriesAsync());
+  }, []);
   const dispatch = useAppDispatch();
+  const productCats = useAppSelector(productCategories);
+  console.log(productCats);
   const [color, setColor] = useState('');
   const [errors, setErrors] = useState<errorsInput>({
     name: '',
@@ -106,12 +115,8 @@ const FormCreateProduct = () => {
     });
   useEffect(() => {
     setErrors(validate(input));
+    console.log(input);
   }, [input]);
-
-  const Cate: Categories[] =
-    [{value: 1, label: 'D&D 5e'},
-      {value: 2, label: 'D&D 3.5'},
-      {value: 3, label: 'Pathfinder'}];
 
   const handleSubmit = (e: formData) => {
     e.preventDefault();
@@ -141,7 +146,10 @@ const FormCreateProduct = () => {
     setInput({...input, [e.target.name]: e.target.value});
   };
   const handleSelectChange = (e: any) : void => {
-    setInput({...input, categories: e});
+    const data = e.map((el: Categories) => {
+      return el.value;
+    });
+    setInput({...input, categories: data});
   };
   return (
     <div>
@@ -256,7 +264,7 @@ const FormCreateProduct = () => {
           <Select
             isMulti
             name="categories"
-            options={Cate}
+            options={productCats}
             className="formCreateProductSelector"
             onChange={handleSelectChange}
           >

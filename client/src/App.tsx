@@ -12,6 +12,8 @@ import About from './components/about/about';
 import CreateButtonRouter
   from '../src/components/createButtonRouter/createButtonRouter';
 import listButtonRouter from './components/listButtonRouter/listButtonRouter';
+import FormCategoryCreation
+  from '../src/components/formCategoryCreation/formCategoryCreation';
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
         '/create',
         '/create/product',
         '/list/productlist',
+        '/create/category',
         '/list']} component={NavBar}></Route>
       <Route exact path='/list/productlist' component={ProductsList}></Route>
       <Route exact path='/' component={Landing}></Route>
@@ -29,6 +32,8 @@ function App() {
       <Route exact path='/product/:id' component={ProductDetail}></Route>
       <Route exact path='/list' component={listButtonRouter}></Route>
       <Route exact path='/create/product' component={formCreateProduct}></Route>
+      <Route exact path='/create/category'
+        component={FormCategoryCreation}></Route>
       <Route exact path='/create' component={CreateButtonRouter}></Route>
     </div>
   );

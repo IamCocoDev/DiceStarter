@@ -3,10 +3,10 @@ const { v4: uuidv4 } = require('uuid');
 
 const router = express.Router();
 
-const { Product } = require('../db');
+const { Product, Category } = require('../db');
 
 router.get('/:id', (req, res, next) => {
-  Product.findByPk(req.params.id)
+  Product.findByPk(req.params.id, { include: Category })
     .then((response) => {
       res.json(response);
     }).catch((e) => {
@@ -19,35 +19,38 @@ router.post('/', async (req, res, next) => {
 
   try {
     const {
-      name, size, color, available, picture, price, stock, rating, description,
+      name, size, color, available, picture, price, stock, rating, description, categories,
     } = req.body;
 
     const newProduct = {
       id, name, size, color, available, picture, price, stock, rating, description,
     };
     const info = await Product.create(newProduct);
+    info.setCategories(categories);
     res.status(200).json(info);
   } catch (e) {
     next(e);
   }
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   const { id } = req.params;
   const { body } = req;
-  Product.update(body, { where: { id } })
-    .then((result) => {
-      res.json(result);
-    }).catch((e) => {
-      next(e);
-    });
+  try {
+    const product = await Product.findByPk(id, { include: Category });
+    await product.update(body, { where: { id }, include: Category });
+    product.setCategories(body.categories);
+    res.send(product);
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
   Product.destroy({ where: { id } })
     .then(() => {
-      res.status(200).json({ msg: 'product deleted' });
+      res.status(200).json({ msg: 'Product deleted' });
     })
     .catch(() => res.status(404));
 });

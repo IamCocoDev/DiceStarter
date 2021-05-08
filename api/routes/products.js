@@ -43,7 +43,10 @@ function onOrder(param, array) {
 }
 
 router.get('/', (req, res, next) => {
-  const { page, filter, order, name } = req.query;
+  const {
+    page, filter, order, name,
+  } = req.query;
+
   Product.findAll({ where: { name: { [Op.like]: `%${name}%` } }, include: Category })
     .then((response) => {
       if (order) {

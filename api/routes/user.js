@@ -5,7 +5,7 @@ const router = express.Router();
 
 const bcrypt = require('bcrypt');
 
-const { User } = require('../db');
+const { User, Role } = require('../db');
 
 router.get('/:id', (req, res, next) => {
   User.findByPk(req.params.id)
@@ -47,6 +47,9 @@ router.post('/', async (req, res, next) => {
       password,
     };
     const info = await User.create(newUser);
+    Role.findOne({ id: 1 }).then((role) => {
+      info.addRole(role);
+    });
     res.json(info);
   } catch (e) {
     next(e);
