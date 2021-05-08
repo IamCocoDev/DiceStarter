@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {Products, ProductRes, SearchInput, dbCategories} from '../../types';
+import {Products, ProductRes, SearchInput, dbCategories,
+  Categories} from '../../types';
 import {RootState} from '../store';
 // import {RootState} from '../store';
 
@@ -10,6 +11,7 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
   deleteByIdStatus: 'idle',
   productByIdStatus: 'idle',
   getCategoriesStatus: 'idle',
+  addCategoryStatus: 'idle',
   // Data
   productsList: null,
   productById: {
@@ -25,7 +27,7 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
     rating: '',
     categories: [],
   },
-  productCategories: [],
+  productCategories: [{label: '', value: 0}],
 };
 
 export const getProductsAsync = createAsyncThunk(
@@ -115,13 +117,23 @@ export const getCategoriesAsync = createAsyncThunk(
     'handleProducts/getCategories',
     async () => {
       const res = await axios.get(`http://localhost:3001/categories`);
-      const categories = res.data.map((categorie: dbCategories) => {
+      const categories: Categories[] = res.data.map((
+          category: dbCategories) => {
         return {
-          value: categorie.id,
-          label: categorie.name,
+          value: category.id,
+          label: category.name,
         };
       });
       return categories;
+    },
+);
+
+export const addCategoryAsync = createAsyncThunk(
+    'handleProducts/addCategorie',
+    async (label: string) => {
+      const name = label;
+      const res = await axios.post('http://localhost:3001/categories', {name});
+      return res.data;
     },
 );
 
@@ -174,12 +186,24 @@ export const handleProductsSlice = createSlice({
         .addCase(getCategoriesAsync.pending, (state) => {
           state.getCategoriesStatus = 'loading';
         })
-        .addCase(getCategoriesAsync.fulfilled, (state, action) => {
+        .addCase(getCategoriesAsync.fulfilled, (state,
+            action) => {
           state.getCategoriesStatus = 'idle';
+          console.log(action.payload);
           state.productCategories = action.payload;
         })
         .addCase(getCategoriesAsync.rejected, (state) => {
           state.getCategoriesStatus = 'failed';
+        })
+        // Add category
+        .addCase(addCategoryAsync.pending, (state) => {
+          state.addCategoryStatus = 'loading';
+        })
+        .addCase(addCategoryAsync.fulfilled, (state) => {
+          state.addCategoryStatus = 'idle';
+        })
+        .addCase(addCategoryAsync.rejected, (state) => {
+          state.addCategoryStatus = 'failed';
         });
   },
 });
@@ -195,6 +219,8 @@ export const productsList = (state: RootState) =>
   state.productsReducer.productsList;
 export const productDetail = (state: RootState) =>
   state.productsReducer.productById;
+export const productCategories = (state: RootState) =>
+  state.productsReducer.productCategories;
 
 export const {resetDeletedByIdStatus} = handleProductsSlice.actions;
 
