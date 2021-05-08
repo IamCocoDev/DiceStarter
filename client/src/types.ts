@@ -32,7 +32,7 @@ export interface Products {
     productByIdStatus: 'idle' | 'failed' | 'loading',
     getCategoriesStatus: 'idle' | 'failed' | 'loading',
     deleteByIdStatus: 'idle' | 'failed' | 'loading' | 'deleted',
-
+    addCategoryStatus: 'idle' | 'failed' | 'loading',
 };
 
 export interface Categories {
