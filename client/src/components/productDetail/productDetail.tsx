@@ -15,15 +15,15 @@ function ProductDetail(props:any ) {
     <div>
       { product &&
         <div className='ProductDetailAll'>
-          <h1 className='ProductDetailName' contentEditable>{product.name}</h1>
+          <h1 className='ProductDetailName'>{product.name}</h1>
           <img className='ProductDetailImage' src={product.picture}/>
-          <p className='ProductDetailPrice' contentEditable>
+          <p className='ProductDetailPrice'>
         Price: {product.price}
           </p>
-          <p className='ProductDetailStock' contentEditable>
+          <p className='ProductDetailStock'>
        Stock: {product.stock}
           </p>
-          <p className='ProductDetailRating'contentEditable>
+          <p className='ProductDetailRating'>
        Rating: {product.rating}
           </p>
         </div>
