@@ -14,18 +14,22 @@ function ProductDetail(props:any ) {
   return (
     <div>
       { product &&
-        <div className='ProductDetailAll'>
-          <h1 className='ProductDetailName' contentEditable>{product.name}</h1>
-          <img className='ProductDetailImage' src={product.picture}/>
-          <p className='ProductDetailPrice' contentEditable>
+        <div>
+          <h1>{product.name}</h1>
+          <img src={product.picture}/>
+          <p>
         Price: {product.price}
           </p>
-          <p className='ProductDetailStock' contentEditable>
+          <p>
        Stock: {product.stock}
           </p>
-          <p className='ProductDetailRating'contentEditable>
+          <p>
        Rating: {product.rating}
           </p>
+          <p>Size: {product.size}</p>
+          {product.available === true ? <p>Available</p> : <p>Sold</p>}
+          <p>{product.description}</p>
+          <p>Color: {product.color}</p>
         </div>
       }
     </div>
