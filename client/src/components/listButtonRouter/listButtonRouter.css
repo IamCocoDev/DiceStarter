@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.listButtonRouterGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    max-width: 100vw;
+    height: 80vh;
+    width: 100%;
+}
+
+.listButtonRouterProduct{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    justify-self: center;
+    align-self:flex-end;
+}
+
+.listButtonRouterProductButton{
+    width: 20vw;
+    height: 5vh;
+    border-radius: 1vw;
+    background-color: #6D999B;
+}
+
+.listButtonRouterCategory{
+    grid-column: 2/3;
+    grid-row: 4/5;
+    justify-self: center;
+    align-self: flex-start;
+}
+
+.listButtonRouterCategoryButton{
+    width: 20vw;
+    height: 5vh;
+    border-radius: 1vw;
+    background-color: #6D999B;
+}
