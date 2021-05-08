@@ -49,10 +49,10 @@ router.get('/', (req, res, next) => {
 
   Product.findAll({ where: { name: { [Op.like]: `%${name}%` } }, include: Category })
     .then((response) => {
-      if (order) {
+      if (order !== '') {
         onOrder(order, response);
       }
-      if (filter) {
+      if (filter !== '') {
         const filtered = response.filter((p) => p.category === filter);
         return res.json(filtered.slice((page - 1) * 10, page * 10));
       }

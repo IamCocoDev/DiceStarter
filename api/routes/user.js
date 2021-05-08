@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const { User, Role } = require('../db');
 
 router.get('/:id', (req, res, next) => {
-  User.findByPk(req.params.id)
+  User.findByPk(req.params.id, { include: Role })
     .then((response) => {
       res.json(response);
     }).catch((e) => {
@@ -20,7 +20,7 @@ router.post('/', async (req, res, next) => {
   const id = uuidv4();
 
   try {
-    let { password } = req.body.password;
+    let { password } = req.body;
     const {
       name,
       firstName,
@@ -29,42 +29,76 @@ router.post('/', async (req, res, next) => {
       country,
       email,
     } = req.body;
-
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(password, salt, (e, hash) => {
-        password = hash;
-      });
+    bcrypt.hash(password, 10, (err, hash) => {
+      password = hash;
+      if (err) {
+        next(err);
+      }
+      const newUser = {
+        id,
+        name,
+        firstName,
+        lastName,
+        birthday,
+        country,
+        email,
+        password,
+      };
+      User.create(newUser).then((info) => { info.addRole(1); res.send(info); })
+        .catch((error) => next(error));
     });
+  } catch (e) {
+    next(e);
+  }
+});
 
-    const newUser = {
-      id,
+router.post('/admin', async (req, res, next) => {
+  const id = uuidv4();
+
+  try {
+    let { password } = req.body;
+    const {
       name,
       firstName,
       lastName,
       birthday,
       country,
       email,
-      password,
-    };
-    const info = await User.create(newUser);
-    Role.findOne({ id: 1 }).then((role) => {
-      info.addRole(role);
+    } = req.body;
+    bcrypt.hash(password, 10, (err, hash) => {
+      password = hash;
+      if (err) {
+        next(err);
+      }
+      const newUser = {
+        id,
+        name,
+        firstName,
+        lastName,
+        birthday,
+        country,
+        email,
+        password,
+      };
+      User.create(newUser).then((info) => { info.addRole(3); res.send(info); })
+        .catch((error) => next(error));
     });
-    res.json(info);
   } catch (e) {
     next(e);
   }
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   const { id } = req.params;
   const { body } = req;
-  User.update(body, { where: { id } })
-    .then((result) => {
-      res.json(result);
-    }).catch((e) => {
-      next(e);
-    });
+  try {
+    const user = await User.findByPk(id, { include: Role });
+    await user.update(body, { where: { id }, include: Role });
+    user.addRole(body.roles);
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;
