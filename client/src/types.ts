@@ -37,6 +37,15 @@ export interface Categories {
     label: string
 };
 
+export interface registerInput {
+    username: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+};
+
 export interface Inputs {
     name: string;
     price: number;
