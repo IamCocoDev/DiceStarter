@@ -9,47 +9,55 @@ export interface SearchInput{
 }
 
 export interface ProductRes {
-        id:string,
+    id:string,
     name:string,
     picture:string,
     price:string,
     size:string,
-    color:string,
+    color:string[],
     available:boolean,
     stock:string,
     description:string,
     rating:string,
+    categories:string[],
 }
+
 export interface Products {
     // Data
-    productsList: [{id:string,
-         name:string,
-          picture:string,
-           price:string
-        }] | null,
+    productsList: ProductRes[] | null,
     productById: ProductRes
+    productCategories: Categories[]
     // Status
     productsListStatus: 'idle' | 'failed' | 'loading',
     productByIdStatus: 'idle' | 'failed' | 'loading',
+    getCategoriesStatus: 'idle' | 'failed' | 'loading',
     deleteByIdStatus: 'idle' | 'failed' | 'loading' | 'deleted',
 
 };
 
-export type productsAsing = {
-    id: number,
-    name: string,
-    price: string,
-    image: string,
-};
 export interface Categories {
-    value: string,
+    value: number,
     label: string
+};
+
+export interface dbCategories {
+    id: number,
+    name: string
+};
+
+export interface registerInput {
+    username: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
 };
 
 export interface Inputs {
     name: string;
     price: number;
-    categories: Categories[];
+    categories: number[];
     color: string[];
     size: string;
     stock: number;
@@ -74,3 +82,4 @@ export interface errorsInput {
 export type formData = React.FormEvent<HTMLElement>;
 export type formInputData = React.ChangeEvent<HTMLInputElement>;
 export type formTextAreaData = React.ChangeEvent<HTMLTextAreaElement>;
+export type listData = React.ChangeEvent<HTMLInputElement>;
