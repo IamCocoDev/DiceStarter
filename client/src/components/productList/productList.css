@@ -1,0 +1,60 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.productListGrid{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 1fr;
+}
+
+.productListName{
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+
+.productListPrice{
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+/* .productListCategories{
+    grid-column: 3/4;
+    grid-row: 1/2;
+} */
+
+.productListDescription{
+    grid-column: 3/4;
+    grid-row: 1/2;
+}
+
+.productListRating{
+    grid-column: 4/5;
+    grid-row: 1/2;
+}
+
+.productListStock{
+    grid-column: 5/6;
+    grid-row: 1/2;
+}
+
+/* .productListAvailable{
+    grid-column: 8/9;
+    grid-row: 1/2;
+} */
+.productListSize{
+    grid-column: 6/7;
+    grid-row: 1/2;
+}
+.productListColors{
+    grid-column: 7/8;
+    grid-row: 1/2;
+}
+/*.productListImageUrl{
+    grid-column: 11/12;
+    grid-row: 1/2;
+}
+*/
+

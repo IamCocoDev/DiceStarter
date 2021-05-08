@@ -14,7 +14,7 @@ export interface ProductRes {
     picture:string,
     price:string,
     size:string,
-    colors:string[],
+    color:string[],
     available:boolean,
     stock:string,
     description:string,

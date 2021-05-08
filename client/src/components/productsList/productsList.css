@@ -7,6 +7,61 @@
 
 .productsListGrid{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 1fr;
+}
+
+.productsListName{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    font-family: 'Asap', sans-serif;
+}
+.productsListPrice{
+    grid-column: 2/3;
+    grid-row: 1/2;
+    font-family: 'Asap', sans-serif;
+}
+/* .productsListCategories{
+    grid-column: 3/4;
+    grid-row: 1/2;
+    font-family: 'Asap', sans-serif;
+} */
+.productsListDescription{
+    grid-column: 3/4;
+    grid-row: 1/2;
+    font-family: 'Asap', sans-serif;
+}
+.productsListRating{
+    grid-column: 4/5;
+    grid-row: 1/2;
+    font-family: 'Asap', sans-serif;
+}
+
+.productsListStock{
+    grid-column: 5/6;
+    grid-row: 1/2;
+    font-family: 'Asap', sans-serif;
+}
+
+/* .productsListAvailable{
+    grid-column: 7/8;
+    grid-row: 1/2;
+    font-family: 'Asap', sans-serif;
+} */
+
+.productsListSize{
+    grid-column: 6/7;
+    grid-row: 1/2;
+    font-family: 'Asap', sans-serif;
+}
+
+.productsListColors{
+    grid-column: 7/8;
+    grid-row: 1/2;
+    font-family: 'Asap', sans-serif;
+}
+
+.productsListImageUrl{
+    grid-column: 8/9;
+    grid-row: 1/2;
 }
