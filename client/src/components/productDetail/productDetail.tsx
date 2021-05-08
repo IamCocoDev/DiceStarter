@@ -9,8 +9,8 @@ function ProductDetail(props:any ) {
   const product = useAppSelector(productDetail);
   const id = props.match.params.id;
   useEffect(() => {
-    dispatch(getProductByIdAsync(id)), [];
-  });
+    dispatch(getProductByIdAsync(id));
+  }, []);
   return (
     <div>
       { product &&
@@ -26,10 +26,14 @@ function ProductDetail(props:any ) {
           <p className='ProductDetailRating'>
        Rating: {product.rating}
           </p>
-          <p>Size: {product.size}</p>
-          {product.available === true ? <p>Available</p> : <p>Sold</p>}
-          <p>{product.description}</p>
-          <p>Color: {product.color}</p>
+          <p className='ProductDetailSize'>Size: {product.size}</p>
+          {product.available === true ?
+           <p className='ProductDetailAvailable'>Available</p> :
+           <p className='ProductDetailAvailable'>Sold</p>}
+          <p className='ProductDetailColors'>
+            {product.color.join(' ')}</p>
+          <p className='ProductDetailDescription'>{product.description}
+          </p>
         </div>
       }
     </div>
