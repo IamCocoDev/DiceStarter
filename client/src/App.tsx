@@ -9,7 +9,8 @@ import formCreateProduct
 import ProductsList from '../src/components/productsList/productsList';
 import './App.css';
 import About from './components/about/about';
-
+import CreateButtonRouter
+  from '../src/components/createButtonRouter/createButtonRouter';
 
 function App() {
   return (
@@ -17,13 +18,15 @@ function App() {
       <Route path={['/home',
         '/product',
         '/create',
+        '/create/product',
         '/list']} component={NavBar}></Route>
       <Route exact path='/list' component={ProductsList}></Route>
       <Route exact path='/' component={Landing}></Route>
       <Route exact path='/about' component={About}></Route>
       <Route exact path='/home' component={Home}></Route>
       <Route exact path='/product/:id' component={ProductDetail}></Route>
-      <Route exact path='/create' component={formCreateProduct}></Route>
+      <Route exact path='/create/product' component={formCreateProduct}></Route>
+      <Route exact path='/create' component={CreateButtonRouter}></Route>
     </div>
   );
 }

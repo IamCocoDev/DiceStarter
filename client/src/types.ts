@@ -65,3 +65,4 @@ export interface errorsInput {
 export type formData = React.FormEvent<HTMLElement>;
 export type formInputData = React.ChangeEvent<HTMLInputElement>;
 export type formTextAreaData = React.ChangeEvent<HTMLTextAreaElement>;
+export type listData = React.ChangeEvent<HTMLInputElement>;
