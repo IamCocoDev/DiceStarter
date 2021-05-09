@@ -6,6 +6,7 @@ export interface FormState {
 export interface SearchInput{
     name:string,
     page:number,
+    filter?:string,
 }
 
 export interface ProductRes {

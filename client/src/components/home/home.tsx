@@ -4,15 +4,19 @@ import ProductCards from '../productCards/productCards';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {getProductsAsync,
   productsListStatus} from '../../app/reducers/handleProductsSlice';
+import FilterSelect from '../filterSelect/filterSelect';
 
 function Home() {
   const asyncProducts = useAppSelector(productsListStatus);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getProductsAsync({name: '', page: 1}));
+    dispatch(getProductsAsync({name: '', page: 1, filter: ''}));
   }, []);
   return (
     <div>
+      {
+        <FilterSelect />
+      }
       {
        asyncProducts !== 'loading' ? <ProductCards></ProductCards> : <div>
          loading products...

@@ -8,36 +8,28 @@ const { Product, Category } = require('../db');
 
 function onOrder(param, array) {
   switch (param) {
-    case 'A - Z': return array.sort((a, b) => {
-      if (a.name < b.name) return 1;
-      if (b.name < a.name) return -1;
-      return 0;
-    });
-    case 'Z - A': return array.sort((a, b) => {
+    case 'A-Z': return array.sort((a, b) => {
       if (a.name > b.name) return 1;
       if (b.name > a.name) return -1;
       return 0;
     });
-    case 'minPrice': return array.sort((a, b) => {
-      if (a.price < b.price) return 1;
-      if (b.price < a.price) return -1;
+    case 'Z-A': return array.sort((a, b) => {
+      if (a.name < b.name) return 1;
+      if (b.name < a.name) return -1;
       return 0;
     });
-    case 'maxPrice': return array.sort((a, b) => {
-      if (a.price > b.price) return 1;
-      if (b.price > a.price) return -1;
-      return 0;
-    });
-    case 'minRating': return array.sort((a, b) => {
-      if (a.rating < b.rating) return 1;
-      if (b.rating < a.rating) return -1;
-      return 0;
-    });
-    case 'maxRating': return array.sort((a, b) => {
-      if (a.rating < b.rating) return 1;
-      if (b.rating < a.rating) return -1;
-      return 0;
-    });
+    case 'minPrice': return array.sort((a, b) => (
+      a.price - b.price
+    ));
+    case 'maxPrice': return array.sort((a, b) => (
+      b.price - a.price
+    ));
+    case 'minRating': return array.sort((a, b) => (
+      a.rating - b.rating
+    ));
+    case 'maxRating': return array.sort((a, b) => (
+      b.rating - a.rating
+    ));
     default: return array;
   }
 }
@@ -47,17 +39,13 @@ router.get('/', (req, res, next) => {
     page, filter, order, name,
   } = req.query;
 
-  Product.findAll({ where: { name: { [Op.like]: `%${name}%` } }, include: Category })
+  Product.findAll({
+    where: { name: { [Op.iLike]: `%${name}%` } },
+    include: [{ model: Category, where: { name: { [Op.like]: `%${filter}%` } }, attributes: ['id', 'name'] }],
+  })
     .then((response) => {
       if (order !== '') {
         onOrder(order, response);
-      }
-      if (filter !== '') {
-        const filtered = response.filter((p) => p.category === filter);
-        return res.json({
-          products: filtered.slice((page - 1) * 10, page * 10),
-          totalPages: Math.ceil(filtered.length / 10),
-        });
       }
       return res.json({
         products: response.slice((page - 1) * 10, page * 10),

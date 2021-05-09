@@ -33,8 +33,9 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
 export const getProductsAsync = createAsyncThunk(
     'handleProducts/getProducts',
     async (SearchInput: SearchInput) => {
-      const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}`);
-      const product = res.data.map((product: ProductRes) => {
+      const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}`);
+      console.log(res.data);
+      const product = res.data.products.map((product: ProductRes) => {
         return {
           id: product.id,
           name: product.name,
@@ -57,7 +58,6 @@ export const getProductByIdAsync = createAsyncThunk(
     'handleProducts/getProductById',
     async (id: string) => {
       const res = await axios.get(`http://localhost:3001/product/${id}`);
-      console.log(res.data);
       const {name,
         picture,
         price,
@@ -121,6 +121,7 @@ export const getCategoriesAsync = createAsyncThunk(
     'handleProducts/getCategories',
     async () => {
       const res = await axios.get(`http://localhost:3001/categories`);
+      console.log(res.data);
       const categories: Categories[] = res.data.map((
           category: dbCategories) => {
         return {
