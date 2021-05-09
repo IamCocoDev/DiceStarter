@@ -118,6 +118,7 @@ export const getCategoriesAsync = createAsyncThunk(
     'handleProducts/getCategories',
     async () => {
       const res = await axios.get(`http://localhost:3001/categories`);
+      console.log(res.data);
       const categories: Categories[] = res.data.map((
           category: dbCategories) => {
         return {
