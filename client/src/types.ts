@@ -7,7 +7,7 @@ export interface SearchInput {
     name:string,
     page:number,
     filter?: string,
-    order?: string,
+    sort?: string,
 }
 export interface categoryEstructure {
     id: number;
@@ -39,6 +39,7 @@ export interface Products {
     getCategoriesStatus: 'idle' | 'failed' | 'loading',
     deleteByIdStatus: 'idle' | 'failed' | 'loading' | 'deleted',
     addCategoryStatus: 'idle' | 'failed' | 'loading',
+    totalPages: number,
 };
 
 export type Categories = {

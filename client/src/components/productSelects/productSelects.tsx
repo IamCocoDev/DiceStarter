@@ -37,20 +37,12 @@ const FilterSelect = () => {
   const [sort, setSort] = useState('');
   const dispatch = useAppDispatch();
   const categories = useAppSelector(productCategories);
-  console.log(sort);
-  const handleFilterSelectChange = (e: any) => {
-    setFilter(e.label);
-    dispatch(getProductsAsync({name: '', page: 1,
-      filter: filter, order: sort}));
-  };
-  const handleSortSelectChange = (e: any) => {
-    setSort(e.label);
-    dispatch(getProductsAsync({page: 1, name: '',
-      filter: filter, order: sort}));
-  };
+  const handleFilterSelectChange = (e: any) => setFilter(e.label);
+  const handleSortSelectChange = (e: any) => setSort(e.label);
   useEffect(() => {
     dispatch(getCategoriesAsync());
-  }, []);
+    dispatch(getProductsAsync({page: 1, name: '', filter: filter, sort: sort}));
+  }, [sort, filter]);
   return (
     <div>{
       <Select

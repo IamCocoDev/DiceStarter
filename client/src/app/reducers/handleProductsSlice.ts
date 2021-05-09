@@ -28,12 +28,14 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
     categories: [],
   },
   productCategories: [{label: '', value: 0}],
+  totalPages: 0,
 };
 
 export const getProductsAsync = createAsyncThunk(
     'handleProducts/getProducts',
     async (SearchInput: SearchInput) => {
-      const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.order || ''}`);
+      const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
+      const totalPages = res.data.totalPages;
       const product = res.data.products.map((product: ProductRes) => {
         return {
           id: product.id,
@@ -49,7 +51,7 @@ export const getProductsAsync = createAsyncThunk(
           description: product.description,
         };
       });
-      return product;
+      return {product, totalPages};
     },
 );
 // id name size color available picture price stock rating description userId
@@ -158,7 +160,8 @@ export const handleProductsSlice = createSlice({
         })
         .addCase(getProductsAsync.fulfilled, (state, action) => {
           state.productsListStatus = 'idle';
-          state.productsList = action.payload;
+          state.productsList = action.payload.product;
+          state.totalPages = action.payload.totalPages;
         })
         .addCase(getProductsAsync.rejected, (state) => {
           state.productsListStatus = 'failed';
@@ -223,6 +226,8 @@ export const productDetail = (state: RootState) =>
   state.productsReducer.productById;
 export const productCategories = (state: RootState) =>
   state.productsReducer.productCategories;
+export const totalPages = (state: RootState) =>
+  state.productsReducer.totalPages;
 
 export const {resetDeletedByIdStatus} = handleProductsSlice.actions;
 
