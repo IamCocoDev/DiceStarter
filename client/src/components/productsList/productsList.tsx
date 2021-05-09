@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {
   productsList,
   getProductsAsync,
+  getCategoriesAsync,
 } from '../../app/reducers/handleProductsSlice';
 import ProductList from '../productList/productList';
 
@@ -12,7 +13,8 @@ import ProductList from '../productList/productList';
 function ProductsList() {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getProductsAsync({name: '', page: 1}));
+    dispatch(getProductsAsync({name: '', page: 1, filter: '', order: ''}));
+    dispatch(getCategoriesAsync());
   }, []);
   const adminProducts = useAppSelector(productsList);
   return (

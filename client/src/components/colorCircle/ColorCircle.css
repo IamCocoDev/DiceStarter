@@ -1,0 +1,14 @@
+.circle {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px 0 black;
+  transform: translateY(0px);
+}
+
+.circle:hover {
+  box-shadow: 0 8px 16px 0 black;
+  transform: translateY(-5px);
+}
