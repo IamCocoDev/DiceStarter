@@ -40,7 +40,7 @@ router.get('/', (req, res, next) => {
   } = req.query;
 
   Product.findAll({
-    where: { name: { [Op.like]: `%${name}%` } },
+    where: { name: { [Op.iLike]: `%${name}%` } },
     include: [{ model: Category, where: { name: { [Op.like]: `%${filter}%` } }, attributes: ['id', 'name'] }],
   })
     .then((response) => {
