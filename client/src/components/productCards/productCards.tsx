@@ -6,6 +6,7 @@ import {productsList} from '../../app//reducers/handleProductsSlice';
 
 function ProductCards() {
   const products = useAppSelector(productsList);
+  console.log(products);
   return (
     <div className='productCardsFlex'>
       {
