@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {ProductRes, formInputData, formTextAreaData} from '../../types';
+import {
+  ProductRes, formInputData, formTextAreaData,
+  Categories,
+} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {
   changeProductInDBAsync, deleteProductByIdAsync}
@@ -7,12 +10,16 @@ import {
 import {
   productCategories,
 } from '../../app/reducers/handleProductsSlice';
+import ColorCircle from '../colorCircle/ColorCircle';
 import './productList.css';
 import Select from 'react-select';
 
 function ProductList(props: ProductRes): JSX.Element {
   const dispatch = useAppDispatch();
+  const [color, setColor] = useState('#030303');
+  const [available, setAvailable] = useState('true');
   const productCats = useAppSelector(productCategories);
+  const [categories, setCategories] = useState<Categories[]>();
   const [input, setInput] = useState<ProductRes>({
     id: props.id,
     name: props.name,
@@ -29,6 +36,19 @@ function ProductList(props: ProductRes): JSX.Element {
 
   useEffect(() => {
     setInput(props);
+    if (input.available) {
+      setAvailable('true');
+    } else {
+      setAvailable('false');
+    }
+    console.log(input);
+    const myCategories = input.categories.map((el) => {
+      return {
+        value: el.id,
+        label: el.name,
+      };
+    });
+    setCategories(myCategories);
   }, []);
 
   const handleNumberChange = (e: formInputData) => {
@@ -43,11 +63,21 @@ function ProductList(props: ProductRes): JSX.Element {
     setInput({...input, [e.target.name]: e.target.value});
   };
 
-  const handleDataChange = (e: any) => setInput({
-    ...input,
-    [e.target.name]: e.target.value,
-  });
+  const addColor = (color: string) => {
+    const repColor = input.color.find((el: string) => el === color);
+    if (!repColor) {
+      const newcolor = [...input.color, color];
+      setInput({...input, color: newcolor});
+    }
+  };
 
+  useEffect(() => {
+    if (available === 'true') {
+      setInput({...input, available: true});
+    } else if (available === 'false') {
+      setInput({...input, available: false});
+    }
+  }, [available]);
   return (
     <div className="productListGrid">
       <input
@@ -71,8 +101,8 @@ function ProductList(props: ProductRes): JSX.Element {
         isMulti
         name="categories"
         className="productListCategories"
-        onChange={handleDataChange}
         options={productCats}
+        value={categories}
       ></Select>
       <textarea
         className="productListDescription"
@@ -98,13 +128,15 @@ function ProductList(props: ProductRes): JSX.Element {
         name="stock"
         onChange={handleNumberChange}
       ></input>
-      <select
-        className="productListAvailable"
-        /* placeholder={props.available} */
-      >
-        <option value="true">True</option>
-        <option value="false">False</option>
-      </select>
+      <div className="productListAvailable" >
+        <select name=""
+          value={available}
+          onChange={(e) => setAvailable(e.target.value)}
+        >
+          <option value="true">True</option>
+          <option value="false">False</option>
+        </select>
+      </div>
       <input
         className="productListSize"
         type="number"
@@ -117,10 +149,20 @@ function ProductList(props: ProductRes): JSX.Element {
       </input>
       <div>
         {input.color.length ?
-          input.color.map((el) => <p key={el}
-            style={{'color': el}} >{el}</p>) :
+          input.color.map((el) => <ColorCircle key={el} color={el}
+            onClick={() => {
+              const toChange = input.color.filter((color) => el !== color);
+              setInput({...input, color: toChange});
+            }}/>) :
           null}
-        <input type="color" />
+        <input type="color"
+          onChange={(e) => setColor(e.target.value)}
+          name="color"
+          value={color}
+        />
+        <input type="button"
+          value="add color"
+          onClick={() => addColor(color)} />
       </div>
       <input
         className="productListImageUrl"
