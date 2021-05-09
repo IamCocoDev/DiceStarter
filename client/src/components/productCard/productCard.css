@@ -28,6 +28,7 @@
 .productCardName{
     grid-column: 2/3;
     grid-row: 2/3;
+    text-align: center;
     justify-self: center;
     align-self: center;
     font-size: 3vh;

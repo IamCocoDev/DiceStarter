@@ -9,13 +9,13 @@ function ProductCard(
     image:string,
     id:string}) {
   return (
-    <div className='productCardGrid'>
-      <NavLink className='productCardName' to={`/product/${props.id}`}>
-        <h1>{props.name}</h1>
-      </NavLink>
-      <p className='productCardPrice'>{props.price}</p>
-      <img className='productCardImage' src={props.image} alt='Photo'/>
-    </div>
+    <NavLink to={`/product/${props.id}`}>
+      <div className='productCardGrid'>
+        <h1 className='productCardName'>{props.name}</h1>
+        <p className='productCardPrice'>{props.price}</p>
+        <img className='productCardImage' src={props.image} alt='Photo'/>
+      </div>
+    </NavLink>
   );
 }
 

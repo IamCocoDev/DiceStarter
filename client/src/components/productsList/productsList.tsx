@@ -13,7 +13,7 @@ import ProductList from '../productList/productList';
 function ProductsList() {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getProductsAsync({name: '', page: 1, filter: '', order: ''}));
+    dispatch(getProductsAsync({name: '', page: 1, filter: '', sort: ''}));
     dispatch(getCategoriesAsync());
   }, []);
   const adminProducts = useAppSelector(productsList);
