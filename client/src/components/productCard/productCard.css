@@ -10,10 +10,10 @@
     grid-template-rows: 0.5fr 1fr 1fr 1fr 0.5fr;
     background-color: #6D999B;
     color: white;
-    width: 28vw;
-    height: 55vh;
-    border-radius: 3vw;
-    margin: 2vw;
+    width: 18vw;
+    height: 34vh;
+    border-radius: 1.5vw;
+    margin: 0.5vw;
     min-width: 200px;
     position: relative;
     top: 0;
@@ -30,16 +30,20 @@
     grid-row: 2/3;
     justify-self: center;
     align-self: center;
-    font-size: 7vh;
+    font-size: 3vh;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .productCardImage{
     grid-column: 2/3;
     grid-row: 3/4;
-    width: 25vw;
+    max-width: 15vw;
     height: auto;
     border-radius: 1vw;
+    width: 10vw;
+    max-height: 20vh;
+    justify-self: center;
+    align-self: center;
 }
 
 .productCardPrice{
@@ -48,16 +52,4 @@
     justify-self: center;
     align-self: center;
     font-size: 4vh;
-}
-
-.productCardDeleteButton{
-    background-color:red;
-    width: 5.5vw;
-    border-radius:0 1vh 1vh 0;
-}
-
-.productCardEditButton{
-    background-color: rgb(192, 140, 45);
-    width: 7vw;
-    border-radius: 1vh 0 0 1vh ;
 }

@@ -6,6 +6,7 @@ import {
   getCategoriesAsync,
   productCategories,
 } from '../../app/reducers/handleProductsSlice';
+import './formCreateProduct.css';
 
 import Select from 'react-select';
 import {
@@ -150,33 +151,38 @@ const FormCreateProduct = () => {
     setInput({...input, categories: data});
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="">Product URL picture</label>
+    <div className='formCreateProductGrid'>
+      <form className='formCreateProductForm' onSubmit={handleSubmit}>
+        <div className='formCreateProductUrlPicture'>
+          <label className='formCreateProductLabel'
+            htmlFor="">Product URL picture</label>
           <input
+            className='formCreateProductInput'
             type="text"
             value={input.picture}
             name="picture"
             onChange={handleChange}
           />
-          <p>{errors.picture}</p>
+          <p className='formCreateProductError'>{errors.picture}</p>
         </div>
-        <div>
-          <label htmlFor="">Product name</label>
+        <div className='formCreateProductName'>
+          <label className='formCreateProductLabel'
+            htmlFor="">Product name</label>
           <input
+            className='formCreateProductInput'
             type="text"
             value={input.name}
             name="name"
             onChange={handleChange}
           />
-          <p>{errors.name}</p>
+          <p className='formCreateProductError'>{errors.name}</p>
         </div>
-        <div>
-          <label
+        <div className='formCreateProductPrice'>
+          <label className='formCreateProductLabel'
             htmlFor="">Product price
           </label>
           <input
+            className='formCreateProductInput'
             type="number"
             value={input.price}
             step="0.1"
@@ -184,70 +190,76 @@ const FormCreateProduct = () => {
             min="0"
             onChange={handleChange}
           />
-          <p>{errors.price}</p>
+          <p className='formCreateProductError'>{errors.price}</p>
         </div>
-        <div>
-          <label
+        <div className='formCreateProductStock'>
+          <label className='formCreateProductLabel'
             htmlFor="">Product stock
           </label>
           <input
+            className='formCreateProductInput'
             type="number"
             value={input.stock}
             name = "stock"
             min="0"
             onChange={handleChange}
           />
-          <p>{errors.stock}</p>
+          <p className='formCreateProductError'>{errors.stock}</p>
         </div>
-        <div>
-          <label
+        <div className='formCreateProductSize'>
+          <label className='formCreateProductLabel'
             htmlFor="">Product size
           </label>
           <input
+            className='formCreateProductInput'
             type="number"
             value={input.size}
             name = "size"
             min="0"
             onChange={handleChange}
           />
-          <p>{errors.size}</p>
+          <p className='formCreateProductError'>{errors.size}</p>
         </div>
-        <div>
-          <label
+        <div className='formCreateProductColor'>
+          <label className='formCreateProductLabel'
             htmlFor="">Product color
           </label>
-          {input.color.length ?
-            input.color.map((el) => <p key={el}
-              style={{'color': el}} >{el}</p>) :
+          <div className='formCreateProductColorBalls'>
+            {input.color.length ?
+              input.color.map((el) => <p key={el}
+                style={{'color': el}} >{el} ,</p>) :
             null}
+          </div>
           <input
             type="color"
             value={input.color}
             name = "color"
             onChange={(e)=> setColor(e.target.value)}
           />
-          <input type="button"
+          <input className='formCreateProductColorButton'
+            type="button"
             value="add color"
             onClick={() => addColor(color)} />
+          <p className='formCreateProductError'>{errors.color}</p>
         </div>
-        <p>{errors.color}</p>
-        <div>
-          <label
+        <div className='formCreateProductDescription'>
+          <label className='formCreateProductLabel'
             htmlFor="">Product description
           </label>
-          <textarea
+          <textarea className='formCreateProductDescriptionTextArea'
             value={input.description}
             name = "description"
             onChange={handleTextAreaChange}
           >
           </textarea>
-          <p>{errors.description}</p>
+          <p className='formCreateProductError'>{errors.description}</p>
         </div>
-        <div>
-          <label
+        <div className='formCreateProductRating'>
+          <label className='formCreateProductLabel'
             htmlFor="">Product rating
           </label>
           <input
+            className='formCreateProductInput'
             type="number"
             min="0"
             max="5"
@@ -256,38 +268,25 @@ const FormCreateProduct = () => {
             name = "rating"
             onChange={handleChange}
           />
-          <p>{errors.rating}</p>
+          <p className='formCreateProductError'>{errors.rating}</p>
         </div>
-        <div>
+        <div className='formCreateProductSelector'>
           <Select
+            className='formCreateProductInput'
             isMulti
             name="categories"
             options={productCats}
-            className="formCreateProductSelector"
             onChange={handleSelectChange}
           >
           </Select>
-          <p>{errors.categories}</p>
+          <p className='formCreateProductError'>{errors.categories}</p>
         </div>
         <input
+          className='formCreateProductButtonCreate'
           type="submit"
           value="Create"
         />
       </form>
-      <button onClick={() => {
-        setInput({
-          name: 'Nuevo',
-          price: 5,
-          categories: [1],
-          color: ['#030303'],
-          size: '200',
-          stock: 200,
-          rating: 4,
-          description: 'Dasdkjalsdjlaskd',
-          picture: 'Dalsdkjalksdjl',
-          available: true,
-        });
-      }}>Set new product</button>
     </div>
   );
 };

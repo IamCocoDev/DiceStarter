@@ -21,10 +21,14 @@
 }
 
 .createButtonRouterProductButton{
+    font-size: 1.5vw;
+    min-width: 20vw;
+    min-height: 5vw;
     width: 20vw;
-    height: 5vh;
+    height: auto;
     border-radius: 1vw;
     background-color: #6D999B;
+    color: white;
 }
 
 .createButtonRouterCategory{
@@ -35,8 +39,12 @@
 }
 
 .createButtonRouterCategoryButton{
+    font-size: 1.5vw;
+    min-width: 20vw;
+    min-height: 5vw;
     width: 20vw;
-    height: 5vh;
+    height: auto;
     border-radius: 1vw;
     background-color: #6D999B;
+    color: white;
 }
