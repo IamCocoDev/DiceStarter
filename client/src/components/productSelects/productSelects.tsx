@@ -40,11 +40,13 @@ const FilterSelect = () => {
   console.log(sort);
   const handleFilterSelectChange = (e: any) => {
     setFilter(e.label);
-    dispatch(getProductsAsync({name: '', page: 1, filter: filter, sort: sort}));
+    dispatch(getProductsAsync({name: '', page: 1,
+      filter: filter, order: sort}));
   };
   const handleSortSelectChange = (e: any) => {
     setSort(e.label);
-    dispatch(getProductsAsync({page: 1, name: '', filter: filter, sort: sort}));
+    dispatch(getProductsAsync({page: 1, name: '',
+      filter: filter, order: sort}));
   };
   useEffect(() => {
     dispatch(getCategoriesAsync());

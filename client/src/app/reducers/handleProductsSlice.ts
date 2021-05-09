@@ -33,7 +33,7 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
 export const getProductsAsync = createAsyncThunk(
     'handleProducts/getProducts',
     async (SearchInput: SearchInput) => {
-      const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
+      const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.order || ''}`);
       const product = res.data.products.map((product: ProductRes) => {
         return {
           id: product.id,
