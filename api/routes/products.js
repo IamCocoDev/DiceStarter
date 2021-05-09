@@ -55,20 +55,22 @@ router.get('/', (req, res, next) => {
         next(e);
       });
   }
-  Product.findAll({
-    where: { name: { [Op.iLike]: `%${name}%` } },
-    include: [{ model: Category, attributes: ['id', 'name'] }],
-  })
-    .then((response) => {
-      if (order !== '') {
-        onOrder(order, response);
-      }
-      return res.json({
-        products: response.slice((page - 1) * 10, page * 10),
-        totalPages: Math.ceil(response.length / 10),
+  if (filter === '') {
+    Product.findAll({
+      where: { name: { [Op.iLike]: `%${name}%` } },
+      include: [{ model: Category, attributes: ['id', 'name'] }],
+    })
+      .then((response) => {
+        if (order !== '') {
+          onOrder(order, response);
+        }
+        return res.json({
+          products: response.slice((page - 1) * 10, page * 10),
+          totalPages: Math.ceil(response.length / 10),
+        });
+      }).catch((e) => {
+        next(e);
       });
-    }).catch((e) => {
-      next(e);
-    });
+  }
 });
 module.exports = router;
