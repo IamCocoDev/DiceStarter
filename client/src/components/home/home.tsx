@@ -6,7 +6,6 @@ import {getProductsAsync,
   productsListStatus,
   totalPages} from '../../app/reducers/handleProductsSlice';
 import ProductsSelect from '../productSelects/productSelects';
-import {NavLink} from 'react-router-dom';
 import Paginate from '../paginate/paginate';
 
 function Home(props: any) {
@@ -18,6 +17,7 @@ function Home(props: any) {
   useEffect(() => {
     if (!page) page = 1;
     if (page === NaN) page = 1;
+    console.log(page);
     dispatch(getProductsAsync({name: '', page: page, filter: ''}));
   }, [page]);
   return (
@@ -31,18 +31,7 @@ function Home(props: any) {
        </div>
       }
       <div>
-        {
-          page > 1 &&
-        <NavLink to={`/home?page=${page - 1}`}>
-        Previous
-        </NavLink>
-        }{
-          page < pagesTotal &&
-        <NavLink to={`/home?page=${page + 1}`}>
-        Next
-        </NavLink>
-        }
-        <Paginate />
+        <Paginate page={page} pagesTotal={pagesTotal}/>
       </div>
     </div>
   );
