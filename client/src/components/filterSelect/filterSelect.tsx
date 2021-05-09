@@ -19,8 +19,9 @@ const FilterSelect = () => {
     dispatch(getCategoriesAsync());
   }, []);
   return (
-    <div>{
+    <div className='filterSelectGrid'>{
       <Select
+        className='filterSelectSelect'
         options={categories}
         onChange={handleSelectChange}
       >
