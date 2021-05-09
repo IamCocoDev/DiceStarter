@@ -6,8 +6,12 @@ export interface FormState {
 export interface SearchInput {
     name:string,
     page:number,
-    filter?:string,
-    sort?:string,
+    filter?: string,
+    order?: string,
+}
+export interface categoryEstructure {
+    id: number;
+    name: string;
 }
 
 export interface ProductRes {
@@ -21,7 +25,7 @@ export interface ProductRes {
     stock:string,
     description:string,
     rating:string,
-    categories:string[],
+    categories: categoryEstructure[],
 }
 
 export interface Products {
@@ -37,7 +41,7 @@ export interface Products {
     addCategoryStatus: 'idle' | 'failed' | 'loading',
 };
 
-export interface Categories {
+export type Categories = {
     value: number,
     label: string
 };
