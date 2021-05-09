@@ -8,7 +8,7 @@ function NavBar(): JSX.Element {
   return (
     <div className='navBarGrid'>
       <div className='navBarLogo'>
-        <NavLink to={`/home`}>
+        <NavLink to={`/home?page=1`}>
           <h1>DS</h1>
         </NavLink>
       </div>
