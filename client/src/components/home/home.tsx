@@ -4,7 +4,7 @@ import ProductCards from '../productCards/productCards';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {getProductsAsync,
   productsListStatus} from '../../app/reducers/handleProductsSlice';
-import FilterSelect from '../filterSelect/filterSelect';
+import FilterSelect from '../productSelects/productSelects';
 
 function Home() {
   const asyncProducts = useAppSelector(productsListStatus);

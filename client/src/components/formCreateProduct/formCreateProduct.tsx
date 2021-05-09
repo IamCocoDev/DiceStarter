@@ -88,7 +88,6 @@ const FormCreateProduct = () => {
   }, []);
   const dispatch = useAppDispatch();
   const productCats = useAppSelector(productCategories);
-  console.log(productCats);
   const [color, setColor] = useState('');
   const [errors, setErrors] = useState<errorsInput>({
     name: '',
@@ -116,7 +115,6 @@ const FormCreateProduct = () => {
     });
   useEffect(() => {
     setErrors(validate(input));
-    console.log(input);
   }, [input]);
 
   const handleSubmit = (e: formData) => {
