@@ -3,7 +3,7 @@ export interface FormState {
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
 
-export interface SearchInput{
+export interface SearchInput {
     name:string,
     page:number,
     filter?: string,

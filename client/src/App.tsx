@@ -14,6 +14,8 @@ import CreateButtonRouter
 import listButtonRouter from './components/listButtonRouter/listButtonRouter';
 import FormCategoryCreation
   from '../src/components/formCategoryCreation/formCategoryCreation';
+import AdministratorHome
+  from './components/administratorHome/administratorHome';
 
 function App() {
   return (
@@ -24,7 +26,8 @@ function App() {
         '/create/product',
         '/list/productlist',
         '/create/category',
-        '/list']} component={NavBar}></Route>
+        '/list',
+        '/admin/home']} component={NavBar}></Route>
       <Route exact path='/list/productlist' component={ProductsList}></Route>
       <Route exact path='/' component={Landing}></Route>
       <Route exact path='/about' component={About}></Route>
@@ -35,6 +38,7 @@ function App() {
       <Route exact path='/create/category'
         component={FormCategoryCreation}></Route>
       <Route exact path='/create' component={CreateButtonRouter}></Route>
+      <Route exact path='/admin/home' component={AdministratorHome} ></Route>
     </div>
   );
 }
