@@ -35,6 +35,7 @@ export interface Products {
     getCategoriesStatus: 'idle' | 'failed' | 'loading',
     deleteByIdStatus: 'idle' | 'failed' | 'loading' | 'deleted',
     addCategoryStatus: 'idle' | 'failed' | 'loading',
+    totalPages: number,
 };
 
 export interface Categories {
