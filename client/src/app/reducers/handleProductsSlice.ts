@@ -88,16 +88,18 @@ export const getProductByIdAsync = createAsyncThunk(
 
 export const deleteProductByIdAsync = createAsyncThunk(
     'handleProducts/deleteProductById',
-    async (id: string) => {
+    async (id: string, thunkAPI) => {
       const res = await axios.delete(`http://localhost:3001/product/${id}`);
+      thunkAPI.dispatch(getProductsAsync({name: '', page: 1}));
       return res.data;
     },
 );
 // PUT to Edit
 export const changeProductInDBAsync = createAsyncThunk(
     'handleProducts/changeProductInDB',
-    async (product: Products['productById']) => {
+    async (product: Products['productById'], thunkAPI) => {
       const toSend = {
+        id: product.id,
         name: product.name,
         available: product.available,
         categories: product.categories,
@@ -110,6 +112,7 @@ export const changeProductInDBAsync = createAsyncThunk(
         stock: product.stock,
       };
       const res = await axios.put(`http://localhost:3001/product/${product.id}`, toSend);
+      thunkAPI.dispatch(getProductsAsync({name: '', page: 1}));
       return res.data;
     },
 );
@@ -130,7 +133,7 @@ export const getCategoriesAsync = createAsyncThunk(
 );
 
 export const addCategoryAsync = createAsyncThunk(
-    'handleProducts/addCategorie',
+    'handleProducts/addCategory',
     async (label: string) => {
       const name = label;
       const res = await axios.post('http://localhost:3001/categories', {name});
