@@ -54,9 +54,15 @@ router.get('/', (req, res, next) => {
       }
       if (filter !== '') {
         const filtered = response.filter((p) => p.category === filter);
-        return res.json(filtered.slice((page - 1) * 10, page * 10));
+        return res.json({
+          products: filtered.slice((page - 1) * 10, page * 10),
+          totalPages: Math.ceil(filtered.length / 10),
+        });
       }
-      return res.json(response.slice((page - 1) * 10, page * 10));
+      return res.json({
+        products: response.slice((page - 1) * 10, page * 10),
+        totalPages: Math.ceil(response.length / 10),
+      });
     }).catch((e) => {
       next(e);
     });
