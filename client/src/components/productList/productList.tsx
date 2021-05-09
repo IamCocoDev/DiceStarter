@@ -1,9 +1,18 @@
-import React, {useState} from 'react';
-import {ProductRes, listData} from '../../types';
+import React, {useState, useEffect} from 'react';
+import {ProductRes, formInputData, formTextAreaData} from '../../types';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {
+  changeProductInDBAsync, deleteProductByIdAsync}
+  from '../../app/reducers/handleProductsSlice';
+import {
+  productCategories,
+} from '../../app/reducers/handleProductsSlice';
 import './productList.css';
 import Select from 'react-select';
 
 function ProductList(props: ProductRes): JSX.Element {
+  const dispatch = useAppDispatch();
+  const productCats = useAppSelector(productCategories);
   const [input, setInput] = useState<ProductRes>({
     id: props.id,
     name: props.name,
@@ -17,63 +26,120 @@ function ProductList(props: ProductRes): JSX.Element {
     rating: props.rating,
     categories: props.categories,
   });
-  const handleNumberChange = (e: listData) => {
+
+  useEffect(() => {
+    setInput(props);
+  }, []);
+
+  const handleNumberChange = (e: formInputData) => {
     let data: string | number | boolean = e.target.value;
     if (e.target.name === 'rating' || e.target.name === 'stock') {
       data = parseFloat(data);
     };
     setInput({...input, [e.target.name]: data});
   };
+
+  const handleTextAreaChange = (e: formTextAreaData) => {
+    setInput({...input, [e.target.name]: e.target.value});
+  };
+
   const handleDataChange = (e: any) => setInput({
     ...input,
     [e.target.name]: e.target.value,
   });
+
   return (
     <div className="productListGrid">
       <input
-        /* onChange={} */ placeholder={props.name}
         className="productListName"
+        type="text"
+        placeholder={'Name'}
+        value={input.name}
+        name="name"
+        onChange={handleNumberChange}
       ></input>
       <input
         className="productListPrice"
-        placeholder={props.price}
+        type="number"
+        placeholder={'Price'}
         value={input.price}
-        type="text"
+        name="price"
+        step="0.1"
+        onChange={handleNumberChange}
       ></input>
       <Select
+        isMulti
+        name="categories"
         className="productListCategories"
         onChange={handleDataChange}
-        value={input.categories}
-        /* options={input.categories} */
+        options={productCats}
       ></Select>
-      <input
-        placeholder={props.description}
+      <textarea
         className="productListDescription"
-      ></input>
+        placeholder={'Description'}
+        value={input.description}
+        name="description"
+        onChange={handleTextAreaChange}
+      ></textarea>
       <input
-        onChange={handleNumberChange}
-        placeholder={props.rating}
-        value={input.rating}
         className="productListRating"
-      ></input>
-      <input
-        placeholder={props.stock}
+        type="number"
+        placeholder={'Rating'}
+        value={input.rating}
+        name="rating"
+        step="0.1"
         onChange={handleNumberChange}
+      ></input>
+      <input
         className="productListStock"
+        type="number"
+        placeholder={'Stock'}
+        value={input.stock}
+        name="stock"
+        onChange={handleNumberChange}
       ></input>
-      <input
-        /* placeholder={props.available} */
+      <select
         className="productListAvailable"
-      ></input>
-      <input placeholder={props.size} className="productListSize"></input>
-      {/* <input placeholder={props.color}
-      className="productListColors"></input> */}
+        /* placeholder={props.available} */
+      >
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </select>
       <input
-        placeholder={props.picture}
+        className="productListSize"
+        type="number"
+        placeholder={'Size'}
+        value={input.size}
+        name="size"
+        step="0.1"
+        onChange={handleNumberChange}
+      >
+      </input>
+      <div>
+        {input.color.length ?
+          input.color.map((el) => <p key={el}
+            style={{'color': el}} >{el}</p>) :
+          null}
+        <input type="color" />
+      </div>
+      <input
         className="productListImageUrl"
+        type="text"
+        placeholder={'Image'}
+        value={input.picture}
+        name="picture"
+        onChange={handleNumberChange}
       ></input>
-      <button className="productsListEditButton">Save Changes</button>
+      <button className="productsListEditButton" onClick={() => {
+        dispatch(changeProductInDBAsync(input));
+      }}>Save Changes</button>
+      <button className="productsListDeleteButton" onClick={() => {
+        dispatch(deleteProductByIdAsync(input.id));
+      }}>
+        Delete This Product
+      </button>
     </div>
   );
 }
+
 export default ProductList;

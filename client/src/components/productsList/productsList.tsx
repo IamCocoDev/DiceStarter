@@ -1,11 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+
 import './productsList.css';
-import {useAppSelector} from '../../app/hooks';
-import {productsList} from '../../app/reducers/handleProductsSlice';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {
+  productsList,
+  getProductsAsync,
+} from '../../app/reducers/handleProductsSlice';
 import ProductList from '../productList/productList';
 
 // 10 product properties without counting id
 function ProductsList() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getProductsAsync({name: '', page: 1}));
+  }, []);
   const adminProducts = useAppSelector(productsList);
   return (
     <div>
