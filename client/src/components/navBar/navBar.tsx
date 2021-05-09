@@ -30,9 +30,11 @@ function NavBar(): JSX.Element {
         </NavLink>
       </div>
       <div className='navBarProfile'>
-        <button>
+        <NavLink exact to={'/admin/home'}>        <button>
           <i className='material-icons'>account_circle</i>
         </button>
+        </NavLink>
+
       </div>
     </div>
   );
