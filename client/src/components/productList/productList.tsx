@@ -117,6 +117,7 @@ function ProductList(props: ProductRes): JSX.Element {
         options={productCats}
         value={categories}
         onChange={handleSelectChange}
+        defaultValue={categories}
       ></Select>
       <textarea
         className="productListDescription"
