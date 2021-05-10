@@ -48,8 +48,8 @@ router.get('/', (req, res, next) => {
           onOrder(order, response);
         }
         return res.json({
-          products: response.slice((page - 1) * 10, page * 10),
-          totalPages: Math.ceil(response.length / 10),
+          products: response.slice((page - 1) * 9, page * 9),
+          totalPages: Math.ceil(response.length / 9),
         });
       }).catch((e) => {
         next(e);
@@ -65,8 +65,8 @@ router.get('/', (req, res, next) => {
           onOrder(order, response);
         }
         return res.json({
-          products: response.slice((page - 1) * 10, page * 10),
-          totalPages: Math.ceil(response.length / 10),
+          products: response.slice((page - 1) * 9, page * 9),
+          totalPages: Math.ceil(response.length / 9),
         });
       }).catch((e) => {
         next(e);

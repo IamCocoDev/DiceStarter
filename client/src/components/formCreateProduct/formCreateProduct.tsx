@@ -17,6 +17,7 @@ import {
   errorsInput,
   Categories,
 } from '../../types';
+import ColorCircle from '../colorCircle/ColorCircle';
 
 function deepEqualError(a: errorsInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -226,11 +227,15 @@ const FormCreateProduct = () => {
           </label>
           <div className='formCreateProductColorBalls'>
             {input.color.length ?
-              input.color.map((el) => <p key={el}
-                style={{'color': el}} >{el} ,</p>) :
+              input.color.map((el) => <ColorCircle key={el} color={el}
+                onClick={() => {
+                  const toChange = input.color.filter((color) => el !== color);
+                  setInput({...input, color: toChange});
+                }}/>) :
             null}
           </div>
           <input
+            className='formCreateProductInput'
             type="color"
             value={input.color}
             name = "color"

@@ -91,11 +91,13 @@
 }
 
 .formCreateProductColorButton{
+    margin-top: 1vh;
     width: 50%;
     height: 20%;
     background-color: #6D999B;
     border-radius: 4vh;
     border: 0.4vh solid white;
+    text-transform: capitalize;
 }
 
 .formCreateProductColorButton:hover{
