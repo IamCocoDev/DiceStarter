@@ -96,3 +96,19 @@
     border: 0.1vw black solid;
     text-align: center;
 }
+
+.searchBarDiv {
+    display: flex;
+    justify-content: center; 
+    bottom: 85px;
+    position: relative;
+}
+
+.selectDiv {
+    display: flex; 
+    justify-content: space-around;
+}
+
+.select {
+    width: 500px;
+}

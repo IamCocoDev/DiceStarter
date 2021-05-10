@@ -12,7 +12,7 @@ import {
 import ProductList from '../productList/productList';
 import {Categories, SearchInput} from '../../types';
 import Select from 'react-select';
-
+import SearchBar from '../searchBar/searchBar';
 // 10 product properties without counting id
 function ProductsList() {
   const dispatch = useAppDispatch();
@@ -69,25 +69,32 @@ function ProductsList() {
 
   return (
     <div>
-      <Select
-        placeholder="Choose Your Category..."
-        options={categories}
-        onChange={(e) => {
-          console.log(categories);
-          setFilters({...filters, filter: e?.label});
-          dispatch(getProductsAsync({name: filters.name,
-            page: filters.page, filter: e?.label, sort: filters.sort}));
-        }}
-      ></Select>
-      <Select
-        placeholder="Choose Your Sort..."
-        options={sortType}
-        onChange={(e) => {
-          setFilters({...filters, sort: e?.label});
-          dispatch(getProductsAsync({name: filters.name,
-            page: filters.page, filter: filters.filter, sort: e?.label}));
-        }}
-      ></Select>
+      <div className='searchBarDiv'>
+        <SearchBar filter={filters.filter} sort={filters.sort}/>
+      </div>
+      <div className='selectDiv'>
+        <Select
+          className='select'
+          options={sortType}
+          placeholder='Choose your sort...'
+          onChange={(e) => {
+            setFilters({...filters, sort: e?.label});
+            dispatch(getProductsAsync({name: filters.name,
+              page: filters.page, filter: filters.filter, sort: e?.label}));
+          }}
+        ></Select>
+        <Select
+          className='select'
+          options={categories}
+          placeholder='Choose your order...'
+          onChange={(e) => {
+            console.log(categories);
+            setFilters({...filters, filter: e?.label});
+            dispatch(getProductsAsync({name: filters.name,
+              page: filters.page, filter: e?.label, sort: filters.sort}));
+          }}
+        ></Select>
+      </div>
       <div className="productsListGrid">
         <h1 className='productsListName'>Name</h1>
         <h1 className='productsListPrice'>Price</h1>

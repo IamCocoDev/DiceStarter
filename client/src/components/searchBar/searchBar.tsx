@@ -4,7 +4,7 @@ import './searchBar.css';
 import {useAppDispatch} from '../../app/hooks';
 import {getProductsAsync} from '../../app/reducers/handleProductsSlice';
 
-function searchBar(): JSX.Element {
+function searchBar(props: {filter? : string, sort?: string}): JSX.Element {
   const dispatch = useAppDispatch();
   const [input, setInput] = useState('');
 
@@ -13,7 +13,8 @@ function searchBar(): JSX.Element {
   };
 
   useEffect(() => {
-    dispatch(getProductsAsync({name: input, page: 1}));
+    dispatch(getProductsAsync({name: input, page: 1,
+      filter: props.filter, sort: props.sort}));
   }, [input]);
   return (
     <form className='searchBarFlex'>
