@@ -44,17 +44,19 @@ const FilterSelect = () => {
     dispatch(getProductsAsync({page: 1, name: '', filter: filter, sort: sort}));
   }, [sort, filter]);
   return (
-    <div>{
-      <Select
+    <div className='productSelectsGrid'>{
+      <Select className='productSelectsCateogires'
         options={categories}
         onChange={handleFilterSelectChange}
+        placeholder='Choose Your Category...'
       >
       </Select>
     }
     {
-      <Select
+      <Select className='productSelectsSortType'
         options={sortType}
         onChange={handleSortSelectChange}
+        placeholder='Choose Your Sort...'
       >
       </Select>
     }

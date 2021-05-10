@@ -6,13 +6,13 @@
 
 .productCardGrid{
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    grid-template-rows: 0.5fr 1fr 1fr 1fr 0.5fr;
+    grid-template-columns: 0.3vh 3fr 0.3vh;
+    grid-template-rows: 0.4vh 3fr 1fr 0.5fr 0.5vh;
     background-color: #6D999B;
     color: white;
-    width: 18vw;
-    height: 34vh;
-    border-radius: 1.5vw;
+    width: 25vw;
+    height: 60vh;
+    border-radius: 1.5vh;
     margin: 0.5vw;
     min-width: 200px;
     position: relative;
@@ -27,7 +27,7 @@
 
 .productCardName{
     grid-column: 2/3;
-    grid-row: 2/3;
+    grid-row: 3/4;
     text-align: center;
     justify-self: center;
     align-self: center;
@@ -37,14 +37,14 @@
 
 .productCardImage{
     grid-column: 2/3;
-    grid-row: 3/4;
-    max-width: 15vw;
-    height: auto;
-    border-radius: 1vw;
-    width: 10vw;
-    max-height: 20vh;
+    grid-row: 2/3;
+    width: 30vw;
+    height: 40vh;
+    border-radius: 1.5vh 1.5vh 0 0;
     justify-self: center;
     align-self: center;
+    object-fit:cover;
+    object-position: start start;
 }
 
 .productCardPrice{
