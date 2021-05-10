@@ -18,14 +18,14 @@ const modelDefiners = [];
 
 // Leemos todos los archivos de la carpeta Models,
 // los requerimos y agregamos al arreglo modelDefiners
-fs.readdirSync(path.join(__dirname, './src/models'))
+fs.readdirSync(path.join(__dirname, '/models'))
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
     // eslint-disable-next-line global-require
     // eslint-disable-next-line import/no-dynamic-require
     // eslint-disable-next-line global-require
     // eslint-disable-next-line import/no-dynamic-require
-    modelDefiners.push(require(path.join(__dirname, './src/models', file)));
+    modelDefiners.push(require(path.join(__dirname, '/models', file)));
   });
 
 // Injectamos la conexion (sequelize) a todos los modelos
