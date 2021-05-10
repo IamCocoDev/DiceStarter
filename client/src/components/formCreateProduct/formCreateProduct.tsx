@@ -121,7 +121,20 @@ const FormCreateProduct = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
+      alert('Succesfully created!');
       dispatch(sendFormAsync(input));
+      setInput({
+        name: '',
+        price: '0',
+        categories: [],
+        color: [],
+        size: '0',
+        stock: 0,
+        rating: 0,
+        description: '',
+        picture: '',
+        available: true,
+      });
     } else {
       alert('Complete the requires spaces!');
     }
