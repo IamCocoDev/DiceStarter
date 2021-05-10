@@ -11,7 +11,7 @@ const initialState: FormState = {
     color: [],
     name: '',
     picture: '',
-    price: 0,
+    price: '',
     rating: 0,
     size: '',
     stock: 0,
