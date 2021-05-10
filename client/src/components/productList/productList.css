@@ -108,6 +108,6 @@
     border: 0.01vw black solid;
 }
 
-.productsListDeleteButton:hover{
+.productsListDelete Button:hover{
     background-color: red;
 }
