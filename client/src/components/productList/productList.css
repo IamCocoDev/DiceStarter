@@ -88,4 +88,26 @@
     border: 0.01vw black solid;
 }
 
+.productsListEditButton{
+    grid-column: 12/13;
+    grid-row: 1/2;
+    max-width: 8.33vw;
+    text-align: center;
+    border: 0.01vw black solid;
+}
 
+.productsListEditButton:hover{
+    background-color: lightgreen;
+}
+
+.productsListDeleteButton{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    max-width: 8.33vw;
+    text-align: center;
+    border: 0.01vw black solid;
+}
+
+.productsListDeleteButton:hover{
+    background-color: red;
+}

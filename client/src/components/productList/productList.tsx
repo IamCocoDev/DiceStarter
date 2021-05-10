@@ -162,7 +162,7 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       >
       </input>
-      <div>
+      <div className='productListColors'>
         {input.color.length ?
           input.color.map((el) => <ColorCircle key={el} color={el}
             onClick={() => {
