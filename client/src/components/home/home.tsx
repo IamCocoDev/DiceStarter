@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import './home.css';
 import ProductCards from '../productCards/productCards';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {getProductsAsync,
