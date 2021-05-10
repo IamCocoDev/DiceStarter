@@ -113,7 +113,7 @@ export const changeProductInDBAsync = createAsyncThunk(
         stock: product.stock,
       };
       const res = await axios.put(`http://localhost:3001/product/${product.id}`, toSend);
-      thunkAPI.dispatch(getProductsAsync({name: '', page: 1}));
+      // thunkAPI.dispatch(getProductsAsync({name: '', page: 1}));
       return res.data;
     },
 );
