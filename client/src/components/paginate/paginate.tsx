@@ -1,19 +1,22 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
+import './paginate.css';
 
 const Paginate = (props: {page:number, pagesTotal:number}) => {
   return (
-    <div>
+    <div className='paginateGrid'>
       {
         props.page > 1 &&
-     <NavLink to={`/home?page=${props.page - 1}`}>
-        Previous
-     </NavLink>
+          <NavLink className='paginatePrevious'
+            to={`/home?page=${props.page - 1}`}>
+              Previous
+          </NavLink>
       }{
         props.page < props.pagesTotal &&
-        <NavLink to={`/home?page=${props.page + 1}`}>
-        Next
-        </NavLink>
+          <NavLink className='paginateNext'
+            to={`/home?page=${props.page + 1}`}>
+              Next
+          </NavLink>
       }
     </div>
   );
