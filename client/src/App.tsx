@@ -24,6 +24,7 @@ function App() {
         '/product',
         '/create',
         '/create/product',
+        '/list',
         '/list/productlist',
         '/create/category',
         '/admin/home']} component={NavBar}></Route>

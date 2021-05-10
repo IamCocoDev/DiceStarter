@@ -11,7 +11,7 @@
     background-color: #6D999B;
     color: white;
     width: 25vw;
-    height: 60vh;
+    height: 65vh;
     border-radius: 1.5vh;
     margin: 0.5vw;
     min-width: 200px;
@@ -39,12 +39,12 @@
     grid-column: 2/3;
     grid-row: 2/3;
     width: 30vw;
-    height: 40vh;
+    height: 46vh;
     border-radius: 1.5vh 1.5vh 0 0;
     justify-self: center;
     align-self: center;
-    object-fit:cover;
-    object-position: start start;
+    object-fit: cover;
+    object-position: center 0.5vh;
 }
 
 .productCardPrice{
