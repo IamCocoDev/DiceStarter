@@ -7,6 +7,7 @@ import {
   getProductsAsync,
   getCategoriesAsync,
   totalPages,
+  productCategories,
 } from '../../app/reducers/handleProductsSlice';
 import ProductList from '../productList/productList';
 import {Categories, SearchInput} from '../../types';
@@ -22,6 +23,7 @@ function ProductsList() {
   }, []);
   const adminProducts = useAppSelector(productsList);
   const pagesTotal = useAppSelector(totalPages);
+  const categories = useAppSelector(productCategories);
 
   const [filters, setFilters] = useState<SearchInput>({
     name: '',
@@ -69,8 +71,20 @@ function ProductsList() {
     <div>
       <Select
         options={sortType}
-        onChange={(e) => setFilters({...filters,
-          sort: e?.label})}
+        onChange={(e) => {
+          setFilters({...filters, sort: e?.label});
+          dispatch(getProductsAsync({name: filters.name,
+            page: filters.page, filter: filters.filter, sort: e?.label}));
+        }}
+      ></Select>
+      <Select
+        options={categories}
+        onChange={(e) => {
+          console.log(categories);
+          setFilters({...filters, filter: e?.label});
+          dispatch(getProductsAsync({name: filters.name,
+            page: filters.page, filter: e?.label, sort: filters.sort}));
+        }}
       ></Select>
       <div className="productsListGrid">
         <h1 className='productsListName'>Name</h1>
@@ -103,12 +117,14 @@ function ProductsList() {
           />
         ))}
       </div>
-      <div>
+      <div style={{'display': 'flex', 'justifyContent': 'center'}}>
         {filters.page > 1 ?
-        <button onClick={() => onClickPage(-1)}>
+        <button style={{'border': '2px solid black'}}
+          onClick={() => onClickPage(-1)}>
           Previous</button> : null}
         {pagesTotal > filters.page ?
-        <button onClick={() => onClickPage(1)}>
+        <button style={{'border': '2px solid black'}}
+          onClick={() => onClickPage(1)}>
           Next</button> : null}
       </div>
     </div>
