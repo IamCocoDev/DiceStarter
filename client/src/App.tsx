@@ -26,7 +26,6 @@ function App() {
         '/create/product',
         '/list/productlist',
         '/create/category',
-        '/list',
         '/admin/home']} component={NavBar}></Route>
       <Route exact path='/list/productlist' component={ProductsList}></Route>
       <Route exact path='/' component={Landing}></Route>
