@@ -1,2 +1,1 @@
-Main esto es una prueba 1
-
+This is version beta 1.0 
