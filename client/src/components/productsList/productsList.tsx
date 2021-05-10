@@ -4,15 +4,15 @@ import './productsList.css';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {
   productsList,
-  getProductsAsync,
-  getCategoriesAsync,
   totalPages,
   productCategories,
-} from '../../app/reducers/handleProductsSlice';
+} from '../../app/reducers/handleProductsReducer';
 import ProductList from '../productList/productList';
 import {Categories, SearchInput} from '../../types';
 import Select from 'react-select';
 import SearchBar from '../searchBar/searchBar';
+import {getCategoriesAsync, getProductsAsync} from
+  '../../app/actions/handleProductsActions';
 // 10 product properties without counting id
 function ProductsList() {
   const dispatch = useAppDispatch();
@@ -76,7 +76,7 @@ function ProductsList() {
         <Select
           className='select'
           options={sortType}
-          placeholder='Choose your sort...'
+          placeholder='Choose your order...'
           onChange={(e) => {
             setFilters({...filters, sort: e?.label});
             dispatch(getProductsAsync({name: filters.name,
@@ -86,7 +86,7 @@ function ProductsList() {
         <Select
           className='select'
           options={categories}
-          placeholder='Choose your order...'
+          placeholder='Choose your sort...'
           onChange={(e) => {
             console.log(categories);
             setFilters({...filters, filter: e?.label});

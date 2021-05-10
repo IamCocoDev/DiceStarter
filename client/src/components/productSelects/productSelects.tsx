@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react';
 import './productSelects.css';
 import Select from 'react-select';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {productCategories,
+import {
   getCategoriesAsync,
-  getProductsAsync} from '../../app/reducers/handleProductsSlice';
+  getProductsAsync} from '../../app/actions/handleProductsActions';
 import {Categories} from '../../types';
+import {productCategories} from '../../app/reducers/handleProductsReducer';
 
 const sortType: Array<Categories> = [{
   value: 1,

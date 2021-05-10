@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react';
 // import {useAppDispatch} from '../../app/hooks';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {sendFormAsync} from '../../app/reducers/formSlice';
+import {sendFormAsync} from '../../app/actions/formActions/index';
 import {
   getCategoriesAsync,
-  productCategories,
-} from '../../app/reducers/handleProductsSlice';
+} from '../../app/actions/handleProductsActions/index';
 import './formCreateProduct.css';
 
 import Select from 'react-select';
@@ -18,6 +17,7 @@ import {
   Categories,
 } from '../../types';
 import ColorCircle from '../colorCircle/ColorCircle';
+import {productCategories} from '../../app/reducers/handleProductsReducer';
 
 function deepEqualError(a: errorsInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -84,10 +84,10 @@ function validate(input: Inputs) {
 };
 
 const FormCreateProduct = () => {
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getCategoriesAsync());
   }, []);
-  const dispatch = useAppDispatch();
   const productCats = useAppSelector(productCategories);
   const [color, setColor] = useState('');
   const [errors, setErrors] = useState<errorsInput>({

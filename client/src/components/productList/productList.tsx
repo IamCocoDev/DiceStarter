@@ -6,10 +6,10 @@ import {
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {
   changeProductInDBAsync, deleteProductByIdAsync}
-  from '../../app/reducers/handleProductsSlice';
+  from '../../app/actions/handleProductsActions/index';
 import {
   productCategories,
-} from '../../app/reducers/handleProductsSlice';
+} from '../../app/reducers/handleProductsReducer';
 import ColorCircle from '../colorCircle/ColorCircle';
 import './productList.css';
 import Select from 'react-select';
