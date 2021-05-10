@@ -70,20 +70,22 @@ function ProductsList() {
   return (
     <div>
       <Select
-        options={sortType}
-        onChange={(e) => {
-          setFilters({...filters, sort: e?.label});
-          dispatch(getProductsAsync({name: filters.name,
-            page: filters.page, filter: filters.filter, sort: e?.label}));
-        }}
-      ></Select>
-      <Select
+        placeholder="Choose Your Category..."
         options={categories}
         onChange={(e) => {
           console.log(categories);
           setFilters({...filters, filter: e?.label});
           dispatch(getProductsAsync({name: filters.name,
             page: filters.page, filter: e?.label, sort: filters.sort}));
+        }}
+      ></Select>
+      <Select
+        placeholder="Choose Your Sort..."
+        options={sortType}
+        onChange={(e) => {
+          setFilters({...filters, sort: e?.label});
+          dispatch(getProductsAsync({name: filters.name,
+            page: filters.page, filter: filters.filter, sort: e?.label}));
         }}
       ></Select>
       <div className="productsListGrid">
