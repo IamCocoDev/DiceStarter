@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './productsList.css';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
@@ -6,19 +6,72 @@ import {
   productsList,
   getProductsAsync,
   getCategoriesAsync,
+  totalPages,
 } from '../../app/reducers/handleProductsSlice';
 import ProductList from '../productList/productList';
+import {Categories, SearchInput} from '../../types';
+import Select from 'react-select';
 
 // 10 product properties without counting id
 function ProductsList() {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getProductsAsync({name: '', page: 1, filter: '', sort: ''}));
+    dispatch(getProductsAsync({name: filters.name,
+      page: filters.page, filter: filters.filter, sort: filters.sort}));
     dispatch(getCategoriesAsync());
   }, []);
   const adminProducts = useAppSelector(productsList);
+  const pagesTotal = useAppSelector(totalPages);
+
+  const [filters, setFilters] = useState<SearchInput>({
+    name: '',
+    page: 1,
+    filter: '',
+    sort: '',
+  });
+
+  const onClickPage = (step: number) => {
+    dispatch(getProductsAsync({
+      name: filters.name,
+      page: filters.page + step,
+      filter: filters.filter,
+      sort: filters.sort,
+    }));
+    setFilters({...filters, page: filters.page + step});
+  };
+
+  const sortType: Array<Categories> = [{
+    value: 1,
+    label: 'A-Z',
+  }, {
+    value: 2,
+    label: 'Z-A',
+  },
+  {
+    value: 3,
+    label: 'maxPrice',
+  },
+  {
+    value: 4,
+    label: 'minPrice',
+  },
+  {
+    value: 5,
+    label: 'maxRating',
+  },
+  {
+    value: 6,
+    label: 'minRating',
+  },
+  ];
+
   return (
     <div>
+      <Select
+        options={sortType}
+        onChange={(e) => setFilters({...filters,
+          sort: e?.label})}
+      ></Select>
       <div className="productsListGrid">
         <h1 className='productsListName'>Name</h1>
         <h1 className='productsListPrice'>Price</h1>
@@ -49,6 +102,14 @@ function ProductsList() {
             rating={listProduct.rating}
           />
         ))}
+      </div>
+      <div>
+        {filters.page > 1 ?
+        <button onClick={() => onClickPage(-1)}>
+          Previous</button> : null}
+        {pagesTotal > filters.page ?
+        <button onClick={() => onClickPage(1)}>
+          Next</button> : null}
       </div>
     </div>
   );

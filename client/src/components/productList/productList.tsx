@@ -16,7 +16,7 @@ import Select from 'react-select';
 
 function ProductList(props: ProductRes): JSX.Element {
   const dispatch = useAppDispatch();
-  const [color, setColor] = useState('#030303');
+  const [color, setColor] = useState('');
   const [available, setAvailable] = useState('true');
   const productCats = useAppSelector(productCategories);
   const [categories, setCategories] = useState<Categories[]>();
@@ -31,7 +31,7 @@ function ProductList(props: ProductRes): JSX.Element {
     stock: props.stock,
     description: props.description,
     rating: props.rating,
-    categories: props.categories,
+    categories: [],
   });
 
   useEffect(() => {
@@ -41,15 +41,28 @@ function ProductList(props: ProductRes): JSX.Element {
     } else {
       setAvailable('false');
     }
-    console.log(input);
-    const myCategories = input.categories.map((el) => {
+    const myCategories = props.categories.map((el) => {
       return {
         value: el.id,
         label: el.name,
       };
     });
+    // const inputCategories = props.categories.map((el) => el.id);
+    setInput({...input, categories: props.categories});
     setCategories(myCategories);
   }, []);
+
+  const handleSelectChange = (e: any) : void => {
+    setCategories(e);
+    const data = e.map((el: Categories) => {
+      return el.value;
+    });
+    setInput({...input, categories: data});
+  };
+
+  useEffect(() => {
+    console.log(input);
+  }, [input]);
 
   const handleNumberChange = (e: formInputData) => {
     let data: string | number | boolean = e.target.value;
@@ -103,6 +116,7 @@ function ProductList(props: ProductRes): JSX.Element {
         className="productListCategories"
         options={productCats}
         value={categories}
+        onChange={handleSelectChange}
       ></Select>
       <textarea
         className="productListDescription"
@@ -139,7 +153,7 @@ function ProductList(props: ProductRes): JSX.Element {
       </div>
       <input
         className="productListSize"
-        type="number"
+        type="text"
         placeholder={'Size'}
         value={input.size}
         name="size"
@@ -153,15 +167,14 @@ function ProductList(props: ProductRes): JSX.Element {
             onClick={() => {
               const toChange = input.color.filter((color) => el !== color);
               setInput({...input, color: toChange});
-            }}/>) :
-          null}
+            }}/>) : null}
         <input type="color"
           onChange={(e) => setColor(e.target.value)}
           name="color"
           value={color}
         />
         <input type="button"
-          value="add color"
+          value="Add color"
           onClick={() => addColor(color)} />
       </div>
       <input
@@ -173,10 +186,14 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       ></input>
       <button className="productsListEditButton" onClick={() => {
-        dispatch(changeProductInDBAsync(input));
+        if (window.confirm(`Save changes to ${input.name}?`)) {
+          dispatch(changeProductInDBAsync(input));
+        }
       }}>Save Changes</button>
       <button className="productsListDeleteButton" onClick={() => {
-        dispatch(deleteProductByIdAsync(input.id));
+        if (window.confirm(`Are you sure you want to delete ${input.name}?`)) {
+          dispatch(deleteProductByIdAsync(input.id));
+        }
       }}>
         Delete This Product
       </button>

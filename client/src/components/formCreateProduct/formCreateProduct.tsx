@@ -104,7 +104,7 @@ const FormCreateProduct = () => {
   const [input, setInput] =
     useState<Inputs>({
       name: '',
-      price: 0,
+      price: '0',
       categories: [],
       color: [],
       size: '0',

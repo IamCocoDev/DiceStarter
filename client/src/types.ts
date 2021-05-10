@@ -9,10 +9,6 @@ export interface SearchInput {
     filter?: string,
     sort?: string,
 }
-export interface categoryEstructure {
-    id: number;
-    name: string;
-}
 
 export interface ProductRes {
     id:string,
@@ -25,7 +21,21 @@ export interface ProductRes {
     stock:string,
     description:string,
     rating:string,
-    categories: categoryEstructure[],
+    categories: dbCategories[],
+}
+
+export interface Inputs {
+    id?: string;
+    name: string;
+    price: string;
+    categories: number[];
+    color: string[];
+    size: string;
+    stock: number;
+    rating: number;
+    description: string;
+    picture: string;
+    available: boolean;
 }
 
 export interface Products {
@@ -61,18 +71,6 @@ export interface registerInput {
     confirmPassword: string;
 };
 
-export interface Inputs {
-    name: string;
-    price: number;
-    categories: number[];
-    color: string[];
-    size: string;
-    stock: number;
-    rating: number;
-    description: string;
-    picture: string;
-    available: boolean;
-}
 
 export interface errorsInput {
     name: string;
