@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import './productDetail.css';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {getProductByIdAsync,
-  productDetail} from '../../app/reducers/handleProductsSlice';
+import {productDetail} from '../../app/reducers/handleProductsReducer';
 import ColorCircle from '../colorCircle/ColorCircle';
 import {
   ProductRes,
 } from '../../types';
+import {getProductByIdAsync} from '../../app/actions/handleProductsActions';
 
 function ProductDetail(props:any ) {
   const [input, setInput] = useState<ProductRes>({

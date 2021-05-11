@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {formInputData} from '../../types';
 import './searchBar.css';
 import {useAppDispatch} from '../../app/hooks';
-import {getProductsAsync} from '../../app/reducers/handleProductsSlice';
+import {getProductsAsync} from '../../app/actions/handleProductsActions';
 
 function searchBar(props: {filter? : string, sort?: string}): JSX.Element {
   const dispatch = useAppDispatch();

@@ -2,7 +2,7 @@ import React from 'react';
 import {useAppSelector} from '../../app/hooks';
 import './productCards.css';
 import ProductCard from '../productCard/productCard';
-import {productsList} from '../../app//reducers/handleProductsSlice';
+import {productsList} from '../../app//reducers/handleProductsReducer';
 
 function ProductCards() {
   const products = useAppSelector(productsList);

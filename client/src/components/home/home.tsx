@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import ProductCards from '../productCards/productCards';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {getProductsAsync,
-  productsListStatus,
-  totalPages} from '../../app/reducers/handleProductsSlice';
+import {productsListStatus,
+  totalPages} from '../../app/reducers/handleProductsReducer';
 import ProductsSelect from '../productSelects/productSelects';
 import Paginate from '../paginate/paginate';
+import {getProductsAsync} from '../../app/actions/handleProductsActions';
 
 function Home(props: any) {
   const asyncProducts = useAppSelector(productsListStatus);
