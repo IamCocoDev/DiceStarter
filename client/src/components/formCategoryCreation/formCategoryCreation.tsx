@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import {useAppDispatch} from '../../app/hooks';
-import {addCategoryAsync} from '../../app/actions/handleProductsActions/index';
+import {addCategoryAsync} from '../../app/reducers/handleProductsSlice';
 import {formData} from '../../types';
 
 const FormCategoryCreation = () => {

@@ -4,7 +4,7 @@ export interface FormState {
 }
 
 export interface SearchInput {
-    name?:string,
+    name:string,
     page:number,
     filter?: string,
     sort?: string,
@@ -50,9 +50,6 @@ export interface Products {
     deleteByIdStatus: 'idle' | 'failed' | 'loading' | 'deleted',
     addCategoryStatus: 'idle' | 'failed' | 'loading',
     totalPages: number,
-    queryFilter: string,
-    querySort: string,
-    queryName: string,
 };
 
 export type Categories = {

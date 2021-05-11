@@ -54,10 +54,6 @@ module.exports = (sequelize) => {
     password: {
       type: DataTypes.STRING,
     },
-    role: {
-      type: DataTypes.ENUM('User', 'Admin'),
-      defaultValue: 'User',
-    },
     status: {
       type: DataTypes.ENUM('Active', 'Closed', 'Banned'),
       defaultValue: 'Active',

@@ -1,21 +1,14 @@
 import React, {useEffect} from 'react';
 import ProductCards from '../productCards/productCards';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {
-  productsListStatus, totalPages,
-  queryFilter,
-  queryName,
-  querySort,
-} from '../../app/reducers/handleProductsReducer';
+import {getProductsAsync,
+  productsListStatus,
+  totalPages} from '../../app/reducers/handleProductsSlice';
 import ProductsSelect from '../productSelects/productSelects';
 import Paginate from '../paginate/paginate';
-import {getProductsAsync} from '../../app/actions/handleProductsActions';
 
 function Home(props: any) {
   const asyncProducts = useAppSelector(productsListStatus);
-  const searchName = useAppSelector(queryName);
-  const searchFilter = useAppSelector(queryFilter);
-  const searchSort = useAppSelector(querySort);
   const pagesTotal = useAppSelector(totalPages);
   const dispatch = useAppDispatch();
   const foundQueryNumber = props.location.search.indexOf('=');
@@ -23,12 +16,8 @@ function Home(props: any) {
   useEffect(() => {
     if (!page) page = 1;
     if (page === NaN) page = 1;
-    dispatch(getProductsAsync({
-      name: searchName,
-      page: page,
-      filter: searchFilter,
-      sort: searchSort,
-    }));
+    console.log(page);
+    dispatch(getProductsAsync({name: '', page: page, filter: ''}));
   }, [page]);
   return (
     <div>

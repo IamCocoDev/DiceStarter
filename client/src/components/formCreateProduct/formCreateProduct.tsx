@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {Redirect} from 'react-router-dom';
+// import {useAppDispatch} from '../../app/hooks';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {sendFormAsync} from '../../app/actions/formActions/index';
+import {sendFormAsync} from '../../app/reducers/formSlice';
 import {
   getCategoriesAsync,
-} from '../../app/actions/handleProductsActions/index';
+  productCategories,
+} from '../../app/reducers/handleProductsSlice';
 import './formCreateProduct.css';
 
 import Select from 'react-select';
@@ -17,7 +18,6 @@ import {
   Categories,
 } from '../../types';
 import ColorCircle from '../colorCircle/ColorCircle';
-import {productCategories} from '../../app/reducers/handleProductsReducer';
 
 function deepEqualError(a: errorsInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -84,11 +84,10 @@ function validate(input: Inputs) {
 };
 
 const FormCreateProduct = () => {
-  const dispatch = useAppDispatch();
-  const [redirect, setRedirect] = useState(false);
   useEffect(() => {
     dispatch(getCategoriesAsync());
-  }, [redirect]);
+  }, []);
+  const dispatch = useAppDispatch();
   const productCats = useAppSelector(productCategories);
   const [color, setColor] = useState('');
   const [errors, setErrors] = useState<errorsInput>({
@@ -136,7 +135,6 @@ const FormCreateProduct = () => {
         picture: '',
         available: true,
       });
-      setRedirect(true);
     } else {
       alert('Complete the requires spaces!');
     }
@@ -168,9 +166,6 @@ const FormCreateProduct = () => {
   };
   return (
     <div className='formCreateProductGrid'>
-      {
-        redirect === true && <Redirect to={`/home`}></Redirect>
-      }
       <form className='formCreateProductForm' onSubmit={handleSubmit}>
         <div className='formCreateProductUrlPicture'>
           <label className='formCreateProductLabel'
