@@ -8,7 +8,7 @@ import {
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {getProductsAsync} from '../../app/actions/handleProductsActions';
 
-function searchBar(props: {filter? : string, sort?: string}): JSX.Element {
+function searchBar(): JSX.Element {
   const dispatch = useAppDispatch();
   const searchFilter = useAppSelector(queryFilter);
   const searchSort = useAppSelector(querySort);
