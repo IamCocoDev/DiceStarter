@@ -7,15 +7,31 @@ function ProductCard(
     name:string,
     price:string,
     image:string,
-    id:string}) {
+    id:string,
+    stock:number,
+  }) {
   return (
-    <NavLink to={`/product/${props.id}`}>
-      <div className='productCardGrid'>
-        <h1 className='productCardName'>{props.name}</h1>
-        <p className='productCardPrice'>{props.price}</p>
-        <img className='productCardImage' src={props.image} alt='Photo'/>
-      </div>
-    </NavLink>
+    <div>
+      {
+        props.stock > 0 &&
+      <NavLink to={`/product/${props.id}`}>
+        <div className='productCardGrid'>
+          <h1 className='productCardName'>{props.name}</h1>
+          <p className='productCardPrice'>{props.price}</p>
+          <img className='productCardImage' src={props.image} alt='Photo'/>
+        </div>
+      </NavLink>
+      }
+      {
+        props.stock < 0 &&
+            <div className='productCardGrid'>
+              <h1 className='productCardName'>{props.name}</h1>
+              <p className='productCardPrice'>{props.price}</p>
+              <img className='productCardImage' src={props.image} alt='Photo'/>
+              <h1 className='productCardSold'>Sold</h1>
+            </div>
+      }
+    </div>
   );
 }
 
