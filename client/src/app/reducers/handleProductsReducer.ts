@@ -46,6 +46,9 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
   },
   productCategories: [{label: '', value: 0}],
   totalPages: 0,
+  queryFilter: '',
+  querySort: '',
+  queryName: '',
 };
 
 const handleProductsReducer = (state = initialState, action: any) => {
@@ -71,6 +74,9 @@ const handleProductsReducer = (state = initialState, action: any) => {
         ...state,
         productsList: action.payload.products,
         totalPages: action.payload.totalPages,
+        queryFilter: action.payload.filter,
+        querySort: action.payload.order,
+        queryName: action.payload.name,
       };
     // GET PRODUCT DETAIL
     case FETCH_PRODUCT_BY_ID_BEGIN:
@@ -167,3 +173,9 @@ export const productCategories = (state: RootState) =>
   state.handleProducts.productCategories;
 export const totalPages = (state: RootState) =>
   state.handleProducts.totalPages;
+export const queryFilter = (state: RootState) =>
+  state.handleProducts.queryFilter;
+export const querySort = (state: RootState) =>
+  state.handleProducts.querySort;
+export const queryName = (state: RootState) =>
+  state.handleProducts.queryName;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ProductRes} from '../../../types';
+import {ProductRes, SearchInput} from '../../../types';
 
 // Data setters
 export const SET_PRODUCTS = 'SET_PRODUCTS';
@@ -44,9 +44,10 @@ const fetchProductsFailed = (error: any) => ({
   type: FETCH_PRODUCTS_FAILED,
   payload: {error},
 });
-const setProducts = (products: any, totalPages: any) => ({
+const setProducts = (products: any,
+    totalPages: number, filter: string, order: string, name:string) => ({
   type: SET_PRODUCTS,
-  payload: {products, totalPages},
+  payload: {products, totalPages, filter, order, name},
 });
 
 // PRODUCT BY ID HANDLING
@@ -122,7 +123,7 @@ const addCategoryFailed = (error: any) => ({
 
 
 // Actual async functions
-const getProductsAsync = (SearchInput: any) => {
+const getProductsAsync = (SearchInput: SearchInput) => {
   return async (dispatch: any) => {
     dispatch(fetchProductsBegin());
     try {
@@ -143,7 +144,8 @@ const getProductsAsync = (SearchInput: any) => {
           description: product.description,
         };
       });
-      dispatch(setProducts(products, totalPages));
+      dispatch(setProducts(products,
+          totalPages, SearchInput.filter, SearchInput.sort, SearchInput.name));
       dispatch(fetchProductsSuccess());
     } catch (err) {
       dispatch(fetchProductsFailed(err));
