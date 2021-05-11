@@ -1,11 +1,11 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
-import formReducer from './reducers/formSlice';
-import productsReducer from './reducers/handleProductsSlice';
+import formReducer from './reducers/formReducer';
+import handleProductsReducer from './reducers/handleProductsReducer';
 
 export const store = configureStore({
   reducer: {
-    formReducer: formReducer,
-    productsReducer: productsReducer,
+    handleForm: formReducer,
+    handleProducts: handleProductsReducer,
   },
 });
 

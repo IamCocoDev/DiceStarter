@@ -41,18 +41,14 @@ sequelize.models = Object.fromEntries(capsEntries);
 // const { Dog, Temperament } = sequelize.models;
 
 const {
-  User, Role, Product, Order, Category,
+  User, Product, Order, Category,
 } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
-User.belongsToMany(Role, { through: 'user_roles' });
-Role.belongsToMany(User, { through: 'user_roles' });
 Product.belongsToMany(Category, { through: 'product_categories' });
 Category.belongsToMany(Product, { through: 'product_categories' });
-User.hasMany(Product);
-Product.belongsTo(User);
 User.hasMany(Order);
 Order.belongsTo(User);
 Product.belongsToMany(Order, { through: 'product_order' });
