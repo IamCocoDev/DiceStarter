@@ -54,3 +54,26 @@
     align-self: center;
     font-size: 4vh;
 }
+.productCardImageSold {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    width: 30vw;
+    height: 46vh;
+    border-radius: 1.5vh 1.5vh 0 0;
+    justify-self: center;
+    align-self: center;
+    object-fit: cover;
+    object-position: center 0.5vh;
+    opacity: 0.4;
+}
+.productCardSold{
+    font-size: 10vw;
+    font-weight: 600;
+    color:black;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    opacity: 1;
+}

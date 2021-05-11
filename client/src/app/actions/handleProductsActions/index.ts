@@ -236,7 +236,6 @@ const getCategoriesAsync = () => {
           label: category.name,
         };
       });
-      console.log('GetCategoriesAsync', categories);
       dispatch(setCategories(categories));
       dispatch(getCategoriesSuccess());
     } catch (err) {
