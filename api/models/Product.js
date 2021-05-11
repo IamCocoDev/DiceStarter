@@ -20,8 +20,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     picture: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     price: {
       type: DataTypes.STRING,
