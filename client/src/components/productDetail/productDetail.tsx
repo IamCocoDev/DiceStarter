@@ -45,9 +45,6 @@ function ProductDetail(props:any ) {
               Rating: {product.rating}
             </p>
             <p className='ProductDetailSize'>Size: {product.size}</p>
-            {product.available === true ?
-            <p className='ProductDetailAvailable'>Available</p> :
-            <p className='ProductDetailAvailable'>Sold</p>}
             <p className='ProductDetailColors'>
               {product.color.length?
               product.color.map((el) => <ColorCircle key={el} color={el}
