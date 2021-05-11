@@ -70,7 +70,7 @@ function ProductsList() {
   return (
     <div>
       <div className='searchBarDiv'>
-        <SearchBar filter={filters.filter} sort={filters.sort}/>
+        <SearchBar />
       </div>
       <div className='selectDiv'>
         <Select
