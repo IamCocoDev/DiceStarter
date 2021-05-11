@@ -19,10 +19,6 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
-    available: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
     picture: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -33,10 +29,6 @@ module.exports = (sequelize) => {
     },
     stock: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    rating: {
-      type: DataTypes.DECIMAL,
       allowNull: false,
     },
     description: {
