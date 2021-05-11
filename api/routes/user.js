@@ -5,10 +5,10 @@ const router = express.Router();
 
 const bcrypt = require('bcrypt');
 
-const { User, Role } = require('../db');
+const { User } = require('../db');
 
 router.get('/:id', (req, res, next) => {
-  User.findByPk(req.params.id, { include: Role })
+  User.findByPk(req.params.id)
     .then((response) => {
       res.json(response);
     }).catch((e) => {
@@ -18,7 +18,6 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   const id = uuidv4();
-
   try {
     let { password } = req.body;
     const {
@@ -44,7 +43,7 @@ router.post('/', async (req, res, next) => {
         email,
         password,
       };
-      User.create(newUser).then((info) => { info.addRole(1); res.send(info); })
+      User.create(newUser).then((info) => res.send(info))
         .catch((error) => next(error));
     });
   } catch (e) {
@@ -54,7 +53,6 @@ router.post('/', async (req, res, next) => {
 
 router.post('/admin', async (req, res, next) => {
   const id = uuidv4();
-
   try {
     let { password } = req.body;
     const {
@@ -65,6 +63,7 @@ router.post('/admin', async (req, res, next) => {
       country,
       email,
     } = req.body;
+    const role = 'Admin';
     bcrypt.hash(password, 10, (err, hash) => {
       password = hash;
       if (err) {
@@ -78,9 +77,10 @@ router.post('/admin', async (req, res, next) => {
         birthday,
         country,
         email,
+        role,
         password,
       };
-      User.create(newUser).then((info) => { info.addRole(3); res.send(info); })
+      User.create(newUser).then((info) => res.send(info))
         .catch((error) => next(error));
     });
   } catch (e) {
@@ -92,9 +92,8 @@ router.put('/:id', async (req, res, next) => {
   const { id } = req.params;
   const { body } = req;
   try {
-    const user = await User.findByPk(id, { include: Role });
-    await user.update(body, { where: { id }, include: Role });
-    user.addRole(body.roles);
+    const user = await User.findByPk(id);
+    await user.update(body, { where: { id } });
     res.send(user);
   } catch (err) {
     next(err);
