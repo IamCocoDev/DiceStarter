@@ -20,7 +20,7 @@ function ProductDetail(props:any ) {
     available: props.available,
     stock: props.stock,
     description: props.description,
-    categories: [],
+    categories: props.categories,
   });
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);

@@ -7,15 +7,15 @@ const UserReviews = () => {
   return (
     <div >
       <form className='userReviewsAll'>
-        <div className='userReviewsStarOne'>
-          <i className='material-icons'>star_rating</i>
-          <i className='material-icons'>star_rating</i>
-          <i className='material-icons'>star_rating</i>
-          <i className='material-icons'>star_rating</i>
-          <i className='material-icons'>star_rating</i>
-        </div>
         <div className='userReviewsText'>
           <label className='userReviewsLabelOne'>Leave your opinion</label>
+          <div className='userReviewsStarOne'>
+            <i className='material-icons'>star_rating</i>
+            <i className='material-icons'>star_rating</i>
+            <i className='material-icons'>star_rating</i>
+            <i className='material-icons'>star_rating</i>
+            <i className='material-icons'>star_rating</i>
+          </div>
           <textarea
             value={input}
             name='Review'
