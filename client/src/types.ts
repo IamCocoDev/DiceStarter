@@ -1,10 +1,11 @@
+
 export interface FormState {
     inputs: Inputs,
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
 
 export interface SearchInput {
-    name:string,
+    name?:string,
     page:number,
     filter?: string,
     sort?: string,
@@ -50,6 +51,9 @@ export interface Products {
     deleteByIdStatus: 'idle' | 'failed' | 'loading' | 'deleted',
     addCategoryStatus: 'idle' | 'failed' | 'loading',
     totalPages: number,
+    queryFilter: string,
+    querySort: string,
+    queryName: string,
 };
 
 export type Categories = {
@@ -69,6 +73,7 @@ export interface registerInput {
     email: string;
     password: string;
     confirmPassword: string;
+    date: string;
 };
 
 

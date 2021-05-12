@@ -16,10 +16,20 @@ function ProductCards() {
               name={product.name}
               image={product.picture}
               price={product.price}
+              stock={product.stock}
             />
+            {/* product.stock > 0 ?:
+            <ProductCard
+              id={product.id}
+              name={product.name}
+              image={product.picture}
+              price={product.price}
+              stock={product.stock}
+                />*/}
           </div>
         ))
       }
+
     </div>
   );
 }
