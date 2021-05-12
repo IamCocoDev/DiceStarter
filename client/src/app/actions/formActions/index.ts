@@ -1,10 +1,9 @@
 import axios from 'axios';
-// Local status
-export const RESET_FORM_STATUS = 'RESET_FORM_STATUS';
-// Async status
-export const SEND_FORM_BEGIN = 'SEND_FORM_BEGIN';
-export const SEND_FORM_SUCCESS = 'FETCH_DETAIL_SUCCESS';
-export const SEND_FORM_FAILURE = 'FETCH_DETAIL_FAILURE';
+import {SEND_FORM_BEGIN,
+  SEND_FORM_SUCCESS,
+  SEND_FORM_FAILURE,
+  RESET_FORM_STATUS,
+} from '../../constants/constants';
 
 // Local status reseter
 // eslint-disable-next-line no-unused-vars
