@@ -7,6 +7,7 @@ import {
   ProductRes,
 } from '../../types';
 import {getProductByIdAsync} from '../../app/actions/handleProductsActions';
+import UserReviews from '../userReviews/userReviews';
 
 function ProductDetail(props:any ) {
   const [input, setInput] = useState<ProductRes>({
@@ -58,6 +59,7 @@ function ProductDetail(props:any ) {
           </div>
         </div>
       }
+      <UserReviews />
     </div>
   );
 }
