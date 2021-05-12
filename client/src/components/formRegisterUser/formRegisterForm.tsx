@@ -1,53 +1,55 @@
 import React, {useState, useEffect} from 'react';
 import {formData, formInputData, registerInput} from '../../types';
 import CountrySelect from '../countrySelect/countrySelect';
+import {useAppDispatch} from '../../app/hooks';
+import {sendFormAsync} from '../../app/actions/actionsUser';
 
 function deepEqualError(a: registerInput) {
   return JSON.stringify(a) === JSON.stringify({
-    username: '',
+    name: '',
     email: '',
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     password: '',
     confirmPassword: '',
-    date: '',
+    birthday: '',
     country: '',
   });
 };
 
 function validate(input: registerInput) {
   const errors: registerInput = {
-    username: '',
+    name: '',
     email: '',
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     password: '',
     confirmPassword: '',
-    date: '',
+    birthday: '',
     country: '',
   };
-  if (!input.username) {
-    errors.username = 'Username is required';
-  } else if (!/[0-9a-zA-Z]{5,}/.test(input.username)) {
-    errors.username = 'Username is invalid';
+  if (!input.name) {
+    errors.name = 'name is required';
+  } else if (!/[0-9a-zA-Z]{5,}/.test(input.name)) {
+    errors.name = 'name is invalid';
   }
   if (!input.email) {
     errors.email = 'Email is required';
   } else if (!/^\S+@\S+\.\S+$/.test(input.email)) {
     errors.email = 'Email is invalid';
   }
-  if (!input.firstname) {
-    errors.firstname = 'Firstname is required';
-  } else if (!/[\d.]/.test(input.firstname)) {
-    errors.firstname = 'firstname is invalid';
+  if (!input.firstName) {
+    errors.firstName = 'firstName is required';
+  } else if (/[\d.]/.test(input.firstName)) {
+    errors.firstName = 'firstName is invalid';
   }
-  if (!input.lastname) {
-    errors.lastname = 'Lastname is required';
-  } else if (!/[\d.]/.test(input.lastname)) {
-    errors.lastname = 'lastname is invalid';
+  if (!input.lastName) {
+    errors.lastName = 'lastName is required';
+  } else if (/[\d.]/.test(input.lastName)) {
+    errors.lastName = 'lastName is invalid';
   }
-  if (!input.date) {
-    errors.date = 'Date is required';
+  if (!input.birthday) {
+    errors.birthday = 'birthday is required';
   }
   if (!input.password) {
     errors.password = 'Password is required';
@@ -66,25 +68,26 @@ function validate(input: registerInput) {
 };
 
 const FormRegisterForm = () => {
+  const dispatch = useAppDispatch();
   const [input, setInput] = useState<registerInput>({
-    username: '',
+    name: '',
     email: '',
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     password: '',
     confirmPassword: '',
-    date: '',
-    country: '',
+    birthday: '',
+    country: '0',
   });
 
   const [errors, setErrors] = useState<registerInput>({
-    username: '',
+    name: '',
     email: '',
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     password: '',
     confirmPassword: '',
-    date: '',
+    birthday: '',
     country: '',
   });
 
@@ -92,15 +95,16 @@ const FormRegisterForm = () => {
     e.preventDefault();
     if (deepEqualError(errors)) {
       alert('Register completed!');
+      dispatch(sendFormAsync(input));
       console.log(input);
       setInput({
-        username: '',
+        name: '',
         email: '',
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         password: '',
         confirmPassword: '',
-        date: '',
+        birthday: '',
         country: '',
       });
     } else {
@@ -121,29 +125,29 @@ const FormRegisterForm = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="">Username</label>
+          <label htmlFor="">name</label>
           <input type="text"
-            name="username"
+            name="name"
             onChange={handleChange}
-            value={input.username}
+            value={input.name}
           />
-          <p>{errors.username}</p>
+          <p>{errors.name}</p>
         </div>
         <div>
-          <label htmlFor="">Firstname</label>
+          <label htmlFor="">firstName</label>
           <input type="text"
-            name="firstname"
+            name="firstName"
             onChange={handleChange}
-            value={input.firstname}
+            value={input.firstName}
           />
-          <p>{errors.firstname}</p>
-          <label htmlFor="">Lastname</label>
+          <p>{errors.firstName}</p>
+          <label htmlFor="">lastName</label>
           <input type="text"
-            name="lastname"
+            name="lastName"
             onChange={handleChange}
-            value={input.lastname}
+            value={input.lastName}
           />
-          <p>{errors.lastname}</p>
+          <p>{errors.lastName}</p>
         </div>
         <div>
           <label htmlFor="">Email</label>
@@ -155,17 +159,21 @@ const FormRegisterForm = () => {
           <p>{errors.email}</p>
         </div>
         <div>
-          <label htmlFor="">Birth date</label>
+          <label htmlFor="">Birth birthday</label>
           <input type="date"
-            name="date"
+            name="birthday"
             onChange={handleChange}
             min={'1921-01-01'}
             max={'2008-12-31'}
-            value={input.date}
+            value={input.birthday}
           />
-          <p>{errors.date}</p>
+          <p>{errors.birthday}</p>
         </div>
-        <CountrySelect handle={handleChange} />
+        <div>
+          <CountrySelect handle={handleChange}
+            val={input.country} />
+          <p>{errors.country}</p>
+        </div>
         <div>
           <label htmlFor="">Password</label>
           <input type="password"

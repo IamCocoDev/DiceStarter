@@ -6,11 +6,12 @@ const CountrySelect = (props) => {
     console.log(props);
   }, []);
   // eslint-disable-next-line react/prop-types
-  const {handle} = props;
+  const {handle, val} = props;
   return (
     <select
       name='country'
       onChange={(e) => handle(e)}
+      value={val}
     >
       <option value="0">Select your country</option>
       <option value="Afghanistan">Afghanistan</option>
