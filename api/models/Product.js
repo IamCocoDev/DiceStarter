@@ -29,6 +29,7 @@ module.exports = (sequelize) => {
     stock: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      min: 0,
     },
     description: {
       type: DataTypes.TEXT,
