@@ -20,7 +20,7 @@ function Home(props: any) {
     dispatch(getProductsAsync({name: '', page: page, filter: ''}));
   }, [page]);
   return (
-    <div>
+    <div className='homeBackground'>
       {
         <ProductsSelect />
       }
