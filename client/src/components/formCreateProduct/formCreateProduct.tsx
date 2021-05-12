@@ -27,7 +27,6 @@ function deepEqualError(a: errorsInput) {
     color: '',
     size: '',
     stock: '',
-    rating: '',
     description: '',
     picture: '',
   });
@@ -41,7 +40,6 @@ function validate(input: Inputs) {
     color: '',
     size: '',
     stock: '',
-    rating: '',
     description: '',
     picture: '',
   };
@@ -69,15 +67,11 @@ function validate(input: Inputs) {
     errors.stock = 'stock is required';
   }
 
-  if (!input.rating) {
-    errors.rating = 'rating is required';
-  }
-
   if (!input.description) {
     errors.description = 'description is required';
   }
 
-  if (!input.picture) {
+  if (!input.picture.length) {
     errors.picture = 'picture is required';
   }
   return errors;
@@ -98,7 +92,6 @@ const FormCreateProduct = () => {
     color: '',
     size: '',
     stock: '',
-    rating: '',
     description: '',
     picture: '',
   });
@@ -110,9 +103,8 @@ const FormCreateProduct = () => {
       color: [],
       size: '0',
       stock: 0,
-      rating: 0,
       description: '',
-      picture: '',
+      picture: [],
       available: true,
     });
   useEffect(() => {
@@ -131,9 +123,8 @@ const FormCreateProduct = () => {
         color: [],
         size: '0',
         stock: 0,
-        rating: 0,
         description: '',
-        picture: '',
+        picture: [],
         available: true,
       });
       setRedirect(true);
@@ -166,6 +157,12 @@ const FormCreateProduct = () => {
     });
     setInput({...input, categories: data});
   };
+  const handlePictureChange = (e: any): void => {
+    const data = e.map((el: Categories) => {
+      return el.value;
+    });
+    setInput({...input, picture: data});
+  };
   return (
     <div className='formCreateProductGrid'>
       {
@@ -175,13 +172,14 @@ const FormCreateProduct = () => {
         <div className='formCreateProductUrlPicture'>
           <label className='formCreateProductLabel'
             htmlFor="">Product URL picture</label>
-          <input
+          <Select
             className='formCreateProductInput'
-            type="text"
-            value={input.picture}
+            isMulti
             name="picture"
-            onChange={handleChange}
-          />
+            options={[{value: 'http://mathartfun.com/shopsite_sc/store/html/Bd100.jpg', label: 'foto 1'}]}
+            onChange={handlePictureChange}
+          >
+          </Select>
           <p className='formCreateProductError'>{errors.picture}</p>
         </div>
         <div className='formCreateProductName'>
@@ -276,22 +274,6 @@ const FormCreateProduct = () => {
           >
           </textarea>
           <p className='formCreateProductError'>{errors.description}</p>
-        </div>
-        <div className='formCreateProductRating'>
-          <label className='formCreateProductLabel'
-            htmlFor="">Product rating
-          </label>
-          <input
-            className='formCreateProductInput'
-            type="number"
-            min="0"
-            max="5"
-            step="0.1"
-            value={input.rating}
-            name = "rating"
-            onChange={handleChange}
-          />
-          <p className='formCreateProductError'>{errors.rating}</p>
         </div>
         <div className='formCreateProductSelector'>
           <Select

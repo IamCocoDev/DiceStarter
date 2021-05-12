@@ -135,7 +135,6 @@ const getProductsAsync = (SearchInput: SearchInput) => {
           name: product.name,
           picture: product.picture,
           price: product.price,
-          rating: product.rating,
           size: product.size,
           stock: product.stock,
           categories: product.categories,
@@ -165,7 +164,6 @@ const getProductByIdAsync = (id: any) => {
         size,
         available,
         description,
-        rating,
         categories,
       } = res.data;
       const productResponse: ProductRes = {
@@ -178,7 +176,6 @@ const getProductByIdAsync = (id: any) => {
         available,
         description,
         size,
-        rating,
         categories,
       };
       dispatch(setProductById(productResponse));

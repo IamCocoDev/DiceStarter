@@ -20,7 +20,6 @@ function ProductDetail(props:any ) {
     available: props.available,
     stock: props.stock,
     description: props.description,
-    rating: props.rating,
     categories: [],
   });
   const dispatch = useAppDispatch();
@@ -41,9 +40,6 @@ function ProductDetail(props:any ) {
             </p>
             <p className='ProductDetailStock'>
             Stock: {product.stock}
-            </p>
-            <p className='ProductDetailRating'>
-              Rating: {product.rating}
             </p>
             <p className='ProductDetailSize'>Size: {product.size}</p>
             <p className='ProductDetailColors'>
