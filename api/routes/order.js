@@ -6,6 +6,8 @@ const {
   User, Order, Productsxorders, Product,
 } = require('../db.js');
 
+// GET A ORDER POR STATUS
+
 router.get('/status/:status', (req, res) => {
   const { status } = req.params;
   if (status === 'allorders') {
@@ -17,16 +19,18 @@ router.get('/status/:status', (req, res) => {
   }
 });
 
-router.get('/id/:idOrder', (req, res) => {
+// GET A UNA ORDEN EN PARTICULAR
+router.get('/:idOrder', (req, res) => {
   const { idOrder } = req.params;
-  Order.findAll({ where: { id: idOrder } }).then((data) => {
+  Order.findByPk({ where: { id: idOrder } }).then((data) => {
     res.send(data);
   })
     .catch(() => { res.status(404).send('ERROR'); });
 });
 
 // GET A LAS ORDENES QUE TENGAN ESE PRODUCTO
-router.get('/ORDD/:idProd', (req, res) => {
+
+router.get('/:idProd', (req, res) => {
   const { idProd } = req.params;
   Productsxorders.findAll({ where: { product_id: idProd } })
     .then((data) => {
@@ -35,6 +39,7 @@ router.get('/ORDD/:idProd', (req, res) => {
 });
 
 // GET A LAS ORDENES QUE TENGAN ESE PRODUCTO
+
 router.get('/products/:idOrder', (req, res) => {
   const { idOrder } = req.params;
   Order.findOne({ where: { id: idOrder }, include: Product })
@@ -43,7 +48,9 @@ router.get('/products/:idOrder', (req, res) => {
     }).catch((error) => res.send(error));
 });
 
-router.delete('/orderdelete/:orderId/:productId', (req, res) => {
+// DELETE A LA RELACION PRODUCT/ORDER
+
+router.delete('/:orderId/:productId', (req, res) => {
   const { orderId, productId } = req.params;
   Productsxorders.destroy({
     where: {

@@ -38,7 +38,7 @@ router.get('/', (req, res, next) => {
   const {
     page, filter, order, name,
   } = req.query;
-  if (filter) {
+  if (filter !== '') {
     Product.findAll({
       where: { name: { [Op.iLike]: `%${name}%` } },
       include: [{ model: Category, where: { name: { [Op.like]: `%${filter}%` } }, attributes: ['id', 'name'] }],
