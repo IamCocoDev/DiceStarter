@@ -100,7 +100,6 @@ function ProductsList() {
         <h1 className='productsListPrice'>Price</h1>
         <h1 className='productsListCategories'>Categories</h1>
         <h1 className='productsListDescription'>Description</h1>
-        <h1 className='productsListRating'>Rating</h1>
         <h1 className='productsListStock'>Stock</h1>
         <h1 className='productsListAvailable'>Available</h1>
         <h1 className='productsListSize'>Size</h1>
@@ -122,7 +121,6 @@ function ProductsList() {
             available={listProduct.available}
             stock={listProduct.stock}
             size={listProduct.size}
-            rating={listProduct.rating}
           />
         ))}
       </div>

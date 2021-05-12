@@ -6,7 +6,7 @@ function ProductCard(
     props:{
     name:string,
     price:string,
-    image:string,
+    image:string[],
     id:string,
     stock:number,
   }) {
@@ -18,13 +18,13 @@ function ProductCard(
         <div className='productCardGrid'>
           <h1 className='productCardName'>{props.name}</h1>
           <p className='productCardPrice'>{props.price}</p>
-          <img className='productCardImage' src={props.image} alt='Photo'/>
+          <img className='productCardImage' src={props.image[0]} alt='Photo'/>
         </div>
       </NavLink> :
       <div className='productCardGrid'>
         <h1 className='productCardName'>{props.name}</h1>
         <p className='productCardPrice'>{props.price}</p>
-        <img className='productCardImageSold' src={props.image} alt='Photo'/>
+        <img className='productCardImageSold' src={props.image[0]} alt='Photo'/>
         <h1 className='productCardSold'>Sold Out</h1>
       </div>
       }
