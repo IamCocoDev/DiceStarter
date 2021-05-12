@@ -67,7 +67,7 @@
     opacity: 0.4;
 }
 .productCardSold{
-    font-size: 10vw;
+    font-size:5vw;
     font-weight: 600;
     color:black;
     grid-column: 2/3;

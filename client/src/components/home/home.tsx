@@ -10,6 +10,7 @@ import {
 import ProductsSelect from '../productSelects/productSelects';
 import Paginate from '../paginate/paginate';
 import {getProductsAsync} from '../../app/actions/handleProductsActions';
+import './home.css';
 
 function Home(props: any) {
   const asyncProducts = useAppSelector(productsListStatus);
@@ -36,12 +37,25 @@ function Home(props: any) {
         <ProductsSelect />
       }
       {
-       asyncProducts !== 'loading' ? <ProductCards></ProductCards> : <div>
+        asyncProducts === 'loading' &&
+       <div className='homeLoading'>
          loading products...
        </div>
       }
       <div>
-        <Paginate page={page} pagesTotal={pagesTotal}/>
+        {
+          asyncProducts === 'idle' &&
+          <div>
+            <ProductCards></ProductCards>
+            <Paginate page={page} pagesTotal={pagesTotal}/>
+          </div>
+        }
+        {
+          asyncProducts === 'failed' &&
+          <div className='homeFailed'>
+            <h1>Product not Found</h1>
+          </div>
+        }
       </div>
     </div>
   );
