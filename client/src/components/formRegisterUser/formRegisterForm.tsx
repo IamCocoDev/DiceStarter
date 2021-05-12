@@ -25,6 +25,8 @@ function validate(input: registerInput) {
   };
   if (!input.username) {
     errors.username = 'Username is required';
+  } else if (!/[0-9a-zA-Z]{5,}/.test(input.username)) {
+    errors.username = 'Username is invalid';
   }
   if (!input.email) {
     errors.email = 'Email is required';
@@ -33,23 +35,26 @@ function validate(input: registerInput) {
   }
   if (!input.firstname) {
     errors.firstname = 'Firstname is required';
+  } else if (!/[\d.]/.test(input.firstname)) {
+    errors.firstname = 'firstname is invalid';
   }
   if (!input.lastname) {
     errors.lastname = 'Lastname is required';
-  }
-  if (!input.lastname) {
-    errors.lastname = 'Lastname is required';
+  } else if (!/[\d.]/.test(input.lastname)) {
+    errors.lastname = 'lastname is invalid';
   }
   if (!input.date) {
     errors.date = 'Date is required';
   }
   if (!input.password) {
     errors.password = 'Password is required';
-  } else if (!/(?=.*[0-9])/.test(input.password)) {
+  } else if (!/(?=.*[0-9]){5,}/.test(input.password)) {
     errors.password = 'Password is invalid';
   }
   if (input.password !== input.confirmPassword || !input.confirmPassword) {
     errors.confirmPassword = 'Passwords are not equal';
+  } else if (!/(?=.*[0-9]){5,}/.test(input.password)) {
+    errors.password = 'Password is invalid';
   }
   return errors;
 };
