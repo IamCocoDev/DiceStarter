@@ -4,6 +4,11 @@ export interface FormState {
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
 
+export interface FormRegisterState {
+    inputs: registerInput,
+    status: 'idle' | 'failed' | 'loading' | 'done',
+}
+
 export interface SearchInput {
     name?:string,
     page:number,
@@ -65,13 +70,14 @@ export interface dbCategories {
 };
 
 export interface registerInput {
-    username: string;
-    firstname: string;
-    lastname: string;
+    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
     confirmPassword: string;
-    date: string;
+    birthday: string;
+    country: string;
 };
 
 

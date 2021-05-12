@@ -39,6 +39,7 @@
     grid-row: 2/3;
     display: flex;
     align-self: flex-end;
+    max-width: 5vw;
 }
 .material-icons{
     text-align: start;
