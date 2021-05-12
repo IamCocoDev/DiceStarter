@@ -16,45 +16,42 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', (req, res, next) => {
   const id = uuidv4();
-  try {
-    let { password } = req.body;
-    const {
+  let { password } = req.body;
+  const {
+    name,
+    firstName,
+    lastName,
+    birthday,
+    country,
+    email,
+  } = req.body;
+  const today = new Date();
+  const birth = new Date(birthday);
+  const currentYear = today.getFullYear();
+  const birthYear = birth.getFullYear();
+  if (currentYear - birthYear < 13) return res.send('Must be over 13 years old');
+  if (currentYear - birthYear > 100) return res.send('The maximum age is 100 years');
+  bcrypt.hash(password, 10, (err, hash) => {
+    password = hash;
+    if (err) {
+      next(err);
+    }
+    const newUser = {
+      id,
       name,
       firstName,
       lastName,
       birthday,
       country,
       email,
-    } = req.body;
-    const today = new Date();
-    const birth = new Date(birthday);
-    const currentYear = today.getFullYear();
-    const birthYear = birth.getFullYear();
-    if (currentYear - birthYear < 13) return res.send('Must be over 13 years old');
-    if (currentYear - birthYear > 100) return res.send('The maximum age is 100 years');
-    bcrypt.hash(password, 10, (err, hash) => {
-      password = hash;
-      if (err) {
-        next(err);
-      }
-      const newUser = {
-        id,
-        name,
-        firstName,
-        lastName,
-        birthday,
-        country,
-        email,
-        password,
-      };
-      User.create(newUser).then((info) => res.send(info))
-        .catch((error) => next(error));
-    });
-  } catch (e) {
-    next(e);
-  }
+      password,
+    };
+    User.create(newUser).then((info) => { res.send(info); })
+      .catch((error) => next(error));
+  });
+  return null;
 });
 
 router.post('/admin', async (req, res, next) => {
