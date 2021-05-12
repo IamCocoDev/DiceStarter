@@ -70,13 +70,13 @@ export interface dbCategories {
 };
 
 export interface registerInput {
-    username: string;
-    firstname: string;
-    lastname: string;
+    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
     confirmPassword: string;
-    date: string;
+    birthday: string;
     country: string;
 };
 
