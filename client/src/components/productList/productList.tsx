@@ -61,7 +61,6 @@ function ProductList(props: ProductRes): JSX.Element {
   };
 
   useEffect(() => {
-    console.log(input);
   }, [input]);
 
   const handleNumberChange = (e: formInputData) => {

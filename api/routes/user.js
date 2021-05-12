@@ -28,6 +28,12 @@ router.post('/', async (req, res, next) => {
       country,
       email,
     } = req.body;
+    const today = new Date();
+    const birth = new Date(birthday);
+    const currentYear = today.getFullYear();
+    const birthYear = birth.getFullYear();
+    if (currentYear - birthYear < 13) return res.send('Must be over 13 years old');
+    if (currentYear - birthYear > 100) return res.send('The maximum age is 100 years');
     bcrypt.hash(password, 10, (err, hash) => {
       password = hash;
       if (err) {
@@ -89,12 +95,21 @@ router.post('/admin', async (req, res, next) => {
 });
 
 router.put('/:id', async (req, res, next) => {
-  const { id } = req.params;
-  const { body } = req;
   try {
-    const user = await User.findByPk(id);
-    await user.update(body, { where: { id } });
-    res.send(user);
+    const { id } = req.params;
+    const { body } = req;
+    let { password } = req.body;
+    bcrypt.hash(password, 10, (err, hash) => {
+      password = hash;
+      if (err) {
+        next(err);
+      }
+      req.body.password = password;
+      User.findByPk(id)
+        .then((response) => {
+          response.update(body, { where: { id } });
+        }).catch((e) => next(e));
+    });
   } catch (err) {
     next(err);
   }

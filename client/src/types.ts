@@ -1,3 +1,4 @@
+
 export interface FormState {
     inputs: Inputs,
     status: 'idle' | 'failed' | 'loading' | 'done',
@@ -72,6 +73,7 @@ export interface registerInput {
     email: string;
     password: string;
     confirmPassword: string;
+    date: string;
 };
 
 
