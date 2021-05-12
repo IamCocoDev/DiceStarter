@@ -7,6 +7,7 @@ import {
   ProductRes,
 } from '../../types';
 import {getProductByIdAsync} from '../../app/actions/handleProductsActions';
+import UserReviews from '../userReviews/userReviews';
 
 function ProductDetail(props:any ) {
   const [input, setInput] = useState<ProductRes>({
@@ -19,7 +20,7 @@ function ProductDetail(props:any ) {
     available: props.available,
     stock: props.stock,
     description: props.description,
-    categories: [],
+    categories: props.categories,
   });
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);
@@ -54,6 +55,7 @@ function ProductDetail(props:any ) {
           </div>
         </div>
       }
+      <UserReviews />
     </div>
   );
 }
