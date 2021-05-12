@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {formData, formInputData, registerInput} from '../../types';
+import CountrySelect from '../countrySelect/countrySelect';
 
 function deepEqualError(a: registerInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -10,6 +11,7 @@ function deepEqualError(a: registerInput) {
     password: '',
     confirmPassword: '',
     date: '',
+    country: '',
   });
 };
 
@@ -22,6 +24,7 @@ function validate(input: registerInput) {
     password: '',
     confirmPassword: '',
     date: '',
+    country: '',
   };
   if (!input.username) {
     errors.username = 'Username is required';
@@ -56,6 +59,9 @@ function validate(input: registerInput) {
   } else if (!/(?=.*[0-9]){5,}/.test(input.password)) {
     errors.password = 'Password is invalid';
   }
+  if (!input.country || input.country === '0') {
+    errors.country = 'Select a country';
+  }
   return errors;
 };
 
@@ -68,6 +74,7 @@ const FormRegisterForm = () => {
     password: '',
     confirmPassword: '',
     date: '',
+    country: '',
   });
 
   const [errors, setErrors] = useState<registerInput>({
@@ -78,6 +85,7 @@ const FormRegisterForm = () => {
     password: '',
     confirmPassword: '',
     date: '',
+    country: '',
   });
 
   const handleSubmit = (e: formData) => {
@@ -93,6 +101,7 @@ const FormRegisterForm = () => {
         password: '',
         confirmPassword: '',
         date: '',
+        country: '',
       });
     } else {
       alert('Complete the requiered spaces!');
@@ -106,6 +115,7 @@ const FormRegisterForm = () => {
 
   useEffect(() => {
     setErrors(validate(input));
+    console.log(input);
   }, [input]);
   return (
     <div>
@@ -155,6 +165,7 @@ const FormRegisterForm = () => {
           />
           <p>{errors.date}</p>
         </div>
+        <CountrySelect handle={handleChange} />
         <div>
           <label htmlFor="">Password</label>
           <input type="password"

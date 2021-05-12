@@ -4,6 +4,11 @@ export interface FormState {
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
 
+export interface FormRegisterState {
+    inputs: registerInput,
+    status: 'idle' | 'failed' | 'loading' | 'done',
+}
+
 export interface SearchInput {
     name?:string,
     page:number,
@@ -72,6 +77,7 @@ export interface registerInput {
     password: string;
     confirmPassword: string;
     date: string;
+    country: string;
 };
 
 
