@@ -8,6 +8,14 @@ export interface FormRegisterState {
     inputs: registerInput,
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
+export interface ReviewState {
+    input: Review,
+    status: 'idle' | 'failed' | 'loading' | 'done',
+}
+
+export interface Review{
+    body: string,
+}
 
 export interface SearchInput {
     name?:string,

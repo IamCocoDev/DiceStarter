@@ -4,8 +4,7 @@ import {
   SEND_FORM_FAILURE,
   SEND_FORM_SUCCESS,
   RESET_FORM_STATUS,
-} from '../actions/formActions/index';
-
+} from '../constants/constants';
 // Types
 import {FormState} from '../../types';
 import {RootState} from '../store';

@@ -17,7 +17,7 @@ import {
   ADD_CATEGORY_SUCCESS,
   ADD_CATEGORY_FAILED,
   SET_CATEGORIES,
-} from '../actions/handleProductsActions/index';
+} from '../constants/constants';
 // Types
 import {Products} from '../../types';
 import {RootState} from '../store';
