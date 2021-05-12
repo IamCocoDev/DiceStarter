@@ -14,14 +14,13 @@ export interface SearchInput {
 export interface ProductRes {
     id:string,
     name:string,
-    picture:string,
+    picture:string[],
     price:string,
     size:string,
     color:string[],
     available:boolean,
     stock:string,
     description:string,
-    rating:string,
     categories: dbCategories[],
 }
 
@@ -33,9 +32,8 @@ export interface Inputs {
     color: string[];
     size: string;
     stock: number;
-    rating: number;
     description: string;
-    picture: string;
+    picture: string[];
     available: boolean;
 }
 
@@ -84,7 +82,6 @@ export interface errorsInput {
     color: string;
     size: string;
     stock: string;
-    rating: string;
     description: string;
     picture: string;
 }
