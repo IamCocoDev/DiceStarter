@@ -32,7 +32,7 @@ function Home(props: any) {
     }));
   }, [page]);
   return (
-    <div>
+    <div className='homeBackground'>
       {
         <ProductsSelect />
       }

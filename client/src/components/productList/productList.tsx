@@ -133,15 +133,6 @@ function ProductList(props: ProductRes): JSX.Element {
         name="stock"
         onChange={handleNumberChange}
       ></input>
-      <div className="productListAvailable" >
-        <select name=""
-          value={available}
-          onChange={(e) => setAvailable(e.target.value)}
-        >
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
-      </div>
       <input
         className="productListSize"
         type="text"

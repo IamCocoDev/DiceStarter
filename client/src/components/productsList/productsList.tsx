@@ -101,7 +101,6 @@ function ProductsList() {
         <h1 className='productsListCategories'>Categories</h1>
         <h1 className='productsListDescription'>Description</h1>
         <h1 className='productsListStock'>Stock</h1>
-        <h1 className='productsListAvailable'>Available</h1>
         <h1 className='productsListSize'>Size</h1>
         <h1 className='productsListColors'>Colors</h1>
         <h1 className='productsListImageUrl'>Image Url</h1>
