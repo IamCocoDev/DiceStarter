@@ -117,6 +117,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
     try {
       const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
       const totalPages = res.data.totalPages;
+      console.log(res.data.products);
       const products = res.data.products.map((product: ProductRes) => {
         return {
           id: product.id,

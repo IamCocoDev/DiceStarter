@@ -5,7 +5,6 @@ import './navBar.css';
 import {Route} from 'react-router-dom';
 
 function NavBar(props:any): JSX.Element {
-  console.log(props.location.pathname);
   const route:string = props.location.pathname;
   if (route === '/list/productlist') {
     return (

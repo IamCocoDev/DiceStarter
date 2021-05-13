@@ -1,30 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import './userReviews.css';
+import UserReviewForm from '../userReviewForm/userReviewForm';
+import {useAppDispatch} from '../../app/hooks';
+import {getReviews} from '../../app/actions/reviewsActions/index';
+import PostedUserReviews from '../postedUserReviews/postedUserReviews';
 
-const UserReviews = (props:{id}) => {
-  const [input, setInput] = useState('');
-  const handleReviewChange = (e: any) => setInput(e.target.value);
+const UserReviews = (props:{id: string}) => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getReviews(props.id));
+  }, []);
   return (
     <div >
-      <form className='userReviewsAll'>
-        <div className='userReviewsText'>
-          <label className='userReviewsLabelOne'>Leave your opinion</label>
-          <div className='userReviewsStarOne'>
-            <i className='material-icons'>star_rating</i>
-            <i className='material-icons'>star_rating</i>
-            <i className='material-icons'>star_rating</i>
-            <i className='material-icons'>star_rating</i>
-            <i className='material-icons'>star_rating</i>
-          </div>
-          <textarea
-            value={input}
-            name='Review'
-            className='usersReviewsDescription'
-            onChange={handleReviewChange}
-          >
-          </textarea>
-        </div>
-      </form>
+      <UserReviewForm />
+      <PostedUserReviews />
     </div>
   );
 };

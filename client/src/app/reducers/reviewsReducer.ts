@@ -13,11 +13,17 @@ import {
   CHANGE_REVIEWS_BEGIN,
   CHANGE_REVIEWS_SUCCESS,
   CHANGE_REVIEWS_FAILURE,
+  SET_REVIEWS,
 } from '../constants/constants';
 
 const initialState: ReviewState = {
+  reviewsResponse: null,
   body: '',
-  reviewStatus: 'idle',
+  postReviewStatus: 'idle',
+  getReviewsStatus: 'idle',
+  deleteReviewStatus: 'idle',
+  changeReviewStatus: 'idle',
+  id: '',
 };
 
 const reviewReducer = (state = initialState, action: any) => {
@@ -82,6 +88,11 @@ const reviewReducer = (state = initialState, action: any) => {
         ...state,
         reviewStatus: 'failed',
       };
+    case SET_REVIEWS:
+      return {
+        ...state,
+        reviewsResponse: action.payload,
+      };
     default:
       return state;
   }
@@ -89,7 +100,8 @@ const reviewReducer = (state = initialState, action: any) => {
 
 export default reviewReducer;
 
-export const reviewStatus = (state: RootState) =>
-  state.handleReview.reviewStatus;
-
+export const postReviewStatus = (state: RootState) =>
+  state.handleReview.postReviewStatus;
+export const reviewsResponse = (state: RootState) =>
+  state.handleReview.reviewsResponse;
 

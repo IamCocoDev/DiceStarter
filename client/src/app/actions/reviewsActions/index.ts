@@ -12,8 +12,9 @@ import {
   CHANGE_REVIEWS_BEGIN,
   CHANGE_REVIEWS_SUCCESS,
   CHANGE_REVIEWS_FAILURE,
+  SET_REVIEWS,
 } from '../../constants/constants';
-import {ReviewState} from '../../../types';
+import {ReviewState, ReviewRes} from '../../../types';
 // send Review status handling
 const sendReviewBegin = () => ({
   type: SEND_REVIEW_BEGIN,
@@ -60,6 +61,11 @@ const changeReviewsFailure = (error: any) => ({
   payload: error,
   type: CHANGE_REVIEWS_FAILURE,
 });
+// sends reviews to store
+const setReviews = (reviewResponse: ReviewRes) => ({
+  payload: reviewResponse,
+  type: SET_REVIEWS,
+});
 
 // Async requests to the back-end
 
@@ -71,6 +77,24 @@ const postReview = (review: ReviewState) => {
       dispatch(sendReviewSuccess);
     } catch (err) {
       dispatch(sendReviewFailure(err));
+    }
+  };
+};
+
+const getReviews = (id: string) => {
+  return async (dispatch: any) => {
+    dispatch(getReviewsBegin());
+    try {
+      const res = await axios.get(`http://localhost:3001/product/${id}/review`);
+      const reviews = res.data.map((review: ReviewRes) => ({
+        id: review.id,
+        rating: review.rating,
+        comment: review.comment,
+      }));
+      dispatch(getReviewsSuccess);
+      dispatch(setReviews(reviews));
+    } catch (err) {
+      dispatch(getReviewsFailure(err));
     }
   };
 };
@@ -89,4 +113,5 @@ export {
   changeReviewsFailure,
   changeReviewsSuccess,
   postReview,
+  getReviews,
 };
