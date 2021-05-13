@@ -5,7 +5,6 @@ import {
   SEND_FORM_SUCCESS,
   RESET_FORM_STATUS,
 } from '../constants/constants';
-
 // Types
 import {FormState} from '../../types';
 import {RootState} from '../store';

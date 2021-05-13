@@ -55,7 +55,7 @@ function ProductDetail(props:any ) {
           </div>
         </div>
       }
-      <UserReviews />
+      <UserReviews id={id}/>
     </div>
   );
 }
