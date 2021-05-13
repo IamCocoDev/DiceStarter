@@ -1,4 +1,5 @@
 const express = require('express');
+
 const { v4: uuidv4 } = require('uuid');
 
 const router = express.Router();
@@ -16,7 +17,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/signup', (req, res, next) => {
   const id = uuidv4();
   let { password } = req.body;
   const {
@@ -54,7 +55,49 @@ router.post('/', (req, res, next) => {
   return null;
 });
 
-router.post('/admin', async (req, res, next) => {
+router.post('/signin', async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    let user;
+    const emailRegEx = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    if (username && password) {
+      if (emailRegEx.test(username)) {
+        user = await User.findOne({ where: { email: username } });
+      }
+      user = await User.findOne({ where: { name: username } });
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (result) {
+          return res.send({
+            username: user.name,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            birthday: user.birthday,
+            profilePicture: user.profilePicture,
+            address: user.address,
+            city: user.city,
+            postalCode: user.postalCode,
+            phone: user.phone,
+            country: user.country,
+            role: user.role,
+          });
+        }
+        return res.send('User not found');
+      });
+    }
+    return res.send('Input invalid');
+  } catch (e) {
+    next(e);
+  }
+  return null;
+});
+
+router.post('/logout', (req, res) => {
+  res.clearCookie('userId');
+  res.send('Logout successful');
+});
+
+router.post('/admin', (req, res, next) => {
   const id = uuidv4();
   try {
     let { password } = req.body;
@@ -91,7 +134,7 @@ router.post('/admin', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   try {
     const { id } = req.params;
     const { body } = req;
