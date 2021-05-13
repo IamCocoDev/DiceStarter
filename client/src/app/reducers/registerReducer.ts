@@ -3,6 +3,7 @@ import {
   SEND_FORM_FAILURE,
   SEND_FORM_SUCCESS,
   RESET_FORM_STATUS,
+  SET_USER,
 } from '../actions/actionsUser';
 
 // Types
@@ -11,17 +12,22 @@ import {RootState} from '../store';
 
 const initialState: FormRegisterState = {
   inputs: {
-    name: '',
+    username: '',
     email: '',
     firstName: '',
     lastName: '',
-    password: '',
-    confirmPassword: '',
     birthday: '',
+    profilePicture: '',
+    address: '',
+    city: '',
+    postalCode: 0,
+    phone: '',
     country: '',
+    role: '',
   },
   status: 'idle',
 };
+
 
 const formReducer = (state = initialState, action: any) => {
   switch (action.type) {
@@ -45,6 +51,11 @@ const formReducer = (state = initialState, action: any) => {
         ...state,
         status: 'idle',
       };
+    case SET_USER:
+      return {
+        ...state,
+        inputs: action.payload,
+      };
     default:
       return state;
   }
@@ -54,3 +65,5 @@ export default formReducer;
 
 export const formRegisterStatus = (state: RootState) =>
   state.handleForm.status;
+export const userInfo = (state: RootState) =>
+  state.handleRegister.inputs;

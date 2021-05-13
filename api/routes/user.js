@@ -56,8 +56,8 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/signin', async (req, res, next) => {
+  const { username, password } = req.body;
   try {
-    const { username, password } = req.body;
     let user;
     const emailRegEx = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     if (username && password) {
@@ -66,6 +66,7 @@ router.post('/signin', async (req, res, next) => {
       }
       user = await User.findOne({ where: { name: username } });
       bcrypt.compare(password, user.password, (err, result) => {
+        if (err) return res.send('password invalid');
         if (result) {
           return res.send({
             username: user.name,
@@ -85,7 +86,9 @@ router.post('/signin', async (req, res, next) => {
         return res.send('User not found');
       });
     }
-    return res.send('Input invalid');
+    if (!password || !username) {
+      return res.send('Input invalid');
+    }
   } catch (e) {
     next(e);
   }
