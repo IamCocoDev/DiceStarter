@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './userReviews.css';
 
-const UserReviews = () => {
+const UserReviews = (props:{id}) => {
   const [input, setInput] = useState('');
   const handleReviewChange = (e: any) => setInput(e.target.value);
   return (

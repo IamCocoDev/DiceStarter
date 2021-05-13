@@ -3,18 +3,17 @@ export interface FormState {
     inputs: Inputs,
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
-
 export interface FormRegisterState {
     inputs: registerInput,
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
 export interface ReviewState {
-    input: Review,
-    status: 'idle' | 'failed' | 'loading' | 'done',
-}
-
-export interface Review{
     body: string,
+    postReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
+    getReviewsStatus: 'idle' | 'failed' | 'loading' | 'done',
+    deleteReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
+    changeReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
+    id: string,
 }
 
 export interface SearchInput {
