@@ -16,6 +16,10 @@ export interface ReviewState {
     changeReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
     id: string,
 }
+export interface ReviewPost {
+    comment: string,
+    id: string,
+}
 export interface ReviewRes {
     id: number,
     rating: number,
