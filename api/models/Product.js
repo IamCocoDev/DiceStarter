@@ -23,8 +23,9 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.STRING),
     },
     price: {
-      type: DataTypes.STRING,
+      type: DataTypes.DECIMAL,
       allowNull: false,
+      min: 0,
     },
     stock: {
       type: DataTypes.INTEGER,

@@ -6,6 +6,40 @@ const {
   User, Order, Productsxorders, Product,
 } = require('../db.js');
 
+// POST UNA ORDEN
+
+router.post('/:idUser/cart', (req, res, next) => {
+  const { idUser } = req.params;
+  const { body } = req;
+  Order.findAll({ where: { userId: idUser, status: 'Created' } }).then(
+    (ord) => {
+      if (ord.length) {
+        Product.findByPk(body.id).then((producto) => {
+          producto.addOrder(ord);
+          return res.status(200).send('Order created');
+        });
+      } else {
+        Order.create({
+          address: body.address,
+          price: body.price,
+        }).then((order) => {
+          User.findByPk(idUser)
+            .then((user) => {
+              order.setUser(user);
+              Product.findByPk(body.id).then((producto) => {
+                producto.addOrder(order);
+                res.status(200).send('Order created');
+              });
+            })
+            .catch(() => {
+              res.status(404).send('Error. Order no created!');
+            });
+        });
+      }
+    },
+  ).catch((e) => next(e));
+});
+
 // GET A ORDER POR STATUS
 
 router.get('/status/:status', (req, res) => {
@@ -13,7 +47,7 @@ router.get('/status/:status', (req, res) => {
   if (status === 'allorders') {
     Order.findAll({ include: User }).then((data) => res.send(data));
   } else {
-    Order.findAll({ where: { status }, include: User }).then((result) => {
+    Order.findAll({ where: { status } }).then((result) => {
       res.send(result);
     });
   }
