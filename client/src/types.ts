@@ -4,7 +4,20 @@ export interface FormState {
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
 export interface FormRegisterState {
-    inputs: registerInput,
+    inputs: {
+        username: string,
+        email: string,
+        firstName: string,
+        lastName: string,
+        birthday: string,
+        profilePicture: string,
+        address: string,
+        city: string,
+        postalCode: number,
+        phone: string,
+        country: string,
+        role: string,
+    },
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
 export interface ReviewState {
@@ -75,6 +88,11 @@ export type Categories = {
     value: number,
     label: string
 };
+
+export interface loginInput {
+    username: string,
+    password: string,
+}
 
 export interface dbCategories {
     id: number,
