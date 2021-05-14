@@ -10,7 +10,6 @@ import {
 import ProductList from '../productList/productList';
 import {Categories, SearchInput} from '../../types';
 import Select from 'react-select';
-import SearchBar from '../searchBar/searchBar';
 import {getCategoriesAsync, getProductsAsync} from
   '../../app/actions/handleProductsActions';
 // 10 product properties without counting id
@@ -68,10 +67,7 @@ function ProductsList() {
   ];
 
   return (
-    <div>
-      <div className='searchBarDiv'>
-        <SearchBar />
-      </div>
+    <div className='productsListBackground'>
       <div className='selectDiv'>
         <Select
           className='select'

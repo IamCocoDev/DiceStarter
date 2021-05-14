@@ -8,7 +8,7 @@
     grid-template-columns: 1fr 0.7fr 2fr 1fr 0.5fr 0.1fr ;
     grid-template-rows: 1fr;
     height: 12vh;
-    background-color: #406b6d;
+    background-color: #74009D;
     width: 100vw;
     max-width: 100%;
 }
@@ -18,9 +18,9 @@
     grid-template-columns: 1fr 0.7fr 2fr 1fr 0.5fr 0.1fr ;
     grid-template-rows: 1fr;
     height: 12vh;
-    background-color: #406b6d;
-    width: 200vw;
-    max-width: 200%;
+    background-color: #74009D;
+    width: 170vw;
+    max-width: auto;
 }
  
 

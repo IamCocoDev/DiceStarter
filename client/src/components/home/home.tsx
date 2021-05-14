@@ -45,7 +45,7 @@ function Home(props: any) {
       <div>
         {
           asyncProducts === 'idle' &&
-          <div>
+          <div className='homeGood'>
             <ProductCards></ProductCards>
             <Paginate page={page} pagesTotal={pagesTotal}/>
           </div>
