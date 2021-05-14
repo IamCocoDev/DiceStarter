@@ -14,7 +14,7 @@ function NavBar(props:any): JSX.Element {
             <h1>DS</h1>
           </NavLink>
         </div>
-        <Route exact path ='/home'>
+        <Route exact path ='/list/productlist'>
           <div className='navBarSearchBar'>
             <SearchBar />
           </div>

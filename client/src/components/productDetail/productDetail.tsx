@@ -29,7 +29,7 @@ function ProductDetail(props:any ) {
     dispatch(getProductByIdAsync(id));
   }, []);
   return (
-    <div>
+    <div className='productDetailBackground'>
       { product &&
         <div className='ProductDetailGridAll'>
           <div className='ProductDetailGrid'>

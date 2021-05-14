@@ -7,13 +7,13 @@
 .productCardGrid{
     display: grid;
     grid-template-columns: 0.3vh 3fr 0.3vh;
-    grid-template-rows: 0.4vh 3fr 1fr 0.5fr 0.5vh;
-    background-color: #6D999B;
+    grid-template-rows: 0.1vh 3fr 1fr 0.5fr 0.5vh;
+    background-color: #404040;
     color: white;
     width: 25vw;
     height: 65vh;
     border-radius: 1.5vh;
-    margin: 0.5vw;
+    margin: 2vw;
     min-width: 200px;
     position: relative;
     top: 0;
@@ -44,7 +44,7 @@
     justify-self: center;
     align-self: center;
     object-fit: cover;
-    object-position: center 0.5vh;
+    object-position: center 0.2vh;
 }
 
 .productCardPrice{

@@ -6,22 +6,27 @@
 
 .productListGrid{
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: 1fr 7vw 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr;
-    width: 150vw;
-    border-bottom: 0.01vw black solid;
+    width: 170vw;
+    border-bottom: 0.01vw white solid;
     text-align: start;
+    background-color: #5A5A5A;
+    color: white;
 }
 
 .productListName{
     grid-column: 1/2;
     grid-row: 1/2;
-    width: 15vw;
+    width: 20vw;
+    background-color: #5A5A5A;
 }
 
 .productListPrice{
     grid-column: 2/3;
     grid-row: 1/2;
+    width: 7vw;
+    background-color: #5A5A5A;
 }
 
 .productListCategories{
@@ -29,37 +34,50 @@
     grid-row: 1/2;
     width: 30vw;
     align-self: center;
+    background-color: #5A5A5A;
+    color: black;
+    margin: 1vw;
 }
 
 .productListDescription{
     grid-column: 4/5;
     grid-row: 1/2;
     width: 30vw;
+    background-color: #5A5A5A;
 }
 
 .productListStock{
     grid-column: 5/6;
     grid-row: 1/2;
+    width: 10vw;
+    background-color: #5A5A5A;
 }
 
 .productListSize{
     grid-column: 6/7;
     grid-row: 1/2;
+    width: 10vw;
+    background-color: #5A5A5A;
 }
 
 .productListColors{
     grid-column: 7/8;
     grid-row: 1/2;
+    width: 20vw;
+    background-color: #5A5A5A;
 }
 
 .productListImageUrl{
     grid-column: 8/9;
     grid-row: 1/2;
+    width: 30vw;
+    background-color: #5A5A5A;
 }
 
 .productsListEditButton{
     grid-column: 9/10;
     grid-row: 1/2;
+    background-color: #5A5A5A;
 }
 
 .productsListEditButton:hover{
@@ -69,6 +87,7 @@
 .productsListDeleteButton{
     grid-column: 10/11;
     grid-row: 1/2;
+    background-color: #5A5A5A;
 }
 
 .productsListDeleteButton:hover{

@@ -9,8 +9,9 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     max-width: 100vw;
-    height: 80vh;
+    min-height: 88vh;
     width: 100%;
+    background-color: #5A5A5A;
 }
 
 .listButtonRouterProduct{
@@ -27,7 +28,7 @@
     width: 20vw;
     height: auto;
     border-radius: 1vw;
-    background-color: #6D999B;
+    background-color: #74009D;
     color: white;
 }
 
@@ -45,6 +46,6 @@
     width: 20vw;
     height: auto;
     border-radius: 1vw;
-    background-color: #6D999B;
+    background-color: #74009D;
     color: white;
 }

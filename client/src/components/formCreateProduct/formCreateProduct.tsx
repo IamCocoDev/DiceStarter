@@ -171,7 +171,7 @@ const FormCreateProduct = () => {
       <form className='formCreateProductForm' onSubmit={handleSubmit}>
         <div className='formCreateProductUrlPicture'>
           <label className='formCreateProductLabel'
-            htmlFor="">Product URL picture</label>
+            htmlFor="">URL picture</label>
           <Select
             className='formCreateProductInput'
             isMulti
@@ -184,7 +184,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductName'>
           <label className='formCreateProductLabel'
-            htmlFor="">Product name</label>
+            htmlFor="">name</label>
           <input
             className='formCreateProductInput'
             type="text"
@@ -196,7 +196,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductPrice'>
           <label className='formCreateProductLabel'
-            htmlFor="">Product price
+            htmlFor="">price
           </label>
           <input
             className='formCreateProductInput'
@@ -211,7 +211,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductStock'>
           <label className='formCreateProductLabel'
-            htmlFor="">Product stock
+            htmlFor="">stock
           </label>
           <input
             className='formCreateProductInput'
@@ -225,7 +225,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductSize'>
           <label className='formCreateProductLabel'
-            htmlFor="">Product size
+            htmlFor="">size
           </label>
           <input
             className='formCreateProductInput'
@@ -239,7 +239,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductColor'>
           <label className='formCreateProductLabel'
-            htmlFor="">Product color
+            htmlFor="">color
           </label>
           <div className='formCreateProductColorBalls'>
             {input.color.length ?
@@ -265,7 +265,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductDescription'>
           <label className='formCreateProductLabel'
-            htmlFor="">Product description
+            htmlFor="">description
           </label>
           <textarea className='formCreateProductDescriptionTextArea'
             value={input.description}
