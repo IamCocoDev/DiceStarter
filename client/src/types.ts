@@ -5,8 +5,8 @@ export interface FormState {
 }
 export interface FormRegisterState {
     inputs: {
-        username: string,
-        email: string,
+        id: string,
+        name: string,
         firstName: string,
         lastName: string,
         birthday: string,
@@ -16,7 +16,10 @@ export interface FormRegisterState {
         postalCode: number,
         phone: string,
         country: string,
+        email: string,
+        password: string,
         role: string,
+        status: string
     },
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
