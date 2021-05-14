@@ -9,11 +9,9 @@ module.exports = (sequelize) => {
     },
     price: {
       type: DataTypes.DECIMAL,
-      allowNull: false,
     },
     address: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
   }, {
     timestamps: false,
