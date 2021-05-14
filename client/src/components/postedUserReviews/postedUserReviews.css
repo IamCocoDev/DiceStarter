@@ -1,0 +1,10 @@
+.postedReviewsAll {
+    display: flex;
+    width: 10vw;
+    justify-content: center;
+    align-items: center;
+}
+.postedReviewsStar {
+    font-size: 3vw;
+}
+ 
