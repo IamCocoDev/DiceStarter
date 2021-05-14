@@ -109,6 +109,18 @@ router.delete('/orderdelete/:orderId/:productId', (req, res) => {
     .catch((err) => res.send(err));
 });
 
+router.delete('/:userId/cart', (req, res, next) => {
+  const { userId } = req.params;
+  Order.destroy({
+    where: {
+      status: 'Created',
+      userId,
+    },
+  })
+    .then(() => res.status(200).send('Order delete'))
+    .catch((err) => next(err));
+});
+
 router.post('/:idUser/c/cart', (req, res, next) => {
   const { idUser } = req.params;
   const { body } = req; // Recibe amount y total_price por body. y el ID del producto
