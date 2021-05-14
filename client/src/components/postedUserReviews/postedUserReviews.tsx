@@ -10,9 +10,8 @@ const PostedUserReviews = () => {
     <div>
       {
         postedReviews !== null && postedReviews.map((review: ReviewRes) => (
-          <div key={review.id}>
+          <div className='postedReviewsAll' key={review.id}>
             <p>{review.comment}</p>
-            <p>{review.rating}</p>
           </div>
         ))
       }
