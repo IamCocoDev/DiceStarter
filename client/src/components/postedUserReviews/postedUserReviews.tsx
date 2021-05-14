@@ -13,6 +13,7 @@ const PostedUserReviews = () => {
         postedReviews !== null && postedReviews.map((review: ReviewRes) => {
           for (let i:number = 0; i < review.rating; i++) {
             starsArr.push(i);
+            '';
           }
           console.log(starsArr);
           return (
