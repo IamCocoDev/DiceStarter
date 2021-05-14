@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  User, Order, Productsxorders, Product,
+  User, Order, Productxorder, Product,
 } = require('../db.js');
 
 // POST UNA ORDEN
@@ -21,7 +21,7 @@ router.post('/:idUser/cart', (req, res, next) => {
       } else {
         Order.create({
           address: body.address,
-          price: body.price,
+          price: body.price, // Cambiar modelo, esto no debe ser obligatorio, luego borrar linea
         }).then((order) => {
           User.findByPk(idUser)
             .then((user) => {
@@ -54,19 +54,33 @@ router.get('/status/:status', (req, res) => {
 });
 
 // GET A UNA ORDEN EN PARTICULAR
-router.get('/:idOrder', (req, res) => {
+router.get('/search/:idOrder', (req, res) => {
   const { idOrder } = req.params;
-  Order.findByPk({ where: { id: idOrder } }).then((data) => {
-    res.send(data);
+  Order.findOne({ where: { id: idOrder }, include: Product }).then((data) => {
+    Productxorder.sum('total_price', {
+      where: {
+        orderId: idOrder,
+      },
+    }).then((sum) => res.json({
+      order: {
+        id: data.id,
+        status: data.status,
+        address: data.address,
+        userId: data.userId,
+        products: data.products,
+      },
+      totalPrice: sum,
+    }));
+    // res.send({ order: data, price: data.price });
   })
     .catch(() => { res.status(404).send('ERROR'); });
 });
 
 // GET A LAS ORDENES QUE TENGAN ESE PRODUCTO
 
-router.get('/:idProd', (req, res) => {
+router.get('/searchorder/:idProd', (req, res) => {
   const { idProd } = req.params;
-  Productsxorders.findAll({ where: { product_id: idProd } })
+  Productxorder.findAll({ where: { productId: idProd } })
     .then((data) => {
       res.send(data);
     }).catch((error) => res.send(error));
@@ -84,9 +98,9 @@ router.get('/products/:idOrder', (req, res) => {
 
 // DELETE A LA RELACION PRODUCT/ORDER
 
-router.delete('/:orderId/:productId', (req, res) => {
+router.delete('/orderdelete/:orderId/:productId', (req, res) => {
   const { orderId, productId } = req.params;
-  Productsxorders.destroy({
+  Productxorder.destroy({
     where: {
       order_id: orderId, product_id: productId,
     },
@@ -94,4 +108,46 @@ router.delete('/:orderId/:productId', (req, res) => {
     .then(() => res.sendStatus(200))
     .catch((err) => res.send(err));
 });
+
+router.post('/:idUser/c/cart', (req, res, next) => {
+  const { idUser } = req.params;
+  const { body } = req; // Recibe amount y total_price por body. y el ID del producto
+  Order.findAll({ where: { userId: idUser, status: 'Created' } })
+    .then((orden) => {
+      const idOrder = orden[0].id;
+      for (let i = 0; i < body.length; i += 1) {
+        if (body[i].amount) {
+          const obj = {
+            amount: body[i].amount,
+            total_price: body[i].total_price * body[i].amount,
+          };
+          Productxorder.update(obj, {
+            where: { productId: body[i].id, orderId: idOrder },
+          }).then(() => {
+            res.status(200).send('The order has been updated');
+          }).catch((e) => next(e));
+        }
+        return null;
+      }
+      return null;
+    })
+    .catch(() => res.status(404).send('ERROR. Order has not been complete'));
+});
+
+router.post('/:idUser/update/cart', (req, res) => {
+  const { idUser } = req.params;
+  const { body } = req; // recibe por body: satatus: processing  y direccion, cancelled , complete;
+  if (req.body.status === 'Canceled' || req.body.status === 'In process' || req.body.status === 'Complete') {
+    Order.update(body, { where: { userId: idUser, status: 'Created' } }).then(
+      (data) => {
+        if (data[0]) {
+          res.status(200).send('Order has been updated');
+        } else {
+          res.status(404).send('You do not have an order created');
+        }
+      },
+    );
+  }
+});
+
 module.exports = router;
