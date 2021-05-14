@@ -102,7 +102,7 @@ router.delete('/orderdelete/:orderId/:productId', (req, res) => {
   const { orderId, productId } = req.params;
   Productxorder.destroy({
     where: {
-      order_id: orderId, product_id: productId,
+      orderId, productId,
     },
   })
     .then(() => res.sendStatus(200))

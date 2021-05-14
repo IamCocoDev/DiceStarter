@@ -54,3 +54,5 @@ export const CHANGE_REVIEWS_FAILURE = 'CHANGE_REVIEWS_FAILURE';
 
 // Review Setters
 export const SET_REVIEWS = 'SET_REVIEWS';
+// Cart actions
+export const ADD_TO_CART = 'ADD_TO_CART';
