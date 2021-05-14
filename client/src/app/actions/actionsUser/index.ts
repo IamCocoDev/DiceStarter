@@ -36,7 +36,7 @@ const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     dispatch(sendFormBegin);
     try {
-      await axios.get(`http://localhost:3001/user/signup`, form);
+      await axios.post(`http://localhost:3001/user/signup`, form);
       dispatch(sendFormSuccess);
     } catch (err) {
       dispatch(sendFormFailure(err));

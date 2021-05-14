@@ -18,6 +18,7 @@ import AdministratorHome
   from './components/administratorHome/administratorHome';
 import FormRegisterForm from './components/formRegisterUser/formRegisterForm';
 import Login from './components/login/login';
+import Cart from './components/cart/cart';
 
 function App() {
   return (
@@ -43,7 +44,10 @@ function App() {
         component={FormCategoryCreation}></Route>
       <Route exact path='/create' component={CreateButtonRouter}></Route>
       <Route exact path='/admin/home' component={AdministratorHome} ></Route>
-    </div>
+      <Route path={['/home',
+        '/list/productList',
+        '/product']} component={Cart}></Route>
+    </div >
   );
 }
 

@@ -12,7 +12,10 @@ import {RootState} from '../store';
 
 const initialState: FormRegisterState = {
   inputs: {
-    username: '',
+    id: '',
+    password: '',
+    status: '',
+    name: '',
     email: '',
     firstName: '',
     lastName: '',

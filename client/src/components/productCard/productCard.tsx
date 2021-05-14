@@ -1,6 +1,9 @@
 import React from 'react';
 import './productCard.css';
 import {NavLink} from 'react-router-dom';
+// import {useAppSelector, useAppDispatch} from '../../app/hooks';
+// import {productDetail} from '../../app/reducers/handleProductsReducer';
+// import {userInfo} from '../../app/reducers/registerReducer';
 
 function ProductCard(
     props:{
@@ -10,6 +13,9 @@ function ProductCard(
     id:string,
     stock:number,
   }) {
+  // const productToCart = useAppSelector(productDetail);
+  // const user = useAppSelector(userInfo)
+  // const {id} = userInfo;
   return (
     <div>
       {
@@ -19,6 +25,9 @@ function ProductCard(
           <h1 className='productCardName'>{props.name}</h1>
           <p className='productCardPrice'>{props.price}</p>
           <img className='productCardImage' src={props.image[0]} alt='Photo'/>
+          <button type='button' className='productCardCartButton'>
+            Add to cart
+          </button>
         </div>
       </NavLink> :
       <div className='productCardGrid'>
