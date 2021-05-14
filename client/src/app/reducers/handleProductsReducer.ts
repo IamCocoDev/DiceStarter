@@ -17,7 +17,7 @@ import {
   ADD_CATEGORY_SUCCESS,
   ADD_CATEGORY_FAILED,
   SET_CATEGORIES,
-} from '../actions/handleProductsActions/index';
+} from '../constants/constants';
 // Types
 import {Products} from '../../types';
 import {RootState} from '../store';
@@ -34,14 +34,13 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
   productById: {
     id: '',
     name: '',
-    picture: '',
+    picture: [],
     price: '',
     size: '',
     color: [],
     available: true,
     stock: '',
     description: '',
-    rating: '',
     categories: [],
   },
   productCategories: [{label: '', value: 0}],

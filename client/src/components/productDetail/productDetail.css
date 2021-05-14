@@ -3,6 +3,11 @@
     padding: 0px;
     box-sizing: border-box;
 }
+
+.productDetailBackground{
+    background-color: #5A5A5A;
+}
+
 .ProductDetailGridAll {
     display: grid;
     grid-template-columns: 10vw 2fr 10vw;
@@ -15,7 +20,7 @@
 .ProductDetailGrid{
     grid-row: 2/3;
     grid-column: 2/3;
-    background-color: #406b6d;
+    background-color: #404040;
     border-radius: 1.5vh;
     display: grid;
     grid-template-columns: 3vw 1fr 1fr 3vh 1fr 1fr 3vw;
@@ -36,7 +41,6 @@
     transition: all .1s ease-in;
 }
 .ProductDetailImage:hover {
-    top: -1vh;
     box-shadow: 0 4px 5px rgba(0,0,0,0.2);
 }
 .ProductDetailName {
@@ -55,9 +59,8 @@
 }
 .ProductDetailName:hover {
     border-radius: 1vh;
-    color: #6D999B;
+    color: #74009D;
     background-color: white;
-    top: -1vh;
     box-shadow: 0 4px 5px rgba(0,0,0,0.2);
 }
 .ProductDetailPrice {
@@ -76,9 +79,8 @@
     transition: all .1s ease-in;
 }
 .ProductDetailPrice:hover {
-    color: #6D999B;
+    color: #74009D;
     background-color: white;
-    top: -1vh;
     box-shadow: 0 4px 5px rgba(0,0,0,0.2);
 }
 .ProductDetailStock {
@@ -97,9 +99,8 @@
     transition: all .1s ease-in;
 }
 .ProductDetailStock:hover {
-    color: #6D999B;
+    color: #74009D;
     background-color: white;
-    top: -1vh;
     box-shadow: 0 4px 5px rgba(0,0,0,0.2);
 }
 .ProductDetailRating {
@@ -118,9 +119,8 @@
     transition: all .1s ease-in;
 }
 .ProductDetailRating:hover {
-    color: #6D999B;
+    color: #74009D;
     background-color: white;
-    top: -1vh;
     box-shadow: 0 4px 5px rgba(0,0,0,0.2);
 }
 .ProductDetailSize {
@@ -139,9 +139,8 @@
     transition: all .1s ease-in;
 }
 .ProductDetailSize:hover {
-    color: #6D999B;
+    color: #74009D;
     background-color: white;
-    top: -1vh;
     box-shadow: 0 4px 5px rgba(0,0,0,0.2);
 }
 .ProductDetailAvailable {
@@ -160,9 +159,8 @@
     transition: all .1s ease-in;
 }
 .ProductDetailAvailable:hover {
-    color: #6D999B;
+    color: #74009D;
     background-color: white;
-    top: -1vh;
     box-shadow: 0 4px 5px rgba(0,0,0,0.2);
 }
 .ProductDetailColors {
@@ -194,8 +192,7 @@
 }
 
 .ProductDetailDescription:hover {
-    color: #6D999B;
+    color: #74009D;
     background-color: white;
-    top: -1vh;
     box-shadow: 0 4px 5px rgba(0,0,0,0.2);
 }

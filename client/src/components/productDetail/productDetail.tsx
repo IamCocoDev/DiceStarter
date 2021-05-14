@@ -7,6 +7,7 @@ import {
   ProductRes,
 } from '../../types';
 import {getProductByIdAsync} from '../../app/actions/handleProductsActions';
+import UserReviews from '../userReviews/userReviews';
 
 function ProductDetail(props:any ) {
   const [input, setInput] = useState<ProductRes>({
@@ -19,8 +20,7 @@ function ProductDetail(props:any ) {
     available: props.available,
     stock: props.stock,
     description: props.description,
-    rating: props.rating,
-    categories: [],
+    categories: props.categories,
   });
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);
@@ -29,7 +29,7 @@ function ProductDetail(props:any ) {
     dispatch(getProductByIdAsync(id));
   }, []);
   return (
-    <div>
+    <div className='productDetailBackground'>
       { product &&
         <div className='ProductDetailGridAll'>
           <div className='ProductDetailGrid'>
@@ -40,9 +40,6 @@ function ProductDetail(props:any ) {
             </p>
             <p className='ProductDetailStock'>
             Stock: {product.stock}
-            </p>
-            <p className='ProductDetailRating'>
-              Rating: {product.rating}
             </p>
             <p className='ProductDetailSize'>Size: {product.size}</p>
             <p className='ProductDetailColors'>
@@ -58,6 +55,7 @@ function ProductDetail(props:any ) {
           </div>
         </div>
       }
+      <UserReviews id={id}/>
     </div>
   );
 }

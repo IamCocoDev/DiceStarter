@@ -1,68 +1,97 @@
 const express = require('express');
 
-const { v4: uuidv4 } = require('uuid');
-
 const router = express.Router();
 
-const { Order } = require('../db');
+const {
+  User, Order, Productsxorders, Product,
+} = require('../db.js');
 
-router.get('/', (req, res, next) => {
-  Order.findAll()
-    .then((response) => {
-      res.json(response);
-    }).catch((e) => {
-      next(e);
-    });
+// POST UNA ORDEN
+
+router.post('/:idUser/cart', (req, res, next) => {
+  const { idUser } = req.params;
+  const { body } = req;
+  Order.findAll({ where: { userId: idUser, status: 'Created' } }).then(
+    (ord) => {
+      if (ord.length) {
+        Product.findByPk(body.id).then((producto) => {
+          producto.addOrder(ord);
+          return res.status(200).send('Order created');
+        });
+      } else {
+        Order.create({
+          address: body.address,
+          price: body.price,
+        }).then((order) => {
+          User.findByPk(idUser)
+            .then((user) => {
+              order.setUser(user);
+              Product.findByPk(body.id).then((producto) => {
+                producto.addOrder(order);
+                res.status(200).send('Order created');
+              });
+            })
+            .catch(() => {
+              res.status(404).send('Error. Order no created!');
+            });
+        });
+      }
+    },
+  ).catch((e) => next(e));
 });
 
-router.post('/', async (req, res, next) => {
-  const id = uuidv4();
-  const status = 'Active';
+// GET A ORDER POR STATUS
 
-  try {
-    const {
-      number,
-      orderDate,
-      fulfilled,
-      paid,
-      paymentDate,
-      shippingAddress,
-      shippingCountry,
-      shippingCity,
-      shippingPostalCode,
-      price,
-      quantity,
-    } = req.body;
-
-    const newProduct = {
-      id,
-      number,
-      orderDate,
-      fulfilled,
-      paid,
-      paymentDate,
-      shippingAddress,
-      shippingCountry,
-      shippingCity,
-      shippingPostalCode,
-      price,
-      quantity,
-      status,
-    };
-    const info = await Order.create(newProduct);
-    res.json(info);
-  } catch (e) {
-    next(e);
+router.get('/status/:status', (req, res) => {
+  const { status } = req.params;
+  if (status === 'allorders') {
+    Order.findAll({ include: User }).then((data) => res.send(data));
+  } else {
+    Order.findAll({ where: { status } }).then((result) => {
+      res.send(result);
+    });
   }
 });
 
-router.get('/:id', (req, res, next) => {
-  Order.findByPk(req.params.id)
-    .then((response) => {
-      res.json(response);
-    }).catch((e) => {
-      next(e);
-    });
+// GET A UNA ORDEN EN PARTICULAR
+router.get('/:idOrder', (req, res) => {
+  const { idOrder } = req.params;
+  Order.findByPk({ where: { id: idOrder } }).then((data) => {
+    res.send(data);
+  })
+    .catch(() => { res.status(404).send('ERROR'); });
 });
 
+// GET A LAS ORDENES QUE TENGAN ESE PRODUCTO
+
+router.get('/:idProd', (req, res) => {
+  const { idProd } = req.params;
+  Productsxorders.findAll({ where: { product_id: idProd } })
+    .then((data) => {
+      res.send(data);
+    }).catch((error) => res.send(error));
+});
+
+// GET A LAS ORDENES QUE TENGAN ESE PRODUCTO
+
+router.get('/products/:idOrder', (req, res) => {
+  const { idOrder } = req.params;
+  Order.findOne({ where: { id: idOrder }, include: Product })
+    .then((data) => {
+      res.send(data);
+    }).catch((error) => res.send(error));
+});
+
+// DELETE A LA RELACION PRODUCT/ORDER
+
+router.delete('/:orderId/:productId', (req, res) => {
+  const { orderId, productId } = req.params;
+  Productsxorders.destroy({
+    where: {
+      order_id: orderId, product_id: productId,
+    },
+  })
+    .then(() => res.sendStatus(200))
+    .catch((err) => res.send(err));
+});
 module.exports = router;

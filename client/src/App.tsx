@@ -16,6 +16,8 @@ import FormCategoryCreation
   from '../src/components/formCategoryCreation/formCategoryCreation';
 import AdministratorHome
   from './components/administratorHome/administratorHome';
+import FormRegisterForm from './components/formRegisterUser/formRegisterForm';
+import Login from './components/login/login';
 
 function App() {
   return (
@@ -28,7 +30,9 @@ function App() {
         '/list/productlist',
         '/create/category',
         '/admin/home']} component={NavBar}></Route>
+      <Route exact path='/login' component={Login}></Route>
       <Route exact path='/list/productlist' component={ProductsList}></Route>
+      <Route exact path='/register' component={FormRegisterForm}></Route>
       <Route exact path='/' component={Landing}></Route>
       <Route exact path='/about' component={About}></Route>
       <Route exact path='/home' component={Home}></Route>

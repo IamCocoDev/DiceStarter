@@ -3,7 +3,37 @@ export interface FormState {
     inputs: Inputs,
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
-
+export interface FormRegisterState {
+    inputs: {
+        username: string,
+        email: string,
+        firstName: string,
+        lastName: string,
+        birthday: string,
+        profilePicture: string,
+        address: string,
+        city: string,
+        postalCode: number,
+        phone: string,
+        country: string,
+        role: string,
+    },
+    status: 'idle' | 'failed' | 'loading' | 'done',
+}
+export interface ReviewState {
+    reviewsResponse: ReviewRes[] | null,
+    body: string,
+    postReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
+    getReviewsStatus: 'idle' | 'failed' | 'loading' | 'done',
+    deleteReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
+    changeReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
+    id: string,
+}
+export interface ReviewRes {
+    id: number,
+    rating: number,
+    comment: string,
+}
 export interface SearchInput {
     name?:string,
     page:number,
@@ -14,14 +44,13 @@ export interface SearchInput {
 export interface ProductRes {
     id:string,
     name:string,
-    picture:string,
+    picture:string[],
     price:string,
     size:string,
     color:string[],
     available:boolean,
     stock:string,
     description:string,
-    rating:string,
     categories: dbCategories[],
 }
 
@@ -33,9 +62,8 @@ export interface Inputs {
     color: string[];
     size: string;
     stock: number;
-    rating: number;
     description: string;
-    picture: string;
+    picture: string[];
     available: boolean;
 }
 
@@ -61,19 +89,25 @@ export type Categories = {
     label: string
 };
 
+export interface loginInput {
+    username: string,
+    password: string,
+}
+
 export interface dbCategories {
     id: number,
     name: string
 };
 
 export interface registerInput {
-    username: string;
-    firstname: string;
-    lastname: string;
+    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
     confirmPassword: string;
-    date: string;
+    birthday: string;
+    country: string;
 };
 
 
@@ -84,7 +118,6 @@ export interface errorsInput {
     color: string;
     size: string;
     stock: string;
-    rating: string;
     description: string;
     picture: string;
 }

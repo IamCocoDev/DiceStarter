@@ -1,37 +1,25 @@
 import axios from 'axios';
 import {ProductRes, SearchInput} from '../../../types';
 
-// Data setters
-export const SET_PRODUCTS = 'SET_PRODUCTS';
-export const SET_PRODUCT_BY_ID = 'SET_PRODUCT_BY_ID';
-export const SET_CATEGORIES = 'SET_CATEGORIES';
-
-// Status setters
-// Products
-export const FETCH_PRODUCTS_BEGIN = 'FETCH_PRODUCTS_BEGIN';
-export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
-export const FETCH_PRODUCTS_FAILED = 'FETCH_PRODUCTS_FAILED';
-// Product detail
-export const FETCH_PRODUCT_BY_ID_BEGIN = 'FETCH_PRODUCT_BY_ID_BEGIN';
-export const FETCH_PRODUCT_BY_ID_SUCCESS = 'FETCH_PRODUCT_BY_ID_SUCCESS';
-export const FETCH_PRODUCT_BY_ID_FAILED = 'FETCH_PRODUCT_BY_ID_FAILED';
-// Delete product
-export const RESET_DELETED_BY_ID_STATUS = 'RESET_DELETED_BY_ID_STATUS';
-export const DELETE_PRODUCT_BEGIN = 'DELETE_PRODUCT_BEGIN';
-export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
-export const DELETE_PRODUCT_FAILED = 'DELETE_PRODUCT_FAILED';
-// Change product in DB
-export const CHANGE_PRODUCTS_IN_DB_BEGIN = 'CHANGE_PRODUCTS_IN_DB_BEGIN';
-export const CHANGE_PRODUCTS_IN_DB_SUCCESS = 'CHANGE_PRODUCTS_IN_DB_SUCCESS';
-export const CHANGE_PRODUCTS_IN_DB_FAILED = 'CHANGE_PRODUCTS_IN_DB_FAILED';
-// Get categories from DB
-export const GET_CATEGORIES_BEGIN = 'GET_CATEGORIES_BEGIN';
-export const GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES_SUCCESS';
-export const GET_CATEGORIES_FAILED = 'GET_CATEGORIES_FAILED';
-// Get categories from DB
-export const ADD_CATEGORY_BEGIN = 'ADD_CATEGORY_BEGIN';
-export const ADD_CATEGORY_SUCCESS = 'ADD_CATEGORY_SUCCESS';
-export const ADD_CATEGORY_FAILED = 'ADD_CATEGORY_FAILED';
+import {SET_PRODUCTS, SET_PRODUCT_BY_ID,
+  SET_CATEGORIES,
+  FETCH_PRODUCTS_BEGIN,
+  FETCH_PRODUCTS_SUCCESS,
+  FETCH_PRODUCTS_FAILED,
+  RESET_DELETED_BY_ID_STATUS,
+  CHANGE_PRODUCTS_IN_DB_BEGIN,
+  CHANGE_PRODUCTS_IN_DB_SUCCESS,
+  CHANGE_PRODUCTS_IN_DB_FAILED,
+  GET_CATEGORIES_BEGIN,
+  GET_CATEGORIES_SUCCESS,
+  GET_CATEGORIES_FAILED,
+  ADD_CATEGORY_BEGIN,
+  ADD_CATEGORY_SUCCESS,
+  ADD_CATEGORY_FAILED,
+  FETCH_PRODUCT_BY_ID_BEGIN,
+  FETCH_PRODUCT_BY_ID_SUCCESS,
+  FETCH_PRODUCT_BY_ID_FAILED,
+} from '../../constants/constants';
 
 // Status handlers and local setters
 const fetchProductsBegin = () => ({
@@ -129,13 +117,13 @@ const getProductsAsync = (SearchInput: SearchInput) => {
     try {
       const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
       const totalPages = res.data.totalPages;
+      console.log(res.data.products);
       const products = res.data.products.map((product: ProductRes) => {
         return {
           id: product.id,
           name: product.name,
           picture: product.picture,
           price: product.price,
-          rating: product.rating,
           size: product.size,
           stock: product.stock,
           categories: product.categories,
@@ -165,7 +153,6 @@ const getProductByIdAsync = (id: any) => {
         size,
         available,
         description,
-        rating,
         categories,
       } = res.data;
       const productResponse: ProductRes = {
@@ -178,7 +165,6 @@ const getProductByIdAsync = (id: any) => {
         available,
         description,
         size,
-        rating,
         categories,
       };
       dispatch(setProductById(productResponse));

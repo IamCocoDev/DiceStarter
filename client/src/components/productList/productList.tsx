@@ -30,7 +30,6 @@ function ProductList(props: ProductRes): JSX.Element {
     available: props.available,
     stock: props.stock,
     description: props.description,
-    rating: props.rating,
     categories: [],
   });
 
@@ -50,6 +49,7 @@ function ProductList(props: ProductRes): JSX.Element {
     // const inputCategories = props.categories.map((el) => el.id);
     setInput({...input, categories: props.categories});
     setCategories(myCategories);
+    console.log(props);
   }, []);
 
   const handleSelectChange = (e: any) : void => {
@@ -126,15 +126,6 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleTextAreaChange}
       ></textarea>
       <input
-        className="productListRating"
-        type="number"
-        placeholder={'Rating'}
-        value={input.rating}
-        name="rating"
-        step="0.1"
-        onChange={handleNumberChange}
-      ></input>
-      <input
         className="productListStock"
         type="number"
         placeholder={'Stock'}
@@ -142,15 +133,6 @@ function ProductList(props: ProductRes): JSX.Element {
         name="stock"
         onChange={handleNumberChange}
       ></input>
-      <div className="productListAvailable" >
-        <select name=""
-          value={available}
-          onChange={(e) => setAvailable(e.target.value)}
-        >
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
-      </div>
       <input
         className="productListSize"
         type="text"
