@@ -12,7 +12,7 @@ const UserReviews = (props:{id: string}) => {
   }, []);
   return (
     <div >
-      <UserReviewForm />
+      <UserReviewForm id={props.id} />
       <PostedUserReviews />
     </div>
   );

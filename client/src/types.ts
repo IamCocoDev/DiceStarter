@@ -32,6 +32,8 @@ export interface ReviewState {
 export interface ReviewPost {
     comment: string,
     id: string,
+    rating:number,
+    name:string,
 }
 export interface ReviewRes {
     id: number,
