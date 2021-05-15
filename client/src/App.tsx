@@ -44,9 +44,7 @@ function App() {
         component={FormCategoryCreation}></Route>
       <Route exact path='/create' component={CreateButtonRouter}></Route>
       <Route exact path='/admin/home' component={AdministratorHome} ></Route>
-      <Route path={['/home',
-        '/list/productList',
-        '/product']} component={Cart}></Route>
+      <Route path='/cart' component={Cart}></Route>
     </div >
   );
 }

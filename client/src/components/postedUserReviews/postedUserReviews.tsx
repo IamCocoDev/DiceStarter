@@ -7,11 +7,12 @@ import {ReviewRes} from '../../types';
 const PostedUserReviews = () => {
   const postedReviews = useAppSelector(reviewsResponse);
   return (
-    <div>
+    <div className='postedUserReviewsAll'>
       {
         postedReviews !== null && postedReviews.map((review: ReviewRes) => (
-          <div className='postedReviewsAll' key={review.id}>
-            <p>{review.comment}</p>
+          <div key={review.id}>
+            <p className='postedUserReviewsComment'>{review.comment} </p>
+            <p className='postedUserReviewsRating'>{review.rating}</p>
           </div>
         ))
       }

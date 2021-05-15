@@ -52,6 +52,11 @@ function NavBar(props:any): JSX.Element {
           <SearchBar />
         </div>
       </Route>
+      <div className='navBarCart'>
+        <NavLink to='/cart'>
+          <i className='material-icons'>shopping_cart</i>
+        </NavLink>
+      </div>
       <div className='navBarListAll'>
         <NavLink exact to={'/list'}>
           <i className='material-icons'>view_list</i>
