@@ -30,7 +30,8 @@ function App() {
         '/list',
         '/list/productlist',
         '/create/category',
-        '/admin/home']} component={NavBar}></Route>
+        '/admin/home',
+        '/cart']} component={NavBar}></Route>
       <Route exact path='/login' component={Login}></Route>
       <Route exact path='/list/productlist' component={ProductsList}></Route>
       <Route exact path='/register' component={FormRegisterForm}></Route>
