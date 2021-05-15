@@ -77,3 +77,13 @@
     text-align: center;
     opacity: 1;
 }
+.productCardCartButton { 
+    width: 2vw;
+}
+.productCardAll {
+    margin-top: 2vh;
+    height: 100%;
+    width: 100%;
+    max-width: 30vw;
+    max-height: 50vh;
+}
