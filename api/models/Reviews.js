@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     comment: {
-      type: DataTypes.TEXT(500),
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   }, {

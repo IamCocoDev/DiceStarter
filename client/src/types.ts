@@ -80,6 +80,20 @@ export interface Inputs {
     available: boolean;
 }
 
+export interface base64 {
+    name: string,
+    base64:string,
+    size:string,
+    type: string,
+    file: {
+      lastModified: number,
+      lastModifiedDate: Date,
+      name:string,
+      size: number,
+      type: string,
+      webkitRelativePath: string}
+}
+
 export interface Products {
     // Data
     productsList: ProductRes[] | null,
