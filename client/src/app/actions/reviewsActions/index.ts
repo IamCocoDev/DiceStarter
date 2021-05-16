@@ -100,6 +100,18 @@ const getReviews = (id: string) => {
   };
 };
 
+const deleteReviews = (id: string) => {
+  return async (dispatch: any) => {
+    dispatch(deleteReviewsBegin());
+    try {
+      await axios.delete(`http://localhost:3001/product/${id}/review`);
+      dispatch(getReviews(id));
+      dispatch(deleteReviewsSuccess);
+    } catch (err) {
+      dispatch(deleteReviewsFailure(err));
+    };
+  };
+};
 
 export {
   sendReviewBegin,
@@ -116,4 +128,5 @@ export {
   changeReviewsSuccess,
   postReview,
   getReviews,
+  deleteReviews,
 };

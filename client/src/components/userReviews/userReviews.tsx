@@ -7,7 +7,7 @@ const UserReviews = (props:{id: string}) => {
   return (
     <div className='userReviewsAll' >
       <UserReviewForm id={props.id} />
-      <PostedUserReviews />
+      <PostedUserReviews id={props.id} />
     </div>
   );
 };

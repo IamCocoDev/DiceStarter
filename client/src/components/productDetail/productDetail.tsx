@@ -6,8 +6,10 @@ import ColorCircle from '../colorCircle/ColorCircle';
 import {
   ProductRes,
 } from '../../types';
-import {getProductByIdAsync} from '../../app/actions/handleProductsActions';
+import {getProductByIdAsync}
+  from '../../app/actions/handleProductsActions/index';
 import UserReviews from '../userReviews/userReviews';
+import Carousel from '../carousel/carousel';
 
 function ProductDetail(props:any ) {
   const [input, setInput] = useState<ProductRes>({
@@ -34,7 +36,9 @@ function ProductDetail(props:any ) {
         <div className='ProductDetailGridAll'>
           <div className='ProductDetailGrid'>
             <h1 className='ProductDetailName'>{product.name}</h1>
-            <img className='ProductDetailImage' src={product.picture}/>
+            <div className='ProductDetailImage'>
+              <Carousel pictures={product.picture}/>
+            </div>
             <p className='ProductDetailPrice'>
             Price: {product.price}
             </p>
