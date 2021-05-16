@@ -11,7 +11,7 @@ function NavBar(props:any): JSX.Element {
       <div className='navBarGridList'>
         <div className='navBarLogo'>
           <NavLink to={`/home?page=1`}>
-            <h1>DS</h1>
+            <h1>DiceStarter</h1>
           </NavLink>
         </div>
         <Route exact path ='/list/productlist'>
@@ -44,7 +44,7 @@ function NavBar(props:any): JSX.Element {
     <div className='navBarGrid'>
       <div className='navBarLogo'>
         <NavLink to={`/home?page=1`}>
-          <h1>DS</h1>
+          <h1>DiceStarter</h1>
         </NavLink>
       </div>
       <Route exact path ='/home'>
