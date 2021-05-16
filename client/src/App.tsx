@@ -28,6 +28,8 @@ function App() {
         '/create',
         '/create/product',
         '/list',
+        '/login',
+        '/register',
         '/list/productlist',
         '/create/category',
         '/admin/home']} component={NavBar}></Route>

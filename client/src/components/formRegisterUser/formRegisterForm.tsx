@@ -3,6 +3,7 @@ import {formData, formInputData, registerInput} from '../../types';
 import CountrySelect from '../countrySelect/countrySelect';
 import {useAppDispatch} from '../../app/hooks';
 import {sendFormAsync} from '../../app/actions/actionsUser';
+import './formRegisterForm.css';
 
 function deepEqualError(a: registerInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -122,10 +123,10 @@ const FormRegisterForm = () => {
     console.log(input);
   }, [input]);
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="">name</label>
+    <div className='registerBackground'>
+      <form className='registerGrid' onSubmit={handleSubmit}>
+        <div className='registerName'>
+          <label htmlFor="">Name</label>
           <input type="text"
             name="name"
             onChange={handleChange}
@@ -133,15 +134,17 @@ const FormRegisterForm = () => {
           />
           <p>{errors.name}</p>
         </div>
-        <div>
-          <label htmlFor="">firstName</label>
+        <div className='registerFirstName'>
+          <label htmlFor="">First Name</label>
           <input type="text"
             name="firstName"
             onChange={handleChange}
             value={input.firstName}
           />
           <p>{errors.firstName}</p>
-          <label htmlFor="">lastName</label>
+        </div>
+        <div className='registerLastName'>
+          <label htmlFor="">Last Name</label>
           <input type="text"
             name="lastName"
             onChange={handleChange}
@@ -149,7 +152,7 @@ const FormRegisterForm = () => {
           />
           <p>{errors.lastName}</p>
         </div>
-        <div>
+        <div className='registerEmail'>
           <label htmlFor="">Email</label>
           <input type="email"
             name="email"
@@ -158,8 +161,8 @@ const FormRegisterForm = () => {
           />
           <p>{errors.email}</p>
         </div>
-        <div>
-          <label htmlFor="">Birth birthday</label>
+        <div className='registerBirthDay'>
+          <label htmlFor="">Date of Birth</label>
           <input type="date"
             name="birthday"
             onChange={handleChange}
@@ -169,12 +172,12 @@ const FormRegisterForm = () => {
           />
           <p>{errors.birthday}</p>
         </div>
-        <div>
+        <div className='registerCountry'>
           <CountrySelect handle={handleChange}
             val={input.country} />
           <p>{errors.country}</p>
         </div>
-        <div>
+        <div className='registerPassword'>
           <label htmlFor="">Password</label>
           <input type="password"
             name="password"
@@ -183,7 +186,7 @@ const FormRegisterForm = () => {
           />
           <p>{errors.password}</p>
         </div>
-        <div>
+        <div className='registerConfirmPassword'>
           <label htmlFor="">Confirm Password</label>
           <input type="password"
             name="confirmPassword"
@@ -192,7 +195,7 @@ const FormRegisterForm = () => {
           />
           <p>{errors.confirmPassword}</p>
         </div>
-        <input type="submit" />
+        <button className='registerSendRegister' type="submit">Register</button>
       </form>
     </div>
   );

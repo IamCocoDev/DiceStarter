@@ -179,7 +179,7 @@
 }
 
 .formCreateProductError{
-    color: red;
+    color: coral;
     margin-top: 1vh;
     text-transform: capitalize;
 }
