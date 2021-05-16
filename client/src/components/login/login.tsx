@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {loginFormAsync} from '../../app/actions/actionsUser/index';
 import {userInfo} from '../../app/reducers/registerReducer';
 import './login.css';
+import GoogleComp from '../googleComp/googleComp';
 
 function deepEqualError(a: loginInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -78,7 +79,7 @@ const Login = () => {
         </div>
         <button className='loginSend' type="submit">Login</button>
       </form>
-      <p>{User.username}</p>
+      <GoogleComp/>
     </div>
   );
 };

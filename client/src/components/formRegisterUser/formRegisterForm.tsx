@@ -4,6 +4,8 @@ import CountrySelect from '../countrySelect/countrySelect';
 import {useAppDispatch} from '../../app/hooks';
 import {sendFormAsync} from '../../app/actions/actionsUser';
 import './formRegisterForm.css';
+// eslint-disable-next-line no-unused-vars
+import GoogleComp from '../googleComp/googleComp';
 
 function deepEqualError(a: registerInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -196,6 +198,7 @@ const FormRegisterForm = () => {
           <p>{errors.confirmPassword}</p>
         </div>
         <button className='registerSendRegister' type="submit">Register</button>
+        <GoogleComp/>
       </form>
     </div>
   );

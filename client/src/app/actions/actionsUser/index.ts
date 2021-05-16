@@ -57,6 +57,18 @@ const loginFormAsync = (form: any) => {
     }
   };
 };
+
+const loginGoogle = (user: any) => {
+  return async (dispatch: any) => {
+    dispatch(sendFormBegin);
+    try {
+      dispatch(sendFormSuccess);
+      dispatch(setUser(user));
+    } catch (err) {
+      dispatch(sendFormFailure(err));
+    }
+  };
+};
 export {
   resetFormStatus,
   sendFormBegin,
@@ -64,4 +76,5 @@ export {
   sendFormSuccess,
   sendFormAsync,
   loginFormAsync,
+  loginGoogle,
 };
