@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {useAppDispatch} from '../../app/hooks';
 import './userReviewForm.css';
 import {postReview} from '../../app/actions/reviewsActions/index';
+// import {reviewsResponse} from '../../app/reducers/reviewsReducer';
+import {getReviews} from '../../app/actions/reviewsActions/index';
 
 const UserReviewForm = (props: {id:string}) => {
   const [input, setInput] = useState({
@@ -13,13 +15,13 @@ const UserReviewForm = (props: {id:string}) => {
   const handleReviewChange = (e: any) => setInput({...input,
     [e.target.name]: e.target.value});
   const handleClickStarValue = (e: any) => {
-    console.log(input);
     setInput({...input, rating: e.target.value});
   };
   const handleReviewSubmit = (e: any) => {
     e.preventDefault();
     if (input.rating > 0) {
       dispatch(postReview({...input, id: props.id}));
+      dispatch(getReviews(props.id));
     } else {
       alert('A rating score is required for posting a review');
     }
@@ -55,7 +57,9 @@ const UserReviewForm = (props: {id:string}) => {
           onChange={handleReviewChange}
         >
         </textarea>
-        <button className='userReviewButton' type='submit'>Post Opinion</button>
+        <button className='userReviewFormButton' type='submit'>
+          Post Opinion
+        </button>
       </div>
     </form>
   );
