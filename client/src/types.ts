@@ -3,6 +3,10 @@ export interface FormState {
     inputs: Inputs,
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
+
+export interface cartState {
+    productsInCart: ProductRes[]
+}
 export interface FormRegisterState {
     inputs: {
         id: string,

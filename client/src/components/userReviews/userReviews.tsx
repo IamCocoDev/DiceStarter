@@ -11,7 +11,7 @@ const UserReviews = (props:{id: string}) => {
     dispatch(getReviews(props.id));
   }, []);
   return (
-    <div >
+    <div className='userReviewsAll' >
       <UserReviewForm id={props.id} />
       <PostedUserReviews />
     </div>

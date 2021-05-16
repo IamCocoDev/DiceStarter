@@ -32,7 +32,8 @@ function App() {
         '/register',
         '/list/productlist',
         '/create/category',
-        '/admin/home']} component={NavBar}></Route>
+        '/admin/home',
+        '/cart']} component={NavBar}></Route>
       <Route exact path='/login' component={Login}></Route>
       <Route exact path='/list/productlist' component={ProductsList}></Route>
       <Route exact path='/register' component={FormRegisterForm}></Route>
@@ -46,9 +47,7 @@ function App() {
         component={FormCategoryCreation}></Route>
       <Route exact path='/create' component={CreateButtonRouter}></Route>
       <Route exact path='/admin/home' component={AdministratorHome} ></Route>
-      <Route path={['/home',
-        '/list/productList',
-        '/product']} component={Cart}></Route>
+      <Route path='/cart' component={Cart}></Route>
     </div >
   );
 }

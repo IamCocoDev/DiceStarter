@@ -65,3 +65,12 @@
     justify-self: flex-end;
     align-self: center;
 }
+.navBarCart {
+    color: white;
+    grid-column: 4/5;
+    grid-row: 1/2;
+    align-self: center;
+}
+.material-icons {
+    font-size: 8vw;
+}
