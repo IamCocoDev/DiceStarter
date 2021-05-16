@@ -34,7 +34,7 @@ function ProductDetail(props:any ) {
         <div className='ProductDetailGridAll'>
           <div className='ProductDetailGrid'>
             <h1 className='ProductDetailName'>{product.name}</h1>
-            <img className='ProductDetailImage' src={product.picture}/>
+            <img className='ProductDetailImage' src={product.picture[0]}/>
             <p className='ProductDetailPrice'>
             Price: {product.price}
             </p>
