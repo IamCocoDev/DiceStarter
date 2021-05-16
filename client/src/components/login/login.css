@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.loginBackground{
+    display: flex;
+    width: 100vw;
+    height: 88vh;
+    background-color: #5A5A5A;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.loginGrid{
+    background-color: #404040;
+    height: 40vh;
+    display: grid;
+    grid-template-columns: 0.5vw 1fr 0.5vw;
+    grid-template-rows: 0.5vh 1fr 1fr 1fr 0.5vh;
+    width: 30vw;
+    border-radius: 0.5vw;
+}
+
+.loginUserName{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginUserNameText{
+    font-size: 3vw;
+}
+
+.loginPassword{
+    grid-column: 2/3;
+    grid-row: 3/4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginPasswordText{
+    font-size: 3vw;
+}
+
+.loginSend{
+    grid-column: 2/3;
+    grid-row: 4/5;
+    display: flex;
+    flex-direction: column;
+    width: 8vw;
+    height: 4vh;
+    align-self: center;
+    justify-self: center;
+    color: white;
+    background-color: #A206DA;
+    align-items: center;
+    border-radius: 0.5vw;
+}
+
+.loginErrors{
+    font-size: 1vw;
+    color: coral;
+}
