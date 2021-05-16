@@ -20,7 +20,11 @@
     "eslint-config-airbnb-typescript": "^12.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+<<<<<<< HEAD
     "react-material-ui-carousel": "^2.2.6",
+=======
+    "react-file-base64": "^1.0.3",
+>>>>>>> 155fb122db56f684c4a5c2ae606c99340d20cc47
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
