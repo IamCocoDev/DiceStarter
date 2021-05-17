@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import ProductCards from '../productCards/productCards';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {
-  productsListStatus, totalPages,
+import {totalPages,
   queryFilter,
   queryName,
   querySort,
+  productsList,
 } from '../../app/reducers/handleProductsReducer';
 import ProductsSelect from '../productSelects/productSelects';
 import Paginate from '../paginate/paginate';
@@ -14,11 +14,11 @@ import './home.css';
 
 function Home(props: any) {
   const User = JSON.parse(localStorage.getItem('user') || '{}');
-  const asyncProducts = useAppSelector(productsListStatus);
   const searchName = useAppSelector(queryName);
   const searchFilter = useAppSelector(queryFilter);
   const searchSort = useAppSelector(querySort);
   const pagesTotal = useAppSelector(totalPages);
+  const products = useAppSelector(productsList);
   const dispatch = useAppDispatch();
   const foundQueryNumber = props.location.search.indexOf('=');
   let page = parseInt(props.location.search.slice(foundQueryNumber +1));
@@ -39,25 +39,24 @@ function Home(props: any) {
         <ProductsSelect />
       }
       {
-        asyncProducts === 'loading' &&
+        products === null &&
        <div className='homeLoading'>
          Loading...
        </div>
       }
       <div>
-        {
-          asyncProducts === 'idle' &&
+        { products !== null &&
           <div className='homeGood'>
             <ProductCards></ProductCards>
             <Paginate page={page} pagesTotal={pagesTotal}/>
           </div>
         }
-        {
+        {/*
           asyncProducts === 'failed' &&
           <div className='homeFailed'>
             <h1>Product not Found</h1>
           </div>
-        }
+        */}
       </div>
     </div>
   );

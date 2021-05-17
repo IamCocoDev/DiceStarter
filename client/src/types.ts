@@ -1,7 +1,6 @@
 
 export interface FormState {
     inputs: Inputs,
-    status: 'idle' | 'failed' | 'loading' | 'done',
 }
 
 export interface cartState {
@@ -25,15 +24,10 @@ export interface FormRegisterState {
         role: string,
         status: string
     },
-    status: 'idle' | 'failed' | 'loading' | 'done',
 }
 export interface ReviewState {
     reviewsResponse: ReviewRes[] | null,
     body: string,
-    postReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
-    getReviewsStatus: 'idle' | 'failed' | 'loading' | 'done',
-    deleteReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
-    changeReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
     id: string,
 }
 export interface ReviewPost {
@@ -97,14 +91,9 @@ export interface base64 {
 export interface Products {
     // Data
     productsList: ProductRes[] | null,
-    productById: ProductRes
+    productById: ProductRes | null,
     productCategories: Categories[]
     // Status
-    productsListStatus: 'idle' | 'failed' | 'loading',
-    productByIdStatus: 'idle' | 'failed' | 'loading',
-    getCategoriesStatus: 'idle' | 'failed' | 'loading',
-    deleteByIdStatus: 'idle' | 'failed' | 'loading' | 'deleted',
-    addCategoryStatus: 'idle' | 'failed' | 'loading',
     totalPages: number,
     queryFilter: string,
     querySort: string,
