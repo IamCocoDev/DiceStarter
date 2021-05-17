@@ -28,7 +28,7 @@ const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     dispatch(sendFormBegin);
     try {
-      await axios.post(`http://localhost:3001/product`, form);
+      await axios.post(`http://54.232.68.2:3001/product`, form);
       dispatch(sendFormSuccess);
     } catch (err) {
       dispatch(sendFormFailure(err));
