@@ -1,9 +1,9 @@
 import React from 'react';
 import './productCard.css';
 import {NavLink} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {useAppDispatch} from '../../app/hooks';
 import {addProductInCart} from '../../app/actions/cartActions/index';
-import {userInfo} from '../../app/reducers/registerReducer';
+/* import {userInfo} from '../../app/reducers/registerReducer'; */
 
 function ProductCard(
     props:{
@@ -14,10 +14,10 @@ function ProductCard(
     stock:number,
   }) {
   // const productToCart = useAppSelector(productDetail);
-  const user = useAppSelector(userInfo);
+  /* const user = useAppSelector(userInfo); */
   // const {id} = userInfo;
   const dispatch = useAppDispatch();
-  const handleOnClick = () => dispatch(addProductInCart(user.id, {
+  const handleOnClick = () => dispatch(addProductInCart({
     id: props.id,
     name: props.name,
     price: parseFloat(props.price),

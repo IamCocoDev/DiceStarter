@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import Redirect from 'react-router';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {
@@ -17,36 +17,30 @@ const CartProduct = (props) => {
   const userId = userInf.id;
   const dispatch = useAppDispatch();
   const handleDeleteProduct = () => {
-    dispatch(deleteProductFromCart(userId, id));
+    dispatch(deleteProductFromCart(id));
     alert('Product deleted successfully');
   };
-  const handleChangeAmount = () => {
-    const totalPrice = price * amount;
-    dispatch(changeProductQuantity(userId, id, amount, totalPrice, stock));
-  };
-  const counterDecrease = () => setProductAmount(productAmount - 1);
-  const counterIncrease = () => setProductAmount(productAmount + 1);
-
+  useEffect(() => {
+    const totalPrice = price * productAmount;
+    dispatch(changeProductQuantity(userId, id, productAmount,
+        totalPrice, stock));
+  }, [productAmount]);
   return (
     <div className='cartProductGrid'>
       <img className='cartProductImage' src={image[0]} alt={name} />
       <div className='cartProductName'>{name}</div>
-      <input
-        className='cartProductAmout'
-        value={amount}
-        onChange={handleChangeAmount}
-      />
-      <div className='cartProductPrice'>{price * amount}</div>
+      <div className='cartProductPrice'>{price * productAmount}</div>
       <div>
-        { productAmount > 0 &&
-        <button className='cartProductAmountDecrease' onClick={counterDecrease}>
+        { productAmount > 1 &&
+        <button className='cartProductAmountDecrease'
+          onClick={() => setProductAmount(productAmount - 1)}>
         -
         </button>
         }
-        {amount}
-        { productAmount < stock &&
+        {productAmount}
+        { productAmount < stock - 1 &&
           <button className='cartProductAmountIncrease'
-            onClick={counterIncrease}>
+            onClick={() => setProductAmount(productAmount + 1)}>
            +
           </button>
         }
