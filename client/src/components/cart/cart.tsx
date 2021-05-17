@@ -5,6 +5,7 @@ import CartProduct from '../cartProduct/cartProduct';
 import {deleteAllCart, getProductsInCart} from '../../app/actions/cartActions';
 import CartTotal from '../cartTotal/cartTotal';
 import {userInfo} from '../../app/reducers/registerReducer';
+import './cart.css';
 
 const Cart = () => {
   const dispatch = useAppDispatch();
@@ -38,16 +39,16 @@ const Cart = () => {
 
   return (
     <div className='cartFlex'>
-      <div>
+      <div className='cartFlexItems'>
         { products.length !== 0 ?
           // eslint-disable-next-line react/jsx-key
           products.map((product) =>
             <CartProduct key={product.id} product={product} />):
             <div>No products in cart</div>
         }
-        <button onClick={handleDeleteCart} >Eliminar Carrito</button>
       </div>
-      <div>
+      <div className='cartFlexTotal'>
+        <button onClick={handleDeleteCart} >Eliminar Carrito</button>
         <CartTotal />
       </div>
     </div>
