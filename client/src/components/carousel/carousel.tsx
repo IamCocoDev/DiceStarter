@@ -12,7 +12,7 @@ const Carousel = (props:{pictures}) => {
   };
   const handleClickCounterDecrease = () => {
     if (pictureNumber > 0) {
-      setPictureNumber(pictureNumber + 1);
+      setPictureNumber(pictureNumber - 1);
     }
   };
   useEffect(() => {

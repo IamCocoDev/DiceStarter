@@ -104,7 +104,7 @@ const deleteReviews = (id: number, productId:string) => {
   return async (dispatch: any) => {
     dispatch(deleteReviewsBegin());
     try {
-      await axios.delete(`http://localhost:3001/product/${id}/review`);
+      await axios.delete(`http://localhost:3001/product/review/${id}`);
       dispatch(getReviews(productId));
       dispatch(deleteReviewsSuccess);
     } catch (err) {
