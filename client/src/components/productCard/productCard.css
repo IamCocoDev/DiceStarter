@@ -87,11 +87,15 @@
 }
 
 .productCardCartButton { 
+    width: 10vw;
     grid-column: 2/3;
     grid-row: 1/2;
     justify-self: center;
     align-self: center;
-    font-size: 4vh;
+    font-size: 3vh;
+    background-color: #74009D;
+    border-radius: 0.5vw;
+    text-align: center;
 }
 
 .productCardViewMore{
