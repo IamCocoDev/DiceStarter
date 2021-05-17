@@ -31,14 +31,14 @@ const CartProduct = (props) => {
       <div className='cartProductName'>{name}</div>
       <div className='cartProductPrice'>{price * productAmount}</div>
       <div>
-        { productAmount > 1 &&
+        { productAmount > 0 &&
         <button className='cartProductAmountDecrease'
           onClick={() => setProductAmount(productAmount - 1)}>
         -
         </button>
         }
         {productAmount}
-        { productAmount < stock - 1 &&
+        { productAmount < stock &&
           <button className='cartProductAmountIncrease'
             onClick={() => setProductAmount(productAmount + 1)}>
            +
