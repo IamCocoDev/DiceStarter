@@ -115,7 +115,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
   return async (dispatch: any) => {
     dispatch(fetchProductsBegin());
     try {
-      const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
+      const res = await axios.get(`http://54.232.68.2:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
       const totalPages = res.data.totalPages;
       const products = res.data.products.map((product: ProductRes) => {
         return {
@@ -143,7 +143,7 @@ const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     dispatch(fetchProductByIdBegin());
     try {
-      const res = await axios.get(`http://localhost:3001/product/${id}`);
+      const res = await axios.get(`http://54.232.68.2:3001/product/${id}`);
       const {name,
         picture,
         price,
@@ -177,7 +177,7 @@ const deleteProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     dispatch(deleteProductBegin());
     try {
-      await axios.delete(`http://localhost:3001/product/${id}`);
+      await axios.delete(`http://54.232.68.2:3001/product/${id}`);
       dispatch(getProductsAsync({name: '', page: 1}));
       dispatch(deleteProductSuccess());
     } catch (err) {
@@ -202,7 +202,7 @@ const changeProductInDBAsync = (product: any) => {
         size: product.size,
         stock: product.stock,
       };
-      await axios.put(`http://localhost:3001/product/${product.id}`, toSend);
+      await axios.put(`http://54.232.68.2:3001/product/${product.id}`, toSend);
       dispatch(changeProductInDbSuccess());
     } catch (err) {
       dispatch(changeProductInDbFailed(err));
@@ -213,7 +213,7 @@ const getCategoriesAsync = () => {
   return async (dispatch: any) => {
     dispatch(getCategoriesBegin());
     try {
-      const res = await axios.get(`http://localhost:3001/categories`);
+      const res = await axios.get(`http://54.232.68.2:3001/categories`);
       const categories = res.data.map((
           category: any) => {
         return {
@@ -233,7 +233,7 @@ const addCategoryAsync = (label: string) => {
     dispatch(addCategoryBegin());
     try {
       const name = label;
-      await axios.post('http://localhost:3001/categories', {name});
+      await axios.post('http://54.232.68.2:3001/categories', {name});
       dispatch(addCategorySuccess());
     } catch (err) {
       dispatch(addCategoryFailed(err));
