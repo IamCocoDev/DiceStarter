@@ -49,8 +49,9 @@ const Cart = () => {
         }
       </div>
       <div className='cartFlexTotal'>
-        <button onClick={handleDeleteCart} >Eliminar Carrito</button>
         <CartTotal />
+        <button className='cartDeleteButton'
+          onClick={handleDeleteCart} >Eliminar Carrito</button>
       </div>
     </div>
   );

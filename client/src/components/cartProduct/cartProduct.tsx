@@ -33,7 +33,7 @@ const CartProduct = (props) => {
         value={amount}
         onChange={handleChangeAmount}
       />
-      <div className='cartProductPrice'>{price * amount}</div>
+      <div className='cartProductPrice'>${price * amount}</div>
       <button className='cartProductDelete'
         onClick={handleDeleteProduct} ><i className='material-icons'>
           delete
