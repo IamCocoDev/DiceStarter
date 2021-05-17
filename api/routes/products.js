@@ -52,10 +52,11 @@ router.get('/', (req, res, next) => {
           totalPages: Math.ceil(response.length / 9),
         });
       }).catch((e) => {
+        res.status(400);
         next(e);
       });
   }
-  if (filter === '') {
+  if (filter === 'All') {
     Product.findAll({
       where: { name: { [Op.iLike]: `%${name}%` } },
       include: [{ model: Category, attributes: ['id', 'name'] }],
@@ -69,6 +70,7 @@ router.get('/', (req, res, next) => {
           totalPages: Math.ceil(response.length / 9),
         });
       }).catch((e) => {
+        res.status(400);
         next(e);
       });
   }

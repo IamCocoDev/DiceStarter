@@ -37,18 +37,24 @@ router.post('/:idUser/cart', (req, res, next) => {
         });
       }
     },
-  ).catch((e) => next(e));
+  ).catch((e) => {
+    res.status(400);
+    next(e);
+  });
 });
 
 // GET A ORDER POR STATUS
 
-router.get('/status/:status', (req, res) => {
+router.get('/status/:status', (req, res, next) => {
   const { status } = req.params;
   if (status === 'allorders') {
     Order.findAll({ include: User }).then((data) => res.send(data));
   } else {
     Order.findAll({ where: { status } }).then((result) => {
       res.send(result);
+    }).catch((e) => {
+      res.status(400);
+      next(e);
     });
   }
 });
@@ -118,7 +124,10 @@ router.delete('/:userId/cart', (req, res, next) => {
     },
   })
     .then(() => res.status(200).send('Order delete'))
-    .catch((err) => next(err));
+    .catch((e) => {
+      res.status(400);
+      next(e);
+    });
 });
 
 router.post('/:idUser/c/cart', (req, res, next) => {
@@ -143,7 +152,7 @@ router.post('/:idUser/c/cart', (req, res, next) => {
       }
       return null;
     })
-    .catch(() => res.status(404).send('ERROR. Order has not been complete'));
+    .catch(() => res.status(400).send('ERROR. Order has not been complete'));
 });
 
 router.post('/:idUser/update/cart', (req, res) => {

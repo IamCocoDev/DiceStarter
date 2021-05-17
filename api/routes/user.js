@@ -50,7 +50,10 @@ router.post('/signup', (req, res, next) => {
       password,
     };
     User.create(newUser).then((info) => { res.send(info); })
-      .catch((error) => next(error));
+      .catch((e) => {
+        res.status(400);
+        next(e);
+      });
   });
   return null;
 });
@@ -77,6 +80,7 @@ router.post('/signin', async (req, res, next) => {
       return res.send('Input invalid');
     }
   } catch (e) {
+    res.status(400);
     next(e);
   }
   return null;
@@ -120,6 +124,7 @@ router.post('/admin', (req, res, next) => {
         .catch((error) => next(error));
     });
   } catch (e) {
+    res.status(400);
     next(e);
   }
 });
@@ -141,6 +146,7 @@ router.put('/:id', (req, res, next) => {
         }).catch((e) => next(e));
     });
   } catch (err) {
+    res.status(400);
     next(err);
   }
 });

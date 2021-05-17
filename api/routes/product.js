@@ -13,6 +13,7 @@ router.get('/:id', (req, res, next) => {
     .then((response) => {
       res.json(response);
     }).catch((e) => {
+      res.status(400);
       next(e);
     });
 });
@@ -32,6 +33,7 @@ router.post('/', async (req, res, next) => {
     info.setCategories(categories);
     res.status(200).json(info);
   } catch (e) {
+    res.status(400);
     next(e);
   }
 });
@@ -45,6 +47,7 @@ router.put('/:id', async (req, res, next) => {
     product.setCategories(body.categories);
     res.send(product);
   } catch (err) {
+    res.status(400);
     next(err);
   }
 });
@@ -56,6 +59,7 @@ router.delete('/:id', (req, res, next) => {
       res.status(200).json({ msg: 'Product deleted' });
     })
     .catch((e) => {
+      res.status(400);
       next(e);
     });
 });
@@ -88,6 +92,7 @@ router.get('/reviews/allreviews', (req, res, next) => {
   Reviews.findAll()
     .then((data) => res.send(data))
     .catch((e) => {
+      res.status(400);
       next(e);
     });
 });
@@ -105,6 +110,7 @@ router.post('/review/:idReview', (req, res, next) => {
       res.send(resp); // Resultado del UPDATE
     })
     .catch((e) => {
+      res.status(400);
       next(e);
     });
 });
@@ -117,6 +123,7 @@ router.delete('/review/:idReview', (req, res, next) => {
       res.sendStatus(200);
     })
     .catch((e) => {
+      res.status(400);
       next(e);
     });
 });
@@ -129,6 +136,7 @@ router.get('/:id/review', (req, res, next) => {
       res.send(resp);
     })
     .catch((e) => {
+      res.status(400);
       next(e);
     });
 });

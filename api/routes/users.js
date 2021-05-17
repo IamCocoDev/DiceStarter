@@ -9,6 +9,7 @@ router.get('/', (req, res, next) => {
     .then((response) => {
       res.json(response);
     }).catch((e) => {
+      res.status(400);
       next(e);
     });
 });
