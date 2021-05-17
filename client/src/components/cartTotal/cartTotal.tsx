@@ -9,9 +9,10 @@ const CartTotal = () => {
   const productsInCart = useAppSelector(cartsReducer);
   const user = useAppSelector(userInfo); // esta bien esto benja?
   const userId = user.id;
-  const total = (productsInCart.length &&
-    productsInCart
-        .reduce((acc:number, product) => acc + product.price * product.amount));
+  let total = 0;
+  productsInCart.forEach((element) => {
+    total += element.price * element.amount;
+  });
   // eslint-disable-next-line react/prop-types
   console.log('PRODUCTSINCART: ', productsInCart);
   console.log(total);
@@ -21,7 +22,7 @@ const CartTotal = () => {
 
   return (
     <div>
-      <p>TOTAL: {total.name}</p>
+      <p>TOTAL: {total}</p>
       {
         userId ? <button>Go To Checkout</button> : <button>Sign in</button>
       }
