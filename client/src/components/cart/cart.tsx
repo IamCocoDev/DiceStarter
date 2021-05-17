@@ -37,7 +37,7 @@ const Cart = () => {
   }, [productsInCart]);
 
   return (
-    <div>
+    <div className='cartFlex'>
       <div>
         { products.length !== 0 ?
           // eslint-disable-next-line react/jsx-key
