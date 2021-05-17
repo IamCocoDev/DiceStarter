@@ -1,8 +1,11 @@
+
 import React from 'react';
 // import Redirect from 'react-router';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {deleteProductFromCart,
-  changeProductQuantity} from '../../app/actions/cartActions/index';
+import {
+  deleteProductFromCart,
+  changeProductQuantity,
+} from '../../app/actions/cartActions/index';
 import {userInfo} from '../../app/reducers/registerReducer';
 import './cartProduct.css';
 
@@ -33,7 +36,7 @@ const CartProduct = (props) => {
       <div className='cartProductPrice'>{price * amount}</div>
       <button className='cartProductDelete'
         onClick={handleDeleteProduct} ><i className='material-icons'>
-        delete
+          delete
         </i></button>
     </div>
   );

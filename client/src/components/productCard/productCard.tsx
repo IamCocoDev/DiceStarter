@@ -20,7 +20,7 @@ function ProductCard(
   const handleOnClick = () => dispatch(addProductInCart(user.id, {
     id: props.id,
     name: props.name,
-    price: props.price,
+    price: parseFloat(props.price),
     image: props.image,
     stock: props.stock,
     amount: 1,

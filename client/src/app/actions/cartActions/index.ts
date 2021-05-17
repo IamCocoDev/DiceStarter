@@ -59,7 +59,7 @@ export const deleteProductFromCart = (userId, id) => (dispatch) => {
 
 export const changeProductQuantity = (userId, id, amount,
     totalPrice, stock) => (dispatch) => {
-  if (amount > 2 && amount < stock - 1) {
+  if (amount < stock - 1) {
     if (!userId) {
       const productsInCart = JSON.parse(localStorage.getItem('cart') || '[]')
           .map((product) => {

@@ -11,23 +11,7 @@ import {FormRegisterState} from '../../types';
 import {RootState} from '../store';
 
 const initialState: FormRegisterState = {
-  inputs: {
-    id: '',
-    password: '',
-    status: '',
-    name: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-    birthday: '',
-    profilePicture: '',
-    address: '',
-    city: '',
-    postalCode: 0,
-    phone: '',
-    country: '',
-    role: '',
-  },
+  inputs: JSON.parse(localStorage.getItem('user') || '{}'),
   status: 'idle',
 };
 
