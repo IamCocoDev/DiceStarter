@@ -33,7 +33,7 @@ export const deleteAllCart = (userId) => (dispatch) => {
     dispatch({type: DELETE_ALL_CART});
     return;
   };
-  return axios.delete(`http://localhost:3001/orders/orderdelete/${userId}`)
+  return axios.delete(`http://54.232.68.2:3001/orders/orderdelete/${userId}`)
       .then((res) => dispatch({type: DELETE_ALL_CART}))
       .catch((err) => console.error(err));
 };
@@ -66,7 +66,7 @@ export const changeProductQuantity = (userId, id, amount,
         payload: {id, amount, totalPrice}});
       return;
     };
-    return axios.put(`http://localhost:3001/orders/${userId}/c/cart`, {id, amount})
+    return axios.put(`http://54.232.68.2:3001/orders/${userId}/c/cart`, {id, amount})
         .then(() =>
           dispatch({type: CHANGE_PRODUCT_QUANTITY, payload: {id, amount}}))
         .catch((err) => console.error(err));
