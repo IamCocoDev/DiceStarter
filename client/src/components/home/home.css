@@ -1,36 +1,41 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .homeLoading {
-    justify-self: center;
-    align-self: center;
-    color: #ffffff;
-    background-color: #5A5A5A;
-    max-width: 100vw;
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(to right, #4d4d4d 0, white 10%, #4d4d4d 20%);
-    background-position: 0;
-    -webkit-background-clip: text;
-    background-clip:content-box ;
-    -webkit-text-fill-color: transparent;
-    animation: shine 3s infinite linear;
-    animation-fill-mode: forwards;
-    -webkit-text-size-adjust: none;
-    font-weight: 600;
-    font-size: 16px;
-    text-decoration: none;
-    flex-direction: row;
+  animation-name: HomeLoadingScreen;
+  margin: 15vh 44vw 15vh 42vw;
+  font-size: 3vw;
+  border-radius: 1vw;
+  padding: 1vw;
+  animation-duration: 60s;
+  background-color: white;
+}
+@keyframes HomeLoadingScreen {
+  0%   {background-color: #74009D; color:black}
+  5% {background-color: black; color:white}
+10%  {background-color:white ; color:black}
+15% {background-color: #74009D; color:black}
+20%  {background-color: black; color:white}
+25% {background-color: white; color:black}
+30% {background-color: #74009D; color:black}
+35% {background-color: black; color:white}
+40% {background-color:white ; color:black}
+45% {background-color: #74009D; color:black}
+50% {background-color: black; color:white}
+55% {background-color: white; color:black}
+60% {background-color: #74009D; color:black}
+65% {background-color: black; color:white}
+70% {background-color:white ; color:black}
+75% {background-color: #74009D; color:black}
+80% {background-color: black; color:white}
+85% {background-color: white; color:black}
+90% {background-color: #74009D; color:black}
+95% {background-color: black; color:white}
+100% {background-color: white; color:black}
 }
 
-@keyframes shine{
-    0% {
-        background-position: 0
-      }
-      60% {
-        background-position: 180px
-      }
-      100% {
-        background-position: 180px
-      }
- } 
 
  .homeFailed {
      display:inline-block;

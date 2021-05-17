@@ -39,7 +39,7 @@ function Home(props: any) {
       {
         asyncProducts === 'loading' &&
        <div className='homeLoading'>
-         loading products...
+         Loading...
        </div>
       }
       <div>
