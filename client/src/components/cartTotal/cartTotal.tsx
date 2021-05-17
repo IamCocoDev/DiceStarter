@@ -24,7 +24,8 @@ const CartTotal = () => {
     <div className='cartTotal'>
       <p>TOTAL: {total}</p>
       {
-        userId ? <button>Go To Checkout</button> : <NavLink to='/login'>
+        userId ? <button className='button'>Go To Checkout
+        </button> : <NavLink to='/login'>
           <button>Sign in</button></NavLink>
       }
     </div>

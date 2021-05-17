@@ -43,7 +43,7 @@ function ProductCard(
               </button>
               <NavLink className='productCardViewMore'
                 to={`/product/${props.id}`}>
-                <button>View More +</button>
+                <button>More Info</button>
               </NavLink>
             </div>
           </div>
