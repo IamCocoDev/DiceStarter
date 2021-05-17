@@ -20,6 +20,7 @@
     grid-column: 2/3;
     max-width: 10vw;
     max-height: auto;
+    border-radius: 1vw;
 }
 
 .cartProductName{
@@ -36,7 +37,6 @@
     align-self: center;
     justify-self: center;
     text-align: center;
-    color: black;
 }
 
 .cartProductPrice{

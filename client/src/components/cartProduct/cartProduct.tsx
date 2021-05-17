@@ -1,4 +1,3 @@
-
 import React, {useState, useEffect} from 'react';
 // import Redirect from 'react-router';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
@@ -29,8 +28,8 @@ const CartProduct = (props) => {
     <div className='cartProductGrid'>
       <img className='cartProductImage' src={image[0]} alt={name} />
       <div className='cartProductName'>{name}</div>
-      <div className='cartProductPrice'>{price * productAmount}</div>
-      <div>
+      <div className='cartProductPrice'>{price * (productAmount)}</div>
+      <div className='cartProductAmout'>
         { productAmount > 1 &&
         <button className='cartProductAmountDecrease'
           onClick={() => setProductAmount(productAmount - 1)}>

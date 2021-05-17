@@ -21,8 +21,11 @@ const AdministratorHome = () => {
         <h1 className='administratorHomeH1'> Welcome {User.name}</h1> :
         <h3 className='administratorHomeH3'>Login please</h3>}
       {User.name ?
-        <input type="button" value='logout' onClick={hangleLogout} /> :
-        <input type="button" value='login' onClick={() => setRedirect(true)} />}
+        <input className='administratorHomeButtonLogout'
+          type="button" value='Logout'
+          onClick={hangleLogout} /> :
+        <input className='administratorHomeButtonLogin'
+          type="button" value='Login' onClick={() => setRedirect(true)} />}
       <h3 className='administratorHomeH3'>
            We expect you to enjoy your experience in DiceStarter!
       </h3>

@@ -24,3 +24,14 @@
     margin: 1vw;
     color: white;
 }
+
+.cartDeleteButton{
+    margin: 1vw;
+    width: 11vw;
+    justify-self: center;
+    align-self: center;
+    font-size: 3vh;
+    background-color: #74009D;
+    border-radius: 0.5vw;
+    text-align: center;
+}
