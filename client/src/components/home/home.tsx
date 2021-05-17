@@ -6,7 +6,6 @@ import {
   queryFilter,
   queryName,
   querySort,
-  /* productsList, */
 } from '../../app/reducers/handleProductsReducer';
 import ProductsSelect from '../productSelects/productSelects';
 import Paginate from '../paginate/paginate';
@@ -20,7 +19,6 @@ function Home(props: any) {
   const searchFilter = useAppSelector(queryFilter);
   const searchSort = useAppSelector(querySort);
   const pagesTotal = useAppSelector(totalPages);
-  /* const productsLoaded = useAppSelector(productsList); */
   const dispatch = useAppDispatch();
   const foundQueryNumber = props.location.search.indexOf('=');
   let page = parseInt(props.location.search.slice(foundQueryNumber +1));

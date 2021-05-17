@@ -28,8 +28,6 @@
 .cartDeleteButton{
     margin: 1vw;
     width: 11vw;
-    grid-column: 2/3;
-    grid-row: 1/2;
     justify-self: center;
     align-self: center;
     font-size: 3vh;
