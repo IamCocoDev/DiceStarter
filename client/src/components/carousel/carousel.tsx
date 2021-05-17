@@ -21,13 +21,15 @@ const Carousel = (props:{pictures}) => {
   return (
     <div>
       { pictureNumber > 0 &&
-        <button type='button' onClick={handleClickCounterDecrease}> Prev
+        <button className='carouselButtonPrev'
+          type='button' onClick={handleClickCounterDecrease}> Prev
         </button>
       }
       <img src={props.pictures[pictureNumber]} alt='Picture not available'/>
       {
         pictureNumber < props.pictures.length - 1 &&
-        <button type='button' onClick={handleClickCounterIncrease}> Next
+        <button type='button' className='carouselButtonNext'
+          onClick={handleClickCounterIncrease}> Next
         </button>
       }
     </div>

@@ -100,12 +100,12 @@ const getReviews = (id: string) => {
   };
 };
 
-const deleteReviews = (id: string) => {
+const deleteReviews = (id: number, productId:string) => {
   return async (dispatch: any) => {
     dispatch(deleteReviewsBegin());
     try {
       await axios.delete(`http://localhost:3001/product/${id}/review`);
-      dispatch(getReviews(id));
+      dispatch(getReviews(productId));
       dispatch(deleteReviewsSuccess);
     } catch (err) {
       dispatch(deleteReviewsFailure(err));

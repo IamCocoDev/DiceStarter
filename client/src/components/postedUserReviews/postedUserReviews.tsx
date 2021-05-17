@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './postedUserReviews.css';
 import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
@@ -6,9 +6,18 @@ import {ReviewRes} from '../../types';
 import {deleteReviews} from '../../app/actions/reviewsActions/index';
 
 const PostedUserReviews = (props:{id:string}) => {
+  const [reviewId, setReviewId] = useState(0);
   const postedReviews = useAppSelector(reviewsResponse);
   const dispatch = useAppDispatch();
-  const handleOnClick = () => dispatch(deleteReviews(props.id));
+  console.log(postedReviews);
+  const handleOnClick = (e: any) => {
+    console.log(reviewId);
+    console.log(e.target);
+    console.log(e.target.value);
+    setReviewId(e.target.value);
+    console.log(reviewId);
+    dispatch(deleteReviews(reviewId, props.id));
+  };
   return (
     <div className='postedUserReviewsAll'>
       {
@@ -17,7 +26,7 @@ const PostedUserReviews = (props:{id:string}) => {
             <p className='postedUserReviewsRating'>{review.rating}</p>
             <p className='postedUserReviewsComment'>{review.comment} </p>
             <button className='postedUserReviewsButtonDelete'
-              onClick={handleOnClick}>
+              onClick={handleOnClick} value={review.id}>
               Delete Opinion
             </button>
           </div>
