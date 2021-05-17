@@ -71,6 +71,17 @@ const loginGoogle = (user: any) => {
     }
   };
 };
+
+const logout = () => {
+  return async (dispatch: any) => {
+    try {
+      localStorage.setItem('user', '{}');
+      dispatch(setUser({}));
+    } catch (err) {
+      dispatch(sendFormFailure(err));
+    }
+  };
+};
 export {
   resetFormStatus,
   sendFormBegin,
@@ -79,4 +90,5 @@ export {
   sendFormAsync,
   loginFormAsync,
   loginGoogle,
+  logout,
 };
