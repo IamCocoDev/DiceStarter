@@ -196,3 +196,43 @@
     background-color: white;
     box-shadow: 0 4px 5px rgba(0,0,0,0.2);
 }
+.ProductDetailLoadingHeader {
+    animation-name: ProductDetailLoadingScreen;
+    margin: 30vh 42vw 45vh 42vw;
+    font-size: 3vw;
+    border-radius: 1vw;
+    padding: 1vw;
+    animation-duration: 60s;
+    background-color: white;
+}
+
+@keyframes ProductDetailLoadingScreen {
+    0%   {background-color: #74009D; color:black}
+    5% {background-color: black; color:white}
+  10%  {background-color:white ; color:black}
+  15% {background-color: #74009D; color:black}
+  20%  {background-color: black; color:white}
+  25% {background-color: white; color:black}
+  30% {background-color: #74009D; color:black}
+  35% {background-color: black; color:white}
+  40% {background-color:white ; color:black}
+  45% {background-color: #74009D; color:black}
+  50% {background-color: black; color:white}
+  55% {background-color: white; color:black}
+  60% {background-color: #74009D; color:black}
+  65% {background-color: black; color:white}
+  70% {background-color:white ; color:black}
+  75% {background-color: #74009D; color:black}
+  80% {background-color: black; color:white}
+  85% {background-color: white; color:black}
+  90% {background-color: #74009D; color:black}
+  95% {background-color: black; color:white}
+  100% {background-color: white; color:black}
+  
+}
+
+.ProductDetailErrorHeader {
+    margin: 30vh 27vw 45vh 30vw;
+    font-size: 3vw;
+    border-radius: 1vw;
+}
