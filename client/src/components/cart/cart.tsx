@@ -13,7 +13,6 @@ const Cart = () => {
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
   const [products, setProducts] = React.useState([]);
-
   const handleDeleteCart = () => dispatch(deleteAllCart(userId));
 
   const findDuplicates = (array) => {
