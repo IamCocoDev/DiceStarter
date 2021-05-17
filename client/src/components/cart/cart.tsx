@@ -5,6 +5,7 @@ import CartProduct from '../cartProduct/cartProduct';
 import {deleteAllCart, getProductsInCart} from '../../app/actions/cartActions';
 import CartTotal from '../cartTotal/cartTotal';
 import {userInfo} from '../../app/reducers/registerReducer';
+import './cart.css';
 
 const Cart = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,9 @@ const Cart = () => {
       const products = [array[0]];
       for (let i = 1; i < array.length; i++) {
         const product = products.find((p) => p.id === array[i].id);
+        if (product === undefined) {
+          products.push(array[i]);
+        }
         if (product !== undefined) {
           product.amount += array[i].amount;
         };
@@ -30,22 +34,22 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    dispatch(getProductsInCart(userId));
+    dispatch(getProductsInCart());
     findDuplicates(productsInCart);
   }, [productsInCart]);
 
   return (
-    <div>
-      <div>
+    <div className='cartFlex'>
+      <div className='cartFlexItems'>
         { products.length > 0 ?
           // eslint-disable-next-line react/jsx-key
           products.map((product) =>
             <CartProduct key={product.id} product={product} />):
             <div>No products in cart</div>
         }
-        <button onClick={handleDeleteCart} >Eliminar Carrito</button>
       </div>
-      <div>
+      <div className='cartFlexTotal'>
+        <button onClick={handleDeleteCart} >Eliminar Carrito</button>
         <CartTotal />
       </div>
     </div>

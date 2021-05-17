@@ -16,7 +16,7 @@ const CartProduct = (props) => {
   const userId = userInf.id;
   const dispatch = useAppDispatch();
   const handleDeleteProduct = () => {
-    dispatch(deleteProductFromCart(userId, id));
+    dispatch(deleteProductFromCart(id));
     alert('Product deleted successfully');
   };
   const handleChangeAmount = () => {
