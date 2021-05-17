@@ -22,11 +22,11 @@ const CartTotal = () => {
 
   return (
     <div className='cartTotal'>
-      <p>TOTAL: {total}</p>
+      <p className='cartTotalText'>TOTAL: ${total}</p>
       {
-        userId ? <button className='button'>Go To Checkout
+        userId ? <button className='cartButtonToCheckout'>Go To Checkout
         </button> : <NavLink to='/login'>
-          <button>Sign in</button></NavLink>
+          <button className='cartButtonSignIn' >Sign in</button></NavLink>
       }
     </div>
   );

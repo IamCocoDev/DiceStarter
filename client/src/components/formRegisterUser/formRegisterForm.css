@@ -8,7 +8,7 @@
     display: flex;
     width: 100vw;
     max-width: 100%;
-    height: 110vh;
+    height: 140vh;
     background-color: #5A5A5A;
     align-items: center;
     justify-content: center;
@@ -18,11 +18,11 @@
 .registerGrid{
     
     background-color: #404040;
-    height: 100vh;
+    height: 130vh;
     width: 50vw;
     display: grid;
     grid-template-columns: 0.5vw 1fr 0.5vw;
-    grid-template-rows: 0.5vh 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5vh;
+    grid-template-rows: 0.5vh 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5vh;
     border-radius: 0.5vw;
 }
 
@@ -78,6 +78,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: black;
 }
 
 .registerPassword{
@@ -103,6 +104,33 @@
     grid-row: 10/11 ;
     display: flex;
     flex-direction: column;
+    width: 8vw;
+    height: 4vh;
+    align-self: center;
+    justify-self: center;
+    color: white;
+    background-color: #A206DA;
     align-items: center;
-    justify-content: center;
+    border-radius: 0.5vw;
+}
+
+.loginGoogle1{
+    grid-column: 2/3;
+    grid-row: 11/12;
+    width: 20%;
+    height: 70%;
+    align-self: center;
+    justify-self: center;
+}
+
+.registerInput{
+    color: black;
+}
+
+.registerError{
+    color: coral;
+}
+
+.registerH1{
+    font-size: 2vw;
 }

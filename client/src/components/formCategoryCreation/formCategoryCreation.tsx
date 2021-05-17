@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {useAppDispatch} from '../../app/hooks';
 import {addCategoryAsync} from '../../app/actions/handleProductsActions/index';
 import {formData} from '../../types';
+import './formCategoryCreation.css';
 
 const FormCategoryCreation = () => {
   const dispatch = useAppDispatch();
@@ -12,10 +13,12 @@ const FormCategoryCreation = () => {
     dispatch(addCategoryAsync(input));
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" onChange={(e) => setInput(e.target.value)} />
-        <input type="submit" />
+    <div className='formCategoryCreationFlex'>
+      <form className='formCategoryCreationGrid' onSubmit={handleSubmit}>
+        <input className='formCategoryCreationName' placeholder='Category Name'
+          type="text" onChange={(e) => setInput(e.target.value)} />
+        <input className='formCategoryCreationSubmit'
+          type="submit" />
       </form>
     </div>
   );

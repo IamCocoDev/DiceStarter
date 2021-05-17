@@ -16,10 +16,10 @@
 
 .loginGrid{
     background-color: #404040;
-    height: 40vh;
+    height: 60vh;
     display: grid;
     grid-template-columns: 0.5vw 1fr 0.5vw;
-    grid-template-rows: 0.5vh 1fr 1fr 1fr 0.5vh;
+    grid-template-rows: 0.5vh 1fr 1fr 1fr 1fr 0.5vh;
     width: 30vw;
     border-radius: 0.5vw;
 }
@@ -68,4 +68,17 @@
 .loginErrors{
     font-size: 1vw;
     color: coral;
+}
+
+.loginUserInput{
+    color: black;
+}
+
+.loginGoogle{
+    grid-column: 2/3;
+    grid-row: 5/6;
+    width: 40%;
+    height: 70%;
+    align-self: center;
+    justify-self: center;
 }
