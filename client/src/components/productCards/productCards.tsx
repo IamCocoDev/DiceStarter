@@ -1,11 +1,12 @@
 import React from 'react';
-import {useAppSelector} from '../../app/hooks';
+/* import {useAppSelector} from '../../app/hooks'; */
 import './productCards.css';
 import ProductCard from '../productCard/productCard';
 import {productsList} from '../../app//reducers/handleProductsReducer';
+import {useSelector} from 'react-redux';
 
 function ProductCards() {
-  const products = useAppSelector(productsList);
+  const products = useSelector(productsList);
   return (
     <div className='productCardsFlex'>
       {
