@@ -17,7 +17,7 @@ const CartTotal = () => {
   });
   // eslint-disable-next-line react/prop-types
   useEffect(() => {
-    dispatch(getProductsInCart(userId));
+    dispatch(getProductsInCart());
   }, [dispatch, userId]);
 
   return (
