@@ -9,6 +9,7 @@ router.get('/', (req, res, next) => {
     .then((response) => {
       res.json(response);
     }).catch((e) => {
+      res.status(400);
       next(e);
     });
 });
@@ -21,6 +22,7 @@ router.post('/', async (req, res, next) => {
     const info = await Category.create(newCategory);
     res.status(200).json(info);
   } catch (e) {
+    res.status(400);
     next(e);
   }
 });
@@ -32,6 +34,7 @@ router.put('/:name', (req, res, next) => {
     .then((result) => {
       res.json(result);
     }).catch((e) => {
+      res.status(400);
       next(e);
     });
 });
