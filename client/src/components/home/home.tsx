@@ -13,6 +13,7 @@ import {getProductsAsync} from '../../app/actions/handleProductsActions';
 import './home.css';
 
 function Home(props: any) {
+  const User = JSON.parse(localStorage.getItem('user') || '{}');
   const asyncProducts = useAppSelector(productsListStatus);
   const searchName = useAppSelector(queryName);
   const searchFilter = useAppSelector(queryFilter);
@@ -33,13 +34,14 @@ function Home(props: any) {
   }, [page]);
   return (
     <div className='homeBackground'>
+      {User.id ? <p>hello! {User.name}</p>: null}
       {
         <ProductsSelect />
       }
       {
         asyncProducts === 'loading' &&
        <div className='homeLoading'>
-         loading products...
+         Loading...
        </div>
       }
       <div>

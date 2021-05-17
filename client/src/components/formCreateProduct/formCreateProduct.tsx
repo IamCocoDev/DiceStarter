@@ -6,7 +6,7 @@ import {
   getCategoriesAsync,
 } from '../../app/actions/handleProductsActions/index';
 import './formCreateProduct.css';
-
+import FileBase64 from 'react-file-base64';
 import Select from 'react-select';
 import {
   formData,
@@ -14,6 +14,7 @@ import {
   formTextAreaData,
   Inputs,
   errorsInput,
+  base64,
   Categories,
 } from '../../types';
 import ColorCircle from '../colorCircle/ColorCircle';
@@ -129,7 +130,7 @@ const FormCreateProduct = () => {
       });
       setRedirect(true);
     } else {
-      alert('Complete the requires spaces!');
+      alert('Complete the required spaces!');
     }
   };
   const handleChange = (e: formInputData) => {
@@ -157,11 +158,8 @@ const FormCreateProduct = () => {
     });
     setInput({...input, categories: data});
   };
-  const handlePictureChange = (e: any): void => {
-    const data = e.map((el: Categories) => {
-      return el.value;
-    });
-    setInput({...input, picture: data});
+  const handlePictureChange = (e: base64[]): void => {
+    setInput({...input, picture: e.map((p: base64) => p.base64)});
   };
   return (
     <div className='formCreateProductGrid'>
@@ -171,15 +169,8 @@ const FormCreateProduct = () => {
       <form className='formCreateProductForm' onSubmit={handleSubmit}>
         <div className='formCreateProductUrlPicture'>
           <label className='formCreateProductLabel'
-            htmlFor="">URL picture</label>
-          <Select
-            className='formCreateProductInput'
-            isMulti
-            name="picture"
-            options={[{value: 'http://mathartfun.com/shopsite_sc/store/html/Bd100.jpg', label: 'foto 1'}]}
-            onChange={handlePictureChange}
-          >
-          </Select>
+            htmlFor="">Add image</label>
+          <FileBase64 multiple={true} onDone={handlePictureChange} required />
           <p className='formCreateProductError'>{errors.picture}</p>
         </div>
         <div className='formCreateProductName'>
@@ -229,10 +220,9 @@ const FormCreateProduct = () => {
           </label>
           <input
             className='formCreateProductInput'
-            type="number"
+            type="text"
             value={input.size}
             name = "size"
-            min="0"
             onChange={handleChange}
           />
           <p className='formCreateProductError'>{errors.size}</p>

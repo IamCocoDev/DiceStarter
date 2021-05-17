@@ -1,0 +1,29 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.cartTotalText{
+    font-size: 3vw;
+}
+
+.cartButtonToCheckout{
+    width: 11vw;
+    justify-self: center;
+    align-self: center;
+    font-size: 3vh;
+    background-color: #74009D;
+    border-radius: 0.5vw;
+    text-align: center;
+}
+
+.cartButtonSignIn{
+    width: 11vw;
+    justify-self: center;
+    align-self: center;
+    font-size: 3vh;
+    background-color: #74009D;
+    border-radius: 0.5vw;
+    text-align: center;
+}

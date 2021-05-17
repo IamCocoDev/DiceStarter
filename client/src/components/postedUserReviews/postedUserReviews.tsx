@@ -1,18 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './postedUserReviews.css';
-import {useAppSelector} from '../../app/hooks';
+import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
 import {ReviewRes} from '../../types';
+import {deleteReviews} from '../../app/actions/reviewsActions/index';
 
-const PostedUserReviews = () => {
+const PostedUserReviews = (props:{id:string}) => {
+  const [reviewId, setReviewId] = useState(0);
   const postedReviews = useAppSelector(reviewsResponse);
+  const dispatch = useAppDispatch();
+  console.log(postedReviews);
+  const handleOnClick = (e: any) => {
+    console.log(reviewId);
+    console.log(e.target);
+    console.log(e.target.value);
+    setReviewId(e.target.value);
+    console.log(reviewId);
+    dispatch(deleteReviews(reviewId, props.id));
+  };
   return (
-    <div>
+    <div className='postedUserReviewsAll'>
       {
         postedReviews !== null && postedReviews.map((review: ReviewRes) => (
-          <div key={review.id}>
-            <p>{review.comment}</p>
-            <p>{review.rating}</p>
+          <div className='postedUserReviewsReview' key={review.id}>
+            <p className='postedUserReviewsRating'>{review.rating}</p>
+            <p className='postedUserReviewsComment'>{review.comment} </p>
+            <button className='postedUserReviewsButtonDelete'
+              onClick={handleOnClick} value={review.id}>
+              Delete Opinion
+            </button>
           </div>
         ))
       }

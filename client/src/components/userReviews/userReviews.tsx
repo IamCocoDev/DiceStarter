@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import './userReviews.css';
-import UserReviewForm from '../userReviewForm/userReviewForm';
 import {useAppDispatch} from '../../app/hooks';
-import {getReviews} from '../../app/actions/reviewsActions/index';
+import UserReviewForm from '../userReviewForm/userReviewForm';
 import PostedUserReviews from '../postedUserReviews/postedUserReviews';
+import {getReviews} from '../../app/actions/reviewsActions/index';
 
 const UserReviews = (props:{id: string}) => {
   const dispatch = useAppDispatch();
@@ -11,9 +11,9 @@ const UserReviews = (props:{id: string}) => {
     dispatch(getReviews(props.id));
   }, []);
   return (
-    <div >
-      <UserReviewForm />
-      <PostedUserReviews />
+    <div className='userReviewsAll' >
+      <UserReviewForm id={props.id} />
+      <PostedUserReviews id={props.id}/>
     </div>
   );
 };

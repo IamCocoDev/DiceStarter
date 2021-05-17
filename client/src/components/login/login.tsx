@@ -3,6 +3,8 @@ import {formData, formInputData, loginInput} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {loginFormAsync} from '../../app/actions/actionsUser/index';
 import {userInfo} from '../../app/reducers/registerReducer';
+import './login.css';
+import GoogleComp from '../googleComp/googleComp';
 
 function deepEqualError(a: loginInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -53,31 +55,31 @@ const Login = () => {
     console.log(User);
   }, [User]);
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Login</label>
+    <div className='loginBackground'>
+      <form className='loginGrid' onSubmit={handleSubmit}>
+        <div className='loginUserName'>
+          <label className='loginUserNameText'>Login</label>
           <input type="text"
-            placeholder='enter your username or email'
+            placeholder='Enter your Username or Email'
             value={input.username}
             name="username"
             onChange={handleChange}
           />
-          <p>{errors.username}</p>
+          <p className='loginErrors'>{errors.username}</p>
         </div>
-        <div>
-          <label>password</label>
+        <div className='loginPassword'>
+          <label className='loginPasswordText'>Password</label>
           <input type="password"
-            placeholder='enter your password'
+            placeholder='Enter your Password'
             value={input.password}
             name="password"
             onChange={handleChange}
           />
-          <p>{errors.password}</p>
+          <p className='loginErrors'>{errors.password}</p>
         </div>
-        <input type="submit" value='login' />
+        <button className='loginSend' type="submit">Login</button>
       </form>
-      <p>{User.username}</p>
+      <GoogleComp/>
     </div>
   );
 };

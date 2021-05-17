@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     picture: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.TEXT),
     },
     price: {
       type: DataTypes.DECIMAL,

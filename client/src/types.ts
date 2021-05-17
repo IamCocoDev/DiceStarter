@@ -3,10 +3,14 @@ export interface FormState {
     inputs: Inputs,
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
+
+export interface cartState {
+    productsInCart: ProductRes[]
+}
 export interface FormRegisterState {
     inputs: {
-        username: string,
-        email: string,
+        id: string,
+        name: string,
         firstName: string,
         lastName: string,
         birthday: string,
@@ -16,7 +20,10 @@ export interface FormRegisterState {
         postalCode: number,
         phone: string,
         country: string,
+        email: string,
+        password: string,
         role: string,
+        status: string
     },
     status: 'idle' | 'failed' | 'loading' | 'done',
 }
@@ -28,6 +35,12 @@ export interface ReviewState {
     deleteReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
     changeReviewStatus: 'idle' | 'failed' | 'loading' | 'done',
     id: string,
+}
+export interface ReviewPost {
+    comment: string,
+    id: string,
+    rating:number,
+    name:string,
 }
 export interface ReviewRes {
     id: number,
@@ -65,6 +78,20 @@ export interface Inputs {
     description: string;
     picture: string[];
     available: boolean;
+}
+
+export interface base64 {
+    name: string,
+    base64:string,
+    size:string,
+    type: string,
+    file: {
+      lastModified: number,
+      lastModifiedDate: Date,
+      name:string,
+      size: number,
+      type: string,
+      webkitRelativePath: string}
 }
 
 export interface Products {

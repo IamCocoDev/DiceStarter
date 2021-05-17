@@ -1,0 +1,46 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.postedUserReviewsAll {
+    grid-row: 3/4;
+    grid-column: 1/2;
+    color: rgb(0, 0, 0);
+    display: flex;
+    width: 10vw;
+    flex-flow: column wrap;
+    align-items: stretch;
+    width: 100%;
+    max-width: 90vw;
+    margin-left: 2vw;
+    border-width: 0rem 0rem 0rem 0.1rem;
+    padding-left: 1vw;
+    border-left-color: rgba(255, 255, 255, 0.529);
+    border-style: groove;
+}
+.postedUserReviewsReview {
+    padding: 1vh 1vw 1vh 1vw;
+    margin-bottom: 2vh;
+    border-style: groove;
+    border-width: 0rem 0rem 0.1rem 0rem;
+    height: fit-content;
+    width: fit-content;
+    background-color: white;
+    border-radius: 1vw;;
+}
+.postedUserReviewsStar {
+    font-size: 3vw;
+    margin-bottom: 5vh;;
+}
+.postedUserReviewsComment {
+    width:100%;
+    font-size: 1.2vw;
+}
+
+.postedUserReviewsButtonDelete {
+    background-color: red;
+    margin-top: 1vh;
+    padding: 0.5vw;
+    border-radius: 0.5vw;
+}

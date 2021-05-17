@@ -68,20 +68,7 @@ router.post('/signin', async (req, res, next) => {
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) return res.send('password invalid');
         if (result) {
-          return res.send({
-            username: user.name,
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            birthday: user.birthday,
-            profilePicture: user.profilePicture,
-            address: user.address,
-            city: user.city,
-            postalCode: user.postalCode,
-            phone: user.phone,
-            country: user.country,
-            role: user.role,
-          });
+          return res.send(user);
         }
         return res.send('User not found');
       });

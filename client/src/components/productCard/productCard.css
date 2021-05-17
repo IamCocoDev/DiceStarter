@@ -7,7 +7,7 @@
 .productCardGrid{
     display: grid;
     grid-template-columns: 0.3vh 3fr 0.3vh;
-    grid-template-rows: 0.1vh 3fr 1fr 0.5fr 0.5vh;
+    grid-template-rows: 0.1vh 3fr 1fr 0.5fr 1fr 0.5vh;
     background-color: #404040;
     color: white;
     width: 25vw;
@@ -77,3 +77,45 @@
     text-align: center;
     opacity: 1;
 }
+
+.productCardButtonsGrid{
+    grid-column: 2/3;
+    grid-row: 5/6;
+    display: grid;
+    grid-template-columns: 0.3vh 1fr 0.3vw 1fr 0.3vh;
+    grid-template-rows: 1fr;
+}
+
+.productCardCartButton { 
+    width: 10vw;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    justify-self: center;
+    align-self: center;
+    font-size: 3vh;
+    background-color: #74009D;
+    border-radius: 0.5vw;
+    text-align: center;
+}
+
+.productCardViewMore{
+    width: 10vw;
+    grid-column:4/5;
+    grid-row: 1/2;
+    justify-self: center;
+    align-self: center;
+    font-size: 3vh;
+    background-color: #74009D;
+    border-radius: 0.5vw;
+    text-align: center;
+}
+
+.productCardAll {
+    margin-top: 2vh;
+    height: 100%;
+    width: 100%;
+    max-width: 30vw;
+    max-height: 60vh;
+    margin-bottom: 10vh;
+}
+

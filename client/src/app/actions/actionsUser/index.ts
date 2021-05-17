@@ -36,7 +36,7 @@ const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     dispatch(sendFormBegin);
     try {
-      await axios.get(`http://localhost:3001/user/signup`, form);
+      await axios.post(`http://localhost:3001/user/signup`, form);
       dispatch(sendFormSuccess);
     } catch (err) {
       dispatch(sendFormFailure(err));
@@ -50,8 +50,33 @@ const loginFormAsync = (form: any) => {
     try {
       const res = await axios.post(`http://localhost:3001/user/signin`, form);
       const loginUser = res.data;
+      localStorage.setItem('user', JSON.stringify(loginUser));
       dispatch(sendFormSuccess);
       dispatch(setUser(loginUser));
+    } catch (err) {
+      dispatch(sendFormFailure(err));
+    }
+  };
+};
+
+const loginGoogle = (user: any) => {
+  return async (dispatch: any) => {
+    dispatch(sendFormBegin);
+    try {
+      dispatch(sendFormSuccess);
+      localStorage.setItem('user', JSON.stringify(user));
+      dispatch(setUser(user));
+    } catch (err) {
+      dispatch(sendFormFailure(err));
+    }
+  };
+};
+
+const logout = () => {
+  return async (dispatch: any) => {
+    try {
+      localStorage.setItem('user', '{}');
+      dispatch(setUser({}));
     } catch (err) {
       dispatch(sendFormFailure(err));
     }
@@ -64,4 +89,6 @@ export {
   sendFormSuccess,
   sendFormAsync,
   loginFormAsync,
+  loginGoogle,
+  logout,
 };

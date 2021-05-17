@@ -14,7 +14,7 @@ import {
   CHANGE_REVIEWS_FAILURE,
   SET_REVIEWS,
 } from '../../constants/constants';
-import {ReviewState, ReviewRes} from '../../../types';
+import {ReviewRes, ReviewPost} from '../../../types';
 // send Review status handling
 const sendReviewBegin = () => ({
   type: SEND_REVIEW_BEGIN,
@@ -69,11 +69,12 @@ const setReviews = (reviewResponse: ReviewRes) => ({
 
 // Async requests to the back-end
 
-const postReview = (review: ReviewState) => {
+const postReview = (review: ReviewPost) => {
   return async (dispatch: any) => {
     dispatch(sendReviewBegin);
     try {
-      await axios.post('http://localhost:3001/product/id/review', review);
+      console.log(review.rating);
+      await axios.post(`http://localhost:3001/product/${review.id}/review`, review);
       dispatch(sendReviewSuccess);
     } catch (err) {
       dispatch(sendReviewFailure(err));
@@ -99,6 +100,19 @@ const getReviews = (id: string) => {
   };
 };
 
+const deleteReviews = (id: number, productId:string) => {
+  return async (dispatch: any) => {
+    dispatch(deleteReviewsBegin());
+    try {
+      await axios.delete(`http://localhost:3001/product/review/${id}`);
+      dispatch(getReviews(productId));
+      dispatch(deleteReviewsSuccess);
+    } catch (err) {
+      dispatch(deleteReviewsFailure(err));
+    };
+  };
+};
+
 export {
   sendReviewBegin,
   sendReviewSuccess,
@@ -114,4 +128,5 @@ export {
   changeReviewsSuccess,
   postReview,
   getReviews,
+  deleteReviews,
 };
