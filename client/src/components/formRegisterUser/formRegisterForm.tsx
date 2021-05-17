@@ -128,77 +128,87 @@ const FormRegisterForm = () => {
     <div className='registerBackground'>
       <form className='registerGrid' onSubmit={handleSubmit}>
         <div className='registerName'>
-          <label htmlFor="">Name</label>
-          <input type="text"
+          <label className='registerH1' htmlFor="">Name</label>
+          <input className='registerInput'
+            type="text"
             name="name"
             onChange={handleChange}
             value={input.name}
           />
-          <p>{errors.name}</p>
+          <p className='registerError'>{errors.name}</p>
         </div>
         <div className='registerFirstName'>
-          <label htmlFor="">First Name</label>
-          <input type="text"
+          <label className='registerH1' htmlFor="">First Name</label>
+          <input className='registerInput'
+            type="text"
             name="firstName"
             onChange={handleChange}
             value={input.firstName}
           />
-          <p>{errors.firstName}</p>
+          <p className='registerError'>{errors.firstName}</p>
         </div>
         <div className='registerLastName'>
-          <label htmlFor="">Last Name</label>
-          <input type="text"
+          <label className='registerH1' htmlFor="">Last Name</label>
+          <input className='registerInput'
+            type="text"
             name="lastName"
             onChange={handleChange}
             value={input.lastName}
           />
-          <p>{errors.lastName}</p>
+          <p className='registerError'>{errors.lastName}</p>
         </div>
         <div className='registerEmail'>
-          <label htmlFor="">Email</label>
-          <input type="email"
+          <label className='registerH1' htmlFor="">Email</label>
+          <input className='registerInput'
+            type="email"
             name="email"
             onChange={handleChange}
             value={input.email}
           />
-          <p>{errors.email}</p>
+          <p className='registerError'>{errors.email}</p>
         </div>
         <div className='registerBirthDay'>
-          <label htmlFor="">Date of Birth</label>
-          <input type="date"
+          <label className='registerH1' htmlFor="">Date of Birth</label>
+          <input className='registerInput'
+            type="date"
             name="birthday"
             onChange={handleChange}
             min={'1921-01-01'}
             max={'2008-12-31'}
             value={input.birthday}
           />
-          <p>{errors.birthday}</p>
+          <p className='registerError'>{errors.birthday}</p>
         </div>
         <div className='registerCountry'>
-          <CountrySelect handle={handleChange}
+          <CountrySelect
+            handle={handleChange}
             val={input.country} />
-          <p>{errors.country}</p>
+          <p className='registerError'>{errors.country}</p>
         </div>
         <div className='registerPassword'>
-          <label htmlFor="">Password</label>
-          <input type="password"
+          <label className='registerH1' htmlFor="">Password</label>
+          <input className='registerInput'
+            type="password"
             name="password"
             onChange={handleChange}
             value= {input.password}
           />
-          <p>{errors.password}</p>
+          <p className='registerError'>{errors.password}</p>
         </div>
         <div className='registerConfirmPassword'>
-          <label htmlFor="">Confirm Password</label>
-          <input type="password"
+          <label className='registerH1' htmlFor="">Confirm Password</label>
+          <input className='registerInput'
+            type="password"
             name="confirmPassword"
             onChange={handleChange}
             value={input.confirmPassword}
           />
-          <p>{errors.confirmPassword}</p>
+          <p className='registerError'>{errors.confirmPassword}</p>
         </div>
         <button className='registerSendRegister' type="submit">Register</button>
-        <GoogleComp/>
+        <div className='loginGoogle1'>
+          <GoogleComp/>
+        </div>
       </form>
     </div>
   );
