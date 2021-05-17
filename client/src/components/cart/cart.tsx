@@ -17,7 +17,7 @@ const Cart = () => {
   const handleDeleteCart = () => dispatch(deleteAllCart(userId));
 
   const findDuplicates = (array) => {
-    if (productsInCart.length !== 0) {
+    if (array.length !== 0) {
       const products = [array[0]];
       for (let i = 1; i < array.length; i++) {
         const product = products.find((p) => p.id === array[i].id);
