@@ -19,7 +19,7 @@
     border-left-color: rgba(255, 255, 255, 0.529);
     border-style: groove;
 }
-.postedUserReviewReview {
+.postedUserReviewsReview {
     padding: 1vh 1vw 1vh 1vw;
     margin-bottom: 2vh;
     border-style: groove;
@@ -35,7 +35,12 @@
 }
 .postedUserReviewsComment {
     width:100%;
-    font-size: 1vw;
+    font-size: 1.2vw;
 }
 
-
+.postedUserReviewsButtonDelete {
+    background-color: red;
+    margin-top: 1vh;
+    padding: 0.5vw;
+    border-radius: 0.5vw;
+}

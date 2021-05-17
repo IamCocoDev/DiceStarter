@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.carouselAll {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35vh;
+    width: 35vw;
+}
+.carouselImage {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    border-radius: 1vw;
+    border-width: 0.2vw;
+    border-style: groove;
+}
+.carouselButtonPrev {
+    height: 15vh;
+    width: 5vw;
+    font-size: 5vw;
+}
+
+.carouselButtonNext {
+    height: 15vh;
+    width: 5vw;
+    font-size: 5vw;
+}

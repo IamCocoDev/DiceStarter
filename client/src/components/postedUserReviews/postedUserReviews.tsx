@@ -22,7 +22,7 @@ const PostedUserReviews = (props:{id:string}) => {
     <div className='postedUserReviewsAll'>
       {
         postedReviews !== null && postedReviews.map((review: ReviewRes) => (
-          <div className='postedUserReviewReview' key={review.id}>
+          <div className='postedUserReviewsReview' key={review.id}>
             <p className='postedUserReviewsRating'>{review.rating}</p>
             <p className='postedUserReviewsComment'>{review.comment} </p>
             <button className='postedUserReviewsButtonDelete'

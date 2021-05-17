@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import './carousel.css';
 
 const Carousel = (props:{pictures}) => {
   const [pictureNumber, setPictureNumber] = useState(0);
@@ -19,17 +20,18 @@ const Carousel = (props:{pictures}) => {
 
   }, [pictureNumber]);
   return (
-    <div>
+    <div className='carouselAll'>
       { pictureNumber > 0 &&
         <button className='carouselButtonPrev'
-          type='button' onClick={handleClickCounterDecrease}> Prev
+          type='button' onClick={handleClickCounterDecrease}> ❰
         </button>
       }
-      <img src={props.pictures[pictureNumber]} alt='Picture not available'/>
+      <img className='carouselImage'
+        src={props.pictures[pictureNumber]} alt='Picture not available'/>
       {
         pictureNumber < props.pictures.length - 1 &&
         <button type='button' className='carouselButtonNext'
-          onClick={handleClickCounterIncrease}> Next
+          onClick={handleClickCounterIncrease}> ❱
         </button>
       }
     </div>

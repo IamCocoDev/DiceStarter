@@ -21,7 +21,7 @@
 }
 .userReviewFormLabelOne {
     grid-column: 1/2;
-    grid-row: 2/3;
+    grid-row: 1/2;
    align-self: center;
    flex-grow: 2;
    text-align: center;
@@ -68,8 +68,11 @@
 .userReviewFormButton {
     justify-self: center;
     grid-column: 1/2;
-    grid-row: 1/2;
+    grid-row: 2/3;
     width: 15vh;
     background-color: white;
     border-radius: 1vw;
+    padding: 0.2vw;
+    margin-bottom: 6vh;
+    margin-top: 3vh
 }
