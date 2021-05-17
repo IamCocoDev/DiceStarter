@@ -4,7 +4,7 @@ import SearchBar from '../searchBar/searchBar';
 import './navBar.css';
 import {Route} from 'react-router-dom';
 
-function NavBar(props:any): JSX.Element {
+function NavBar(props: any): JSX.Element {
   const route:string = props.location.pathname;
   if (route === '/list/productlist') {
     return (
