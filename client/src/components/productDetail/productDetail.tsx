@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './productDetail.css';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {productDetail,
-  productByIdStatus} from '../../app/reducers/handleProductsReducer';
+import {productDetail} from '../../app/reducers/handleProductsReducer';
 import ColorCircle from '../colorCircle/ColorCircle';
 import {
   ProductRes,
@@ -27,7 +26,6 @@ function ProductDetail(props:any ) {
   });
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);
-  const productStatus = useAppSelector(productByIdStatus);
   const id = props.match.params.id;
   useEffect(() => {
     dispatch(getProductByIdAsync(id));
@@ -35,12 +33,12 @@ function ProductDetail(props:any ) {
   return (
     <div className='productDetailBackground'>
       {
-        productStatus === 'loading' &&
+        product === null &&
             <h1 className='ProductDetailLoadingHeader'>
               Loading...
             </h1>
       }
-      { productStatus === 'idle' &&
+      { product !== null &&
       <div>
         <div className='ProductDetailGridAll'>
           <div className='ProductDetailGrid'>
@@ -70,14 +68,14 @@ function ProductDetail(props:any ) {
         <UserReviews id={id}/>
       </div>
       }
-      {
+      {/*
         productStatus === 'failed' &&
         <div>
           <h1 className='ProductDetailErrorHeader'>
             Something went wrong
           </h1>
         </div>
-      }
+      */}
     </div>
   );
 }

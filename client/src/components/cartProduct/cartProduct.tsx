@@ -28,8 +28,6 @@ const CartProduct = (props) => {
     <div className='cartProductGrid'>
       <img className='cartProductImage' src={image[0]} alt={name} />
       <div className='cartProductName'>{name}</div>
-      <div className='cartProductPrice'>{price * (productAmount)}</div>
-      <div className='cartProductAmout'>
         { productAmount > 1 &&
         <button className='cartProductAmountDecrease'
           onClick={() => setProductAmount(productAmount - 1)}>
@@ -37,7 +35,7 @@ const CartProduct = (props) => {
         </button>
         }
         {productAmount}
-        { productAmount < stock - 1 &&
+        { productAmount < stock &&
           <button className='cartProductAmountIncrease'
             onClick={() => setProductAmount(productAmount + 1)}>
            +
