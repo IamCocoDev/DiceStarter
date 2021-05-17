@@ -36,7 +36,7 @@ const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     dispatch(sendFormBegin);
     try {
-      await axios.post(`http://localhost:3001/user/signup`, form);
+      await axios.post(`http://54.232.68.2/user/signup`, form);
       dispatch(sendFormSuccess);
     } catch (err) {
       dispatch(sendFormFailure(err));
@@ -48,7 +48,7 @@ const loginFormAsync = (form: any) => {
   return async (dispatch: any) => {
     dispatch(sendFormBegin);
     try {
-      const res = await axios.post(`http://localhost:3001/user/signin`, form);
+      const res = await axios.post(`http://54.232.68.2/user/signin`, form);
       const loginUser = res.data;
       localStorage.setItem('user', JSON.stringify(loginUser));
       dispatch(sendFormSuccess);
