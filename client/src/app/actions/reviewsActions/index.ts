@@ -74,7 +74,7 @@ const postReview = (review: ReviewPost) => {
     dispatch(sendReviewBegin);
     try {
       console.log(review.rating);
-      await axios.post(`http://localhost:3001/product/${review.id}/review`, review);
+      await axios.post(`http://54.232.68.2:3001/product/${review.id}/review`, review);
       dispatch(sendReviewSuccess);
     } catch (err) {
       dispatch(sendReviewFailure(err));
@@ -86,7 +86,7 @@ const getReviews = (id: string) => {
   return async (dispatch: any) => {
     dispatch(getReviewsBegin());
     try {
-      const res = await axios.get(`http://localhost:3001/product/${id}/review`);
+      const res = await axios.get(`http://54.232.68.2:3001/product/${id}/review`);
       const reviews = res.data.map((review: ReviewRes) => ({
         id: review.id,
         rating: review.rating,
@@ -104,7 +104,7 @@ const deleteReviews = (id: number, productId:string) => {
   return async (dispatch: any) => {
     dispatch(deleteReviewsBegin());
     try {
-      await axios.delete(`http://localhost:3001/product/review/${id}`);
+      await axios.delete(`http://54.232.68.2:3001/product/review/${id}`);
       dispatch(getReviews(productId));
       dispatch(deleteReviewsSuccess);
     } catch (err) {
