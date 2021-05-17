@@ -5,7 +5,7 @@
 }
 .homeLoading {
   animation-name: HomeLoadingScreen;
-  margin: 15vh 44vw 15vh 42vw;
+  margin: 15vh 42vw 15vh 42vw;
   font-size: 3vw;
   border-radius: 1vw;
   padding: 1vw;
@@ -48,4 +48,5 @@
 
  .homeBackground{
   background-color: #5A5A5A;
+  height: 100vh; 
  }

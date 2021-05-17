@@ -8,7 +8,8 @@ import {userInfo} from '../../app/reducers/registerReducer';
 
 const Cart = () => {
   const dispatch = useAppDispatch();
-  const productsInCart = useAppSelector(cartsReducer);
+  const cartProducts = useAppSelector(cartsReducer);
+  const productsInCart = [...cartProducts];
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
   const [products, setProducts] = React.useState([]);
@@ -20,9 +21,6 @@ const Cart = () => {
       const products = [array[0]];
       for (let i = 1; i < array.length; i++) {
         const product = products.find((p) => p.id === array[i].id);
-        if (product === undefined) {
-          products.push(array[i]);
-        };
         if (product !== undefined) {
           product.amount += array[i].amount;
         };
@@ -39,7 +37,7 @@ const Cart = () => {
   return (
     <div>
       <div>
-        { products.length !== 0 ?
+        { products.length > 0 ?
           // eslint-disable-next-line react/jsx-key
           products.map((product) =>
             <CartProduct key={product.id} product={product} />):

@@ -11,7 +11,7 @@
     background-color: #404040;
     color: white;
     width: 25vw;
-    height: 80vh;
+    height: 65vh;
     border-radius: 1.5vh;
     margin: 2vw;
     min-width: 200px;
@@ -116,5 +116,6 @@
     width: 100%;
     max-width: 30vw;
     max-height: 60vh;
+    margin-bottom: 10vh;
 }
 
