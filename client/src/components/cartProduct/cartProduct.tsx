@@ -1,4 +1,5 @@
 import React from 'react';
+// import Redirect from 'react-router';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {deleteProductFromCart,
   changeProductQuantity} from '../../app/actions/cartActions/index';
@@ -11,7 +12,10 @@ const CartProduct = (props) => {
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
   const dispatch = useAppDispatch();
-  const handleDeleteProduct = () => dispatch(deleteProductFromCart(userId, id));
+  const handleDeleteProduct = () => {
+    dispatch(deleteProductFromCart(userId, id));
+    alert('Product deleted successfully');
+  };
   const handleChangeAmount = () => {
     const totalPrice = price * amount;
     dispatch(changeProductQuantity(userId, id, amount, totalPrice, stock));
