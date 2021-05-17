@@ -59,7 +59,7 @@ const Login = () => {
       <form className='loginGrid' onSubmit={handleSubmit}>
         <div className='loginUserName'>
           <label className='loginUserNameText'>Login</label>
-          <input type="text"
+          <input type="text" className='loginUserInput'
             placeholder='Enter your Username or Email'
             value={input.username}
             name="username"
@@ -69,7 +69,7 @@ const Login = () => {
         </div>
         <div className='loginPassword'>
           <label className='loginPasswordText'>Password</label>
-          <input type="password"
+          <input type="password" className='loginUserInput'
             placeholder='Enter your Password'
             value={input.password}
             name="password"
@@ -78,8 +78,10 @@ const Login = () => {
           <p className='loginErrors'>{errors.password}</p>
         </div>
         <button className='loginSend' type="submit">Login</button>
+        <div className='loginGoogle'>
+          <GoogleComp/>
+        </div>
       </form>
-      <GoogleComp/>
     </div>
   );
 };
