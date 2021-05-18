@@ -43,7 +43,7 @@ const FilterSelect = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(productCategories);
   const categoriesCopy = [...categories];
-  categoriesCopy.push('All');
+  categoriesCopy.push('');
   const handleFilterSelectChange = (e: any) => setFilter(e.label);
   const handleSortSelectChange = (e: any) => setSort(e.label);
   useEffect(() => {
