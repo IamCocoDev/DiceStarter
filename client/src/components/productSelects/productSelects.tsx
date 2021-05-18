@@ -9,30 +9,30 @@ import {Categories} from '../../types';
 import {productCategories} from '../../app/reducers/handleProductsReducer';
 
 const sortType: Array<Categories> = [{
-  value: 0,
-  label: '',
+  value: 'None',
+  label: 'None',
 },
 {
-  value: 1,
+  value: 'A-Z',
   label: 'A-Z',
 }, {
-  value: 2,
+  value: 'A-Z',
   label: 'Z-A',
 },
 {
-  value: 3,
+  value: 'maxPrice',
   label: 'maxPrice',
 },
 {
-  value: 4,
+  value: 'minPrice',
   label: 'minPrice',
 },
 {
-  value: 5,
+  value: 'maxRating',
   label: 'maxRating',
 },
 {
-  value: 6,
+  value: 'minRating',
   label: 'minRating',
 },
 ];
@@ -43,10 +43,13 @@ const FilterSelect = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(productCategories);
   const categoriesCopy = [...categories];
-  categoriesCopy.push({value: '', label: 'all'});
-  const handleFilterSelectChange = (e: any) => setFilter(e.label);
-  const handleSortSelectChange = (e: any) => setSort(e.label);
+  categoriesCopy.unshift({value: '', label: 'None'});
+  console.log(categoriesCopy);
+  console.log(sortType);
+  const handleFilterSelectChange = (e: any) => setFilter(e.value);
+  const handleSortSelectChange = (e: any) => setSort(e.value);
   useEffect(() => {
+    console.log(filter);
     dispatch(getCategoriesAsync());
     dispatch(getProductsAsync({page: 1, name: '', filter: filter, sort: sort}));
   }, [sort, filter]);

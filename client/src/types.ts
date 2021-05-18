@@ -101,7 +101,7 @@ export interface Products {
 };
 
 export type Categories = {
-    value: number,
+    value: string,
     label: string
 };
 
