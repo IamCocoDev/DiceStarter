@@ -9,6 +9,10 @@ import {Categories} from '../../types';
 import {productCategories} from '../../app/reducers/handleProductsReducer';
 
 const sortType: Array<Categories> = [{
+  value: 0,
+  label: '',
+},
+{
   value: 1,
   label: 'A-Z',
 }, {
@@ -38,6 +42,8 @@ const FilterSelect = () => {
   const [sort, setSort] = useState('');
   const dispatch = useAppDispatch();
   const categories = useAppSelector(productCategories);
+  const categoriesCopy = [...categories];
+  categoriesCopy.push('All');
   const handleFilterSelectChange = (e: any) => setFilter(e.label);
   const handleSortSelectChange = (e: any) => setSort(e.label);
   useEffect(() => {
@@ -47,7 +53,7 @@ const FilterSelect = () => {
   return (
     <div className='productSelectsGrid'>{
       <Select className='productSelectsCateogires'
-        options={categories}
+        options={categoriesCopy}
         onChange={handleFilterSelectChange}
         placeholder='Choose Your Category...'
       >
