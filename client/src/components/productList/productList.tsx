@@ -42,7 +42,7 @@ function ProductList(props: ProductRes): JSX.Element {
     }
     const myCategories = props.categories.map((el) => {
       return {
-        value: el.id,
+        value: el.name,
         label: el.name,
       };
     });

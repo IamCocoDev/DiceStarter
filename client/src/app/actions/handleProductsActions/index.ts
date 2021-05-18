@@ -27,6 +27,7 @@ const setCategories = (categories: any) => ({
 const getProductsAsync = (SearchInput: SearchInput) => {
   return async (dispatch: any) => {
     try {
+      console.log(SearchInput.filter);
       const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
       const totalPages = res.data.totalPages;
       const products = res.data.products.map((product: ProductRes) => {
@@ -118,10 +119,11 @@ const getCategoriesAsync = () => {
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`http://localhost:3001/categories`);
+      console.log(res.data);
       const categories = res.data.map((
           category: any) => {
         return {
-          value: category.id,
+          value: category.name,
           label: category.name,
         };
       });

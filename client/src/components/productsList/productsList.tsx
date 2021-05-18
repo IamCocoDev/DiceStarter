@@ -12,6 +12,33 @@ import {Categories, SearchInput} from '../../types';
 import Select from 'react-select';
 import {getCategoriesAsync, getProductsAsync} from
   '../../app/actions/handleProductsActions';
+const sortType: Array<Categories> = [{
+  value: '',
+  label: 'None',
+}, {
+  value: 'A-Z',
+  label: 'A-Z',
+}, {
+  value: 'Z-A',
+  label: 'Z-A',
+},
+{
+  value: 'maxPrice',
+  label: 'maxPrice',
+},
+{
+  value: 'minPrice',
+  label: 'minPrice',
+},
+{
+  value: 'maxRating',
+  label: 'maxRating',
+},
+{
+  value: 'minRating',
+  label: 'minRating',
+},
+];
 // 10 product properties without counting id
 function ProductsList() {
   const dispatch = useAppDispatch();
@@ -23,6 +50,8 @@ function ProductsList() {
   const adminProducts = useAppSelector(productsList);
   const pagesTotal = useAppSelector(totalPages);
   const categories = useAppSelector(productCategories);
+  const categoriesCopy = [...categories];
+  categoriesCopy.unshift({value: '', label: 'None'});
 
   const [filters, setFilters] = useState<SearchInput>({
     name: '',
@@ -41,31 +70,6 @@ function ProductsList() {
     setFilters({...filters, page: filters.page + step});
   };
 
-  const sortType: Array<Categories> = [{
-    value: 1,
-    label: 'A-Z',
-  }, {
-    value: 2,
-    label: 'Z-A',
-  },
-  {
-    value: 3,
-    label: 'maxPrice',
-  },
-  {
-    value: 4,
-    label: 'minPrice',
-  },
-  {
-    value: 5,
-    label: 'maxRating',
-  },
-  {
-    value: 6,
-    label: 'minRating',
-  },
-  ];
-
   return (
     <div className='productsListBackground'>
       <div className='selectDiv'>
@@ -81,13 +85,12 @@ function ProductsList() {
         ></Select>
         <Select
           className='select'
-          options={categories}
+          options={categoriesCopy}
           placeholder='Choose your sort...'
           onChange={(e) => {
-            console.log(categories);
-            setFilters({...filters, filter: e?.label});
+            setFilters({...filters, filter: e?.value});
             dispatch(getProductsAsync({name: filters.name,
-              page: filters.page, filter: e?.label, sort: filters.sort}));
+              page: filters.page, filter: e?.value, sort: filters.sort}));
           }}
         ></Select>
       </div>
