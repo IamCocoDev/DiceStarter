@@ -56,12 +56,13 @@ function validate(input: registerInput) {
   }
   if (!input.password) {
     errors.password = 'Password is required';
-  } else if (!/(?=.*[0-9]){5,}/.test(input.password)) {
+  } else if (!/[0-9a-zA-Z]{6,}/.test(input.password)) {
     errors.password = 'Password is invalid';
   }
   if (input.password !== input.confirmPassword || !input.confirmPassword) {
     errors.confirmPassword = 'Passwords are not equal';
-  } else if (!/(?=.*[0-9]){5,}/.test(input.password)) {
+  } else if (!/[0-9a-zA-Z]{6,}/.test(input.password) &&
+    /[0-9]/.test(input.password)) {
     errors.password = 'Password is invalid';
   }
   if (!input.country || input.country === '0') {
