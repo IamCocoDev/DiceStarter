@@ -3,9 +3,6 @@ import './carousel.css';
 
 const Carousel = (props:{pictures}) => {
   const [pictureNumber, setPictureNumber] = useState(0);
-  console.log(props.pictures);
-  console.log(pictureNumber);
-  console.log(props.pictures[pictureNumber]);
   const handleClickCounterIncrease = () => {
     if (pictureNumber < props.pictures.length -1) {
       setPictureNumber(pictureNumber + 1);
