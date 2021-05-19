@@ -4,6 +4,7 @@ import CountrySelect from '../countrySelect/countrySelect';
 import {useAppDispatch} from '../../app/hooks';
 import {sendFormAsync} from '../../app/actions/actionsUser';
 import './formRegisterForm.css';
+import {Redirect} from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import GoogleComp from '../googleComp/googleComp';
 
@@ -73,6 +74,7 @@ function validate(input: registerInput) {
 
 const FormRegisterForm = () => {
   const dispatch = useAppDispatch();
+  const [redirect, setRedirect] = useState(false);
   const [input, setInput] = useState<registerInput>({
     name: '',
     email: '',
@@ -100,7 +102,7 @@ const FormRegisterForm = () => {
     if (deepEqualError(errors)) {
       alert('Register completed!');
       dispatch(sendFormAsync(input));
-      console.log(input);
+      setRedirect(true);
       setInput({
         name: '',
         email: '',
@@ -123,10 +125,13 @@ const FormRegisterForm = () => {
 
   useEffect(() => {
     setErrors(validate(input));
-    console.log(input);
   }, [input]);
   return (
     <div className='registerBackground'>
+      {
+        redirect === true &&
+        <Redirect to={`/admin/home`}></Redirect>
+      }
       <form className='registerGrid' onSubmit={handleSubmit}>
         <div className='registerName'>
           <label className='registerH1' htmlFor="">Name</label>

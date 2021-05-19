@@ -44,12 +44,9 @@ const FilterSelect = () => {
   const categories = useAppSelector(productCategories);
   const categoriesCopy = [...categories];
   categoriesCopy.unshift({value: '', label: 'None'});
-  console.log(categoriesCopy);
-  console.log(sortType);
   const handleFilterSelectChange = (e: any) => setFilter(e.value);
   const handleSortSelectChange = (e: any) => setSort(e.value);
   useEffect(() => {
-    console.log(filter);
     dispatch(getCategoriesAsync());
     dispatch(getProductsAsync({page: 1, name: '', filter: filter, sort: sort}));
   }, [sort, filter]);

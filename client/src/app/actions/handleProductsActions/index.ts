@@ -118,7 +118,6 @@ const getCategoriesAsync = () => {
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`http://localhost:3001/categories`);
-      console.log(res.data);
       const categories = res.data.map((
           category: any) => {
         return {
