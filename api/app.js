@@ -12,6 +12,7 @@ const categoriesRouter = require('./routes/categories');
 const orderRouter = require('./routes/order');
 const userRouter = require('./routes/user');
 const { Product } = require('./db.js');
+const isAuth = require('./middleware/auth');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -39,7 +40,7 @@ app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/product', productRouter);
 app.use('/categories', categoriesRouter);
-app.use('/orders', orderRouter);
+app.use('/orders', isAuth, orderRouter);
 app.use('/user', userRouter);
 
 app.use((req, res, next) => {
