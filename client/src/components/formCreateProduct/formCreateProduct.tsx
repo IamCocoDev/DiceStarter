@@ -19,6 +19,7 @@ import {
 } from '../../types';
 import ColorCircle from '../colorCircle/ColorCircle';
 import {productCategories} from '../../app/reducers/handleProductsReducer';
+import {userInfo} from '../../app/reducers/registerReducer';
 
 function deepEqualError(a: errorsInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -81,6 +82,7 @@ function validate(input: Inputs) {
 const FormCreateProduct = () => {
   const dispatch = useAppDispatch();
   const [redirect, setRedirect] = useState(false);
+  const user = useAppSelector(userInfo);
   useEffect(() => {
     dispatch(getCategoriesAsync());
   }, [redirect]);
@@ -162,6 +164,7 @@ const FormCreateProduct = () => {
     setInput({...input, picture: e.map((p: base64) => p.base64)});
   };
   return (
+    user.role === 'Admin' ?
     <div className='formCreateProductGrid'>
       {
         redirect === true && <Redirect to={`/home`}></Redirect>
@@ -282,7 +285,8 @@ const FormCreateProduct = () => {
           value="Create"
         />
       </form>
-    </div>
+    </div> :
+    <div>401 Not Authorized</div>
   );
 };
 

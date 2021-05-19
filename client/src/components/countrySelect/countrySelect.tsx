@@ -3,7 +3,6 @@ import React, {useEffect} from 'react';
 
 const CountrySelect = (props) => {
   useEffect(() => {
-    console.log(props);
   }, []);
   // eslint-disable-next-line react/prop-types
   const {handle, val} = props;
