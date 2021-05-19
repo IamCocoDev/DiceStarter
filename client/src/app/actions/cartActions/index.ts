@@ -15,16 +15,18 @@ export const getProductsInCart = () => (dispatch) => {
       .catch((err) => console.error(err)); */
 };
 
-export const addProductInCart = (product) => (dispatch) => {
+export const addProductInCart = (product, userId = '') => (dispatch) => {
   const productsInCart = JSON.parse(localStorage
       .getItem('cart') || '[]').concat(product);
   localStorage.setItem('cart', JSON.stringify(productsInCart));
-  dispatch({type: ADD_PRODUCT_IN_CART, payload: product});
-  return;
-  /* return axios.post(`http://localhost:3001/orders/${userId}/cart`, {product})
-      .then((res) =>
-        dispatch({type: ADD_PRODUCT_IN_CART, payload: res.data}))
-      .catch((err) => console.error(err)); */
+  if (userId === '') {
+    dispatch({type: ADD_PRODUCT_IN_CART, payload: product});
+  } else {
+    return axios.post(`http://localhost:3001/orders/${userId}/cart`, {product})
+        .then((res) =>
+          dispatch({type: ADD_PRODUCT_IN_CART, payload: res.data}))
+        .catch((err) => console.error(err));
+  }
 };
 
 export const deleteAllCart = (userId) => (dispatch) => {

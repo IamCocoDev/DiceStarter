@@ -29,6 +29,8 @@ const Cart = () => {
         };
       }
       setProducts(products);
+    } else {
+      setProducts([]);
     }
   };
 
@@ -43,7 +45,8 @@ const Cart = () => {
         { products.length > 0 ?
           // eslint-disable-next-line react/jsx-key
           products.map((product) =>
-            <CartProduct key={product.id} product={product} />):
+            <CartProduct key={product.id} product={product}
+              setProduct={setProducts} />) :
             <div>No products in cart</div>
         }
       </div>

@@ -45,6 +45,7 @@ const GoogleComp = () => {
         buttonText='Login with Google'
         onSuccess={onSignIn}
         onFailure={onSignIn}
+        cookiePolicy={'single_host_origin'}
       />
     </div>
   );
