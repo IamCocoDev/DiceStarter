@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 .navBarGrid {
+    position: sticky;
     display: grid;
     grid-template-columns: 1fr 0.7fr 2fr 1fr 0.5fr 0.1fr ;
     grid-template-rows: 1fr;
