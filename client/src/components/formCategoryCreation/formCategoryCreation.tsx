@@ -1,18 +1,21 @@
 import React, {useState} from 'react';
 
-import {useAppDispatch} from '../../app/hooks';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {addCategoryAsync} from '../../app/actions/handleProductsActions/index';
 import {formData} from '../../types';
+import {userInfo} from '../../app/reducers/registerReducer';
 import './formCategoryCreation.css';
 
 const FormCategoryCreation = () => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector(userInfo);
   const [input, setInput] = useState('');
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     dispatch(addCategoryAsync(input));
   };
   return (
+    user.role === 'Admin' ?
     <div className='formCategoryCreationFlex'>
       <form className='formCategoryCreationGrid' onSubmit={handleSubmit}>
         <input className='formCategoryCreationName' placeholder='Category Name'
@@ -20,7 +23,8 @@ const FormCategoryCreation = () => {
         <input className='formCategoryCreationSubmit'
           type="submit" />
       </form>
-    </div>
+    </div> :
+    <div>401 Not Authorized</div>
   );
 };
 

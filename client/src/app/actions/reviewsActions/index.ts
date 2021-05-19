@@ -12,11 +12,11 @@ const setReviews = (reviewResponse: ReviewRes) => ({
 
 // Async requests to the back-end
 
-const postReview = (review: ReviewPost) => {
+const postReview = (review: ReviewPost, id:string) => {
   return async (dispatch: any) => {
     try {
-      console.log(review.id);
       await axios.post(`http://localhost:3001/product/${review.id}/review`, review);
+      dispatch(getReviews(id));
     } catch (err) {
       console.error(err);
     }

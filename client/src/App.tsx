@@ -19,10 +19,14 @@ import AdministratorHome
 import FormRegisterForm from './components/formRegisterUser/formRegisterForm';
 import Login from './components/login/login';
 import Cart from './components/cart/cart';
+import {userInfo} from './app/reducers/registerReducer';
+import {useAppSelector} from './app/hooks';
 
 function App() {
+  const user = useAppSelector(userInfo);
   return (
     <div className="">
+      {user.role === 'Admin' ?
       <Route path={['/home',
         '/product',
         '/create',
@@ -33,7 +37,14 @@ function App() {
         '/list/productlist',
         '/create/category',
         '/admin/home',
-        '/cart']} component={NavBar}></Route>
+        '/cart']} component={NavBar}></Route> :
+      <Route path={['/home',
+        '/login',
+        '/register',
+        '/cart',
+        '/product',
+      ]} component={NavBar}></Route>
+      }
       <Route exact path='/login' component={Login}></Route>
       <Route exact path='/list/productlist' component={ProductsList}></Route>
       <Route exact path='/register' component={FormRegisterForm}></Route>
