@@ -26,21 +26,23 @@ const CartProduct = (props) => {
   }, [productAmount]);
   return (
     <div className='cartProductGrid'>
-      <img className='cartProductImage' src={image[0]} alt={name} />
+      <img className='cartProductImage' src={image && image[0]} alt={name} />
       <div className='cartProductName'>{name}</div>
-      { productAmount > 1 &&
+      <div className='cartProductAmout'>
+        { productAmount > 1 &&
         <button className='cartProductAmountDecrease'
           onClick={() => setProductAmount(productAmount - 1)}>
         -
         </button>
-      }
-      {productAmount}
-      { productAmount < stock &&
+        }
+        {productAmount}
+        { productAmount < stock &&
           <button className='cartProductAmountIncrease'
             onClick={() => setProductAmount(productAmount + 1)}>
-           +
+             +
           </button>
-      }
+        }
+      </div>
       <button className='cartProductDelete'
         onClick={handleDeleteProduct} ><i className='material-icons'>
           delete

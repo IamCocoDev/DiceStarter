@@ -11,15 +11,14 @@ function ProductCards() {
     <div className='productCardsFlex'>
       {
         products !== null && products.map((product, index) => (
-          <div key={index}>
-            <ProductCard
-              id={product.id}
-              name={product.name}
-              image={product.picture}
-              price={product.price}
-              stock={product.stock}
-            />
-          </div>
+          <ProductCard
+            key={index}
+            id={product.id}
+            name={product.name}
+            image={product.picture}
+            price={product.price}
+            stock={product.stock}
+          />
         ))
       }
 

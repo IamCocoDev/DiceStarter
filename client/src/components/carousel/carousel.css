@@ -16,15 +16,19 @@
     border-radius: 1vw;
     border-width: 0.2vw;
     border-style: groove;
+    height: 35vh;
+    width: auto;
 }
 .carouselButtonPrev {
     height: 15vh;
     width: 5vw;
     font-size: 5vw;
+    color: white;
 }
 
 .carouselButtonNext {
     height: 15vh;
     width: 5vw;
     font-size: 5vw;
+    color: white;
 }

@@ -51,12 +51,6 @@ function Home(props: any) {
             <Paginate page={page} pagesTotal={pagesTotal}/>
           </div>
         }
-        {/*
-          asyncProducts === 'failed' &&
-          <div className='homeFailed'>
-            <h1>Product not Found</h1>
-          </div>
-        */}
       </div>
     </div>
   );

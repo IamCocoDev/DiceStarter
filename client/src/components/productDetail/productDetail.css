@@ -28,21 +28,18 @@
 }
 
 .ProductDetailImage{
-    grid-column: 2/4;
+    grid-column: 1/4;
     grid-row: 2/6;
     width: 30vw;
     height: auto;
     align-self: center;
     justify-self: center;
-    background-color: white;
     border-radius: 1vw;
     position: relative;
     top: 0;
     transition: all .1s ease-in;
 }
-.ProductDetailImage:hover {
-    box-shadow: 0 4px 5px rgba(0,0,0,0.2);
-}
+
 .ProductDetailName {
     grid-column: 5/7;
     grid-row: 2/3;
