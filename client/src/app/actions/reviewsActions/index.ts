@@ -15,9 +15,10 @@ const setReviews = (reviewResponse: ReviewRes) => ({
 const postReview = (review: ReviewPost) => {
   return async (dispatch: any) => {
     try {
+      console.log(review.id);
       await axios.post(`http://localhost:3001/product/${review.id}/review`, review);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 };
@@ -31,21 +32,36 @@ const getReviews = (id: string) => {
         rating: review.rating,
         comment: review.comment,
       }));
+      console.log('Done!');
       dispatch(setReviews(reviews));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 };
 
-const deleteReviews = (id: number, productId:string) => {
+const deleteReviews = (id: number, productId: string) => {
   return async (dispatch: any) => {
     try {
-      await axios.delete(`http://localhost:3001/product/review/${id}`);
+      console.log(id);
+      const res = await axios.delete(`http://localhost:3001/product/review/${id}`);
+      console.log(res.data);
       dispatch(getReviews(productId));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     };
+  };
+};
+
+const modifyReview = (id: number) => {
+  return async (dispatch: any) => {
+    try {
+      console.log(id);
+      const res = await axios.post(`http://localhost:3001/product/review/${id}`);
+      console.table(res.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 };
 
@@ -53,4 +69,5 @@ export {
   postReview,
   getReviews,
   deleteReviews,
+  modifyReview,
 };

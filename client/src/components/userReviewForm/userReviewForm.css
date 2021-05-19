@@ -64,6 +64,9 @@
 .userReviewFormRating:hover {
     color: rgba(133, 165, 16, 0.788);
 }
+.userReviewFormRating:focus {
+        color: rgba(133, 165, 16, 0.788);
+}
 
 .userReviewFormButton {
     justify-self: center;
