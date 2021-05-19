@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from '../../app/hooks';
 import './userReviewForm.css';
-import {postReview} from '../../app/actions/reviewsActions/index';
+import {postReview, getReviews} from '../../app/actions/reviewsActions/index';
 // import {reviewsResponse} from '../../app/reducers/reviewsReducer';
-import {getReviews} from '../../app/actions/reviewsActions/index';
 
 const UserReviewForm = (props: {id:string}) => {
   const [input, setInput] = useState({
@@ -19,11 +18,15 @@ const UserReviewForm = (props: {id:string}) => {
   };
   const handleReviewSubmit = (e: any) => {
     e.preventDefault();
-    if (input.rating > 0) {
-      dispatch(postReview({...input, id: props.id}));
-      dispatch(getReviews(props.id));
+    if (input.comment.length < 255) {
+      if (input.rating > 0) {
+        dispatch(postReview({...input, id: props.id}));
+        dispatch(getReviews(props.id));
+      } else {
+        alert('A rating score is required for posting a review');
+      }
     } else {
-      alert('A rating score is required for posting a review');
+      alert('Your review must have less than 255 characters');
     }
   };
   return (

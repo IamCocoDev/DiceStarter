@@ -27,7 +27,6 @@ const setCategories = (categories: any) => ({
 const getProductsAsync = (SearchInput: SearchInput) => {
   return async (dispatch: any) => {
     try {
-      console.log(SearchInput.filter);
       const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
       const totalPages = res.data.totalPages;
       const products = res.data.products.map((product: ProductRes) => {
