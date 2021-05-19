@@ -10,11 +10,12 @@
     grid-template-rows: 0.1vh 3fr 1fr 0.5fr 1fr 0.5vh;
     background-color: #404040;
     color: white;
+    min-width: 300px;
     width: 25vw;
-    height: 65vh;
+    height: 70vh;
     border-radius: 1.5vh;
+    gap: 1vh;
     margin: 2vw;
-    min-width: 200px;
     position: relative;
     top: 0;
     transition: all .1s ease-in;
@@ -31,7 +32,7 @@
     text-align: center;
     justify-self: center;
     align-self: center;
-    font-size: 3vh;
+    font-size: 1.5vw;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
@@ -39,7 +40,7 @@
     grid-column: 2/3;
     grid-row: 2/3;
     width: 30vw;
-    height: 46vh;
+    height: 40vh;
     border-radius: 1.5vh 1.5vh 0 0;
     justify-self: center;
     align-self: center;
@@ -88,11 +89,12 @@
 
 .productCardCartButton { 
     width: 10vw;
+    height: auto;
     grid-column: 2/3;
     grid-row: 1/2;
     justify-self: center;
     align-self: center;
-    font-size: 3vh;
+    font-size: 1.4vw;
     background-color: #74009D;
     border-radius: 0.5vw;
     text-align: center;
@@ -104,13 +106,13 @@
     grid-row: 1/2;
     justify-self: center;
     align-self: center;
-    font-size: 3vh;
+    font-size: 1.4vw;
     background-color: #74009D;
     border-radius: 0.5vw;
     text-align: center;
 }
 
-.productCardAll {
+/* .productCardAll {
     margin-top: 2vh;
     height: 100%;
     width: 100%;
@@ -118,4 +120,31 @@
     max-height: 60vh;
     margin-bottom: 10vh;
 }
+ */
 
+ @media (max-width: 1300px){
+     .productCardCartButton{
+         width: 13vh;
+         height: auto;
+         font-size: 2vh;
+     }
+     .productCardViewMore{
+        width: 13vh;
+        height: auto;
+        font-size: 2vh;
+     }
+     .productCardName{
+        font-size: 3vh;
+     }
+     .productCardImage{
+        grid-column: 2/3;
+        grid-row: 2/3;
+        width: 89vw;
+        height: 40vh;
+        border-radius: 1.5vh 1.5vh 0 0;
+        justify-self: center;
+        align-self: center;
+        object-fit: cover;
+        object-position: center 0.2vh;
+     }
+ }
