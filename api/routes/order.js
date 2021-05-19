@@ -16,8 +16,8 @@ router.post('/:idUser/cart', (req, res, next) => {
       if (ord.length) {
         Product.findByPk(body.id).then((producto) => {
           producto.addOrder(ord);
-          return res.status(200).send('Order created');
-        });
+          return res.status(200).json(producto);
+        }).catch((err) => res.send(err));
       } else {
         Order.create({
           address: body.address,
@@ -28,7 +28,7 @@ router.post('/:idUser/cart', (req, res, next) => {
               order.setUser(user);
               Product.findByPk(body.id).then((producto) => {
                 producto.addOrder(order);
-                res.status(200).send('Order created');
+                res.status(200).json(ord);
               });
             })
             .catch(() => {

@@ -1,7 +1,8 @@
 import React from 'react';
 import './productCard.css';
 import {NavLink} from 'react-router-dom';
-import {useAppDispatch} from '../../app/hooks';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {userInfo} from '../../app/reducers/registerReducer';
 import {addProductInCart} from '../../app/actions/cartActions/index';
 /* import {userInfo} from '../../app/reducers/registerReducer'; */
 
@@ -14,7 +15,7 @@ function ProductCard(
     stock:number,
   }) {
   // const productToCart = useAppSelector(productDetail);
-  /* const user = useAppSelector(userInfo); */
+  const user = useAppSelector(userInfo);
   // const {id} = userInfo;
   const dispatch = useAppDispatch();
   const handleOnClick = () => dispatch(addProductInCart({
@@ -24,7 +25,7 @@ function ProductCard(
     image: props.image,
     stock: props.stock,
     amount: 1,
-  }));
+  }, user.id));
   return (
     <div>
       {
