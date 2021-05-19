@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from '../../app/hooks';
 import './userReviewForm.css';
-import {postReview, getReviews} from '../../app/actions/reviewsActions/index';
+import {postReview} from '../../app/actions/reviewsActions/index';
 // import {reviewsResponse} from '../../app/reducers/reviewsReducer';
 
 const UserReviewForm = (props: {id:string}) => {
@@ -20,8 +20,7 @@ const UserReviewForm = (props: {id:string}) => {
     e.preventDefault();
     if (input.comment.length < 255) {
       if (input.rating > 0) {
-        dispatch(postReview({...input, id: props.id}));
-        dispatch(getReviews(props.id));
+        dispatch(postReview({...input, id: props.id}, props.id));
       } else {
         alert('A rating score is required for posting a review');
       }

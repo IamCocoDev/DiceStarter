@@ -4,7 +4,7 @@ import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
 import {ReviewRes} from '../../types';
 import {deleteReviews,
-  getReviews, postReview} from '../../app/actions/reviewsActions/index';
+  getReviews} from '../../app/actions/reviewsActions/index';
 
 const PostedUserReviews = (props:{id:string}) => {
   const [toggle, setToggle] = useState(false);
@@ -19,7 +19,8 @@ const PostedUserReviews = (props:{id:string}) => {
   const toggleEdit = () => setToggle(!toggle);
   useEffect(() => {
     dispatch(getReviews(props.id));
-  }, [postReview]);
+  }, [dispatch, props]);
+  useEffect(() => {}, [postedReviews]);
   return (
     <div className='postedUserReviewsAll'>
       {

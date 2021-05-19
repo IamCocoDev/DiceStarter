@@ -12,6 +12,7 @@ import {Categories, SearchInput} from '../../types';
 import Select from 'react-select';
 import {getCategoriesAsync, getProductsAsync} from
   '../../app/actions/handleProductsActions';
+import {userInfo} from '../../app/reducers/registerReducer';
 const sortType: Array<Categories> = [{
   value: '',
   label: 'None',
@@ -42,6 +43,7 @@ const sortType: Array<Categories> = [{
 // 10 product properties without counting id
 function ProductsList() {
   const dispatch = useAppDispatch();
+  const user = useAppSelector(userInfo);
   useEffect(() => {
     dispatch(getProductsAsync({name: filters.name,
       page: filters.page, filter: filters.filter, sort: filters.sort}));
@@ -71,6 +73,7 @@ function ProductsList() {
   };
 
   return (
+    user.role === 'Admin' ?
     <div className='productsListBackground'>
       <div className='selectDiv'>
         <Select
@@ -132,7 +135,8 @@ function ProductsList() {
           onClick={() => onClickPage(1)}>
           Next</button> : null}
       </div>
-    </div>
+    </div> :
+    <div>401 Not Authorized</div>
   );
 }
 
