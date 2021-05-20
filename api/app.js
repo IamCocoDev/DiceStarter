@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -40,7 +40,7 @@ app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/product', productRouter);
 app.use('/categories', categoriesRouter);
-app.use('/orders', isAuth, orderRouter);
+app.use('/orders', orderRouter);
 app.use('/user', userRouter);
 
 app.use((req, res, next) => {
