@@ -145,7 +145,7 @@ router.post('/:idUser/c/cart', (req, res, next) => {
           Productxorder.update(obj, {
             where: { productId: body[i].id, orderId: idOrder },
           }).then(() => {
-            res.status(200).send('The order has been updated');
+            res.status(200).json(obj);
           }).catch((e) => next(e));
         }
         return null;
