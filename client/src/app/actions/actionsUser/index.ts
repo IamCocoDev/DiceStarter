@@ -1,21 +1,19 @@
 import axios from 'axios';
+import {SET_USER,
+  SET_USERS,
+} from '../../constants/constants';
+import {userChanges} from '../../../types';
 
-// Local status
-export const RESET_FORM_STATUS = 'RESET_FORM_STATUS';
-export const SET_USER = 'SET_USER';
-
-// Local status reseter
-// eslint-disable-next-line no-unused-vars
-const resetFormStatus = (status: string) => ({
-  type: RESET_FORM_STATUS,
-  payload: status,
-});
 // Status setters for async calls
 const setUser = (user: any) => ({
   type: SET_USER,
   payload: {user},
 });
 
+const setUsers = (users:any) => ({
+  type: SET_USERS,
+  payload: users,
+});
 
 const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
@@ -61,10 +59,40 @@ const logout = () => {
     }
   };
 };
+
+const modifyUser = (changes:userChanges) => {
+  return async (dispatch) => {
+    try {
+      const toSend = {
+        id: '8ef25ffe-04a5-4cf6-a1cc-2e568536ebad',
+        role: 'Admin',
+        status: 'Active',
+      };
+      dispatch(setUser(changes));
+      await axios.put(`http://localhost:3001/user/${changes.id}`, toSend);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+const getUsers = () => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`http://localhost:3001/users`);
+      const users = res.data;
+      dispatch(setUsers(users));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 export {
-  resetFormStatus,
   sendFormAsync,
   loginFormAsync,
   loginGoogle,
   logout,
+  modifyUser,
+  getUsers,
 };

@@ -10,9 +10,6 @@ export const getProductsInCart = () => (dispatch) => {
   const productsInCart = JSON.parse(localStorage.getItem('cart') || '[]');
   dispatch({type: GET_PRODUCTS_IN_CART, payload: productsInCart});
   return;
-  /* return axios.get(`http://localhost:3001/`)
-      .then((res) => dispatch({type: GET_PRODUCTS_IN_CART, payload: res.data}))
-      .catch((err) => console.error(err)); */
 };
 
 export const addProductInCart = (product, userId = '') => (dispatch) => {
@@ -29,7 +26,7 @@ export const addProductInCart = (product, userId = '') => (dispatch) => {
   }
 };
 
-export const deleteAllCart = (userId) => (dispatch) => {
+export const deleteAllCart = (userId:string) => (dispatch) => {
   if (!userId) {
     localStorage.removeItem('cart');
     dispatch({type: DELETE_ALL_CART});

@@ -21,6 +21,7 @@ import Login from './components/login/login';
 import Cart from './components/cart/cart';
 import {userInfo} from './app/reducers/registerReducer';
 import {useAppSelector} from './app/hooks';
+import UserList from './components/usersList/usersList';
 
 function App() {
   const user = useAppSelector(userInfo);
@@ -37,12 +38,14 @@ function App() {
         '/list/productlist',
         '/create/category',
         '/admin/home',
-        '/cart']} component={NavBar}></Route> :
+        '/cart',
+        '/list/userlist']} component={NavBar}></Route> :
       <Route path={['/home',
         '/login',
         '/register',
         '/cart',
         '/product',
+        '/admin/home',
       ]} component={NavBar}></Route>
       }
       <Route exact path='/login' component={Login}></Route>
@@ -59,6 +62,7 @@ function App() {
       <Route exact path='/create' component={CreateButtonRouter}></Route>
       <Route exact path='/admin/home' component={AdministratorHome} ></Route>
       <Route path='/cart' component={Cart}></Route>
+      <Route exact path='/list/userlist' component={UserList}></Route>
     </div >
   );
 }
