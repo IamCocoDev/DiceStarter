@@ -21,6 +21,7 @@ import Login from './components/login/login';
 import Cart from './components/cart/cart';
 import {userInfo} from './app/reducers/registerReducer';
 import {useAppSelector} from './app/hooks';
+// eslint-disable-next-line no-unused-vars
 import UserList from './components/usersList/usersList';
 
 function App() {

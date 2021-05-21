@@ -1,9 +1,25 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable max-len */
 import axios from 'axios';
+import {getProductsInCart} from '../cartActions';
 import {SET_USER,
   SET_USERS,
   SET_TOKEN,
 } from '../../constants/constants';
 import {userChanges} from '../../../types';
+
+function arrayUnique(array) {
+  const a = array.concat();
+  for (let i = 0; i < a.length; ++i) {
+    for (let j = i + 1; j < a.length; ++j) {
+      if (a[i].id === a[j].id) {
+        a.splice(j--, 1);
+      }
+    }
+  }
+
+  return a;
+}
 
 // Status setters for async calls
 const setUser = (user: any) => ({
@@ -37,11 +53,16 @@ const loginFormAsync = (form: any) => {
       console.log(form);
       const res = await axios.post(`http://localhost:3001/user/signin`, form);
       const loginUser = res.data;
-      console.log(res.data);
       localStorage.setItem('user', JSON.stringify(loginUser.user));
+      dispatch(setUser(loginUser.user));
+      const cartLocal = await JSON.parse(localStorage.getItem('cart') || '[]');
+      const cartUser = await dispatch(getProductsInCart(loginUser.user.id));
+      const nuevo = arrayUnique(cartLocal.concat(cartUser.payload));
+      const produsctId = nuevo.map((el) => el.id);
+      console.log(nuevo);
+      await axios.post(`http://localhost:3001/orders/${loginUser.user.id}/invited/cart`, {products: produsctId, address: 'cordoba'});
       localStorage.setItem('token', JSON.stringify(loginUser.token));
       dispatch(setToken(loginUser.token));
-      dispatch(setUser(loginUser.user));
     } catch (err) {
       console.error(err);
     }
@@ -63,6 +84,7 @@ const logout = () => {
   return async (dispatch: any) => {
     try {
       localStorage.setItem('user', '{}');
+      localStorage.removeItem('cart');
       dispatch(setUser({}));
     } catch (err) {
       console.log(err);

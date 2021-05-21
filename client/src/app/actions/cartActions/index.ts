@@ -27,6 +27,7 @@ export const getProductsInCart = (idUser = '') => (dispatch) => {
               idOrder: res.data[0].id,
             };
           });
+          localStorage.setItem('cart', JSON.stringify(products));
           console.log(products);
           return dispatch({
             type: GET_PRODUCTS_IN_CART,
