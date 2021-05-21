@@ -48,6 +48,7 @@ export interface FormRegisterState {
         role: string,
         status: string
     },
+    userToken: string,
     users:User[] | null,
 }
 export interface ReviewState {

@@ -5,16 +5,17 @@ import {reviewsResponse} from '../../app/reducers/reviewsReducer';
 import {ReviewPost} from '../../types';
 import {deleteReviews,
   getReviews} from '../../app/actions/reviewsActions/index';
-import {userInfo} from '../../app/reducers/registerReducer';
+import {userInfo, userToken} from '../../app/reducers/registerReducer';
 
 const PostedUserReviews = (props:{id:string}) => {
   const [toggle, setToggle] = useState(false);
   const postedReviews = useAppSelector(reviewsResponse);
   const user = useAppSelector(userInfo);
+  const token = useAppSelector(userToken);
   const dispatch = useAppDispatch();
   const handleOnClick = (e: any) => {
     if (e.target.value > 0) {
-      dispatch(deleteReviews(e.target.value, props.id));
+      dispatch(deleteReviews(e.target.value, props.id, token));
       dispatch(getReviews(props.id));
     }
   };
@@ -23,7 +24,6 @@ const PostedUserReviews = (props:{id:string}) => {
     dispatch(getReviews(props.id));
   }, [dispatch, props]);
   useEffect(() => {}, [postedReviews]);
-  console.log(toggle);
   return (
     user.role === 'Admin' ?
     <div className='postedUserReviewsAll'>
