@@ -1,13 +1,29 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable max-len */
 import axios from 'axios';
+import {getProductsInCart} from '../cartActions';
 import {SET_USER,
   SET_USERS,
 } from '../../constants/constants';
 import {userChanges} from '../../../types';
 
+function arrayUnique(array) {
+  const a = array.concat();
+  for (let i = 0; i < a.length; ++i) {
+    for (let j = i + 1; j < a.length; ++j) {
+      if (a[i].id === a[j].id) {
+        a.splice(j--, 1);
+      }
+    }
+  }
+
+  return a;
+}
+
 // Status setters for async calls
 const setUser = (user: any) => ({
   type: SET_USER,
-  payload: {user},
+  payload: user,
 });
 
 const setUsers = (users:any) => ({
@@ -32,6 +48,13 @@ const loginFormAsync = (form: any) => {
       const loginUser = res.data;
       localStorage.setItem('user', JSON.stringify(loginUser));
       dispatch(setUser(loginUser));
+      // eslint-disable-next-line no-unused-vars
+      const cartLocal = await JSON.parse(localStorage.getItem('cart') || '[]');
+      const cartUser = await dispatch(getProductsInCart(loginUser.id));
+      const nuevo = arrayUnique(cartLocal.concat(cartUser.payload));
+      const produsctId = nuevo.map((el) => el.id);
+      console.log(nuevo);
+      await axios.post(`http://localhost:3001/orders/${loginUser.id}/invited/cart`, {products: produsctId, address: 'cordoba'});
     } catch (err) {
       console.log(err);
     }
@@ -53,6 +76,7 @@ const logout = () => {
   return async (dispatch: any) => {
     try {
       localStorage.setItem('user', '{}');
+      localStorage.removeItem('cart');
       dispatch(setUser({}));
     } catch (err) {
       console.log(err);
