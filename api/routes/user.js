@@ -80,7 +80,7 @@ router.post('/signin', async (req, res, next) => {
             role: user.role,
           }, accessTokenSecret);
           return res.send({
-            data: user,
+            user: user.dataValues,
             token: accessToken,
           });
         }
