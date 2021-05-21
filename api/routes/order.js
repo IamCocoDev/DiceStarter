@@ -183,14 +183,13 @@ router.post('/:idUser/update/cart', (req, res) => {
 });
 
 router.post('/:idUser/invited/cart', (req, res) => {
-  // console.log("este es el consolelogg",req);
   const { idUser } = req.params; // Id del usuario
-  const { body } = req; // un arrays con productos [1, 5 , 13]
+  const { body } = req; // 2 propiedades(products: array de id de productos [1,2,3] y address)
   Order.findAll({ where: { userId: idUser, status: 'Created' } }).then(
     (ord) => {
       if (ord.length) {
-        for (let i = 0; i < body.length; i += 1) {
-          Product.findByPk(body[i]).then((producto) => {
+        for (let i = 0; i < body.products.length; i += 1) {
+          Product.findByPk(body.products[i]).then((producto) => {
             producto.addOrder(ord);
             return res.status(200).send('Order created');
           });
@@ -204,8 +203,8 @@ router.post('/:idUser/invited/cart', (req, res) => {
           User.findByPk(idUser)
             .then((user) => {
               order.setUser(user);
-              for (let i = 0; i < body.length; i += 1) {
-                Product.findByPk(body[i]).then((producto) => {
+              for (let i = 0; i < body.products.length; i += 1) {
+                Product.findByPk(body.products[i]).then((producto) => {
                   producto.addOrder(order);
                   res.status(200).send('Order created');
                 });

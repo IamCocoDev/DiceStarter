@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const isAdmin = require('../middleware/auth');
+const { isLogged, isNotLogged } = require('../middleware/logged.js');
 
 const accessTokenSecret = 'tomasvigilante';
 
@@ -21,7 +22,7 @@ router.get('/:id', isAdmin, (req, res, next) => {
     });
 });
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', isNotLogged, (req, res, next) => {
   const id = uuidv4();
   let { password } = req.body;
   const {
@@ -62,7 +63,7 @@ router.post('/signup', (req, res, next) => {
   return null;
 });
 
-router.post('/signin', async (req, res, next) => {
+router.post('/signin', isNotLogged, async (req, res, next) => {
   const { username, password } = req.body;
   try {
     let user;

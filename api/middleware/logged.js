@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const accessTokenSecret = 'tomasvigilante';
 const { User } = require('../db.js');
 
-module.exports = async (req, res, next) => {
+const isLogged = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(' ')[1];
@@ -16,11 +16,7 @@ module.exports = async (req, res, next) => {
       try {
         const username = await User.findOne({ where: { name: user.name } });
         if (username) {
-          if (username.role === 'Admin') {
-            next();
-          } else {
-            res.status(401).send('Access denied');
-          }
+          next();
         } else {
           res.status(404).send('User not exist');
         }
@@ -33,4 +29,19 @@ module.exports = async (req, res, next) => {
     res.sendStatus(401);
   }
   return null;
+};
+
+const isNotLogged = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader === undefined) {
+    next();
+  } else {
+    res.sendStatus(401);
+  }
+  return null;
+};
+
+module.exports = {
+  isLogged,
+  isNotLogged,
 };
