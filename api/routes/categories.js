@@ -1,4 +1,5 @@
 const express = require('express');
+const isAdmin = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const { name } = req.body;
 
@@ -27,7 +28,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.put('/:name', (req, res, next) => {
+router.put('/:name', isAdmin, (req, res, next) => {
   const { name } = req.params;
   const { body } = req;
   Category.update(body, { where: { name } })
@@ -39,7 +40,7 @@ router.put('/:name', (req, res, next) => {
     });
 });
 
-router.delete('/:name', (req, res) => {
+router.delete('/:name', isAdmin, (req, res) => {
   const { name } = req.params;
   Category.destroy({ where: { name } })
     .then(() => {

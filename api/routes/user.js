@@ -1,14 +1,18 @@
 const express = require('express');
 
 const { v4: uuidv4 } = require('uuid');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const isAdmin = require('../middleware/auth');
+
+const accessTokenSecret = 'tomasvigilante';
 
 const router = express.Router();
 
-const bcrypt = require('bcrypt');
-
 const { User } = require('../db');
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', isAdmin, (req, res, next) => {
   User.findByPk(req.params.id)
     .then((response) => {
       res.json(response);
@@ -71,7 +75,14 @@ router.post('/signin', async (req, res, next) => {
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) return res.send('password invalid');
         if (result) {
-          return res.send(user);
+          const accessToken = jwt.sign({
+            name: user.name,
+            role: user.role,
+          }, accessTokenSecret);
+          return res.send({
+            data: user,
+            token: accessToken,
+          });
         }
         return res.send('User not found');
       });
@@ -91,7 +102,7 @@ router.post('/logout', (req, res) => {
   res.send('Logout successful');
 });
 
-router.post('/admin', (req, res, next) => {
+router.post('/admin', isAdmin, (req, res, next) => {
   const id = uuidv4();
   try {
     let { password } = req.body;
@@ -129,7 +140,7 @@ router.post('/admin', (req, res, next) => {
   }
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', isAdmin, (req, res, next) => {
   try {
     const { id } = req.params;
     const { body } = req;

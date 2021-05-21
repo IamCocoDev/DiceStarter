@@ -2,17 +2,20 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const jwt = require('jsonwebtoken');
+
+const bcrypt = require('bcrypt');
+
+const accessTokenSecret = 'tomasvigilante';
 const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products');
 const productRouter = require('./routes/product');
 const categoriesRouter = require('./routes/categories');
 const orderRouter = require('./routes/order');
 const userRouter = require('./routes/user');
-const { Product } = require('./db.js');
-const isAuth = require('./middleware/auth');
+const { Product, User } = require('./db.js');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -53,6 +56,38 @@ app.use((err, req, res) => {
 
   res.status(err.status || 500);
   res.render('error');
+});
+
+app.post('/signin', async (req, res, next) => {
+  const { username, password } = req.body;
+  try {
+    let user;
+    const emailRegEx = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    if (username && password) {
+      if (emailRegEx.test(username)) {
+        user = await User.findOne({ where: { email: username } });
+      }
+      user = await User.findOne({ where: { name: username } });
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (err) return res.send('password invalid');
+        if (result) {
+          const accessToken = jwt.sign({
+            name: user.username,
+            role: user.role,
+          }, accessTokenSecret);
+          return res.send({ accessToken });
+        }
+        return res.send('User not found');
+      });
+    }
+    if (!password || !username) {
+      return res.send('Input invalid');
+    }
+  } catch (e) {
+    res.status(400);
+    next(e);
+  }
+  return null;
 });
 
 const producto1 = Product.findOrCreate({

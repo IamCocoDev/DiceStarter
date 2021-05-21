@@ -1,6 +1,7 @@
 const express = require('express');
 
 const { v4: uuidv4 } = require('uuid');
+const isAdmin = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   const id = uuidv4();
 
   try {
@@ -38,7 +39,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdmin, async (req, res, next) => {
   const { id } = req.params;
   const { body } = req;
   try {
@@ -52,7 +53,7 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', isAdmin, (req, res, next) => {
   const { id } = req.params;
   Product.destroy({ where: { id } })
     .then(() => {
@@ -88,7 +89,7 @@ router.post('/:id/review', (req, res, next) => {
     });
 });
 
-router.get('/reviews/allreviews', (req, res, next) => {
+router.get('/reviews/allreviews', isAdmin, (req, res, next) => {
   Reviews.findAll()
     .then((data) => res.send(data))
     .catch((e) => {
@@ -115,7 +116,7 @@ router.post('/review/:idReview', (req, res, next) => {
     });
 });
 
-router.delete('/review/:idReview', (req, res, next) => {
+router.delete('/review/:idReview', isAdmin, (req, res, next) => {
   const { idReview } = req.params;
 
   Reviews.destroy({ where: { id: idReview } })
@@ -134,11 +135,11 @@ router.get('/:id/review', (req, res, next) => {
     Reviews.findAll({ where: { productId: id } })
       .then(async (resp) => {
         const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
-        const quantityRev = await Reviews.count('rating', { where: { productId: id } });
+        const quantityRev = await Reviews.count({ where: { productId: id } });
         const average = sumReviews / quantityRev;
         res.send({
           all: resp,
-          average,
+          average: parseFloat(average.toFixed(2)),
         });
       })
       .catch((e) => {
