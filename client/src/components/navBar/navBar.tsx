@@ -6,6 +6,7 @@ import {Route} from 'react-router-dom';
 
 function NavBar(props: any): JSX.Element {
   const User = JSON.parse(localStorage.getItem('user') || '{}');
+  console.table(User);
   const route:string = props.location.pathname;
   if (route === '/list/productlist') {
     return (
@@ -20,7 +21,7 @@ function NavBar(props: any): JSX.Element {
         </Route>
         {
           User.role === 'Admin' ?
-          <div>
+          <div className='navBarMenuIcons'>
             <div className='navBarListAll'>
               <Link to={'/list'}>
                 <i className='material-icons'>view_list</i>

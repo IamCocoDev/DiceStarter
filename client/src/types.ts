@@ -1,10 +1,27 @@
 
+export interface userChanges {
+    id:string,
+    role:string,
+    status:string,
+}
 export interface FormState {
     inputs: Inputs,
 }
 
 export interface cartState {
     productsInCart: ProductRes[]
+}
+export interface User {
+        id: string,
+        name: string,
+        firstName: string,
+        lastName: string,
+        birthday: string,
+        country: string,
+        email: string,
+        password: string,
+        role: string,
+        status: string,
 }
 export interface FormRegisterState {
     inputs: {
@@ -24,6 +41,7 @@ export interface FormRegisterState {
         role: string,
         status: string
     },
+    users:User[] | null,
 }
 export interface ReviewState {
     reviewsResponse: ReviewRes[] | null,

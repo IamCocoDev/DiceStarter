@@ -130,15 +130,24 @@ router.delete('/review/:idReview', (req, res, next) => {
 
 router.get('/:id/review', (req, res, next) => {
   const { id } = req.params;
-
-  Reviews.findAll({ where: { productId: id } })
-    .then((resp) => {
-      res.send(resp);
-    })
-    .catch((e) => {
-      res.status(400);
-      next(e);
-    });
+  try {
+    Reviews.findAll({ where: { productId: id } })
+      .then(async (resp) => {
+        const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
+        const quantityRev = await Reviews.count('rating', { where: { productId: id } });
+        const average = sumReviews / quantityRev;
+        res.send({
+          all: resp,
+          average,
+        });
+      })
+      .catch((e) => {
+        res.sendStatus(400);
+        next(e);
+      });
+  } catch {
+    res.sendStatus(400);
+  }
 });
 
 module.exports = router;
