@@ -62,6 +62,7 @@ function App() {
       <Route exact path='/create' component={CreateButtonRouter}></Route>
       <Route exact path='/admin/home' component={AdministratorHome} ></Route>
       <Route path='/cart' component={Cart}></Route>
+      <Route exact path='/list/userlist' component={UserList}></Route>
     </div>
   );
 }

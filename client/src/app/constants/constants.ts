@@ -11,3 +11,7 @@ export const SET_USERS = 'SET_USERS';
 export const SET_USER = 'SET_USER';
 export const MODIFY_USER = 'MODIFY_USER';
 export const DELETE_USER = 'DELETE_USER';
+// Set constants
+export const SET_TOKEN = 'SET_TOKEN';
+
+

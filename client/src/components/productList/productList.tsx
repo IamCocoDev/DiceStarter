@@ -13,6 +13,7 @@ import {
 import ColorCircle from '../colorCircle/ColorCircle';
 import './productList.css';
 import Select from 'react-select';
+import {userToken} from '../../app/reducers/registerReducer';
 
 function ProductList(props: ProductRes): JSX.Element {
   const dispatch = useAppDispatch();
@@ -32,6 +33,8 @@ function ProductList(props: ProductRes): JSX.Element {
     description: props.description,
     categories: [],
   });
+
+  const token = useAppSelector(userToken);
 
   useEffect(() => {
     setInput(props);
@@ -168,12 +171,12 @@ function ProductList(props: ProductRes): JSX.Element {
       ></input>
       <button className="productsListEditButton" onClick={() => {
         if (window.confirm(`Save changes to ${input.name}?`)) {
-          dispatch(changeProductInDBAsync(input));
+          dispatch(changeProductInDBAsync(input, token));
         }
       }}>Save Changes</button>
       <button className="productsListDeleteButton" onClick={() => {
         if (window.confirm(`Are you sure you want to delete ${input.name}?`)) {
-          dispatch(deleteProductByIdAsync(input.id));
+          dispatch(deleteProductByIdAsync(input.id, token));
         }
       }}>
         Delete This Product

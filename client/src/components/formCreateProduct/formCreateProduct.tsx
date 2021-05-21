@@ -19,7 +19,7 @@ import {
 } from '../../types';
 import ColorCircle from '../colorCircle/ColorCircle';
 import {productCategories} from '../../app/reducers/handleProductsReducer';
-import {userInfo} from '../../app/reducers/registerReducer';
+import {userInfo, userToken} from '../../app/reducers/registerReducer';
 
 function deepEqualError(a: errorsInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -83,6 +83,7 @@ const FormCreateProduct = () => {
   const dispatch = useAppDispatch();
   const [redirect, setRedirect] = useState(false);
   const user = useAppSelector(userInfo);
+  const token = useAppSelector(userToken);
   useEffect(() => {
     dispatch(getCategoriesAsync());
   }, [redirect]);
@@ -118,7 +119,7 @@ const FormCreateProduct = () => {
     e.preventDefault();
     if (deepEqualError(errors)) {
       alert('Succesfully created!');
-      dispatch(sendFormAsync(input));
+      dispatch(sendFormAsync(input, token));
       setInput({
         name: '',
         price: '0',
