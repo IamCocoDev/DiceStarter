@@ -25,7 +25,8 @@ import {useAppSelector} from './app/hooks';
 function App() {
   const user = useAppSelector(userInfo);
   return (
-    <div className="">
+    <div>
+      <Route exact path={['/']} component={Landing}></Route>
       {user.role === 'Admin' ?
       <Route path={['/home',
         '/product',
@@ -48,7 +49,6 @@ function App() {
       <Route exact path='/login' component={Login}></Route>
       <Route exact path='/list/productlist' component={ProductsList}></Route>
       <Route exact path='/register' component={FormRegisterForm}></Route>
-      <Route exact path='/' component={Landing}></Route>
       <Route exact path='/about' component={About}></Route>
       <Route exact path='/home' component={Home}></Route>
       <Route exact path='/product/:id' component={ProductDetail}></Route>
@@ -59,7 +59,7 @@ function App() {
       <Route exact path='/create' component={CreateButtonRouter}></Route>
       <Route exact path='/admin/home' component={AdministratorHome} ></Route>
       <Route path='/cart' component={Cart}></Route>
-    </div >
+    </div>
   );
 }
 
