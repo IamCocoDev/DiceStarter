@@ -16,7 +16,7 @@ router.post('/:idUser/cart', (req, res, next) => {
       if (ord.length) {
         Product.findByPk(body.id).then((producto) => {
           producto.addOrder(ord);
-          return res.status(200).json(producto);
+          return res.status(200).json(body);
         }).catch((err) => res.send(err));
       } else {
         Order.create({
@@ -28,7 +28,7 @@ router.post('/:idUser/cart', (req, res, next) => {
               order.setUser(user);
               Product.findByPk(body.id).then((producto) => {
                 producto.addOrder(order);
-                res.status(200).json(ord);
+                res.status(200).json(body);
               });
             })
             .catch(() => {
@@ -41,6 +41,14 @@ router.post('/:idUser/cart', (req, res, next) => {
     res.status(400);
     next(e);
   });
+});
+
+router.get('/search/user/:userId/', (req, res) => {
+  const { userId } = req.params;
+  Order.findAll({ where: { userId, status: 'Created' }, include: { model: Product } })
+    .then((data) => {
+      res.send(data);
+    }).catch((error) => res.send(error));
 });
 
 // GET A ORDER POR STATUS
@@ -139,6 +147,7 @@ router.post('/:idUser/c/cart', (req, res, next) => {
       for (let i = 0; i < body.length; i += 1) {
         if (body[i].amount) {
           const obj = {
+            id: body[i].id,
             amount: body[i].amount,
             total_price: body[i].total_price * body[i].amount,
           };

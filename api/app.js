@@ -2,7 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+// const logger = require('morgan');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const usersRouter = require('./routes/users');
@@ -11,8 +11,9 @@ const productRouter = require('./routes/product');
 const categoriesRouter = require('./routes/categories');
 const orderRouter = require('./routes/order');
 const userRouter = require('./routes/user');
+const checkoutRouter = require('./routes/checkout');
 const { Product } = require('./db.js');
-const isAuth = require('./middleware/auth');
+// const isAuth = require('./middleware/auth');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -42,6 +43,7 @@ app.use('/product', productRouter);
 app.use('/categories', categoriesRouter);
 app.use('/orders', orderRouter);
 app.use('/user', userRouter);
+app.use('/checkout', checkoutRouter);
 
 app.use((req, res, next) => {
   next(createError(404));
