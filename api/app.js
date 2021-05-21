@@ -15,7 +15,9 @@ const productRouter = require('./routes/product');
 const categoriesRouter = require('./routes/categories');
 const orderRouter = require('./routes/order');
 const userRouter = require('./routes/user');
-const { Product, User } = require('./db.js');
+const checkoutRouter = require('./routes/checkout');
+const { Product } = require('./db.js');
+// const isAuth = require('./middleware/auth');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -25,7 +27,7 @@ app.use(morgan('dev'));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
@@ -33,7 +35,6 @@ app.use((req, res, next) => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -45,6 +46,7 @@ app.use('/product', productRouter);
 app.use('/categories', categoriesRouter);
 app.use('/orders', orderRouter);
 app.use('/user', userRouter);
+app.use('/checkout', checkoutRouter);
 
 app.use((req, res, next) => {
   next(createError(404));
@@ -56,38 +58,6 @@ app.use((err, req, res) => {
 
   res.status(err.status || 500);
   res.render('error');
-});
-
-app.post('/signin', async (req, res, next) => {
-  const { username, password } = req.body;
-  try {
-    let user;
-    const emailRegEx = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-    if (username && password) {
-      if (emailRegEx.test(username)) {
-        user = await User.findOne({ where: { email: username } });
-      }
-      user = await User.findOne({ where: { name: username } });
-      bcrypt.compare(password, user.password, (err, result) => {
-        if (err) return res.send('password invalid');
-        if (result) {
-          const accessToken = jwt.sign({
-            name: user.username,
-            role: user.role,
-          }, accessTokenSecret);
-          return res.send({ accessToken });
-        }
-        return res.send('User not found');
-      });
-    }
-    if (!password || !username) {
-      return res.send('Input invalid');
-    }
-  } catch (e) {
-    res.status(400);
-    next(e);
-  }
-  return null;
 });
 
 const producto1 = Product.findOrCreate({
