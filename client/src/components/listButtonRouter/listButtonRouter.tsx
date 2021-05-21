@@ -7,11 +7,14 @@ function listButtonRouter() {
     <div className='listButtonRouterGrid'>
       <NavLink className='listButtonRouterProduct' to='/list/productlist'>
         <button className='listButtonRouterProductButton'>
-          Go to view products </button>
+          Products </button>
       </NavLink>
       <NavLink className='listButtonRouterCategory' to='/list/productcategory'>
         <button className='listButtonRouterCategoryButton'>
-          Go to view categories</button>
+          Categories</button>
+      </NavLink>
+      <NavLink to='/list/userlist' className='listButtonRouterUsers'>
+        <button className='listButtonRouterUsersButton'>Users</button>
       </NavLink>
     </div>
   );

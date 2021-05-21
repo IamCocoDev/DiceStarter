@@ -1,5 +1,7 @@
 const express = require('express');
 
+const isAdmin = require('../middleware/auth');
+
 const router = express.Router();
 
 const {
@@ -90,7 +92,7 @@ router.get('/search/user/:userId/', (req, res) => {
 
 // GET A ORDER POR STATUS
 
-router.get('/status/:status', (req, res, next) => {
+router.get('/status/:status', isAdmin, (req, res, next) => {
   const { status } = req.params;
   if (status === 'allorders') {
     Order.findAll({ include: User }).then((data) => res.send(data));
@@ -105,7 +107,7 @@ router.get('/status/:status', (req, res, next) => {
 });
 
 // GET A UNA ORDEN EN PARTICULAR
-router.get('/search/:idOrder', (req, res) => {
+router.get('/search/:idOrder', isAdmin, (req, res) => {
   const { idOrder } = req.params;
   Order.findOne({ where: { id: idOrder }, include: Product }).then((data) => {
     Productxorder.sum('total_price', {
@@ -129,7 +131,7 @@ router.get('/search/:idOrder', (req, res) => {
 
 // GET A LAS ORDENES QUE TENGAN ESE PRODUCTO
 
-router.get('/searchorder/:idProd', (req, res) => {
+router.get('/searchorder/:idProd', isAdmin, (req, res) => {
   const { idProd } = req.params;
   Productxorder.findAll({ where: { productId: idProd } })
     .then((data) => {
@@ -139,7 +141,7 @@ router.get('/searchorder/:idProd', (req, res) => {
 
 // GET A LAS ORDENES QUE TENGAN ESE PRODUCTO
 
-router.get('/products/:idOrder', (req, res) => {
+router.get('/products/:idOrder', isAdmin, (req, res) => {
   const { idOrder } = req.params;
   Order.findOne({ where: { id: idOrder }, include: Product })
     .then((data) => {
@@ -149,7 +151,7 @@ router.get('/products/:idOrder', (req, res) => {
 
 // DELETE A LA RELACION PRODUCT/ORDER
 
-router.delete('/orderdelete/:orderId/:productId', (req, res) => {
+router.delete('/orderdelete/:orderId/:productId', isAdmin, (req, res) => {
   const { orderId, productId } = req.params;
   Productxorder.destroy({
     where: {
@@ -215,6 +217,44 @@ router.post('/:idUser/update/cart', (req, res) => {
       },
     );
   }
+});
+
+router.post('/:idUser/invited/cart', (req, res) => {
+  // console.log("este es el consolelogg",req);
+  const { idUser } = req.params; // Id del usuario
+  const { body } = req; // un arrays con productos [1, 5 , 13]
+  Order.findAll({ where: { userId: idUser, status: 'Created' } }).then(
+    (ord) => {
+      if (ord.length) {
+        for (let i = 0; i < body.length; i += 1) {
+          Product.findByPk(body[i]).then((producto) => {
+            producto.addOrder(ord);
+            return res.status(200).send('Order created');
+          });
+        }
+      } else {
+        // El usuario no tiene orden, creo la orden primero y luego anado el producto.
+        Order.create({
+          status: 'Created',
+          address: body.address,
+        }).then((order) => {
+          User.findByPk(idUser)
+            .then((user) => {
+              order.setUser(user);
+              for (let i = 0; i < body.length; i += 1) {
+                Product.findByPk(body[i]).then((producto) => {
+                  producto.addOrder(order);
+                  res.status(200).send('Order created');
+                });
+              }
+            })
+            .catch(() => {
+              res.status(404).send('Error. Order no created!');
+            });
+        });
+      }
+    },
+  );
 });
 
 module.exports = router;

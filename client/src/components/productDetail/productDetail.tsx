@@ -53,14 +53,14 @@ function ProductDetail(props:any ) {
             Stock: {product.stock}
             </p>
             <p className='ProductDetailSize'>Size: {product.size}</p>
-            <p className='ProductDetailColors'>
+            <div className='ProductDetailColors'>
               {product.color.length?
               product.color.map((el:any) => <ColorCircle key={el} color={el}
                 onClick={() => {
                   const toChange =
                 product.color.filter((color:any) => el !== color);
                   setInput({...input, color: toChange});
-                }}/>):null}</p>
+                }}/>):null}</div>
             <p className='ProductDetailDescription'>{product.description}
             </p>
           </div>
