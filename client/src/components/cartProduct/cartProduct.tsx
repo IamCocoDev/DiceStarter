@@ -10,16 +10,17 @@ import './cartProduct.css';
 
 const CartProduct = (props) => {
   // eslint-disable-next-line react/prop-types
-  const {image, name, amount, price, id, stock} = props.product;
+  const {image, name, amount, price, id, stock, idOrder} = props.product;
   const [productAmount, setProductAmount] = useState(amount);
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
   const dispatch = useAppDispatch();
   const handleDeleteProduct = () => {
-    dispatch(deleteProductFromCart(id));
+    dispatch(deleteProductFromCart(id, idOrder, userId));
     alert('Product deleted successfully');
   };
   useEffect(() => {
+    console.log('algo');
     const totalPrice = price * productAmount;
     dispatch(changeProductQuantity(userId, id, productAmount,
         totalPrice, stock));
