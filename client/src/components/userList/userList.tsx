@@ -8,6 +8,13 @@ import './userList.css';
 const UsersList = (props:any) => {
   const [changes, setChanges] = useState<userChanges>({
     id: props.id,
+    name: props.name,
+    firstName: props.firstName,
+    lastName: props.lastName,
+    birthday: props.birthday,
+    country: props.country,
+    email: props.email,
+    password: props.password,
     role: props.role,
     status: props.status,
   });
@@ -22,6 +29,13 @@ const UsersList = (props:any) => {
     dispatch(modifyUser(changes));
     setChanges({
       id: '',
+      name: '',
+      firstName: '',
+      lastName: '',
+      birthday: '',
+      country: '',
+      email: '',
+      password: '',
       role: '',
       status: '',
     });

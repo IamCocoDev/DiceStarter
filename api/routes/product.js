@@ -68,7 +68,7 @@ router.delete('/:id', (req, res, next) => {
 
 router.post('/:id/review', (req, res, next) => {
   const { id } = req.params;
-  const { name } = req.body;
+  const { userId } = req.body;
   const { rating } = req.body;
   const { comment } = req.body;
   Reviews.create({
@@ -77,7 +77,7 @@ router.post('/:id/review', (req, res, next) => {
     productId: id,
   })
     .then((r) => {
-      User.findOne({ where: { name } })
+      User.findByPk(userId)
         .then((u) => {
           r.setUser(u);
           res.send(r); // El resultado del POST!!!

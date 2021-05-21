@@ -63,13 +63,8 @@ const logout = () => {
 const modifyUser = (changes:userChanges) => {
   return async (dispatch) => {
     try {
-      const toSend = {
-        id: '8ef25ffe-04a5-4cf6-a1cc-2e568536ebad',
-        role: 'Admin',
-        status: 'Active',
-      };
       dispatch(setUser(changes));
-      await axios.put(`http://localhost:3001/user/${changes.id}`, toSend);
+      await axios.put(`http://localhost:3001/user/${changes.id}`, changes);
     } catch (err) {
       console.error(err);
     }

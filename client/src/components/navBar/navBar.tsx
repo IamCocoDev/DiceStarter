@@ -6,7 +6,6 @@ import {Route} from 'react-router-dom';
 
 function NavBar(props: any): JSX.Element {
   const User = JSON.parse(localStorage.getItem('user') || '{}');
-  console.table(User);
   const route:string = props.location.pathname;
   if (route === '/list/productlist') {
     return (

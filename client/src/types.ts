@@ -1,6 +1,13 @@
 
 export interface userChanges {
     id:string,
+    name:string,
+    firstName:string,
+    lastName:string,
+    birthday:string,
+    country:string,
+    email:string,
+    password:string,
     role:string,
     status:string,
 }
@@ -52,12 +59,13 @@ export interface ReviewPost {
     comment: string,
     id: string,
     rating:number,
-    name:string,
+    userId:string,
 }
 export interface ReviewRes {
     id: number,
     rating: number,
     comment: string,
+    name:string,
 }
 export interface SearchInput {
     name?:string,
