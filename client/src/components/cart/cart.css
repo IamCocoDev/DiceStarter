@@ -1,9 +1,3 @@
-* {
-    border: 0;
-    margin: 0;
-    padding: 0;
-}
-
 .cartFlex{
     display: flex;
     flex-direction: column;
@@ -26,8 +20,11 @@
 }
 
 .cartDeleteButton{
+    border: none;
+    color: white;
     margin: 1vw;
-    width: 11vw;
+    width: 12vw;
+    height: auto;
     justify-self: center;
     align-self: center;
     font-size: 3vh;
