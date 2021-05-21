@@ -5,6 +5,7 @@ import {loginFormAsync} from '../../app/actions/actionsUser/index';
 import {userInfo} from '../../app/reducers/registerReducer';
 import './login.css';
 import GoogleComp from '../googleComp/googleComp';
+import {getProductsInCart} from '../../app/actions/cartActions/index';
 
 function deepEqualError(a: loginInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -44,6 +45,7 @@ const Login = () => {
     if (deepEqualError(errors)) {
       alert('bien');
       dispatch(loginFormAsync(input));
+      dispatch(getProductsInCart());
     } else {
       alert('mal');
     }

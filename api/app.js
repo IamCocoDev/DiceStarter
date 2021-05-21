@@ -15,7 +15,9 @@ const productRouter = require('./routes/product');
 const categoriesRouter = require('./routes/categories');
 const orderRouter = require('./routes/order');
 const userRouter = require('./routes/user');
-const { Product, User } = require('./db.js');
+const checkoutRouter = require('./routes/checkout');
+const { Product } = require('./db.js');
+// const isAuth = require('./middleware/auth');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -33,7 +35,6 @@ app.use((req, res, next) => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -45,6 +46,7 @@ app.use('/product', productRouter);
 app.use('/categories', categoriesRouter);
 app.use('/orders', orderRouter);
 app.use('/user', userRouter);
+app.use('/checkout', checkoutRouter);
 
 app.use((req, res, next) => {
   next(createError(404));
