@@ -8,6 +8,7 @@ export const CHANGE_PRODUCT_QUANTITY = 'CHANGE_PRODUCT_QUANTITY';
 
 export const getProductsInCart = (idUser = '') => (dispatch) => {
   const productsInCart = JSON.parse(localStorage.getItem('cart') || '[]');
+
   if (idUser === '') {
     console.log('entro aca');
     dispatch({type: GET_PRODUCTS_IN_CART, payload: productsInCart});
@@ -52,6 +53,7 @@ export const addProductInCart = (product, userId = '') => (dispatch) => {
         .catch((err) => console.error(err));
   }
 };
+
 
 export const deleteAllCart = (userId = '') => (dispatch) => {
   localStorage.removeItem('cart');

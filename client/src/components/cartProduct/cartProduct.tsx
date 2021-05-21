@@ -36,7 +36,7 @@ const CartProduct = (props) => {
         -
         </button>
         }
-        {productAmount}
+        <h1>{productAmount}</h1>
         { productAmount < stock &&
           <button className='cartProductAmountIncrease'
             onClick={() => setProductAmount(productAmount + 1)}>

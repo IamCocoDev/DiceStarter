@@ -49,7 +49,6 @@ function ProductList(props: ProductRes): JSX.Element {
     // const inputCategories = props.categories.map((el) => el.id);
     setInput({...input, categories: props.categories});
     setCategories(myCategories);
-    console.log(props);
   }, []);
 
   const handleSelectChange = (e: any) : void => {

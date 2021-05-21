@@ -27,10 +27,7 @@ function ProductCard(
     amount: 1,
   }, user.id));
   return (
-    <div>
-      {
         props.stock > 0 ?
-
         <div className='productCardAll'>
           <div className='productCardGrid'>
             <h1 className='productCardName'>{props.name}</h1>
@@ -44,7 +41,7 @@ function ProductCard(
               </button>
               <NavLink className='productCardViewMore'
                 to={`/product/${props.id}`}>
-                <button>More Info</button>
+                More Info
               </NavLink>
             </div>
           </div>
@@ -55,8 +52,6 @@ function ProductCard(
         <img className='productCardImageSold' src={props.image[0]} alt='Photo'/>
         <h1 className='productCardSold'>Sold Out</h1>
       </div>
-      }
-    </div>
   );
 }
 

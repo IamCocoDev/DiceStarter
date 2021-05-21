@@ -21,11 +21,13 @@ import Login from './components/login/login';
 import Cart from './components/cart/cart';
 import {userInfo} from './app/reducers/registerReducer';
 import {useAppSelector} from './app/hooks';
+import UserList from './components/usersList/usersList';
 
 function App() {
   const user = useAppSelector(userInfo);
   return (
-    <div className="">
+    <div>
+      <Route exact path={['/']} component={Landing}></Route>
       {user.role === 'Admin' ?
       <Route path={['/home',
         '/product',
@@ -37,18 +39,19 @@ function App() {
         '/list/productlist',
         '/create/category',
         '/admin/home',
-        '/cart']} component={NavBar}></Route> :
+        '/cart',
+        '/list/userlist']} component={NavBar}></Route> :
       <Route path={['/home',
         '/login',
         '/register',
         '/cart',
         '/product',
+        '/admin/home',
       ]} component={NavBar}></Route>
       }
       <Route exact path='/login' component={Login}></Route>
       <Route exact path='/list/productlist' component={ProductsList}></Route>
       <Route exact path='/register' component={FormRegisterForm}></Route>
-      <Route exact path='/' component={Landing}></Route>
       <Route exact path='/about' component={About}></Route>
       <Route exact path='/home' component={Home}></Route>
       <Route exact path='/product/:id' component={ProductDetail}></Route>
@@ -59,7 +62,7 @@ function App() {
       <Route exact path='/create' component={CreateButtonRouter}></Route>
       <Route exact path='/admin/home' component={AdministratorHome} ></Route>
       <Route path='/cart' component={Cart}></Route>
-    </div >
+    </div>
   );
 }
 
