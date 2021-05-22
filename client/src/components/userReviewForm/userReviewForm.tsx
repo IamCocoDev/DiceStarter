@@ -5,6 +5,7 @@ import {postReview} from '../../app/actions/reviewsActions/index';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
 import {userInfo} from '../../app/reducers/registerReducer';
 import {ReviewRes} from '../../types';
+// import swal from 'sweetalert';
 
 const UserReviewForm = (props: {id:string}) => {
   const user = useAppSelector(userInfo);
@@ -20,8 +21,9 @@ const UserReviewForm = (props: {id:string}) => {
   const handleReviewSubmit = (e: any) => {
     e.preventDefault();
     //  if (!user.id);
+    if (!user.id) return alert('You must be logged in for posting a review');
     postedReviews.forEach((r:ReviewRes) => {
-      if (r.name === user.id) flag = false;
+      if (r.userId === user.id) flag = false;
     });
     if (flag === false) return alert('You already gave your opinion');
     if (input.comment) {

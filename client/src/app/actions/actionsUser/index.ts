@@ -25,6 +25,7 @@ const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
       await axios.post(`http://localhost:3001/user/signup`, form);
+      dispatch(loginFormAsync(form));
     } catch (err) {
       console.log(err);
     }
@@ -34,10 +35,8 @@ const sendFormAsync = (form: any) => {
 const loginFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
-      console.log(form);
       const res = await axios.post(`http://localhost:3001/user/signin`, form);
       const loginUser = res.data;
-      console.log(res.data);
       localStorage.setItem('user', JSON.stringify(loginUser.user));
       localStorage.setItem('token', JSON.stringify(loginUser.token));
       dispatch(setToken(loginUser.token));
@@ -63,6 +62,7 @@ const logout = () => {
   return async (dispatch: any) => {
     try {
       localStorage.setItem('user', '{}');
+      localStorage.setItem('token', '');
       dispatch(setUser({}));
     } catch (err) {
       console.log(err);
@@ -71,9 +71,10 @@ const logout = () => {
 };
 
 const modifyUser = (changes:userChanges, token:string) => {
-  return async (dispatch) => {
+  return async (dispatch:any) => {
     try {
       dispatch(setUser(changes));
+      dispatch(setToken(token));
       await axios.put(`http://localhost:3001/user/${changes.id}`, changes, {
         headers: {
           'Authorization': 'Bearer ' + token,
@@ -86,7 +87,7 @@ const modifyUser = (changes:userChanges, token:string) => {
 };
 
 const getUsers = (token:string) => {
-  return async (dispatch) => {
+  return async (dispatch:any) => {
     try {
       const res = await axios.get(`http://localhost:3001/users`, {
         headers: {

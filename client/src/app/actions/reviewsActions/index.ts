@@ -60,7 +60,8 @@ const modifyReview = (id: number) => {
   return async (dispatch: any) => {
     try {
       console.log(id);
-      await axios.post(`http://localhost:3001/product/review/${id}`);
+      const res = await axios.post(`http://localhost:3001/product/review/${id}`);
+      console.table(res.data);
     } catch (err) {
       console.error(err);
     }
