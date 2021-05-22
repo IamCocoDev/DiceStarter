@@ -68,7 +68,7 @@ export const deleteAllCart = (userId = '') => (dispatch) => {
 };
 
 export const deleteProductFromCart =
-  (id, idOrder, userId = '') => (dispatch) => {
+  (id, idOrder, userId = '', token) => (dispatch) => {
     const productsInCart = JSON
         .parse(localStorage
             .getItem('cart') || '[]').filter((product) => product.id !== id);
@@ -76,7 +76,12 @@ export const deleteProductFromCart =
     if (userId === '') {
       dispatch({type: DELETE_PRODUCT_FROM_CART, payload: id});
     } else {
-      return axios.delete(`http://localhost:3001/orders/orderdelete/${idOrder}/${id}`)
+      console.log(token);
+      return axios.delete(`http://localhost:3001/orders/orderdelete/${idOrder}/${id}`, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      })
           .then(() => dispatch({type: DELETE_PRODUCT_FROM_CART, payload: id}))
           .catch((err) => console.error(err));
     }

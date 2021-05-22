@@ -5,7 +5,7 @@ import {
   deleteProductFromCart,
   changeProductQuantity,
 } from '../../app/actions/cartActions/index';
-import {userInfo} from '../../app/reducers/registerReducer';
+import {userInfo, userToken} from '../../app/reducers/registerReducer';
 import './cartProduct.css';
 
 const CartProduct = (props) => {
@@ -14,9 +14,10 @@ const CartProduct = (props) => {
   const [productAmount, setProductAmount] = useState(amount);
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
+  const token = useAppSelector(userToken);
   const dispatch = useAppDispatch();
   const handleDeleteProduct = () => {
-    dispatch(deleteProductFromCart(id, idOrder, userId));
+    dispatch(deleteProductFromCart(id, idOrder, userId, token));
     alert('Product deleted successfully');
   };
   useEffect(() => {
