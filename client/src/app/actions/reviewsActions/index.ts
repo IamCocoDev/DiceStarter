@@ -41,10 +41,14 @@ const getReviews = (id: string) => {
   };
 };
 
-const deleteReviews = (id: number, productId: string) => {
+const deleteReviews = (id: number, productId: string, token:string) => {
   return async (dispatch: any) => {
     try {
-      await axios.delete(`http://localhost:3001/product/review/${id}`);
+      await axios.delete(`http://localhost:3001/product/review/${id}`, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
       dispatch(getReviews(productId));
     } catch (err) {
       console.error(err);
@@ -56,8 +60,7 @@ const modifyReview = (id: number) => {
   return async (dispatch: any) => {
     try {
       console.log(id);
-      const res = await axios.post(`http://localhost:3001/product/review/${id}`);
-      console.table(res.data);
+      await axios.post(`http://localhost:3001/product/review/${id}`);
     } catch (err) {
       console.error(err);
     }

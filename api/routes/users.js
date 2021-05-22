@@ -6,7 +6,6 @@ const isAdmin = require('../middleware/auth');
 const { User, Role } = require('../db');
 
 router.get('/', isAdmin, (req, res, next) => {
-  console.log(req.headers);
   User.findAll({ include: Role })
     .then((response) => {
       res.json(response);

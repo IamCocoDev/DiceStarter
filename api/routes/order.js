@@ -45,6 +45,43 @@ router.post('/:idUser/cart', (req, res, next) => {
   });
 });
 
+router.post('/:idUser/invited/cart', (req, res) => {
+  const { idUser } = req.params; // Id del usuario
+  const { body } = req; // 2 propiedades(products: array de id de productos [1,2,3] y address)
+  Order.findAll({ where: { userId: idUser, status: 'Created' } }).then(
+    (ord) => {
+      if (ord.length) {
+        for (let i = 0; i < body.products.length; i += 1) {
+          Product.findByPk(body.products[i]).then((producto) => {
+            producto.addOrder(ord);
+            return res.status(200).send('Order created');
+          });
+        }
+      } else {
+        // El usuario no tiene orden, creo la orden primero y luego anado el producto.
+        Order.create({
+          status: 'Created',
+          address: body.address,
+        }).then((order) => {
+          User.findByPk(idUser)
+            .then((user) => {
+              order.setUser(user);
+              for (let i = 0; i < body.products.length; i += 1) {
+                Product.findByPk(body.products[i]).then((producto) => {
+                  producto.addOrder(order);
+                  res.status(200).send('Order created');
+                });
+              }
+            })
+            .catch(() => {
+              res.status(404).send('Error. Order no created!');
+            });
+        });
+      }
+    },
+  );
+});
+
 router.get('/search/user/:userId/', (req, res) => {
   const { userId } = req.params;
   Order.findAll({ where: { userId, status: 'Created' }, include: { model: Product } })
