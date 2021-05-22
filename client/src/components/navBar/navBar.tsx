@@ -42,7 +42,7 @@ function NavBar(props: any): JSX.Element {
             </div>
           </div> :
            <div className='navBarProfile'>
-             <Link to={'/admin/home'}>
+             <Link to={'/profile'}>
                <button>
                  <i className='material-icons'>account_circle</i>
                </button>
@@ -76,13 +76,15 @@ function NavBar(props: any): JSX.Element {
             <Link to={`/create`} className='navBarCreateProduct'>
               <i className='material-icons'>add_circle</i>
             </Link>
-            <Link to={'/admin/home'} className='navBarProfile'>
+            <Link to={'/profile'} className='navBarProfile'>
               <i className='material-icons'>account_circle</i>
             </Link>
           </div> :
-             <Link to={'/admin/home'} className='navBarProfileNonLogin'>
-               <i className='material-icons'>account_circle</i>
-             </Link>
+          <div className='navBarAcountManager'>
+            <Link to={'/profile'} className='navBarProfile'>
+              <i className='material-icons'>account_circle</i>
+            </Link>
+          </div>
       }
     </div>
   );

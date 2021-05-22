@@ -144,18 +144,10 @@ router.put('/:id', isAdmin, (req, res, next) => {
   try {
     const { id } = req.params;
     const { body } = req;
-    let { password } = req.body;
-    bcrypt.hash(password, 10, (err, hash) => {
-      password = hash;
-      if (err) {
-        next(err);
-      }
-      req.body.password = password;
-      User.findByPk(id)
-        .then((response) => {
-          response.update(body, { where: { id } });
-        }).catch((e) => next(e));
-    });
+    User.findByPk(id)
+      .then((response) => {
+        response.update(body, { where: { id } });
+      }).catch((e) => next(e));
   } catch (err) {
     res.status(400);
     next(err);

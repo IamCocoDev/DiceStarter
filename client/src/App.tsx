@@ -14,8 +14,8 @@ import CreateButtonRouter
 import listButtonRouter from './components/listButtonRouter/listButtonRouter';
 import FormCategoryCreation
   from '../src/components/formCategoryCreation/formCategoryCreation';
-import AdministratorHome
-  from './components/administratorHome/administratorHome';
+import Profile
+  from './components/profile/profile';
 import FormRegisterForm from './components/formRegisterUser/formRegisterForm';
 import Login from './components/login/login';
 import Cart from './components/cart/cart';
@@ -41,7 +41,8 @@ function App() {
         '/create/category',
         '/admin/home',
         '/cart',
-        '/list/userlist']} component={NavBar}></Route> :
+        '/list/userlist',
+        '/profile']} component={NavBar}></Route> :
       <Route path={['/home',
         '/login',
         '/register',
@@ -61,7 +62,7 @@ function App() {
       <Route exact path='/create/category'
         component={FormCategoryCreation}></Route>
       <Route exact path='/create' component={CreateButtonRouter}></Route>
-      <Route exact path='/admin/home' component={AdministratorHome} ></Route>
+      <Route exact path='/profile' component={Profile} ></Route>
       <Route path='/cart' component={Cart}></Route>
       <Route exact path='/list/userlist' component={UserList}></Route>
     </div>
