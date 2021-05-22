@@ -43,8 +43,8 @@ const Login = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      alert('bien');
       dispatch(loginFormAsync(input));
+      if (!User.id) return alert('Password or Username are not correct');
       dispatch(getProductsInCart());
     } else {
       alert('mal');
@@ -54,7 +54,6 @@ const Login = () => {
     seterrors(validate(input));
   }, [input]);
   useEffect(() => {
-    console.log(User);
   }, [User]);
   return (
     <div className='loginBackground'>

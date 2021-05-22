@@ -10,7 +10,6 @@ export const getProductsInCart = (idUser = '') => (dispatch) => {
   const productsInCart = JSON.parse(localStorage.getItem('cart') || '[]');
 
   if (idUser === '') {
-    console.log('entro aca');
     dispatch({type: GET_PRODUCTS_IN_CART, payload: productsInCart});
   } else {
     return axios.get(`http://localhost:3001/orders/search/user/${idUser}`)
@@ -89,7 +88,6 @@ export const deleteProductFromCart =
 
 export const changeProductQuantity = (userId:string = '', id, amount:number,
     totalPrice:number, stock:number) => (dispatch) => {
-  console.log(userId);
   if (amount < stock - 1) {
     const productsInCart = JSON.parse(localStorage.getItem('cart') || '[]')
         .map((product) => {

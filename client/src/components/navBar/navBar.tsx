@@ -3,9 +3,11 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import SearchBar from '../searchBar/searchBar';
 import {Route} from 'react-router-dom';
+import {useAppSelector} from '../../app/hooks';
+import {userInfo} from '../../app/reducers/registerReducer';
 
 function NavBar(props: any): JSX.Element {
-  const User = JSON.parse(localStorage.getItem('user') || '{}');
+  const User = useAppSelector(userInfo);
   const route:string = props.location.pathname;
   if (route === '/list/productlist') {
     return (

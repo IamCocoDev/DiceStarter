@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const isAdmin = require('../middleware/auth');
-const { isNotLogged } = require('../middleware/logged.js');
+const { isNotLogged } = require('../middleware/logged');
 
 const {
   accessTokenSecret,
