@@ -1,31 +1,41 @@
 import React, {useState} from 'react';
-import {useAppDispatch} from '../../app/hooks';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import './userReviewForm.css';
 import {postReview} from '../../app/actions/reviewsActions/index';
-// import {reviewsResponse} from '../../app/reducers/reviewsReducer';
+import {reviewsResponse} from '../../app/reducers/reviewsReducer';
+import {userInfo} from '../../app/reducers/registerReducer';
+import {ReviewRes} from '../../types';
 
 const UserReviewForm = (props: {id:string}) => {
-  const [input, setInput] = useState({
-    comment: '',
-    rating: 0,
-    name: 'chococtorta23',
-  });
+  const user = useAppSelector(userInfo);
+  const postedReviews = useAppSelector(reviewsResponse);
+  const [input, setInput] = useState(user);
   const dispatch = useAppDispatch();
   const handleReviewChange = (e: any) => setInput({...input,
     [e.target.name]: e.target.value});
   const handleClickStarValue = (e: any) => {
     setInput({...input, rating: e.target.value});
   };
+  let flag = true;
   const handleReviewSubmit = (e: any) => {
     e.preventDefault();
-    if (input.comment.length < 255) {
-      if (input.rating > 0) {
-        dispatch(postReview({...input, id: props.id}, props.id));
+    //  if (!user.id);
+    postedReviews.forEach((r:ReviewRes) => {
+      if (r.name === user.id) flag = false;
+    });
+    if (flag === false) return alert('You already gave your opinion');
+    if (input.comment) {
+      if (input.comment.length < 255) {
+        if (input.rating > 0) {
+          dispatch(postReview({...input, id: props.id}, props.id));
+        } else {
+          alert('A rating score is required for posting a review');
+        }
       } else {
-        alert('A rating score is required for posting a review');
+        alert('Your review must have less than 255 characters');
       }
     } else {
-      alert('Your review must have less than 255 characters');
+      alert('Your review must have something to say');
     }
   };
   return (

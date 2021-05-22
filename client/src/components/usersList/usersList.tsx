@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {getUsers} from '../../app/actions/actionsUser/index';
-import {users} from '../../app/reducers/registerReducer';
+import {users, userToken} from '../../app/reducers/registerReducer';
 import {User} from '../../types';
 import UserList from '../userList/userList';
 import './usersList.css';
@@ -27,9 +27,10 @@ const statuses = [{
 
 const UsersList = () => {
   const dispatch = useAppDispatch();
+  const token = useAppSelector(userToken);
   const usersArray = useAppSelector(users);
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getUsers(token));
   }, []);
   return (
     <div className='usersListAll'>

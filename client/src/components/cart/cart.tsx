@@ -14,7 +14,11 @@ const Cart = () => {
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
   const [products, setProducts] = React.useState([]);
-  const handleDeleteCart = () => dispatch(deleteAllCart(userId));
+  const handleDeleteCart = async () => {
+    await dispatch(deleteAllCart(userId));
+    dispatch(getProductsInCart(userId));
+    findDuplicates(productsInCart);
+  };
 
   const findDuplicates = (array) => {
     if (array.length !== 0) {
@@ -33,21 +37,25 @@ const Cart = () => {
       setProducts([]);
     }
   };
+  useEffect(() => {
+    dispatch(getProductsInCart(userId));
+    findDuplicates(productsInCart);
+    console.log(userId);
+  }, []);
 
   useEffect(() => {
-    dispatch(getProductsInCart());
     findDuplicates(productsInCart);
-  }, [productsInCart]);
+  }, [cartProducts]);
 
   return (
     <div className='cartFlex'>
       <div className='cartFlexItems'>
-        { products.length > 0 ?
+        {products.length > 0 ?
           // eslint-disable-next-line react/jsx-key
           products.map((product) =>
             <CartProduct key={product.id} product={product}
               setProduct={setProducts} />) :
-            <div>No products in cart</div>
+          <div>No products in cart</div>
         }
       </div>
       <div className='cartFlexTotal'>

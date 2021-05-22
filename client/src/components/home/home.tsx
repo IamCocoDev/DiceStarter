@@ -10,10 +10,11 @@ import {totalPages,
 import ProductsSelect from '../productSelects/productSelects';
 import Paginate from '../paginate/paginate';
 import {getProductsAsync} from '../../app/actions/handleProductsActions';
+import {userInfo} from '../../app/reducers/registerReducer';
 import './home.css';
 
 function Home(props: any) {
-  const User = JSON.parse(localStorage.getItem('user') || '{}');
+  const User = useAppSelector(userInfo);
   const searchName = useAppSelector(queryName);
   const searchFilter = useAppSelector(queryFilter);
   const searchSort = useAppSelector(querySort);

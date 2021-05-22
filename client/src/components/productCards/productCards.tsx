@@ -4,6 +4,7 @@ import './productCards.css';
 import ProductCard from '../productCard/productCard';
 import {productsList} from '../../app//reducers/handleProductsReducer';
 import {useSelector} from 'react-redux';
+import './productCards.css';
 
 function ProductCards() {
   const products = useSelector(productsList);

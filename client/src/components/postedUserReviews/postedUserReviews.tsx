@@ -2,17 +2,20 @@ import React, {useState, useEffect} from 'react';
 import './postedUserReviews.css';
 import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
-import {ReviewRes} from '../../types';
+import {ReviewPost} from '../../types';
 import {deleteReviews,
   getReviews} from '../../app/actions/reviewsActions/index';
+import {userInfo, userToken} from '../../app/reducers/registerReducer';
 
 const PostedUserReviews = (props:{id:string}) => {
   const [toggle, setToggle] = useState(false);
   const postedReviews = useAppSelector(reviewsResponse);
+  const user = useAppSelector(userInfo);
+  const token = useAppSelector(userToken);
   const dispatch = useAppDispatch();
   const handleOnClick = (e: any) => {
     if (e.target.value > 0) {
-      dispatch(deleteReviews(e.target.value, props.id));
+      dispatch(deleteReviews(e.target.value, props.id, token));
       dispatch(getReviews(props.id));
     }
   };
@@ -22,21 +25,18 @@ const PostedUserReviews = (props:{id:string}) => {
   }, [dispatch, props]);
   useEffect(() => {}, [postedReviews]);
   return (
+    user.role === 'Admin' ?
     <div className='postedUserReviewsAll'>
       {
-        postedReviews !== null && postedReviews.map((review: ReviewRes) => (
+        postedReviews !== null && postedReviews.map((review: ReviewPost) => (
           <div className='postedUserReviewsReview' key={review.id}>
-            <p className='postedUserReviewsRating'>{review.rating}</p>
             {
-              toggle === false &&
-              <p className='postedUserReviewsComment'>{review.comment}</p>
-            }
-            {
-              toggle === true &&
-              <p className='postedUserReviewsComment'
-                suppressContentEditableWarning={true} contentEditable>
-                {review.comment}
-              </p>
+                toggle === false ?
+                <p className='postedUserReviewsComment'>{review.comment}</p> :
+                <p className='postedUserReviewsComment'
+                  suppressContentEditableWarning={true} contentEditable>
+                  {review.comment}
+                </p>
             }
             <button className='postedUserReviewsButtonDelete' type='button'
               onClick={handleOnClick} value={review.id}>
@@ -47,7 +47,22 @@ const PostedUserReviews = (props:{id:string}) => {
           </div>
         ))
       }
-    </div>
+    </div> :
+    postedReviews !== null && postedReviews.map((review: ReviewPost) => (
+      <div className='postedUserReviewsReview' key={review.id}>
+        {
+          review.userId === user.id &&
+            toggle === false ?
+            <p className='postedUserReviewsComment'>{review.comment}</p> :
+            <p className='postedUserReviewsComment'
+              suppressContentEditableWarning={true} contentEditable>
+              {review.comment}
+            </p>
+        }
+        <button className='postedUserReviewsEditButton'
+          onClick={toggleEdit}> Edit </button>
+      </div>
+    ))
   );
 };
 

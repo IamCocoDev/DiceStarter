@@ -5,21 +5,23 @@ import {
   deleteProductFromCart,
   changeProductQuantity,
 } from '../../app/actions/cartActions/index';
-import {userInfo} from '../../app/reducers/registerReducer';
+import {userInfo, userToken} from '../../app/reducers/registerReducer';
 import './cartProduct.css';
 
 const CartProduct = (props) => {
   // eslint-disable-next-line react/prop-types
-  const {image, name, amount, price, id, stock} = props.product;
+  const {image, name, amount, price, id, stock, idOrder} = props.product;
   const [productAmount, setProductAmount] = useState(amount);
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
+  const token = useAppSelector(userToken);
   const dispatch = useAppDispatch();
   const handleDeleteProduct = () => {
-    dispatch(deleteProductFromCart(id));
+    dispatch(deleteProductFromCart(id, idOrder, userId, token));
     alert('Product deleted successfully');
   };
   useEffect(() => {
+    console.log('algo');
     const totalPrice = price * productAmount;
     dispatch(changeProductQuantity(userId, id, productAmount,
         totalPrice, stock));
@@ -35,7 +37,7 @@ const CartProduct = (props) => {
         -
         </button>
         }
-        {productAmount}
+        <h1>{productAmount}</h1>
         { productAmount < stock &&
           <button className='cartProductAmountIncrease'
             onClick={() => setProductAmount(productAmount + 1)}>

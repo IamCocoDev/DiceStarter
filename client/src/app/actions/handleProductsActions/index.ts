@@ -82,17 +82,21 @@ const getProductByIdAsync = (id: any) => {
     }
   };
 };
-const deleteProductByIdAsync = (id: any) => {
+const deleteProductByIdAsync = (id: any, token:string) => {
   return async (dispatch: any) => {
     try {
-      await axios.delete(`http://localhost:3001/product/${id}`);
+      await axios.delete(`http://localhost:3001/product/${id}`, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
       dispatch(getProductsAsync({name: '', page: 1}));
     } catch (err) {
       console.log(err);
     }
   };
 };
-const changeProductInDBAsync = (product: any) => {
+const changeProductInDBAsync = (product: any, token:string) => {
   return async (dispatch: any) => {
     try {
       const toSend = {
@@ -108,7 +112,11 @@ const changeProductInDBAsync = (product: any) => {
         size: product.size,
         stock: product.stock,
       };
-      await axios.put(`http://localhost:3001/product/${product.id}`, toSend);
+      await axios.put(`http://localhost:3001/product/${product.id}`, toSend, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
     } catch (err) {
       console.log(err);
     }
@@ -131,11 +139,15 @@ const getCategoriesAsync = () => {
     }
   };
 };
-const addCategoryAsync = (label: string) => {
+const addCategoryAsync = (label: string, token:string) => {
   return async (dispatch: any) => {
     try {
       const name = label;
-      await axios.post('http://localhost:3001/categories', {name});
+      await axios.post('http://localhost:3001/categories', {name}, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
     } catch (err) {
       console.log(err);
     }

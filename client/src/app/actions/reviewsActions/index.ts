@@ -27,12 +27,13 @@ const getReviews = (id: string) => {
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`http://localhost:3001/product/${id}/review`);
-      const reviews = res.data.map((review: ReviewRes) => ({
+      console.log(res.data);
+      const reviews = res.data.all.map((review: ReviewPost) => ({
         id: review.id,
         rating: review.rating,
         comment: review.comment,
+        userId: review.userId,
       }));
-      console.log('Done!');
       dispatch(setReviews(reviews));
     } catch (err) {
       console.error(err);
@@ -40,12 +41,14 @@ const getReviews = (id: string) => {
   };
 };
 
-const deleteReviews = (id: number, productId: string) => {
+const deleteReviews = (id: number, productId: string, token:string) => {
   return async (dispatch: any) => {
     try {
-      console.log(id);
-      const res = await axios.delete(`http://localhost:3001/product/review/${id}`);
-      console.log(res.data);
+      await axios.delete(`http://localhost:3001/product/review/${id}`, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
       dispatch(getReviews(productId));
     } catch (err) {
       console.error(err);
@@ -57,8 +60,7 @@ const modifyReview = (id: number) => {
   return async (dispatch: any) => {
     try {
       console.log(id);
-      const res = await axios.post(`http://localhost:3001/product/review/${id}`);
-      console.table(res.data);
+      await axios.post(`http://localhost:3001/product/review/${id}`);
     } catch (err) {
       console.error(err);
     }

@@ -14,19 +14,21 @@ import CreateButtonRouter
 import listButtonRouter from './components/listButtonRouter/listButtonRouter';
 import FormCategoryCreation
   from '../src/components/formCategoryCreation/formCategoryCreation';
-import AdministratorHome
-  from './components/administratorHome/administratorHome';
+import Profile
+  from './components/profile/profile';
 import FormRegisterForm from './components/formRegisterUser/formRegisterForm';
 import Login from './components/login/login';
 import Cart from './components/cart/cart';
 import {userInfo} from './app/reducers/registerReducer';
 import {useAppSelector} from './app/hooks';
+// eslint-disable-next-line no-unused-vars
 import UserList from './components/usersList/usersList';
 
 function App() {
   const user = useAppSelector(userInfo);
   return (
-    <div className="">
+    <div>
+      <Route exact path={['/']} component={Landing}></Route>
       {user.role === 'Admin' ?
       <Route path={['/home',
         '/product',
@@ -39,7 +41,8 @@ function App() {
         '/create/category',
         '/admin/home',
         '/cart',
-        '/list/userlist']} component={NavBar}></Route> :
+        '/list/userlist',
+        '/profile']} component={NavBar}></Route> :
       <Route path={['/home',
         '/login',
         '/register',
@@ -51,7 +54,6 @@ function App() {
       <Route exact path='/login' component={Login}></Route>
       <Route exact path='/list/productlist' component={ProductsList}></Route>
       <Route exact path='/register' component={FormRegisterForm}></Route>
-      <Route exact path='/' component={Landing}></Route>
       <Route exact path='/about' component={About}></Route>
       <Route exact path='/home' component={Home}></Route>
       <Route exact path='/product/:id' component={ProductDetail}></Route>
@@ -60,10 +62,10 @@ function App() {
       <Route exact path='/create/category'
         component={FormCategoryCreation}></Route>
       <Route exact path='/create' component={CreateButtonRouter}></Route>
-      <Route exact path='/admin/home' component={AdministratorHome} ></Route>
+      <Route exact path='/profile' component={Profile} ></Route>
       <Route path='/cart' component={Cart}></Route>
       <Route exact path='/list/userlist' component={UserList}></Route>
-    </div >
+    </div>
   );
 }
 

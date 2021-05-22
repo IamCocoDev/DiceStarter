@@ -1,13 +1,7 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .listButtonRouterGrid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     max-width: 100vw;
     min-height: 88vh;
     width: 100%;
@@ -40,6 +34,23 @@
 }
 
 .listButtonRouterCategoryButton{
+    font-size: 1.5vw;
+    min-width: 20vw;
+    min-height: 5vw;
+    width: 20vw;
+    height: auto;
+    border-radius: 1vw;
+    background-color: #74009D;
+    color: white;
+}
+.listButtonRouterUsers {
+    grid-column: 2/3;
+    grid-row: 6/7;
+    justify-self: center;
+    align-self: flex-start; 
+}
+
+.listButtonRouterUsersButton {
     font-size: 1.5vw;
     min-width: 20vw;
     min-height: 5vw;
