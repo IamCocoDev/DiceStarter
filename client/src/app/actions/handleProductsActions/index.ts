@@ -154,6 +154,20 @@ const addCategoryAsync = (label: string, token:string) => {
   };
 };
 
+const putCategory = (categoryName, newCategory, token) => {
+  return async (dispatch: any) => {
+    try {
+      await axios.put(`http://localhost:3001/categories/${categoryName}`, newCategory, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 export {
   getProductsAsync,
   getProductByIdAsync,
@@ -161,4 +175,5 @@ export {
   changeProductInDBAsync,
   getCategoriesAsync,
   addCategoryAsync,
+  putCategory,
 };

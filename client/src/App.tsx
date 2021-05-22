@@ -23,6 +23,7 @@ import {userInfo} from './app/reducers/registerReducer';
 import {useAppSelector} from './app/hooks';
 // eslint-disable-next-line no-unused-vars
 import UserList from './components/usersList/usersList';
+import CategoryList from './components/categoryList/categoryList';
 
 function App() {
   const user = useAppSelector(userInfo);
@@ -52,6 +53,8 @@ function App() {
         '/admin/home',
       ]} component={NavBar}></Route>
       }
+      <Route exact path='/list/productcategory'
+        component={CategoryList}></Route>
       <Route exact path='/login' component={Login}></Route>
       <Route exact path='/list/productlist' component={ProductsList}></Route>
       <Route exact path='/register' component={FormRegisterForm}></Route>
