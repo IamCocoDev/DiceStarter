@@ -5,6 +5,7 @@ import {getProductsInCart} from '../cartActions';
 import {SET_USER,
   SET_USERS,
   SET_TOKEN,
+  USER_LOGIN_FAILED,
 } from '../../constants/constants';
 import {userChanges} from '../../../types';
 
@@ -37,6 +38,11 @@ const setToken = (token:string) => ({
   payload: token,
 });
 
+const loginFailed = () => ({
+  type: USER_LOGIN_FAILED,
+  payload: {},
+});
+
 const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
@@ -53,16 +59,19 @@ const loginFormAsync = (form: any) => {
       console.log(form);
       const res = await axios.post(`http://localhost:3001/user/signin`, form);
       const loginUser = res.data;
-      localStorage.setItem('user', JSON.stringify(loginUser.user));
-      dispatch(setUser(loginUser.user));
-      const cartLocal = await JSON.parse(localStorage.getItem('cart') || '[]');
-      const cartUser = await dispatch(getProductsInCart(loginUser.user.id));
-      const nuevo = arrayUnique(cartLocal.concat(cartUser.payload));
-      const produsctId = nuevo.map((el) => el.id);
-      console.log(nuevo);
-      await axios.post(`http://localhost:3001/orders/${loginUser.user.id}/invited/cart`, {products: produsctId, address: 'cordoba'});
-      localStorage.setItem('token', JSON.stringify(loginUser.token));
-      dispatch(setToken(loginUser.token));
+      if (typeof res.data !== 'object') {
+        dispatch(loginFailed());
+      } else {
+        localStorage.setItem('user', JSON.stringify(loginUser.user));
+        dispatch(setUser(loginUser.user));
+        const cartLocal = await JSON.parse(localStorage.getItem('cart') || '[]');
+        const cartUser = await dispatch(getProductsInCart(loginUser.user.id));
+        const nuevo = arrayUnique(cartLocal.concat(cartUser.payload));
+        const produsctId = nuevo.map((el) => el.id);
+        await axios.post(`http://localhost:3001/orders/${loginUser.user.id}/invited/cart`, {products: produsctId, address: 'cordoba'});
+        localStorage.setItem('token', JSON.stringify(loginUser.token));
+        dispatch(setToken(loginUser.token));
+      }
     } catch (err) {
       console.error(err);
     }

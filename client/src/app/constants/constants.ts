@@ -13,5 +13,7 @@ export const MODIFY_USER = 'MODIFY_USER';
 export const DELETE_USER = 'DELETE_USER';
 // Set constants
 export const SET_TOKEN = 'SET_TOKEN';
+// User Error handler
+export const USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
 
 

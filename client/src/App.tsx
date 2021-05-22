@@ -26,6 +26,7 @@ import UserList from './components/usersList/usersList';
 
 function App() {
   const user = useAppSelector(userInfo);
+  console.log(user);
   return (
     <div>
       <Route exact path={['/']} component={Landing}></Route>

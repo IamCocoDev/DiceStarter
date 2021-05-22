@@ -6,7 +6,7 @@ const router = express.Router();
 
 const {
   User, Order, Productxorder, Product,
-} = require('../db.js');
+} = require('../db');
 
 // POST UNA ORDEN
 
