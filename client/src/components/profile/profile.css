@@ -1,10 +1,10 @@
-.administratorHomeAll {
+.ProfileAll {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: 'Poppins', sans-serif;
 }
-.administratorHomeH1 {
+.ProfileH1 {
     margin-bottom: 10vh;
     margin-top: 3vh;
     font-size: 10vh;
@@ -16,7 +16,7 @@
     text-align: center;
     color: white;
 }
-.administratorHomeH3 {
+.ProfileH3 {
     color:white;
     margin-top: 10vh;
     font-size: 7vh;
@@ -28,7 +28,7 @@
     text-align: center;
 }
 
-.administratorHomeButtonLogout{
+.ProfileButtonLogout{
     margin: 1vw;
     width: 11vw;
     justify-self: center;
@@ -40,7 +40,7 @@
     color: white;
 }
 
-.administratorHomeButtonLogin{
+.ProfileButtonLogin{
     margin: 1vw;
     width: 11vw;
     justify-self: center;
