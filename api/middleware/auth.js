@@ -5,6 +5,8 @@ const { User } = require('../db.js');
 
 module.exports = async (req, res, next) => {
   const authHeader = req.headers.authorization;
+  // eslint-disable-next-line no-console
+  console.log(req.headers.authorization);
   if (authHeader) {
     const token = authHeader.split(' ')[1];
     jwt.verify(token, accessTokenSecret, async (err, user) => {
