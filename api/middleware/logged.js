@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-const accessTokenSecret = 'tomasvigilante';
+const {
+  accessTokenSecret,
+} = process.env;
+
 const { User } = require('../db.js');
 
 const isLogged = (req, res, next) => {

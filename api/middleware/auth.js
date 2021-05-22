@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const accessTokenSecret = 'tomasvigilante';
+
 const { User } = require('../db.js');
 
 module.exports = async (req, res, next) => {

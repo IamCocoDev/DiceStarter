@@ -5,9 +5,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const isAdmin = require('../middleware/auth');
-const { isLogged, isNotLogged } = require('../middleware/logged.js');
+const { isNotLogged } = require('../middleware/logged.js');
 
-const accessTokenSecret = 'tomasvigilante';
+const {
+  accessTokenSecret,
+} = process.env;
 
 const router = express.Router();
 
@@ -145,22 +147,31 @@ router.put('/:id', isAdmin, (req, res, next) => {
   try {
     const { id } = req.params;
     const { body } = req;
-    let { password } = req.body;
-    bcrypt.hash(password, 10, (err, hash) => {
-      password = hash;
-      if (err) {
-        next(err);
-      }
-      req.body.password = password;
-      User.findByPk(id)
-        .then((response) => {
-          response.update(body, { where: { id } });
-        }).catch((e) => next(e));
-    });
+    User.findByPk(id)
+      .then((response) => {
+        response.update(body, { where: { id } });
+      }).catch((e) => next(e));
   } catch (err) {
     res.status(400);
     next(err);
   }
+});
+
+router.put('/:id/updatePassword', (req, res, next) => {
+  const { id } = req.params;
+  let { password } = req.body;
+  bcrypt.hash(password, 10, (err, hash) => {
+    password = hash;
+    if (err) {
+      next(err);
+    }
+    req.body.password = password;
+    User.findByPk(id)
+      .then((response) => {
+        response.update({ password }, { where: { id } })
+          .then(() => res.send('Password Update'));
+      }).catch((e) => next(e));
+  });
 });
 
 module.exports = router;

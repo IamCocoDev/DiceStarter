@@ -4,11 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const jwt = require('jsonwebtoken');
 
-const bcrypt = require('bcrypt');
-
-const accessTokenSecret = 'tomasvigilante';
 const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products');
 const productRouter = require('./routes/product');
@@ -17,7 +13,6 @@ const orderRouter = require('./routes/order');
 const userRouter = require('./routes/user');
 const checkoutRouter = require('./routes/checkout');
 const { Product } = require('./db.js');
-// const isAuth = require('./middleware/auth');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
