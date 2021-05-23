@@ -50,6 +50,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
     }
   };
 };
+
 const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     try {
@@ -83,6 +84,7 @@ const getProductByIdAsync = (id: any) => {
     }
   };
 };
+
 const deleteProductByIdAsync = (id: any, token:string) => {
   return async (dispatch: any) => {
     try {
@@ -97,6 +99,7 @@ const deleteProductByIdAsync = (id: any, token:string) => {
     }
   };
 };
+
 const changeProductInDBAsync = (product: any, token:string) => {
   return async (dispatch: any) => {
     try {
@@ -123,6 +126,7 @@ const changeProductInDBAsync = (product: any, token:string) => {
     }
   };
 };
+
 const getCategoriesAsync = () => {
   return async (dispatch: any) => {
     try {
@@ -140,6 +144,7 @@ const getCategoriesAsync = () => {
     }
   };
 };
+
 const addCategoryAsync = (label: string, token:string) => {
   return async (dispatch: any) => {
     try {
@@ -163,8 +168,32 @@ const putCategory = (categoryName, newCategory, token) => {
           'Authorization': 'Bearer ' + token,
         },
       });
+      await getCategoriesAsync();
     } catch (err) {
       console.log(err);
+    }
+  };
+};
+
+const deleteCategory = (categoryName, token) => {
+  return async (dispatch: any) => {
+    try {
+      await axios.delete(`http://localhost:3001/categories/${categoryName}`, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
+      const cat = await axios.get(`http://localhost:3001/categories`);
+      const categories = cat.data.map((
+          category: any) => {
+        return {
+          value: category.name,
+          label: category.name,
+        };
+      });
+      dispatch(setCategories(categories));
+    } catch (error) {
+      console.log(error);
     }
   };
 };
@@ -177,4 +206,5 @@ export {
   getCategoriesAsync,
   addCategoryAsync,
   putCategory,
+  deleteCategory,
 };
