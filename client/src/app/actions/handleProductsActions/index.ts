@@ -7,7 +7,8 @@ import {SET_PRODUCTS,
 } from '../../constants/constants';
 
 const setProducts = (products: any,
-    totalPages: number, filter: string, order: string, name:string) => ({
+    totalPages: number = 1, filter: string = '',
+    order: string = '', name: string = '') => ({
   type: SET_PRODUCTS,
   payload: {products, totalPages, filter, order, name},
 });
@@ -27,6 +28,7 @@ const setCategories = (categories: any) => ({
 const getProductsAsync = (SearchInput: SearchInput) => {
   return async (dispatch: any) => {
     try {
+      dispatch(setProducts([]));
       const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
       const totalPages = res.data.totalPages;
       const products = res.data.products.map((product: ProductRes) => {
