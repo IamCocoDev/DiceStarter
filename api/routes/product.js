@@ -118,7 +118,7 @@ router.post('/review/:idReview', (req, res, next) => {
 
 router.delete('/review/:idReview', isAdmin, (req, res, next) => {
   const { idReview } = req.params;
-
+  console.log(idReview);
   Reviews.destroy({ where: { id: idReview } })
     .then(() => {
       res.sendStatus(200);

@@ -24,6 +24,7 @@ const postReview = (review: ReviewPost, id:string) => {
 };
 
 const getReviews = (id: string) => {
+  console.log(id);
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`http://localhost:3001/product/${id}/review`);
@@ -32,7 +33,7 @@ const getReviews = (id: string) => {
         id: review.id,
         rating: review.rating,
         comment: review.comment,
-        userId: review.userId,
+        user: review.user,
       }));
       dispatch(setReviews(reviews));
     } catch (err) {
