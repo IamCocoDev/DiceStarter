@@ -153,7 +153,7 @@ router.get('/products/:idOrder', isAdmin, (req, res) => {
 
 // DELETE A LA RELACION PRODUCT/ORDER
 
-router.delete('/orderdelete/:orderId/:productId', isAdmin, (req, res) => {
+router.delete('/orderdelete/:orderId/:productId', (req, res) => {
   const { orderId, productId } = req.params;
   Productxorder.destroy({
     where: {
