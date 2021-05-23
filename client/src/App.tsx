@@ -27,7 +27,6 @@ import CategoryList from './components/categoryList/categoryList';
 
 function App() {
   const user = useAppSelector(userInfo);
-  console.log(user);
   return (
     <div>
       <Route exact path={['/']} component={Landing}></Route>
@@ -50,7 +49,7 @@ function App() {
         '/register',
         '/cart',
         '/product',
-        '/admin/home',
+        '/profile',
       ]} component={NavBar}></Route>
       }
       <Route exact path='/list/productcategory'
