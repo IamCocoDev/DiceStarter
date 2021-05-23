@@ -41,9 +41,9 @@ const UserReviewForm = (props: {id:string}) => {
   return (
     <form className='userReviewFormAll' onSubmit={handleReviewSubmit}>
       <div className='userReviewFormText'>
-        <label className='userReviewFormLabelOne'>
-            Leave your opinion about this product
-        </label>
+        <h2 className='userReviewFormLabelOne'>
+          Reviews
+        </h2>
         <div className='userReviewFormStarOne'>
           <button onClick={handleClickStarValue}
             value={1}
