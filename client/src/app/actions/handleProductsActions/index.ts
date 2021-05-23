@@ -54,6 +54,7 @@ const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`http://localhost:3001/product/${id}`);
+      console.log(res.data);
       const {name,
         picture,
         price,
