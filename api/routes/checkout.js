@@ -32,7 +32,7 @@ router.post('/', (req, res, next) => {
 
 module.exports = router;
 
-// ?collection_id=1237013880 &
+// collection_id=1237013880 &
 // collection_status=approved &
 //   payment_id=1237013880 &
 //     status=approved &
