@@ -11,6 +11,7 @@ import {getProductByIdAsync}
 import UserReviews from '../userReviews/userReviews';
 import Carousel from '../carousel/carousel';
 import {userInfo} from '../../app/reducers/registerReducer';
+import {addProductInCart} from '../../app/actions/cartActions/index';
 
 function ProductDetail(props:any ) {
   const User = useAppSelector(userInfo);
@@ -32,6 +33,14 @@ function ProductDetail(props:any ) {
   useEffect(() => {
     dispatch(getProductByIdAsync(id));
   }, []);
+  const handleOnClick = () => dispatch(addProductInCart({
+    id: product.id,
+    name: product.name,
+    price: parseFloat(product.price),
+    image: product.picture[0],
+    stock: product.stock,
+    amount: 1,
+  }, User.id));
   return (
     <div className='productDetailBackground'>
       {
@@ -54,9 +63,11 @@ function ProductDetail(props:any ) {
                   </span>
                   {
                     User.role !== 'Admin' ?
-                    <button className='productDetailAddToCart'>
+                      <button className='productDetailAddToCart'
+                        onClick={handleOnClick}
+                      >
                     Add to Cart
-                    </button>:null
+                      </button>:null
                   }
                 </div>
                 <div className='productDetailInfo'>
