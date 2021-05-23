@@ -6,6 +6,9 @@ const jwt = require('jsonwebtoken');
 
 const isAdmin = require('../middleware/auth');
 const { isNotLogged } = require('../middleware/logged');
+const { transporter } = require('../configs/mailer');
+const template = require('./emails/emailRegistration.js');
+const templateorder = require('./emails/emailOrder.js');
 
 const {
   accessTokenSecret,
@@ -56,7 +59,15 @@ router.post('/signup', isNotLogged, (req, res, next) => {
       email,
       password,
     };
-    User.create(newUser).then((info) => { res.send(info); })
+    User.create(newUser).then(async (info) => {
+      // send mail with defined transport object
+      await transporter.sendMail({
+        from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+        to: newUser.email, // list of receivers
+        subject: 'SignUp Success ✔', // Subject line
+        html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
+      });
+      res.send(info); })
       .catch((e) => {
         res.status(400);
         next(e);

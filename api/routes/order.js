@@ -3,6 +3,8 @@ const express = require('express');
 const isAdmin = require('../middleware/auth');
 
 const router = express.Router();
+const { transporter } = require('../configs/mailer');
+const templateorder = require('./emails/emailOrder.js');
 
 const {
   User, Order, Productxorder, Product,
@@ -254,6 +256,23 @@ router.post('/:idUser/invited/cart', (req, res) => {
       }
     },
   );
+});
+
+router.post('/sendorder/:first/:last/:email', async (req, res) => {
+  const { first } = req.params;
+  const { last } = req.params;
+  const { email } = req.params;
+  const { body } = req;
+  const { totalPrice } = body;
+  const htmlorder = templateorder(first, last, totalPrice);
+
+  await transporter.sendMail({
+    from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+    to: email, // list of receivers
+    subject: 'Successful purchase ✔', // Subject line
+    html: htmlorder, // html body
+  });
+  res.send('Sending e-mail');
 });
 
 module.exports = router;

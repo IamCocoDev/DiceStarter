@@ -90,7 +90,7 @@ router.post('/:id/review', (req, res, next) => {
 });
 
 router.get('/reviews/allreviews', isAdmin, (req, res, next) => {
-  Reviews.findAll({ attributes: { exclude: ['userId'] }, include: { model: User, attributes: ['firstName', 'lastName'] } })
+  Reviews.findAll({ attributes: { exclude: ['userId'] }, include: { model: User, attributes: ['name'] } })
     .then((data) => res.send(data))
     .catch((e) => {
       res.status(400);
@@ -132,7 +132,7 @@ router.delete('/review/:idReview', isAdmin, (req, res, next) => {
 router.get('/:id/review', (req, res, next) => {
   const { id } = req.params;
   try {
-    Reviews.findAll({ attributes: { exclude: ['userId'] }, where: { productId: id }, include: { model: User, attributes: ['firstName', 'lastName'] } })
+    Reviews.findAll({ attributes: { exclude: ['userId'] }, where: { productId: id }, include: { model: User, attributes: ['name'] } })
       .then(async (resp) => {
         const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
         const quantityRev = await Reviews.count({ where: { productId: id } });
