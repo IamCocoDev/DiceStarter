@@ -98,14 +98,14 @@ router.get('/reviews/allreviews', isAdmin, (req, res, next) => {
     });
 });
 
-router.post('/review/:idReview', (req, res, next) => {
+router.put('/review/:idReview', (req, res, next) => {
   const { idReview } = req.params;
-  const { comments } = req.body;
+  const { comment } = req.body;
   const { rating } = req.body;
   Reviews.findOne({ where: { id: idReview } })
     .then((resp) => {
       if (resp) {
-        resp.update({ comments });
+        resp.update({ comment });
         resp.update({ rating });
       }
       res.send(resp); // Resultado del UPDATE
