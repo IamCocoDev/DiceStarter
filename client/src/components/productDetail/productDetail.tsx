@@ -10,8 +10,10 @@ import {getProductByIdAsync}
   from '../../app/actions/handleProductsActions/index';
 import UserReviews from '../userReviews/userReviews';
 import Carousel from '../carousel/carousel';
+import {userInfo} from '../../app/reducers/registerReducer';
 
 function ProductDetail(props:any ) {
+  const User = useAppSelector(userInfo);
   const [input, setInput] = useState<ProductRes>({
     id: props.id,
     name: props.name,
@@ -50,9 +52,12 @@ function ProductDetail(props:any ) {
                   <span className='ProductDetailPrice'>
                 Price: $ {product.price}
                   </span>
-                  <button className='productDetailAddToCart'>
+                  {
+                    User.role !== 'Admin' ?
+                    <button className='productDetailAddToCart'>
                     Add to Cart
-                  </button>
+                    </button>:null
+                  }
                 </div>
                 <div className='productDetailInfo'>
                   <div className='ProductDetailColors'>

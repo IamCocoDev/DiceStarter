@@ -6,7 +6,6 @@ import {userInfo} from '../../app/reducers/registerReducer';
 
 function NavBar(props: any): JSX.Element {
   const User = useAppSelector(userInfo);
-  console.log(User);
   return (
     <div className='navBarGrid'>
       <Link to={`/home?page=1`} className='navBarLogo'>

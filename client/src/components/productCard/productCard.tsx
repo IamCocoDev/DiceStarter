@@ -37,10 +37,14 @@ function ProductCard(
               <h2 className='productCardName'>{props.name}</h2>
               <div className='productCardPrice'>$ {props.price}</div>
             </div>
+
             <div className='productCardButtons'>
-              <button onClick={handleOnClick} className='productCardButton'>
+              {
+                user.role !== 'Admin' ?
+                <button onClick={handleOnClick} className='productCardButton'>
                   Add to cart
-              </button>
+                </button>:null
+              }
               <NavLink className='productCardlink'
                 to={`/product/${props.id}`}>
                 <button className='productCardButton'>
