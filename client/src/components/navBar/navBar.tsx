@@ -8,6 +8,7 @@ import {userInfo} from '../../app/reducers/registerReducer';
 
 function NavBar(props: any): JSX.Element {
   const User = useAppSelector(userInfo);
+  console.log('llego');
   const route:string = props.location.pathname;
   if (route === '/list/productlist') {
     return (
