@@ -5,17 +5,22 @@ import './listButtonRouter.css';
 function listButtonRouter() {
   return (
     <div className='listButtonRouterGrid'>
-      <NavLink className='listButtonRouterProduct' to='/list/productlist'>
-        <button className='listButtonRouterProductButton'>
-          Products </button>
-      </NavLink>
-      <NavLink className='listButtonRouterCategory' to='/list/productcategory'>
-        <button className='listButtonRouterCategoryButton'>
-          Categories</button>
-      </NavLink>
-      <NavLink to='/list/userlist' className='listButtonRouterUsers'>
-        <button className='listButtonRouterUsersButton'>Users</button>
-      </NavLink>
+      <button className='listButtonRouterProductButton'>
+        <NavLink className='listButtonRouterProduct' to='/list/productlist'>
+          Products
+        </NavLink>
+      </button>
+      <button className='listButtonRouterCategoryButton'>
+        <NavLink className='listButtonRouterCategory'
+          to='/list/productcategory'>
+          Categories
+        </NavLink>
+      </button>
+      <button className='listButtonRouterUsersButton'>
+        <NavLink to='/list/userlist' className='listButtonRouterUsers'>
+          Users
+        </NavLink>
+      </button>
     </div>
   );
 }

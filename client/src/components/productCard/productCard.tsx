@@ -29,19 +29,23 @@ function ProductCard(
   return (
         props.stock > 0 ?
         <div className='productCardAll'>
-          <div className='productCardGrid'>
-            <h1 className='productCardName'>{props.name}</h1>
-            <p className='productCardPrice'>${props.price}</p>
-            <img className='productCardImage'
-              src={props.image[0]} alt='Photo'/>
-            <div className='productCardButtonsGrid'>
-              <button onClick={handleOnClick}
-                type='button' className='productCardCartButton'>
-               Add to cart
+          <img className='productCardImage'
+            src={props.image[0]} alt='Photo'/>
+          <div className='verticalLine'></div>
+          <div className='productInfo'>
+            <div className='productNamePrice'>
+              <h2 className='productCardName'>{props.name}</h2>
+              <div className='productCardPrice'>$ {props.price}</div>
+            </div>
+            <div className='productCardButtons'>
+              <button onClick={handleOnClick} className='productCardButton'>
+                  Add to cart
               </button>
-              <NavLink className='productCardViewMore'
+              <NavLink className='productCardlink'
                 to={`/product/${props.id}`}>
-                More Info
+                <button className='productCardButton'>
+                  More Info
+                </button>
               </NavLink>
             </div>
           </div>

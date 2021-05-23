@@ -6,6 +6,7 @@ import {userInfo} from '../../app/reducers/registerReducer';
 import './login.css';
 import GoogleComp from '../googleComp/googleComp';
 import {getProductsInCart} from '../../app/actions/cartActions/index';
+import {Link} from 'react-router-dom';
 
 function deepEqualError(a: loginInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -82,6 +83,10 @@ const Login = () => {
         <div className='loginGoogle'>
           <GoogleComp/>
         </div>
+        <Link
+          className='registerLink' to='/register'>
+          New to DiceStarter? Register here!
+        </Link>
       </form>
     </div>
   );
