@@ -82,10 +82,10 @@ router.post('/signin', isNotLogged, async (req, res, next) => {
     let user;
     const emailRegEx = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     if (username && password) {
-      if (emailRegEx.test(username)) {
-        user = await User.findOne({ where: { email: username } });
-      }
-      user = await User.findOne({ where: { name: username } });
+      // eslint-disable-next-line no-unused-expressions
+      emailRegEx.test(username)
+        ? user = await User.findOne({ where: { email: username } })
+        : user = await User.findOne({ where: { name: username } });
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) return res.send('password invalid');
         if (result) {
