@@ -1,12 +1,8 @@
-.productDetailBackground{
-    background-color: #303030;
-}
-
 .ProductDetailGridAll{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background-color: #202020;
+  background-color: #101010;
   margin: 5rem auto;
   width: 80%;
   height: 100%;

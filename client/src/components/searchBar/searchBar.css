@@ -1,42 +1,33 @@
 .searchBarFlex{
   display: flex;
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  width: 20rem;
+  height: 2rem;
 }
 
 .searchBarButton {
-  border: none;
-  text-decoration: none;
+  border: 0.1rem solid #101010;
+  border-left: none;
   background: #9e00d3;
   color: #ffffff;
-  width: 8vw;
-  height: 5vh;
-  font-family: sans-serif;
-  font-size: 2.0vw;
   cursor: pointer;
-  text-align: center;
-  border-radius: 0 1vw 1vw 0 ;
-  font-weight: bolder; 
-  align-self: center;
-  justify-self: center;
-}
-
-.searchBarButton:hover,.material-icons{
-  transform: scale(-1, 1);
-  border-radius: 1vw 0 0 1vw;
+  width: 4rem;
+  border-radius: 0 0.5rem 0.5rem 0 ;
 }
 
 .searchBarText {
-  border-radius: 1vw 0 0 1vw;
-  width: 25vw;
-  height: 5vh;
-  border: none;
-  align-self: center;
-  justify-self: center;
-}
-
-.searchBarText:placeholder-shown{
-  padding-left: 1vw;
+  border: 0.1rem solid #101010;
+  border-right: none;
+  border-radius: 0.5rem 0 0 0.5rem;
+  width: 20rem;
+  padding: 0 1rem;
 }
 
 .searchBarText:focus {
-  border-radius: 1vw 0 0 1vw;
+  outline: none;
 }

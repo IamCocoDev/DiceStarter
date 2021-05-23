@@ -29,6 +29,7 @@
 }
 
 .landingLogo{
+  font-family: 'Fredoka One', cursive;
   font-size: 6rem;
 }
 
@@ -62,8 +63,8 @@
 }
 
 .landingImage{
-  width: 45%;
+  width: 40%;
   position: absolute;
-  right: 2rem;
-  top: 1rem;
+  right: 10rem;
+  top: 2rem;
 }
