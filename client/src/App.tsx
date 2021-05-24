@@ -41,7 +41,6 @@ function App() {
         '/register',
         '/list/productlist',
         '/create/category',
-        '/admin/home',
         '/cart',
         '/list/userlist',
         '/profile']} component={NavBar}/> :
