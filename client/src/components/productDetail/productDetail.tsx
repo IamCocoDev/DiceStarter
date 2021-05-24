@@ -33,14 +33,21 @@ function ProductDetail(props:any ) {
   useEffect(() => {
     dispatch(getProductByIdAsync(id));
   }, []);
-  const handleOnClick = () => dispatch(addProductInCart({
-    id: product.id,
-    name: product.name,
-    price: parseFloat(product.price),
-    image: product.picture[0],
-    stock: product.stock,
-    amount: 1,
-  }, User.id));
+  const handleOnClick = () => {
+    const duplicate = JSON.parse(localStorage
+        .getItem('cart') || '[]').find((el) => el.id === product.id);
+    if (duplicate) {
+    } else {
+      dispatch(addProductInCart({
+        id: product.id,
+        name: product.name,
+        price: parseFloat(product.price),
+        image: product.picture[0],
+        stock: product.stock,
+        amount: 1,
+      }, User.id));
+    }
+  };
   return (
     <div className='productDetailBackground'>
       {

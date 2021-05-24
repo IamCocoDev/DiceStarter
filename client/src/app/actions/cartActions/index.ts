@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 import axios from 'axios';
+import {BACK_ROUTE} from '../../../ROUTE.js';
 
 export const GET_PRODUCTS_IN_CART = 'GET_PRODUCTS_IN_CART';
 export const ADD_PRODUCT_IN_CART = 'ADD_PRODUCT_IN_CART';
@@ -6,13 +8,14 @@ export const DELETE_ALL_CART = 'DELETE_ALL_CART';
 export const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART';
 export const CHANGE_PRODUCT_QUANTITY = 'CHANGE_PRODUCT_QUANTITY';
 
+
 export const getProductsInCart = (idUser = '') => (dispatch) => {
   const productsInCart = JSON.parse(localStorage.getItem('cart') || '[]');
 
   if (idUser === '') {
     dispatch({type: GET_PRODUCTS_IN_CART, payload: productsInCart});
   } else {
-    return axios.get(`http://localhost:3001/orders/search/user/${idUser}`)
+    return axios.get(`${BACK_ROUTE}/orders/search/user/${idUser}`)
         .then((res) => {
           console.log(res.data[0].id);
           const products = res.data[0].products.map((el) => {
@@ -45,7 +48,7 @@ export const addProductInCart = (product, userId = '') => (dispatch) => {
     dispatch({type: ADD_PRODUCT_IN_CART, payload: product});
   } else {
     dispatch({type: ADD_PRODUCT_IN_CART, payload: product});
-    return axios.post(`http://localhost:3001/orders/${userId}/cart`, {
+    return axios.post(`${BACK_ROUTE}/orders/${userId}/cart`, {
       id: product.id,
       price: product.price,
       address: 'cordoba',
@@ -60,7 +63,7 @@ export const deleteAllCart = (userId = '') => (dispatch) => {
   if (userId === '') {
     dispatch({type: DELETE_ALL_CART});
   } else {
-    return axios.delete(`http://localhost:3001/orders/${userId}/cart`)
+    return axios.delete(`${BACK_ROUTE}/orders/${userId}/cart`)
         .then((res) => dispatch({type: DELETE_ALL_CART}))
         .catch((err) => console.error(err));
   }
@@ -76,7 +79,7 @@ export const deleteProductFromCart =
       dispatch({type: DELETE_PRODUCT_FROM_CART, payload: id});
     } else {
       console.log(token);
-      return axios.delete(`http://localhost:3001/orders/orderdelete/${idOrder}/${id}`, {
+      return axios.delete(`${BACK_ROUTE}/orders/orderdelete/${idOrder}/${id}`, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -101,7 +104,8 @@ export const changeProductQuantity = (userId:string = '', id, amount:number,
         payload: {id, amount, totalPrice},
       });
     } else {
-      return axios.post(`http://localhost:3001/orders/${userId}/c/cart`, [{id, amount, total_price: totalPrice}])
+      return axios.post(`${BACK_ROUTE}/orders/${userId}/c/cart`,
+          [{id, amount, total_price: totalPrice}])
           .then(() =>
             dispatch({
               type: CHANGE_PRODUCT_QUANTITY,
@@ -113,7 +117,7 @@ export const changeProductQuantity = (userId:string = '', id, amount:number,
 };
 
 export const goToCheckout = (products) => (dispatch) => {
-  return axios.post('http://localhost:3001/checkout', {products})
+  return axios.post(`${BACK_ROUTE}/checkout`, {products})
       .then((res) => {
         window.location = res.data.init_point;
       })
@@ -127,18 +131,18 @@ export const getCheckoutTicket =
         .reduce((acc, {price, amount}) => acc + price * amount, 0);
     const userId = JSON.parse(localStorage.getItem('user')).id;
     if (status === 'pending' || status === 'approved') {
-      return axios.post(`http://localhost:3001/orders/sendorder/${name}/${lastName}/${email}`, {totalPrice})
+      return axios.post(`${BACK_ROUTE}/orders/sendorder/${name}/${lastName}/${email}`, {totalPrice})
       // Acá agregar el resto.
           .then(() => {
             const promises = products.map((product) => {
-              return axios.put(`http://localhost:3001/product/stock/${product.id}`, {product: {...product, stock: product.stock - product.amount, amount: 0}})
+              return axios.put(`${BACK_ROUTE}/product/stock/${product.id}`, {product: {...product, stock: product.stock - product.amount, amount: 0}})
                   .then((res) => console.log(res.data))
                   .catch((err) => console.error(err));
             });
             Promise.all(promises)
                 .then(() => {
                   console.log('LUEGO DEL PROMISE.ALL');
-                  return axios.post(`http://locahost:3001/orders/${userId}/update/cart`, {status})
+                  return axios.post(`${BACK_ROUTE}/orders/${userId}/update/cart`, {status})
                       .then(() => {
                         console.log('ADENTRO DEL PROMISE.ALL');
                         dispatch({type: DELETE_ALL_CART});
@@ -150,7 +154,7 @@ export const getCheckoutTicket =
           })
           .catch((err) => console.error(err));
     } else {
-      return axios.post(`http://localhost:3001/orders/${userId}/update/cart`, {status})
+      return axios.post(`${BACK_ROUTE}/orders/${userId}/update/cart`, {status})
           .then(() => {
             dispatch({type: DELETE_ALL_CART});
             localStorage.removeItem('cart');

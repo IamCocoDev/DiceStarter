@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
+import {BACK_ROUTE} from '../../../ROUTE.js';
+
 import axios from 'axios';
 import {getProductsInCart} from '../cartActions';
 import {SET_USER,
@@ -46,7 +48,7 @@ const loginFailed = () => ({
 const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
-      await axios.post(`http://localhost:3001/user/signup`, form);
+      await axios.post(`${BACK_ROUTE}/user/signup`, form);
     } catch (err) {
       console.log(err);
     }
@@ -57,7 +59,7 @@ const loginFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
       console.log(form);
-      const res = await axios.post(`http://localhost:3001/user/signin`, form);
+      const res = await axios.post(`${BACK_ROUTE}/user/signin`, form);
       const loginUser = res.data;
       if (typeof res.data !== 'object') {
         dispatch(loginFailed());
@@ -70,7 +72,7 @@ const loginFormAsync = (form: any) => {
         const cartUser = await dispatch(getProductsInCart(loginUser.user.id));
         const nuevo = arrayUnique(cartLocal.concat(cartUser.payload));
         const produsctId = nuevo.map((el) => el.id);
-        await axios.post(`http://localhost:3001/orders/${loginUser.user.id}/invited/cart`, {products: produsctId, address: 'cordoba'});
+        await axios.post(`${BACK_ROUTE}/orders/${loginUser.user.id}/invited/cart`, {products: produsctId, address: 'cordoba'});
         dispatch(setToken(loginUser.token));
       }
     } catch (err) {
@@ -106,7 +108,7 @@ const modifyUser = (changes:userChanges, token:string) => {
   return async (dispatch) => {
     try {
       dispatch(setUser(changes));
-      await axios.put(`http://localhost:3001/user/${changes.id}`, changes, {
+      await axios.put(`${BACK_ROUTE}/user/${changes.id}`, changes, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -120,7 +122,7 @@ const modifyUser = (changes:userChanges, token:string) => {
 const getUsers = (token:string) => {
   return async (dispatch) => {
     try {
-      const res = await axios.get(`http://localhost:3001/users`, {
+      const res = await axios.get(`${BACK_ROUTE}/users`, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },

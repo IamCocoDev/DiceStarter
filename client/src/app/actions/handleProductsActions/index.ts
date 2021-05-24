@@ -1,5 +1,7 @@
+/* eslint-disable max-len */
 import axios from 'axios';
 import {ProductRes, SearchInput} from '../../../types';
+import {BACK_ROUTE} from '../../../ROUTE.js';
 
 import {SET_PRODUCTS,
   SET_PRODUCT_BY_ID,
@@ -29,7 +31,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
   return async (dispatch: any) => {
     try {
       dispatch(setProducts([]));
-      const res = await axios.get(`http://localhost:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
+      const res = await axios.get(`${BACK_ROUTE}/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
       const totalPages = res.data.totalPages;
       const products = res.data.products.map((product: ProductRes) => {
         return {
@@ -56,7 +58,8 @@ const getProductsAsync = (SearchInput: SearchInput) => {
 const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     try {
-      const res = await axios.get(`http://localhost:3001/product/${id}`);
+      console.log(BACK_ROUTE);
+      const res = await axios.get(`${BACK_ROUTE}/product/${id}`);
       console.log(res.data);
       const {name,
         picture,
@@ -90,7 +93,7 @@ const getProductByIdAsync = (id: any) => {
 const deleteProductByIdAsync = (id: any, token:string) => {
   return async (dispatch: any) => {
     try {
-      await axios.delete(`http://localhost:3001/product/${id}`, {
+      await axios.delete(`${BACK_ROUTE}/product/${id}`, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -118,7 +121,7 @@ const changeProductInDBAsync = (product: any, token:string) => {
         size: product.size,
         stock: product.stock,
       };
-      await axios.put(`http://localhost:3001/product/${product.id}`, toSend, {
+      await axios.put(`${BACK_ROUTE}/product/${product.id}`, toSend, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -132,7 +135,7 @@ const changeProductInDBAsync = (product: any, token:string) => {
 const getCategoriesAsync = () => {
   return async (dispatch: any) => {
     try {
-      const res = await axios.get(`http://localhost:3001/categories`);
+      const res = await axios.get(`${BACK_ROUTE}/categories`);
       const categories = res.data.map((
           category: any) => {
         return {
@@ -151,7 +154,7 @@ const addCategoryAsync = (label: string, token:string) => {
   return async (dispatch: any) => {
     try {
       const name = label;
-      await axios.post('http://localhost:3001/categories', {name}, {
+      await axios.post('${BACK_ROUTE}/categories', {name}, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -165,7 +168,7 @@ const addCategoryAsync = (label: string, token:string) => {
 const putCategory = (categoryName, newCategory, token) => {
   return async (dispatch: any) => {
     try {
-      await axios.put(`http://localhost:3001/categories/${categoryName}`, newCategory, {
+      await axios.put(`${BACK_ROUTE}/categories/${categoryName}`, newCategory, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -180,12 +183,12 @@ const putCategory = (categoryName, newCategory, token) => {
 const deleteCategory = (categoryName, token) => {
   return async (dispatch: any) => {
     try {
-      await axios.delete(`http://localhost:3001/categories/${categoryName}`, {
+      await axios.delete(`${BACK_ROUTE}/categories/${categoryName}`, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
       });
-      const cat = await axios.get(`http://localhost:3001/categories`);
+      const cat = await axios.get(`${BACK_ROUTE}/categories`);
       const categories = cat.data.map((
           category: any) => {
         return {

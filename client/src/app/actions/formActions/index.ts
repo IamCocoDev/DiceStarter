@@ -1,9 +1,10 @@
 import axios from 'axios';
+import {BACK_ROUTE} from '../../../ROUTE.js';
 // eslint-disable-next-line no-unused-vars
 const sendFormAsync = (form: any, token:string) => {
   return async (dispatch: any) => {
     try {
-      await axios.post(`http://localhost:3001/product`, form, {
+      await axios.post(`${BACK_ROUTE}/product`, form, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
