@@ -1,14 +1,19 @@
 /* eslint-disable max-len */
-import React, {useState} from 'react';
-import {useAppDispatch} from '../../app/hooks';
+import React, {useState, useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {deleteReviews,
-  getReviews} from '../../app/actions/reviewsActions/index';
+  getReviews,
+  modifyReview} from '../../app/actions/reviewsActions/index';
+import {userInfo} from '../../app/reducers/registerReducer';
 const UserReview = (props:{review, token, user, id}) => {
+  const user = useAppSelector(userInfo);
+  const [toggle, setToggle] = useState(false);
   const {review, token} = props;
   const [editMode, setEditMode] = useState(false);
   const [changes, setChanges] = useState({
     rating: review.rating,
     comment: review.comment,
+    id: review.id,
   });
   const dispatch = useAppDispatch();
   const handleEditMode = () => setEditMode(!editMode);
@@ -24,15 +29,23 @@ const UserReview = (props:{review, token, user, id}) => {
     dispatch(deleteReviews(e.target.value, props.id, token));
     dispatch(getReviews(props.id));
   };
+  useEffect(() => {
+    review.user.name === user.name || user.role === 'Admin' ? setToggle(true) : null;
+  });
   return (
     <div>
-      <p suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleRatingChange}>{review.rating}</p>
-      <p suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleCommentChange}>{review.comment}</p>
-      <button onClick={handleEditMode}>Edit </button>
-      <button onClick={handleDelete} value={review.id}> Delete Review </button>
+      <h1>{review.user.name}</h1>
+      <p suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleRatingChange}>{review.rating}</p>
+      <p suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleCommentChange}>{review.comment}</p>
+      { toggle === true &&
+          <button onClick={handleEditMode}>Edit </button>
+      }
+      { toggle === true &&
+        <button onClick={handleDelete} value={review.id}> Delete Review </button>
+      }
       {
         changes.comment !== review.comment || changes.rating !== review.rating ?
-        <button onClick={handleDelete}>Save Changes</button> : null
+        <button onClick={() => dispatch(modifyReview(review.id, changes, token))}>Save Changes</button> : null
       }
     </div>
   );
