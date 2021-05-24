@@ -205,9 +205,11 @@ router.post('/:idUser/c/cart', (req, res, next) => {
     .catch(() => res.status(400).send('ERROR. Order has not been complete'));
 });
 
-router.post('/:idUser/update/cart', (req, res) => {
+router.post('/:idUser/update/cart', (req, res, next) => {
   const { idUser } = req.params;
-  const { body } = req; // recibe por body: satatus: processing  y direccion, cancelled , complete;
+  const { body } = req; // recibe por body: satatus: In process, Canceled , Complete;
+  // eslint-disable-next-line no-console
+  console.log('BODY EN ESTA RUTA: ', body);
   if (req.body.status === 'Canceled' || req.body.status === 'In process' || req.body.status === 'Complete') {
     Order.update(body, { where: { userId: idUser, status: 'Created' } }).then(
       (data) => {
@@ -217,7 +219,8 @@ router.post('/:idUser/update/cart', (req, res) => {
           res.status(404).send('You do not have an order created');
         }
       },
-    );
+    )
+      .catch((err) => next(err));
   }
 });
 
@@ -258,7 +261,7 @@ router.post('/:idUser/invited/cart', (req, res) => {
   );
 });
 
-router.post('/sendorder/:first/:last/:email', async (req, res) => {
+router.post('/sendorder/:first/:last/:email', async (req, res, next) => {
   const { first } = req.params;
   const { last } = req.params;
   const { email } = req.params;
@@ -271,7 +274,8 @@ router.post('/sendorder/:first/:last/:email', async (req, res) => {
     to: email, // list of receivers
     subject: 'Successful purchase ✔', // Subject line
     html: htmlorder, // html body
-  });
+  })
+    .catch((err) => next(err));
   res.send('Sending e-mail');
 });
 

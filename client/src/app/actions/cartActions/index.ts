@@ -119,3 +119,42 @@ export const goToCheckout = (products) => (dispatch) => {
       })
       .catch((err) => console.error(err));
 };
+
+export const getCheckoutTicket =
+  (name, lastName, email, status) => (dispatch) => {
+    const products = JSON.parse(localStorage.getItem('cart'));
+    const totalPrice = products
+        .reduce((acc, {price, amount}) => acc + price * amount, 0);
+    const userId = JSON.parse(localStorage.getItem('user')).id;
+    if (status === 'pending' || status === 'approved') {
+      return axios.post(`http://localhost:3001/orders/sendorder/${name}/${lastName}/${email}`, {totalPrice})
+      // Acá agregar el resto.
+          .then(() => {
+            const promises = products.map((product) => {
+              return axios.put(`http://localhost:3001/product/stock/${product.id}`, {product: {...product, stock: product.stock - product.amount, amount: 0}})
+                  .then((res) => console.log(res.data))
+                  .catch((err) => console.error(err));
+            });
+            Promise.all(promises)
+                .then(() => {
+                  console.log('LUEGO DEL PROMISE.ALL');
+                  return axios.post(`http://locahost:3001/orders/${userId}/update/cart`, {status})
+                      .then(() => {
+                        console.log('ADENTRO DEL PROMISE.ALL');
+                        dispatch({type: DELETE_ALL_CART});
+                        localStorage.removeItem('cart');
+                      })
+                      .catch((err) => console.error(err));
+                })
+                .catch((err) => console.error(err));
+          })
+          .catch((err) => console.error(err));
+    } else {
+      return axios.post(`http://localhost:3001/orders/${userId}/update/cart`, {status})
+          .then(() => {
+            dispatch({type: DELETE_ALL_CART});
+            localStorage.removeItem('cart');
+          })
+          .catch((err) => console.error(err));
+    };
+  };
