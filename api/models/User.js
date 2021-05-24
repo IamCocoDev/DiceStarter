@@ -22,7 +22,6 @@ module.exports = (sequelize) => {
     },
     birthday: {
       type: DataTypes.DATE,
-      allowNull: false,
     },
     profilePicture: {
       type: DataTypes.STRING,
@@ -41,7 +40,6 @@ module.exports = (sequelize) => {
     },
     country: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
@@ -57,6 +55,9 @@ module.exports = (sequelize) => {
     role: {
       type: DataTypes.ENUM('User', 'Admin'),
       defaultValue: 'User',
+    },
+    googleId: {
+      type: DataTypes.STRING,
     },
     status: {
       type: DataTypes.ENUM('Active', 'Closed', 'Banned'),

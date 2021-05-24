@@ -83,7 +83,7 @@ const loginFormAsync = (form: any) => {
 const loginGoogle = (googleUser) => {
   return async (dispatch: any) => {
     try {
-      await axios.post(`${BACK_ROUTE}/user/signupGoogle}`, googleUser);
+      await axios.post(`${BACK_ROUTE}/user/signupgoogle`, googleUser);
     } catch (err) {
       console.log(err);
     }
