@@ -46,7 +46,8 @@ const loginFailed = () => ({
 const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
-      await axios.post(`http://localhost:3001/user/signup`, form);
+      await axios.post(`http://54.232.68.2/user/signup`, form);
+      dispatch(sendFormSuccess);
     } catch (err) {
       console.log(err);
     }
@@ -56,8 +57,7 @@ const sendFormAsync = (form: any) => {
 const loginFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
-      console.log(form);
-      const res = await axios.post(`http://localhost:3001/user/signin`, form);
+      const res = await axios.post(`http://54.232.68.2/user/signin`, form);
       const loginUser = res.data;
       if (typeof res.data !== 'object') {
         dispatch(loginFailed());

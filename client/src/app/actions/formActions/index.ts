@@ -3,7 +3,7 @@ import axios from 'axios';
 const sendFormAsync = (form: any, token:string) => {
   return async (dispatch: any) => {
     try {
-      await axios.post(`http://localhost:3001/product`, form, {
+      await axios.post(`http://54.232.68.2:3001/product`, form, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },

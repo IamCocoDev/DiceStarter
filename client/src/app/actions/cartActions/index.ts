@@ -59,11 +59,11 @@ export const deleteAllCart = (userId = '') => (dispatch) => {
   localStorage.removeItem('cart');
   if (userId === '') {
     dispatch({type: DELETE_ALL_CART});
-  } else {
-    return axios.delete(`http://localhost:3001/orders/${userId}/cart`)
-        .then((res) => dispatch({type: DELETE_ALL_CART}))
-        .catch((err) => console.error(err));
-  }
+    return;
+  };
+  return axios.delete(`http://54.232.68.2:3001/orders/orderdelete/${userId}`)
+      .then((res) => dispatch({type: DELETE_ALL_CART}))
+      .catch((err) => console.error(err));
 };
 
 export const deleteProductFromCart =
@@ -101,7 +101,7 @@ export const changeProductQuantity = (userId:string = '', id, amount:number,
         payload: {id, amount, totalPrice},
       });
     } else {
-      return axios.post(`http://localhost:3001/orders/${userId}/c/cart`, [{id, amount, total_price: totalPrice}])
+      return axios.post(`http://54.232.68.2:3001/orders/${userId}/c/cart`, [{id, amount, total_price: totalPrice}])
           .then(() =>
             dispatch({
               type: CHANGE_PRODUCT_QUANTITY,
