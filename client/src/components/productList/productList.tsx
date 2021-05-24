@@ -95,7 +95,7 @@ function ProductList(props: ProductRes): JSX.Element {
   return (
     <div className="productListGrid">
       <input
-        className="productListName"
+        className="productsListName"
         type="text"
         placeholder={'Name'}
         value={input.name}
@@ -103,7 +103,7 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       ></input>
       <input
-        className="productListPrice"
+        className="productsListPrice"
         type="number"
         placeholder={'Price'}
         value={input.price}
@@ -114,21 +114,21 @@ function ProductList(props: ProductRes): JSX.Element {
       <Select
         isMulti
         name="categories"
-        className="productListCategories"
+        className="productsListCategories"
         options={productCats}
         value={categories}
         onChange={handleSelectChange}
         defaultValue={categories}
       ></Select>
       <textarea
-        className="productListDescription"
+        className="productsListDescription"
         placeholder={'Description'}
         value={input.description}
         name="description"
         onChange={handleTextAreaChange}
       ></textarea>
       <input
-        className="productListStock"
+        className="productsListStock"
         type="number"
         placeholder={'Stock'}
         value={input.stock}
@@ -136,7 +136,7 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       ></input>
       <input
-        className="productListSize"
+        className="productsListSize"
         type="text"
         placeholder={'Size'}
         value={input.size}
@@ -145,7 +145,7 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       >
       </input>
-      <div className='productListColors'>
+      <div className='productsListColors'>
         {input.color.length ?
           input.color.map((el) => <ColorCircle key={el} color={el}
             onClick={() => {
@@ -162,7 +162,7 @@ function ProductList(props: ProductRes): JSX.Element {
           onClick={() => addColor(color)} />
       </div>
       <input
-        className="productListImageUrl"
+        className="productsListImageUrl"
         type="text"
         placeholder={'Image'}
         value={input.picture}

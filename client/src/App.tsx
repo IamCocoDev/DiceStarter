@@ -56,7 +56,8 @@ function App() {
       <Route exact path='/list/productcategory'
         component={CategoryList}/>
       {/* <Route exact path={['/login', '/profile']} component={Login}/> */}
-      <Route exact path ='/home' component={searchBar}/>
+      <Route exact path ={['/home', '/list/productlist']}
+        component={searchBar}/>
       <Route exact path='/list/productlist' component={ProductsList}/>
       <Route exact path='/register' component={FormRegisterForm}/>
       <Route exact path='/about' component={About}/>

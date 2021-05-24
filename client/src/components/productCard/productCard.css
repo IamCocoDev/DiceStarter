@@ -109,6 +109,10 @@
   border: none;
 }
 
+.productCardButton:hover{
+  background-color: #9e00d3;
+}
+
 .productCardlink{
   text-decoration: none;  
   color: white;
