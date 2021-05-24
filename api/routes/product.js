@@ -39,7 +39,18 @@ router.post('/', isAdmin, async (req, res, next) => {
   }
 });
 
-router.put('/:id', isAdmin, async (req, res, next) => {
+router.put('/stock/:productId', async (req, res, next) => {
+  const { product } = req.body;
+  try {
+    const productUpdated = await Product.findByPk(product.id);
+    await productUpdated.update(product);
+    res.send(productUpdated);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:id', async (req, res, next) => {
   const { id } = req.params;
   const { body } = req;
   try {
