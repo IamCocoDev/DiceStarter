@@ -12,10 +12,15 @@ const setReviews = (reviewResponse: ReviewRes) => ({
 
 // Async requests to the back-end
 
-const postReview = (review: ReviewPost, id:string) => {
+const postReview = (review: ReviewPost, id:string, token) => {
+  console.log(review);
   return async (dispatch: any) => {
     try {
-      await axios.post(`http://localhost:3001/product/${review.id}/review`, review);
+      await axios.post(`http://localhost:3001/product/${review.id}/review`, review, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
       dispatch(getReviews(id));
     } catch (err) {
       console.error(err);
@@ -24,12 +29,11 @@ const postReview = (review: ReviewPost, id:string) => {
 };
 
 const getReviews = (id: string) => {
-  console.log(id);
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`http://localhost:3001/product/${id}/review`);
       console.log(res.data);
-      const reviews = res.data.all.map((review: ReviewPost) => ({
+      const reviews = res.data.all.map((review: any) => ({
         id: review.id,
         rating: review.rating,
         comment: review.comment,
@@ -57,11 +61,14 @@ const deleteReviews = (id: number, productId: string, token:string) => {
   };
 };
 
-const modifyReview = (id: number) => {
+const modifyReview = (id: number, changes:any, token:string) => {
   return async (dispatch: any) => {
     try {
-      console.log(id);
-      await axios.post(`http://localhost:3001/product/review/${id}`);
+      await axios.put(`http://localhost:3001/product/review/${id}`, changes, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
     } catch (err) {
       console.error(err);
     }

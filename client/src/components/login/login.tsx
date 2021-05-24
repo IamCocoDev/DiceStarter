@@ -46,9 +46,8 @@ const Login = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      setRedirect(true);
       dispatch(loginFormAsync(input));
-      if (!User.id) return alert('Password or Username are not correct');
+      setRedirect(true);
       dispatch(getProductsInCart());
     } else {
       alert('mal');
