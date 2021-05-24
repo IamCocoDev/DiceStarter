@@ -83,7 +83,24 @@ const loginFormAsync = (form: any) => {
 const loginGoogle = (googleUser) => {
   return async (dispatch: any) => {
     try {
-      await axios.post(`${BACK_ROUTE}/user/signupgoogle`, googleUser);
+      const res = await axios.post(`${BACK_ROUTE}/user/signupgoogle`, googleUser);
+      console.log(res);
+      const loginUser = res.data;
+      console.log(res.data.token);
+      if (typeof res.data !== 'object') {
+        dispatch(loginFailed());
+      } else {
+        console.log(loginUser);
+        localStorage.setItem('user', JSON.stringify(loginUser.user));
+        localStorage.setItem('token', JSON.stringify(loginUser.token));
+        dispatch(setUser(loginUser.user));
+        const cartLocal = await JSON.parse(localStorage.getItem('cart') || '[]');
+        const cartUser = await dispatch(getProductsInCart(loginUser.user.id));
+        const nuevo = arrayUnique(cartLocal.concat(cartUser.payload));
+        const produsctId = nuevo.map((el) => el.id);
+        await axios.post(`${BACK_ROUTE}/orders/${loginUser.user.id}/invited/cart`, {products: produsctId, address: 'cordoba'});
+        dispatch(setToken(loginUser.token));
+      }
     } catch (err) {
       console.log(err);
     }
