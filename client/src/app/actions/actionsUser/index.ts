@@ -47,7 +47,6 @@ const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
       await axios.post(`http://54.232.68.2/user/signup`, form);
-      dispatch(sendFormSuccess);
     } catch (err) {
       console.log(err);
     }
