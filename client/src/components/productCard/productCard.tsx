@@ -4,7 +4,6 @@ import {NavLink} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {userInfo} from '../../app/reducers/registerReducer';
 import {addProductInCart} from '../../app/actions/cartActions/index';
-/* import {userInfo} from '../../app/reducers/registerReducer'; */
 
 function ProductCard(
     props:{
@@ -18,14 +17,21 @@ function ProductCard(
   const user = useAppSelector(userInfo);
   // const {id} = userInfo;
   const dispatch = useAppDispatch();
-  const handleOnClick = () => dispatch(addProductInCart({
-    id: props.id,
-    name: props.name,
-    price: parseFloat(props.price),
-    image: props.image,
-    stock: props.stock,
-    amount: 1,
-  }, user.id));
+  const handleOnClick = () => {
+    const duplicate = JSON.parse(localStorage
+        .getItem('cart') || '[]').find((el) => el.id === props.id);
+    if (duplicate) {
+    } else {
+      dispatch(addProductInCart({
+        id: props.id,
+        name: props.name,
+        price: parseFloat(props.price),
+        image: props.image,
+        stock: props.stock,
+        amount: 1,
+      }, user.id));
+    }
+  };
   return (
         props.stock > 0 ?
         <div className='productCardAll'>
