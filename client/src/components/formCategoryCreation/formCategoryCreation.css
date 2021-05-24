@@ -1,14 +1,8 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
 .formCategoryCreationFlex{
     display: flex;
     width: 100vw;
     height: 88vh;
-    background-color: #5A5A5A;
+    background-color: #202020;
     align-items: center;
     justify-content: center;
     color: white;
@@ -18,7 +12,7 @@
     display: grid;
     grid-template-columns: 0.5vw 1fr 0.5vw;
     grid-template-rows: 0.5vh 1fr 1fr 0.5vh;
-    background-color: #404040;
+    background-color: #101010;
     height: 40vh;
     width: 30vw;
     border-radius: 0.5vw;

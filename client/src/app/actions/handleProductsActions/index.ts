@@ -1,120 +1,34 @@
 import axios from 'axios';
 import {ProductRes, SearchInput} from '../../../types';
 
-import {SET_PRODUCTS, SET_PRODUCT_BY_ID,
+import {SET_PRODUCTS,
+  SET_PRODUCT_BY_ID,
   SET_CATEGORIES,
-  FETCH_PRODUCTS_BEGIN,
-  FETCH_PRODUCTS_SUCCESS,
-  FETCH_PRODUCTS_FAILED,
-  RESET_DELETED_BY_ID_STATUS,
-  CHANGE_PRODUCTS_IN_DB_BEGIN,
-  CHANGE_PRODUCTS_IN_DB_SUCCESS,
-  CHANGE_PRODUCTS_IN_DB_FAILED,
-  GET_CATEGORIES_BEGIN,
-  GET_CATEGORIES_SUCCESS,
-  GET_CATEGORIES_FAILED,
-  ADD_CATEGORY_BEGIN,
-  ADD_CATEGORY_SUCCESS,
-  ADD_CATEGORY_FAILED,
-  FETCH_PRODUCT_BY_ID_BEGIN,
-  FETCH_PRODUCT_BY_ID_SUCCESS,
-  FETCH_PRODUCT_BY_ID_FAILED,
 } from '../../constants/constants';
 
-// Status handlers and local setters
-const fetchProductsBegin = () => ({
-  type: FETCH_PRODUCTS_BEGIN,
-});
-const fetchProductsSuccess = () => ({
-  type: FETCH_PRODUCTS_SUCCESS,
-});
-const fetchProductsFailed = (error: any) => ({
-  type: FETCH_PRODUCTS_FAILED,
-  payload: {error},
-});
 const setProducts = (products: any,
-    totalPages: number, filter: string, order: string, name:string) => ({
+    totalPages: number = 1, filter: string = '',
+    order: string = '', name: string = '') => ({
   type: SET_PRODUCTS,
   payload: {products, totalPages, filter, order, name},
 });
 
 // PRODUCT BY ID HANDLING
-const fetchProductByIdBegin = () => ({
-  type: FETCH_PRODUCT_BY_ID_BEGIN,
-});
-const fetchProductByIdSuccess = () => ({
-  type: FETCH_PRODUCT_BY_ID_SUCCESS,
-});
-const fetchProductByIdFailed = (error: any) => ({
-  type: FETCH_PRODUCT_BY_ID_FAILED,
-  payload: {error},
-});
 const setProductById = (productResponse: any) => ({
   type: SET_PRODUCT_BY_ID,
   payload: productResponse,
 });
-
-// DELETE PRODUCT BY ID
-const deleteProductBegin = () => ({
-  type: FETCH_PRODUCTS_BEGIN,
-});
-const deleteProductSuccess = () => ({
-  type: FETCH_PRODUCTS_SUCCESS,
-});
-const deleteProductFailed = (error: any) => ({
-  type: FETCH_PRODUCTS_FAILED,
-  payload: {error},
-});
-const resetDeletedByIdStatus = () => ({
-  type: RESET_DELETED_BY_ID_STATUS,
-});
-
-// PUT PRODUCT TO DB
-const changeProductInDbBegin = () => ({
-  type: CHANGE_PRODUCTS_IN_DB_BEGIN,
-});
-const changeProductInDbSuccess = () => ({
-  type: CHANGE_PRODUCTS_IN_DB_SUCCESS,
-});
-const changeProductInDbFailed = (error: any) => ({
-  type: CHANGE_PRODUCTS_IN_DB_FAILED,
-  payload: {error},
-});
-
 // GET CATEGORIES
-const getCategoriesBegin = () => ({
-  type: GET_CATEGORIES_BEGIN,
-});
-const getCategoriesSuccess = () => ({
-  type: GET_CATEGORIES_SUCCESS,
-});
-const getCategoriesFailed = (error: any) => ({
-  type: GET_CATEGORIES_FAILED,
-  payload: {error},
-});
 const setCategories = (categories: any) => ({
   type: SET_CATEGORIES,
   payload: categories,
 });
 
-// ADD CATEGORY ASYNC
-const addCategoryBegin = () => ({
-  type: ADD_CATEGORY_BEGIN,
-});
-const addCategorySuccess = () => ({
-  type: ADD_CATEGORY_SUCCESS,
-});
-const addCategoryFailed = (error: any) => ({
-  type: ADD_CATEGORY_FAILED,
-  payload: {error},
-});
-
-
 // Actual async functions
 const getProductsAsync = (SearchInput: SearchInput) => {
   return async (dispatch: any) => {
-    dispatch(fetchProductsBegin());
     try {
+      dispatch(setProducts([]));
       const res = await axios.get(`http://54.232.68.2:3001/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
       const totalPages = res.data.totalPages;
       const products = res.data.products.map((product: ProductRes) => {
@@ -133,15 +47,14 @@ const getProductsAsync = (SearchInput: SearchInput) => {
       });
       dispatch(setProducts(products,
           totalPages, SearchInput.filter, SearchInput.sort, SearchInput.name));
-      dispatch(fetchProductsSuccess());
     } catch (err) {
-      dispatch(fetchProductsFailed(err));
+      console.log(err);
     }
   };
 };
+
 const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
-    dispatch(fetchProductByIdBegin());
     try {
       const res = await axios.get(`http://54.232.68.2:3001/product/${id}`);
       const {name,
@@ -167,27 +80,29 @@ const getProductByIdAsync = (id: any) => {
         categories,
       };
       dispatch(setProductById(productResponse));
-      dispatch(fetchProductByIdSuccess());
     } catch (err) {
-      dispatch(fetchProductByIdFailed(err));
+      console.log(err);
     }
   };
 };
-const deleteProductByIdAsync = (id: any) => {
+
+const deleteProductByIdAsync = (id: any, token:string) => {
   return async (dispatch: any) => {
-    dispatch(deleteProductBegin());
     try {
-      await axios.delete(`http://54.232.68.2:3001/product/${id}`);
+      await axios.delete(`http://54.232.68.2:3001/product/${id}`, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
       dispatch(getProductsAsync({name: '', page: 1}));
-      dispatch(deleteProductSuccess());
     } catch (err) {
-      dispatch(deleteProductFailed(err));
+      console.log(err);
     }
   };
 };
-const changeProductInDBAsync = (product: any) => {
+
+const changeProductInDBAsync = (product: any, token:string) => {
   return async (dispatch: any) => {
-    dispatch(changeProductInDbBegin());
     try {
       const toSend = {
         id: product.id,
@@ -202,51 +117,95 @@ const changeProductInDBAsync = (product: any) => {
         size: product.size,
         stock: product.stock,
       };
-      await axios.put(`http://54.232.68.2:3001/product/${product.id}`, toSend);
-      dispatch(changeProductInDbSuccess());
+      await axios.put(`http://54.232.68.2:3001/product/${product.id}`, toSend, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
     } catch (err) {
-      dispatch(changeProductInDbFailed(err));
+      console.log(err);
     }
   };
 };
+
 const getCategoriesAsync = () => {
   return async (dispatch: any) => {
-    dispatch(getCategoriesBegin());
     try {
       const res = await axios.get(`http://54.232.68.2:3001/categories`);
       const categories = res.data.map((
           category: any) => {
         return {
-          value: category.id,
+          value: category.name,
           label: category.name,
         };
       });
       dispatch(setCategories(categories));
-      dispatch(getCategoriesSuccess());
     } catch (err) {
-      dispatch(getCategoriesFailed(err));
+      console.log(err);
     }
   };
 };
-const addCategoryAsync = (label: string) => {
+
+const addCategoryAsync = (label: string, token:string) => {
   return async (dispatch: any) => {
-    dispatch(addCategoryBegin());
     try {
       const name = label;
-      await axios.post('http://54.232.68.2:3001/categories', {name});
-      dispatch(addCategorySuccess());
+      await axios.post('http://54.232.68.2:3001/categories', {name}, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
     } catch (err) {
-      dispatch(addCategoryFailed(err));
+      console.log(err);
+    }
+  };
+};
+
+const putCategory = (categoryName, newCategory, token) => {
+  return async (dispatch: any) => {
+    try {
+      await axios.put(`http://54.232.68.2:3001/categories/${categoryName}`, newCategory, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
+      await getCategoriesAsync();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+const deleteCategory = (categoryName, token) => {
+  return async (dispatch: any) => {
+    try {
+      await axios.delete(`http://localhost:3001/categories/${categoryName}`, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
+      const cat = await axios.get(`http://localhost:3001/categories`);
+      const categories = cat.data.map((
+          category: any) => {
+        return {
+          value: category.name,
+          label: category.name,
+        };
+      });
+      dispatch(setCategories(categories));
+    } catch (error) {
+      console.log(error);
     }
   };
 };
 
 export {
-  resetDeletedByIdStatus,
   getProductsAsync,
   getProductByIdAsync,
   deleteProductByIdAsync,
   changeProductInDBAsync,
   getCategoriesAsync,
   addCategoryAsync,
+  putCategory,
+  deleteCategory,
 };

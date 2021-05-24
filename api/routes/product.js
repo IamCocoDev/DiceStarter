@@ -1,6 +1,8 @@
 const express = require('express');
 
 const { v4: uuidv4 } = require('uuid');
+const isAdmin = require('../middleware/auth');
+const { isLogged } = require('../middleware/logged');
 
 const router = express.Router();
 
@@ -13,11 +15,12 @@ router.get('/:id', (req, res, next) => {
     .then((response) => {
       res.json(response);
     }).catch((e) => {
+      res.status(400);
       next(e);
     });
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   const id = uuidv4();
 
   try {
@@ -32,7 +35,19 @@ router.post('/', async (req, res, next) => {
     info.setCategories(categories);
     res.status(200).json(info);
   } catch (e) {
+    res.status(400);
     next(e);
+  }
+});
+
+router.put('/stock/:productId', async (req, res, next) => {
+  const { product } = req.body;
+  try {
+    const productUpdated = await Product.findByPk(product.id);
+    await productUpdated.update(product);
+    res.send(productUpdated);
+  } catch (err) {
+    next(err);
   }
 });
 
@@ -45,35 +60,39 @@ router.put('/:id', async (req, res, next) => {
     product.setCategories(body.categories);
     res.send(product);
   } catch (err) {
+    res.status(400);
     next(err);
   }
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', isAdmin, (req, res, next) => {
   const { id } = req.params;
   Product.destroy({ where: { id } })
     .then(() => {
       res.status(200).json({ msg: 'Product deleted' });
     })
     .catch((e) => {
+      res.status(400);
       next(e);
     });
 });
 
 // ADD REVIEWS
 
-router.post('/:id/review', (req, res, next) => {
+router.post('/:id/review', isLogged, (req, res, next) => {
   const { id } = req.params;
-  const { name } = req.body;
+  const { userId } = req.body;
   const { rating } = req.body;
   const { comment } = req.body;
+  console.log(req.body);
+  console.log(userId);
   Reviews.create({
     rating,
     comment,
     productId: id,
   })
     .then((r) => {
-      User.findOne({ where: { name } })
+      User.findByPk(userId)
         .then((u) => {
           r.setUser(u);
           res.send(r); // El resultado del POST!!!
@@ -84,53 +103,67 @@ router.post('/:id/review', (req, res, next) => {
     });
 });
 
-router.get('/reviews/allreviews', (req, res, next) => {
-  Reviews.findAll()
+router.get('/reviews/allreviews', isAdmin, (req, res, next) => {
+  Reviews.findAll({ attributes: { exclude: ['userId'] }, include: { model: User, attributes: ['name'] } })
     .then((data) => res.send(data))
     .catch((e) => {
+      res.status(400);
       next(e);
     });
 });
 
-router.post('/review/:idReview', (req, res, next) => {
+router.put('/review/:idReview', (req, res, next) => {
   const { idReview } = req.params;
-  const { comments } = req.body;
+  const { comment } = req.body;
   const { rating } = req.body;
+  console.log(req.body);
   Reviews.findOne({ where: { id: idReview } })
     .then((resp) => {
       if (resp) {
-        resp.update({ comments });
+        resp.update({ comment });
         resp.update({ rating });
       }
+      console.log(resp);
       res.send(resp); // Resultado del UPDATE
     })
     .catch((e) => {
+      res.status(400);
       next(e);
     });
 });
 
-router.delete('/review/:idReview', (req, res, next) => {
+router.delete('/review/:idReview', isLogged, (req, res, next) => {
   const { idReview } = req.params;
-
   Reviews.destroy({ where: { id: idReview } })
     .then(() => {
       res.sendStatus(200);
     })
     .catch((e) => {
+      res.status(400);
       next(e);
     });
 });
 
 router.get('/:id/review', (req, res, next) => {
   const { id } = req.params;
-
-  Reviews.findAll({ where: { productId: id } })
-    .then((resp) => {
-      res.send(resp);
-    })
-    .catch((e) => {
-      next(e);
-    });
+  try {
+    Reviews.findAll({ attributes: { exclude: ['userId'] }, where: { productId: id }, include: { model: User, attributes: ['name'] } })
+      .then(async (resp) => {
+        const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
+        const quantityRev = await Reviews.count({ where: { productId: id } });
+        const average = sumReviews / quantityRev;
+        res.send({
+          all: resp,
+          average: parseFloat(average.toFixed(2)),
+        });
+      })
+      .catch((e) => {
+        res.sendStatus(400);
+        next(e);
+      });
+  } catch {
+    res.sendStatus(400);
+  }
 });
 
 module.exports = router;

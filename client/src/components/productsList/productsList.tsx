@@ -12,9 +12,38 @@ import {Categories, SearchInput} from '../../types';
 import Select from 'react-select';
 import {getCategoriesAsync, getProductsAsync} from
   '../../app/actions/handleProductsActions';
+import {userInfo} from '../../app/reducers/registerReducer';
+const sortType: Array<Categories> = [{
+  value: '',
+  label: 'None',
+}, {
+  value: 'A-Z',
+  label: 'A-Z',
+}, {
+  value: 'Z-A',
+  label: 'Z-A',
+},
+{
+  value: 'maxPrice',
+  label: 'maxPrice',
+},
+{
+  value: 'minPrice',
+  label: 'minPrice',
+},
+{
+  value: 'maxRating',
+  label: 'maxRating',
+},
+{
+  value: 'minRating',
+  label: 'minRating',
+},
+];
 // 10 product properties without counting id
 function ProductsList() {
   const dispatch = useAppDispatch();
+  const user = useAppSelector(userInfo);
   useEffect(() => {
     dispatch(getProductsAsync({name: filters.name,
       page: filters.page, filter: filters.filter, sort: filters.sort}));
@@ -23,6 +52,8 @@ function ProductsList() {
   const adminProducts = useAppSelector(productsList);
   const pagesTotal = useAppSelector(totalPages);
   const categories = useAppSelector(productCategories);
+  const categoriesCopy = [...categories];
+  categoriesCopy.unshift({value: '', label: 'None'});
 
   const [filters, setFilters] = useState<SearchInput>({
     name: '',
@@ -41,32 +72,8 @@ function ProductsList() {
     setFilters({...filters, page: filters.page + step});
   };
 
-  const sortType: Array<Categories> = [{
-    value: 1,
-    label: 'A-Z',
-  }, {
-    value: 2,
-    label: 'Z-A',
-  },
-  {
-    value: 3,
-    label: 'maxPrice',
-  },
-  {
-    value: 4,
-    label: 'minPrice',
-  },
-  {
-    value: 5,
-    label: 'maxRating',
-  },
-  {
-    value: 6,
-    label: 'minRating',
-  },
-  ];
-
   return (
+    user.role === 'Admin' ?
     <div className='productsListBackground'>
       <div className='selectDiv'>
         <Select
@@ -81,28 +88,28 @@ function ProductsList() {
         ></Select>
         <Select
           className='select'
-          options={categories}
+          options={categoriesCopy}
           placeholder='Choose your sort...'
           onChange={(e) => {
-            console.log(categories);
-            setFilters({...filters, filter: e?.label});
+            setFilters({...filters, filter: e?.value});
             dispatch(getProductsAsync({name: filters.name,
-              page: filters.page, filter: e?.label, sort: filters.sort}));
+              page: filters.page, filter: e?.value, sort: filters.sort}));
           }}
         ></Select>
       </div>
       <div className="productsListGrid">
-        <h1 className='productsListName'>Name</h1>
-        <h1 className='productsListPrice'>Price</h1>
-        <h1 className='productsListCategories'>Categories</h1>
-        <h1 className='productsListDescription'>Description</h1>
-        <h1 className='productsListStock'>Stock</h1>
-        <h1 className='productsListSize'>Size</h1>
-        <h1 className='productsListColors'>Colors</h1>
-        <h1 className='productsListImageUrl'>Image Url</h1>
-      </div>
-      <div>
-        { adminProducts !== null &&
+        <div className='productsListLabels'>
+          <span className='productsListName'>Name</span>
+          <span className='productsListPrice'>Price</span>
+          <span className='productsListCategories'>Categories</span>
+          <span className='productsListDescription'>Description</span>
+          <span className='productsListStock'>Stock</span>
+          <span className='productsListSize'>Size</span>
+          <span className='productsListColors'>Colors</span>
+          <span className='productsListImageUrl'>Image Url</span>
+        </div>
+        <div className='productsListProducts'>
+          { adminProducts !== null &&
         adminProducts.map((listProduct) => (
           <ProductList
             key={listProduct.id}
@@ -118,18 +125,20 @@ function ProductsList() {
             size={listProduct.size}
           />
         ))}
+        </div>
       </div>
       <div style={{'display': 'flex', 'justifyContent': 'center'}}>
         {filters.page > 1 ?
-        <button style={{'border': '2px solid black'}}
+        <button className='productsPages' style={{'border': '2px solid black'}}
           onClick={() => onClickPage(-1)}>
           Previous</button> : null}
         {pagesTotal > filters.page ?
-        <button style={{'border': '2px solid black'}}
+        <button className='productsPages' style={{'border': '2px solid black'}}
           onClick={() => onClickPage(1)}>
           Next</button> : null}
       </div>
-    </div>
+    </div> :
+    <div>401 Not Authorized</div>
   );
 }
 

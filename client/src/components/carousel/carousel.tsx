@@ -3,9 +3,6 @@ import './carousel.css';
 
 const Carousel = (props:{pictures}) => {
   const [pictureNumber, setPictureNumber] = useState(0);
-  console.log(props.pictures);
-  console.log(pictureNumber);
-  console.log(props.pictures[pictureNumber]);
   const handleClickCounterIncrease = () => {
     if (pictureNumber < props.pictures.length -1) {
       setPictureNumber(pictureNumber + 1);
@@ -20,19 +17,31 @@ const Carousel = (props:{pictures}) => {
 
   }, [pictureNumber]);
   return (
-    <div className='carouselAll'>
-      { pictureNumber > 0 &&
-        <button className='carouselButtonPrev'
-          type='button' onClick={handleClickCounterDecrease}> ❰
-        </button>
-      }
-      <img className='carouselImage'
-        src={props.pictures[pictureNumber]} alt='Picture not available'/>
+    <div className='carousel'>
       {
-        pictureNumber < props.pictures.length - 1 &&
-        <button type='button' className='carouselButtonNext'
-          onClick={handleClickCounterIncrease}> ❱
-        </button>
+      pictureNumber > 0 &&
+        pictureNumber !== 0 ?
+          <button className='carouselButtonPrev'
+            type='button' onClick={handleClickCounterDecrease}>
+            <a href={`#img${pictureNumber-1}`} className='imagelink'> ❰ </a>
+          </button>: <button className='carouselButtonPrev'></button>
+      }
+      <div className='carouselAll'>
+        {
+          props.pictures.map((i, index) =>
+            <div key={index} className='slide' id={`img${index}`}>
+              <img className='carouselImage'
+                src={i} alt='Picture not available'/>
+            </div>)
+        }
+      </div>
+      {
+      pictureNumber < props.pictures.length - 1 &&
+        pictureNumber !== props.pictures.length -1 ?
+          <button type='button' className='carouselButtonNext'
+            onClick={handleClickCounterIncrease}>
+            <a className='imagelink' href={`#img${pictureNumber+1}`}> ❱ </a>
+          </button> : <button className='carouselButtonNext'></button>
       }
     </div>
   );

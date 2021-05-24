@@ -9,26 +9,30 @@ import {Categories} from '../../types';
 import {productCategories} from '../../app/reducers/handleProductsReducer';
 
 const sortType: Array<Categories> = [{
-  value: 1,
+  value: 'None',
+  label: 'None',
+},
+{
+  value: 'A-Z',
   label: 'A-Z',
 }, {
-  value: 2,
+  value: 'A-Z',
   label: 'Z-A',
 },
 {
-  value: 3,
+  value: 'maxPrice',
   label: 'maxPrice',
 },
 {
-  value: 4,
+  value: 'minPrice',
   label: 'minPrice',
 },
 {
-  value: 5,
+  value: 'maxRating',
   label: 'maxRating',
 },
 {
-  value: 6,
+  value: 'minRating',
   label: 'minRating',
 },
 ];
@@ -38,8 +42,10 @@ const FilterSelect = () => {
   const [sort, setSort] = useState('');
   const dispatch = useAppDispatch();
   const categories = useAppSelector(productCategories);
-  const handleFilterSelectChange = (e: any) => setFilter(e.label);
-  const handleSortSelectChange = (e: any) => setSort(e.label);
+  const categoriesCopy = [...categories];
+  categoriesCopy.unshift({value: '', label: 'None'});
+  const handleFilterSelectChange = (e: any) => setFilter(e.value);
+  const handleSortSelectChange = (e: any) => setSort(e.value);
   useEffect(() => {
     dispatch(getCategoriesAsync());
     dispatch(getProductsAsync({page: 1, name: '', filter: filter, sort: sort}));
@@ -47,7 +53,7 @@ const FilterSelect = () => {
   return (
     <div className='productSelectsGrid'>{
       <Select className='productSelectsCateogires'
-        options={categories}
+        options={categoriesCopy}
         onChange={handleFilterSelectChange}
         placeholder='Choose Your Category...'
       >

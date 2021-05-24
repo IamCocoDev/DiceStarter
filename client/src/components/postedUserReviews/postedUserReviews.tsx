@@ -1,35 +1,27 @@
-import React, {useState} from 'react';
+/* eslint-disable max-len */
+import React, {useEffect} from 'react';
 import './postedUserReviews.css';
 import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
-import {ReviewRes} from '../../types';
-import {deleteReviews} from '../../app/actions/reviewsActions/index';
+import {ReviewPost} from '../../types';
+import {getReviews} from '../../app/actions/reviewsActions/index';
+import {userInfo, userToken} from '../../app/reducers/registerReducer';
+import UserReview from '../userReview/userReview';
 
 const PostedUserReviews = (props:{id:string}) => {
-  const [reviewId, setReviewId] = useState(0);
   const postedReviews = useAppSelector(reviewsResponse);
+  const token = useAppSelector(userToken);
+  const user = useAppSelector(userInfo);
   const dispatch = useAppDispatch();
-  console.log(postedReviews);
-  const handleOnClick = (e: any) => {
-    console.log(reviewId);
-    console.log(e.target);
-    console.log(e.target.value);
-    setReviewId(e.target.value);
-    console.log(reviewId);
-    dispatch(deleteReviews(reviewId, props.id));
-  };
+  useEffect(() => {
+    dispatch(getReviews(props.id));
+  }, [dispatch, props]);
+  useEffect(() => {}, [postedReviews]);
   return (
     <div className='postedUserReviewsAll'>
       {
-        postedReviews !== null && postedReviews.map((review: ReviewRes) => (
-          <div className='postedUserReviewsReview' key={review.id}>
-            <p className='postedUserReviewsRating'>{review.rating}</p>
-            <p className='postedUserReviewsComment'>{review.comment} </p>
-            <button className='postedUserReviewsButtonDelete'
-              onClick={handleOnClick} value={review.id}>
-              Delete Opinion
-            </button>
-          </div>
+        postedReviews !== null && postedReviews.map((r: ReviewPost, i:number) => (
+          <UserReview review={r} key={i} token={token} user={user} id={props.id}/>
         ))
       }
     </div>

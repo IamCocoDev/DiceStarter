@@ -13,6 +13,7 @@ import {
 import ColorCircle from '../colorCircle/ColorCircle';
 import './productList.css';
 import Select from 'react-select';
+import {userToken} from '../../app/reducers/registerReducer';
 
 function ProductList(props: ProductRes): JSX.Element {
   const dispatch = useAppDispatch();
@@ -33,6 +34,8 @@ function ProductList(props: ProductRes): JSX.Element {
     categories: [],
   });
 
+  const token = useAppSelector(userToken);
+
   useEffect(() => {
     setInput(props);
     if (input.available) {
@@ -42,14 +45,13 @@ function ProductList(props: ProductRes): JSX.Element {
     }
     const myCategories = props.categories.map((el) => {
       return {
-        value: el.id,
+        value: el.name,
         label: el.name,
       };
     });
     // const inputCategories = props.categories.map((el) => el.id);
     setInput({...input, categories: props.categories});
     setCategories(myCategories);
-    console.log(props);
   }, []);
 
   const handleSelectChange = (e: any) : void => {
@@ -93,7 +95,7 @@ function ProductList(props: ProductRes): JSX.Element {
   return (
     <div className="productListGrid">
       <input
-        className="productListName"
+        className="productsListName"
         type="text"
         placeholder={'Name'}
         value={input.name}
@@ -101,7 +103,7 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       ></input>
       <input
-        className="productListPrice"
+        className="productsListPrice"
         type="number"
         placeholder={'Price'}
         value={input.price}
@@ -112,21 +114,21 @@ function ProductList(props: ProductRes): JSX.Element {
       <Select
         isMulti
         name="categories"
-        className="productListCategories"
+        className="productsListCategories"
         options={productCats}
         value={categories}
         onChange={handleSelectChange}
         defaultValue={categories}
       ></Select>
       <textarea
-        className="productListDescription"
+        className="productsListDescription"
         placeholder={'Description'}
         value={input.description}
         name="description"
         onChange={handleTextAreaChange}
       ></textarea>
       <input
-        className="productListStock"
+        className="productsListStock"
         type="number"
         placeholder={'Stock'}
         value={input.stock}
@@ -134,7 +136,7 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       ></input>
       <input
-        className="productListSize"
+        className="productsListSize"
         type="text"
         placeholder={'Size'}
         value={input.size}
@@ -143,7 +145,7 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       >
       </input>
-      <div className='productListColors'>
+      <div className='productsListColors'>
         {input.color.length ?
           input.color.map((el) => <ColorCircle key={el} color={el}
             onClick={() => {
@@ -160,7 +162,7 @@ function ProductList(props: ProductRes): JSX.Element {
           onClick={() => addColor(color)} />
       </div>
       <input
-        className="productListImageUrl"
+        className="productsListImageUrl"
         type="text"
         placeholder={'Image'}
         value={input.picture}
@@ -169,12 +171,12 @@ function ProductList(props: ProductRes): JSX.Element {
       ></input>
       <button className="productsListEditButton" onClick={() => {
         if (window.confirm(`Save changes to ${input.name}?`)) {
-          dispatch(changeProductInDBAsync(input));
+          dispatch(changeProductInDBAsync(input, token));
         }
       }}>Save Changes</button>
       <button className="productsListDeleteButton" onClick={() => {
         if (window.confirm(`Are you sure you want to delete ${input.name}?`)) {
-          dispatch(deleteProductByIdAsync(input.id));
+          dispatch(deleteProductByIdAsync(input.id, token));
         }
       }}>
         Delete This Product

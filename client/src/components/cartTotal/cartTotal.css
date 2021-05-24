@@ -1,15 +1,13 @@
-* {
-    border: 0;
-    margin: 0;
-    padding: 0;
-}
-
 .cartTotalText{
     font-size: 3vw;
 }
 
 .cartButtonToCheckout{
-    width: 11vw;
+    border: none;
+    color: white;
+    margin: 1vw;
+    width: 12vw;
+    height: auto;
     justify-self: center;
     align-self: center;
     font-size: 3vh;
@@ -19,7 +17,11 @@
 }
 
 .cartButtonSignIn{
-    width: 11vw;
+    border: none;
+    color: white;
+    margin: 1vw;
+    width: 12vw;
+    height: auto;
     justify-self: center;
     align-self: center;
     font-size: 3vh;

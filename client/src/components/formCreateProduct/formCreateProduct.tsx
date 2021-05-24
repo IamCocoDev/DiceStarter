@@ -19,6 +19,7 @@ import {
 } from '../../types';
 import ColorCircle from '../colorCircle/ColorCircle';
 import {productCategories} from '../../app/reducers/handleProductsReducer';
+import {userInfo, userToken} from '../../app/reducers/registerReducer';
 
 function deepEqualError(a: errorsInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -81,6 +82,8 @@ function validate(input: Inputs) {
 const FormCreateProduct = () => {
   const dispatch = useAppDispatch();
   const [redirect, setRedirect] = useState(false);
+  const user = useAppSelector(userInfo);
+  const token = useAppSelector(userToken);
   useEffect(() => {
     dispatch(getCategoriesAsync());
   }, [redirect]);
@@ -116,7 +119,7 @@ const FormCreateProduct = () => {
     e.preventDefault();
     if (deepEqualError(errors)) {
       alert('Succesfully created!');
-      dispatch(sendFormAsync(input));
+      dispatch(sendFormAsync(input, token));
       setInput({
         name: '',
         price: '0',
@@ -162,6 +165,7 @@ const FormCreateProduct = () => {
     setInput({...input, picture: e.map((p: base64) => p.base64)});
   };
   return (
+    user.role === 'Admin' ?
     <div className='formCreateProductGrid'>
       {
         redirect === true && <Redirect to={`/home`}></Redirect>
@@ -282,7 +286,8 @@ const FormCreateProduct = () => {
           value="Create"
         />
       </form>
-    </div>
+    </div> :
+    <div>401 Not Authorized</div>
   );
 };
 

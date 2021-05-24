@@ -14,15 +14,24 @@ import CreateButtonRouter
 import listButtonRouter from './components/listButtonRouter/listButtonRouter';
 import FormCategoryCreation
   from '../src/components/formCategoryCreation/formCategoryCreation';
-import AdministratorHome
-  from './components/administratorHome/administratorHome';
+import Profile
+  from './components/profile/profile';
 import FormRegisterForm from './components/formRegisterUser/formRegisterForm';
-import Login from './components/login/login';
+// import Login from './components/login/login';
 import Cart from './components/cart/cart';
+import {userInfo} from './app/reducers/registerReducer';
+import {useAppSelector} from './app/hooks';
+// eslint-disable-next-line no-unused-vars
+import UserList from './components/usersList/usersList';
+import CategoryList from './components/categoryList/categoryList';
+import searchBar from './components/searchBar/searchBar';
 
 function App() {
+  const user = useAppSelector(userInfo);
   return (
-    <div className="">
+    <div>
+      <Route exact path={['/']} component={Landing}/>
+      {user.role === 'Admin' ?
       <Route path={['/home',
         '/product',
         '/create',
@@ -32,23 +41,36 @@ function App() {
         '/register',
         '/list/productlist',
         '/create/category',
-        '/admin/home',
-        '/cart']} component={NavBar}></Route>
-      <Route exact path='/login' component={Login}></Route>
-      <Route exact path='/list/productlist' component={ProductsList}></Route>
-      <Route exact path='/register' component={FormRegisterForm}></Route>
-      <Route exact path='/' component={Landing}></Route>
-      <Route exact path='/about' component={About}></Route>
-      <Route exact path='/home' component={Home}></Route>
-      <Route exact path='/product/:id' component={ProductDetail}></Route>
-      <Route exact path='/list' component={listButtonRouter}></Route>
-      <Route exact path='/create/product' component={formCreateProduct}></Route>
+        '/cart',
+        '/list/userlist',
+        '/profile']} component={NavBar}/> :
+      <Route path={['/home',
+        '/login',
+        '/register',
+        '/cart',
+        '/product',
+        '/profile',
+      ]} component={NavBar}/>
+      }
+      <Route exact path='/list/productcategory'
+        component={CategoryList}/>
+      {/* <Route exact path={['/login', '/profile']} component={Login}/> */}
+      <Route exact path ={['/home', '/list/productlist']}
+        component={searchBar}/>
+      <Route exact path='/list/productlist' component={ProductsList}/>
+      <Route exact path='/register' component={FormRegisterForm}/>
+      <Route exact path='/about' component={About}/>
+      <Route exact path='/home' component={Home}/>
+      <Route exact path='/product/:id' component={ProductDetail}/>
+      <Route exact path='/list' component={listButtonRouter}/>
+      <Route exact path='/create/product' component={formCreateProduct}/>
       <Route exact path='/create/category'
-        component={FormCategoryCreation}></Route>
-      <Route exact path='/create' component={CreateButtonRouter}></Route>
-      <Route exact path='/admin/home' component={AdministratorHome} ></Route>
-      <Route path='/cart' component={Cart}></Route>
-    </div >
+        component={FormCategoryCreation}/>
+      <Route exact path='/create' component={CreateButtonRouter}/>
+      <Route exact path='/profile' component={Profile} />
+      <Route path='/cart' component={Cart}/>
+      <Route exact path='/list/userlist' component={UserList}/>
+    </div>
   );
 }
 

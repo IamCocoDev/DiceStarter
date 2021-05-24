@@ -1,8 +1,3 @@
-*{
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
 .postedUserReviewsAll {
     grid-row: 3/4;
     grid-column: 1/2;

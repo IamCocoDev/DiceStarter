@@ -4,6 +4,7 @@ import CountrySelect from '../countrySelect/countrySelect';
 import {useAppDispatch} from '../../app/hooks';
 import {sendFormAsync} from '../../app/actions/actionsUser';
 import './formRegisterForm.css';
+import {Redirect} from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import GoogleComp from '../googleComp/googleComp';
 
@@ -56,12 +57,13 @@ function validate(input: registerInput) {
   }
   if (!input.password) {
     errors.password = 'Password is required';
-  } else if (!/(?=.*[0-9]){5,}/.test(input.password)) {
+  } else if (!/[0-9a-zA-Z]{6,}/.test(input.password)) {
     errors.password = 'Password is invalid';
   }
   if (input.password !== input.confirmPassword || !input.confirmPassword) {
     errors.confirmPassword = 'Passwords are not equal';
-  } else if (!/(?=.*[0-9]){5,}/.test(input.password)) {
+  } else if (!/[0-9a-zA-Z]{6,}/.test(input.password) &&
+    /[0-9]/.test(input.password)) {
     errors.password = 'Password is invalid';
   }
   if (!input.country || input.country === '0') {
@@ -72,6 +74,7 @@ function validate(input: registerInput) {
 
 const FormRegisterForm = () => {
   const dispatch = useAppDispatch();
+  const [redirect, setRedirect] = useState(false);
   const [input, setInput] = useState<registerInput>({
     name: '',
     email: '',
@@ -99,7 +102,7 @@ const FormRegisterForm = () => {
     if (deepEqualError(errors)) {
       alert('Register completed!');
       dispatch(sendFormAsync(input));
-      console.log(input);
+      setRedirect(true);
       setInput({
         name: '',
         email: '',
@@ -122,10 +125,13 @@ const FormRegisterForm = () => {
 
   useEffect(() => {
     setErrors(validate(input));
-    console.log(input);
   }, [input]);
   return (
     <div className='registerBackground'>
+      {
+        redirect === true &&
+        <Redirect to={`/home?page=1`}></Redirect>
+      }
       <form className='registerGrid' onSubmit={handleSubmit}>
         <div className='registerName'>
           <label className='registerH1' htmlFor="">Name</label>

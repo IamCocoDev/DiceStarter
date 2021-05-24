@@ -11,7 +11,6 @@ const GoogleComp = () => {
   const dispatch = useAppDispatch();
   const User = useAppSelector(userInfo);
   const onSignIn = (googleUser) => {
-    console.log(googleUser.profileObj);
     const user = googleUser.profileObj;
     const loginUser = {
       id: user.googleId,
@@ -34,7 +33,6 @@ const GoogleComp = () => {
     setRedirect(true);
   };
   useEffect(() => {
-    console.log(User);
   }, [User]);
   return (
     <div>
@@ -45,6 +43,7 @@ const GoogleComp = () => {
         buttonText='Login with Google'
         onSuccess={onSignIn}
         onFailure={onSignIn}
+        cookiePolicy={'single_host_origin'}
       />
     </div>
   );
