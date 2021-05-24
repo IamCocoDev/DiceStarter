@@ -76,6 +76,50 @@ router.post('/signup', isNotLogged, (req, res, next) => {
   return null;
 });
 
+router.post('/signupgoogle', async (req, res, next) => {
+  const id = uuidv4();
+  const {
+    name,
+    firstName,
+    lastName,
+    email,
+    googleId,
+  } = req.body;
+  const user = await User.findOne({ where: { email } });
+  if (user) {
+    const accessToken = jwt.sign({
+      name: user.name,
+      role: user.role,
+    }, accessTokenSecret);
+    return res.send({
+      user: user.dataValues,
+      token: accessToken,
+    });
+  }
+  const newUser = {
+    id,
+    name,
+    firstName,
+    lastName,
+    email,
+    googleId,
+  };
+  User.create(newUser).then(async (info) => {
+    // send mail with defined transport object
+    await transporter.sendMail({
+      from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+      to: newUser.email, // list of receivers
+      subject: 'SignUp Success ✔', // Subject line
+      html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
+    });
+    res.send(info); })
+    .catch((e) => {
+      res.status(400);
+      next(e);
+    });
+  return null;
+});
+
 router.post('/signin', isNotLogged, async (req, res, next) => {
   const { username, password } = req.body;
   try {

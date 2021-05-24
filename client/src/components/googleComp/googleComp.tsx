@@ -13,21 +13,12 @@ const GoogleComp = () => {
   const onSignIn = (googleUser) => {
     const user = googleUser.profileObj;
     const loginUser = {
-      id: user.googleId,
-      password: '',
-      status: '',
+      googleId: user.googleId,
       name: user.name,
       email: user.email,
       firstName: user.givenName,
       lastName: user.familyName,
-      birthday: '',
       profilePicture: user.imageUrl,
-      address: '',
-      city: '',
-      postalCode: 0,
-      phone: '',
-      country: '',
-      role: 'user',
     };
     dispatch(loginGoogle(loginUser));
     setRedirect(true);
