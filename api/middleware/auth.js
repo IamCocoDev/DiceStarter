@@ -2,12 +2,11 @@ const jwt = require('jsonwebtoken');
 
 const accessTokenSecret = 'tomasvigilante';
 
-const { User } = require('../db.js');
+const { User } = require('../db');
 
 module.exports = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   // eslint-disable-next-line no-console
-  console.log(req.headers.authorization);
   if (authHeader) {
     const token = authHeader.split(' ')[1];
     jwt.verify(token, accessTokenSecret, async (err, user) => {

@@ -60,7 +60,7 @@ export interface ReviewPost {
     comment: string,
     id: string,
     rating:number,
-    userId:string,
+    user:string,
 }
 export interface ReviewRes {
     id: number,

@@ -4,7 +4,7 @@ const {
   accessTokenSecret,
 } = process.env;
 
-const { User } = require('../db.js');
+const { User } = require('../db');
 
 const isLogged = (req, res, next) => {
   const authHeader = req.headers.authorization;

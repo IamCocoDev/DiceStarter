@@ -16,6 +16,7 @@ const CartTotal = () => {
   productsInCart.forEach((element) => {
     total += element.price * element.amount;
   });
+  total = Math.ceil(total);
   // eslint-disable-next-line react/prop-types
   useEffect(() => {
     dispatch(getProductsInCart());

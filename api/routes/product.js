@@ -2,6 +2,7 @@ const express = require('express');
 
 const { v4: uuidv4 } = require('uuid');
 const isAdmin = require('../middleware/auth');
+const { isLogged } = require('../middleware/logged');
 
 const router = express.Router();
 
@@ -78,11 +79,13 @@ router.delete('/:id', isAdmin, (req, res, next) => {
 
 // ADD REVIEWS
 
-router.post('/:id/review', (req, res, next) => {
+router.post('/:id/review', isLogged, (req, res, next) => {
   const { id } = req.params;
   const { userId } = req.body;
   const { rating } = req.body;
   const { comment } = req.body;
+  console.log(req.body);
+  console.log(userId);
   Reviews.create({
     rating,
     comment,
@@ -113,12 +116,14 @@ router.put('/review/:idReview', (req, res, next) => {
   const { idReview } = req.params;
   const { comment } = req.body;
   const { rating } = req.body;
+  console.log(req.body);
   Reviews.findOne({ where: { id: idReview } })
     .then((resp) => {
       if (resp) {
         resp.update({ comment });
         resp.update({ rating });
       }
+      console.log(resp);
       res.send(resp); // Resultado del UPDATE
     })
     .catch((e) => {
@@ -127,9 +132,8 @@ router.put('/review/:idReview', (req, res, next) => {
     });
 });
 
-router.delete('/review/:idReview', isAdmin, (req, res, next) => {
+router.delete('/review/:idReview', isLogged, (req, res, next) => {
   const { idReview } = req.params;
-
   Reviews.destroy({ where: { id: idReview } })
     .then(() => {
       res.sendStatus(200);

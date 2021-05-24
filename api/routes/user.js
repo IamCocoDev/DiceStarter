@@ -7,8 +7,8 @@ const jwt = require('jsonwebtoken');
 const isAdmin = require('../middleware/auth');
 const { isNotLogged } = require('../middleware/logged');
 const { transporter } = require('../configs/mailer');
-const template = require('./emails/emailRegistration.js');
-const templateorder = require('./emails/emailOrder.js');
+const template = require('./emails/emailRegistration');
+const templateorder = require('./emails/emailOrder');
 
 const {
   accessTokenSecret,

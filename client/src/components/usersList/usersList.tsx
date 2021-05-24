@@ -68,16 +68,3 @@ const UsersList = () => {
 };
 
 export default UsersList;
-
-/* {
-    "id": "8ef25ffe-04a5-4cf6-a1cc-2e568536ebad",
-    "name": "Mateo Hernandez",
-    "firstName": "Mateo",
-    "lastName": "Hernandez",
-    "birthday": "2002-09-05",
-    "country": "Argentina",
-    "email": "matoeeo23@gmail.com",
-    "password": "matecops77",
-    "role": "Admin",
-    "status": "Active"
-}*/
