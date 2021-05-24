@@ -1,8 +1,12 @@
 .profileAll {
     display: flex;
-    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    margin: 4rem auto;
+    width: 50rem;
+    height: 27.5rem;
+    background-color: #101010;
+    border-radius: 1rem;
 }
 
 .profileName{
@@ -16,17 +20,77 @@
     color: white;
 }
 
-.profileAll p{
-    font-size: 1rem;
+.profileBirthday, .profileAddress, .profileCity, .profilePostal, .profilePhoneNumber, .profileEmail{
+    display: inline-block;
+    font-size: 1.1rem;
     color: white;
-    margin: 0.25rem
+    margin: 0.5rem;
 }
 
+.profilePhoto{
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  object-position: center center;
+}
 
+.profileLeft{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
 
+.profileRight {
+  width: 25rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-direction: column;
+}
 
+.profileEditButton, .profileLogOut {
+  padding: 0.5rem 1rem;
+  background-color: #74009D;
+  color: white;
+  font-size: 1.1rem;
+  margin: 0 0.5rem;
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  width: 12.5rem;
+}
 
+.profileButtons{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 4rem;
+  margin: 1rem 0;
+}
 
+.profileEditButton:hover, .profileLogOut:hover {
+  cursor: pointer;
+  background-color: #9e00d3;
+}
+
+.editable{
+  margin: 0 0.5rem;
+  width: 15rem;
+  display: inline-block;
+  background-color: white;
+  color: black;
+  outline: none;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0 0.5rem;
+}
+
+.noteditable {
+  margin: 0 0.5rem;
+  display: inline-block;
+}
 
 
 
