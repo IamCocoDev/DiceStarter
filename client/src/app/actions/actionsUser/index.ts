@@ -80,11 +80,10 @@ const loginFormAsync = (form: any) => {
   };
 };
 
-const loginGoogle = (user: any) => {
+const loginGoogle = (googleUser) => {
   return async (dispatch: any) => {
     try {
-      localStorage.setItem('user', JSON.stringify(user));
-      dispatch(setUser(user));
+      await axios.post(`${BACK_ROUTE}/user/signupGoogle}`, googleUser);
     } catch (err) {
       console.log(err);
     }
@@ -133,6 +132,7 @@ const getUsers = (token:string) => {
     }
   };
 };
+
 
 export {
   sendFormAsync,
