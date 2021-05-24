@@ -58,7 +58,6 @@ const getProductsAsync = (SearchInput: SearchInput) => {
 const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     try {
-      console.log(BACK_ROUTE);
       const res = await axios.get(`${BACK_ROUTE}/product/${id}`);
       console.log(res.data);
       const {name,

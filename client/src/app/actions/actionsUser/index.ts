@@ -58,7 +58,6 @@ const sendFormAsync = (form: any) => {
 const loginFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
-      console.log(form);
       const res = await axios.post(`${BACK_ROUTE}/user/signin`, form);
       const loginUser = res.data;
       if (typeof res.data !== 'object') {
