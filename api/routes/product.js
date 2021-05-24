@@ -73,6 +73,8 @@ router.post('/:id/review', isLogged, (req, res, next) => {
   const { userId } = req.body;
   const { rating } = req.body;
   const { comment } = req.body;
+  console.log(req.body);
+  console.log(userId);
   Reviews.create({
     rating,
     comment,
