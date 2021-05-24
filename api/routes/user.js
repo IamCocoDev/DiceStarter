@@ -84,6 +84,7 @@ router.post('/signupgoogle', async (req, res, next) => {
     lastName,
     email,
     googleId,
+    profilePicture,
   } = req.body;
   const user = await User.findOne({ where: { email } });
   if (user) {
@@ -103,8 +104,9 @@ router.post('/signupgoogle', async (req, res, next) => {
     lastName,
     email,
     googleId,
+    profilePicture,
   };
-  User.create(newUser).then(async (info) => {
+  User.create(newUser).then(async () => {
     // send mail with defined transport object
     await transporter.sendMail({
       from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
@@ -112,7 +114,15 @@ router.post('/signupgoogle', async (req, res, next) => {
       subject: 'SignUp Success ✔', // Subject line
       html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
     });
-    res.send(info); })
+    const accessToken = jwt.sign({
+      name: user.name,
+      role: user.role,
+    }, accessTokenSecret);
+    return res.send({
+      user: user.dataValues,
+      token: accessToken,
+    });
+  })
     .catch((e) => {
       res.status(400);
       next(e);
