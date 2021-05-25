@@ -26,7 +26,6 @@ function arrayUnique(array) {
 
 // Status setters for async calls
 const setUser = (user: any) => {
-  console.log(user);
   return {
     type: SET_USER,
     payload: user,
@@ -64,11 +63,9 @@ const loginFormAsync = (form: any) => {
       const res = await axios.post(`${BACK_ROUTE}/user/signin`, form);
       console.log(res.data);
       const loginUser = res.data;
-      console.log('llega');
       if (typeof res.data !== 'object') {
         dispatch(loginFailed());
       } else {
-        console.log(loginUser);
         localStorage.setItem('user', JSON.stringify(loginUser.user));
         localStorage.setItem('token', JSON.stringify(loginUser.token));
         dispatch(setUser(loginUser.user));

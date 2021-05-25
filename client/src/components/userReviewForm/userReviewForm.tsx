@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import './userReviewForm.css';
 import {postReview} from '../../app/actions/reviewsActions/index';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
-// import swal from 'sweetalert';
+import swal from 'sweetalert';
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
 import {Redirect} from 'react-router-dom';
 
@@ -29,7 +29,7 @@ const UserReviewForm = (props: {id:string}) => {
   const handleReviewSubmit = (e: any) => {
     e.preventDefault();
     if (!user.name) {
-      alert('You must be logged in for writing a review!');
+      swal('You must be logged in for writing a review!');
       guestFlag = false;
       setRedirect(true);
     }
@@ -42,14 +42,14 @@ const UserReviewForm = (props: {id:string}) => {
         if (input.rating > 0) {
           dispatch(postReview({...input, id: props.id}, props.id, token));
         } else {
-          alert('A rating score is required for posting a review');
+          swal('A rating score is required for posting a review');
         }
       } else {
-        alert('Your review must have less than 255 characters');
+        swal('Your review must have less than 255 characters');
       }
       // Prevents unnecessary alerts
     } else if (guestFlag === true && flag === true) {
-      alert('Your review must have something to say');
+      swal('Your review must have something to say');
     }
   };
   return (

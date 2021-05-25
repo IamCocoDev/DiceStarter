@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {formData, formInputData, registerInput} from '../../types';
 import CountrySelect from '../countrySelect/countrySelect';
 import {useAppDispatch} from '../../app/hooks';
-import {sendFormAsync} from '../../app/actions/actionsUser';
+import {sendFormAsync, loginFormAsync} from '../../app/actions/actionsUser';
 import './formRegisterForm.css';
 import {Redirect} from 'react-router-dom';
+import swal from 'sweetalert';
 // eslint-disable-next-line no-unused-vars
 import GoogleComp from '../googleComp/googleComp';
 
@@ -100,9 +101,18 @@ const FormRegisterForm = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      alert('Register completed!');
-      dispatch(sendFormAsync(input));
-      setRedirect(true);
+      swal({
+        title: 'Register completed!',
+        icon: 'success',
+      });
+      dispatch(sendFormAsync(input))
+          .then((r) => {
+            const loginInput = {username: input.name, password: input.password};
+            dispatch(loginFormAsync(loginInput))
+                .then((r) => {
+                  setRedirect(true);
+                }).catch((err) => console.error(err));
+          }).catch((err) => console.error(err));
       setInput({
         name: '',
         email: '',
@@ -114,7 +124,10 @@ const FormRegisterForm = () => {
         country: '',
       });
     } else {
-      alert('Complete the requiered spaces!');
+      swal({
+        title: 'Complete the required spaces!',
+        icon: 'warning',
+      });
     }
   };
 
