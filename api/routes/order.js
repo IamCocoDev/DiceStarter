@@ -86,7 +86,7 @@ router.post('/:idUser/invited/cart', (req, res) => {
 
 router.get('/search/user/:userId/', (req, res) => {
   const { userId } = req.params;
-  Order.findAll({ where: { userId, status: 'Created' }, include: { model: Product } })
+  Order.findAll({ where: { userId }, include: { model: Product } })
     .then((data) => {
       res.send(data);
     }).catch((error) => res.send(error));
