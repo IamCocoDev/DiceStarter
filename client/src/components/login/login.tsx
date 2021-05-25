@@ -3,6 +3,7 @@ import {formData, formInputData, loginInput} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {loginFormAsync} from '../../app/actions/actionsUser/index';
 import {userInfo} from '../../app/reducers/registerReducer';
+import swal from 'sweetalert';
 import './login.css';
 import GoogleComp from '../googleComp/googleComp';
 import {getProductsInCart} from '../../app/actions/cartActions/index';
@@ -46,11 +47,20 @@ const Login = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      dispatch(loginFormAsync(input));
-      setRedirect(true);
-      dispatch(getProductsInCart());
+      dispatch(loginFormAsync(input))
+          .then((r) => {
+            if (r === 'error') {
+              swal({
+                text: 'The email or username does not exist',
+                icon: 'error',
+              });
+            } else {
+              setRedirect(true);
+              dispatch(getProductsInCart());
+            }
+          }).catch((err) => console.error(err));
     } else {
-      alert('mal');
+      swal('mal');
     }
   };
   useEffect(() => {

@@ -48,12 +48,7 @@ const loginFailed = () => ({
 const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
-<<<<<<< HEAD
-      await axios.post(`http://localhost:3001/user/signup`, form);
-      dispatch(loginFormAsync(form));
-=======
       await axios.post(`${BACK_ROUTE}/user/signup`, form);
->>>>>>> fdf0e426757fc9b6e1cc83833af236a22e3e0552
     } catch (err) {
       console.log(err);
     }
@@ -63,15 +58,8 @@ const sendFormAsync = (form: any) => {
 const loginFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
-<<<<<<< HEAD
-      const res = await axios.post(`http://localhost:3001/user/signin`, form);
-      const loginUser = res.data;
-      localStorage.setItem('user', JSON.stringify(loginUser.user));
-      localStorage.setItem('token', JSON.stringify(loginUser.token));
-      dispatch(setToken(loginUser.token));
-      dispatch(setUser(loginUser.user));
-=======
       const res = await axios.post(`${BACK_ROUTE}/user/signin`, form);
+      console.log(res.data);
       const loginUser = res.data;
       console.log('llega');
       if (typeof res.data !== 'object') {
@@ -82,16 +70,16 @@ const loginFormAsync = (form: any) => {
         dispatch(setUser(loginUser.user));
         const cartLocal = await JSON.parse(localStorage.getItem('cart') || '[]');
         const cartUser = await dispatch(getProductsInCart(loginUser.user.id));
-        console.log('hola?');
         const nuevo = arrayUnique(cartLocal.concat(cartUser.payload));
         const produsctId = nuevo.map((el) => el.id);
         await axios.post(`${BACK_ROUTE}/orders/${loginUser.user.id}/invited/cart`, {products: produsctId, address: 'cordoba'});
         dispatch(setToken(loginUser.token));
       }
->>>>>>> fdf0e426757fc9b6e1cc83833af236a22e3e0552
     } catch (err) {
       dispatch(loginFailed());
       console.error(err);
+      // this here for helping with error handling
+      return 'error';
     }
   };
 };
@@ -126,11 +114,8 @@ const logout = () => {
   return async (dispatch: any) => {
     try {
       localStorage.setItem('user', '{}');
-<<<<<<< HEAD
       localStorage.setItem('token', '');
-=======
       localStorage.removeItem('cart');
->>>>>>> fdf0e426757fc9b6e1cc83833af236a22e3e0552
       dispatch(setUser({}));
     } catch (err) {
       console.log(err);
@@ -142,12 +127,8 @@ const modifyUser = (changes:userChanges, token:string) => {
   return async (dispatch:any) => {
     try {
       dispatch(setUser(changes));
-<<<<<<< HEAD
       dispatch(setToken(token));
-      await axios.put(`http://localhost:3001/user/${changes.id}`, changes, {
-=======
       await axios.put(`${BACK_ROUTE}/user/${changes.id}`, changes, {
->>>>>>> fdf0e426757fc9b6e1cc83833af236a22e3e0552
         headers: {
           'Authorization': 'Bearer ' + token,
         },

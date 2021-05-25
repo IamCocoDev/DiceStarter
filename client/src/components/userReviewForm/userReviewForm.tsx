@@ -3,14 +3,9 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import './userReviewForm.css';
 import {postReview} from '../../app/actions/reviewsActions/index';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
-<<<<<<< HEAD
-import {userInfo} from '../../app/reducers/registerReducer';
-import {ReviewRes} from '../../types';
 // import swal from 'sweetalert';
-=======
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
 import {Redirect} from 'react-router-dom';
->>>>>>> fdf0e426757fc9b6e1cc83833af236a22e3e0552
 
 const UserReviewForm = (props: {id:string}) => {
   const user = useAppSelector(userInfo);
@@ -33,12 +28,6 @@ const UserReviewForm = (props: {id:string}) => {
   let guestFlag = true;
   const handleReviewSubmit = (e: any) => {
     e.preventDefault();
-<<<<<<< HEAD
-    //  if (!user.id);
-    if (!user.id) return alert('You must be logged in for posting a review');
-    postedReviews.forEach((r:ReviewRes) => {
-      if (r.userId === user.id) flag = false;
-=======
     if (!user.name) {
       alert('You must be logged in for writing a review!');
       guestFlag = false;
@@ -46,7 +35,6 @@ const UserReviewForm = (props: {id:string}) => {
     }
     postedReviews !== null && postedReviews.forEach((r:any) => {
       if (r.user.name === user.name) flag = false;
->>>>>>> fdf0e426757fc9b6e1cc83833af236a22e3e0552
     });
     if (flag === false) return alert('You already gave your opinion');
     if (input.comment && flag === true && guestFlag === true) {
