@@ -2,6 +2,7 @@ const express = require('express');
 
 const { v4: uuidv4 } = require('uuid');
 const isAdmin = require('../middleware/auth');
+const { isLogged } = require('../middleware/logged');
 
 const router = express.Router();
 
@@ -26,9 +27,10 @@ router.post('/', isAdmin, async (req, res, next) => {
     const {
       name, size, color, picture, price, stock, description, categories,
     } = req.body;
+    const rating = 0.00;
 
     const newProduct = {
-      id, name, size, color, picture, price, stock, description,
+      id, name, size, color, picture, price, stock, description, rating,
     };
     const info = await Product.create(newProduct);
     info.setCategories(categories);
@@ -39,7 +41,18 @@ router.post('/', isAdmin, async (req, res, next) => {
   }
 });
 
-router.put('/:id', isAdmin, async (req, res, next) => {
+router.put('/stock/:productId', async (req, res, next) => {
+  const { product } = req.body;
+  try {
+    const productUpdated = await Product.findByPk(product.id);
+    await productUpdated.update(product);
+    res.send(productUpdated);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:id', async (req, res, next) => {
   const { id } = req.params;
   const { body } = req;
   try {
@@ -67,17 +80,27 @@ router.delete('/:id', isAdmin, (req, res, next) => {
 
 // ADD REVIEWS
 
-router.post('/:id/review', (req, res, next) => {
+router.post('/:id/review', isLogged, (req, res, next) => {
   const { id } = req.params;
   const { userId } = req.body;
   const { rating } = req.body;
   const { comment } = req.body;
+
   Reviews.create({
     rating,
     comment,
     productId: id,
   })
     .then((r) => {
+      Product.findByPk(id)
+        .then(async (r) => {
+          const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
+          const quantityRev = await Reviews.count({ where: { productId: id } });
+          const average = sumReviews / quantityRev;
+          console.log(sumReviews);
+          console.log(quantityRev);
+          r.update({ rating: parseFloat(average.toFixed(2)) });
+        });
       User.findByPk(userId)
         .then((u) => {
           r.setUser(u);
@@ -90,7 +113,7 @@ router.post('/:id/review', (req, res, next) => {
 });
 
 router.get('/reviews/allreviews', isAdmin, (req, res, next) => {
-  Reviews.findAll()
+  Reviews.findAll({ attributes: { exclude: ['userId'] }, include: { model: User, attributes: ['name'] } })
     .then((data) => res.send(data))
     .catch((e) => {
       res.status(400);
@@ -98,16 +121,18 @@ router.get('/reviews/allreviews', isAdmin, (req, res, next) => {
     });
 });
 
-router.post('/review/:idReview', (req, res, next) => {
+router.put('/review/:idReview', (req, res, next) => {
   const { idReview } = req.params;
-  const { comments } = req.body;
+  const { comment } = req.body;
   const { rating } = req.body;
+  console.log(req.body);
   Reviews.findOne({ where: { id: idReview } })
     .then((resp) => {
       if (resp) {
-        resp.update({ comments });
+        resp.update({ comment });
         resp.update({ rating });
       }
+      console.log(resp);
       res.send(resp); // Resultado del UPDATE
     })
     .catch((e) => {
@@ -116,9 +141,8 @@ router.post('/review/:idReview', (req, res, next) => {
     });
 });
 
-router.delete('/review/:idReview', isAdmin, (req, res, next) => {
+router.delete('/review/:idReview', isLogged, (req, res, next) => {
   const { idReview } = req.params;
-
   Reviews.destroy({ where: { id: idReview } })
     .then(() => {
       res.sendStatus(200);
@@ -132,7 +156,7 @@ router.delete('/review/:idReview', isAdmin, (req, res, next) => {
 router.get('/:id/review', (req, res, next) => {
   const { id } = req.params;
   try {
-    Reviews.findAll({ where: { productId: id } })
+    Reviews.findAll({ attributes: { exclude: ['userId'] }, where: { productId: id }, include: { model: User, attributes: ['name'] } })
       .then(async (resp) => {
         const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
         const quantityRev = await Reviews.count({ where: { productId: id } });

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {BACK_ROUTE} from '../../../ROUTE';
 import {
   SET_REVIEWS,
 } from '../../constants/constants';
@@ -12,10 +13,15 @@ const setReviews = (reviewResponse: ReviewRes) => ({
 
 // Async requests to the back-end
 
-const postReview = (review: ReviewPost, id:string) => {
+const postReview = (review: ReviewPost, id:string, token) => {
+  console.log(review);
   return async (dispatch: any) => {
     try {
-      await axios.post(`http://localhost:3001/product/${review.id}/review`, review);
+      await axios.post(`${BACK_ROUTE}/product/${review.id}/review`, review, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
       dispatch(getReviews(id));
     } catch (err) {
       console.error(err);
@@ -26,13 +32,13 @@ const postReview = (review: ReviewPost, id:string) => {
 const getReviews = (id: string) => {
   return async (dispatch: any) => {
     try {
-      const res = await axios.get(`http://localhost:3001/product/${id}/review`);
+      const res = await axios.get(`${BACK_ROUTE}/product/${id}/review`);
       console.log(res.data);
-      const reviews = res.data.all.map((review: ReviewPost) => ({
+      const reviews = res.data.all.map((review: any) => ({
         id: review.id,
         rating: review.rating,
         comment: review.comment,
-        userId: review.userId,
+        user: review.user,
       }));
       dispatch(setReviews(reviews));
     } catch (err) {
@@ -44,7 +50,7 @@ const getReviews = (id: string) => {
 const deleteReviews = (id: number, productId: string, token:string) => {
   return async (dispatch: any) => {
     try {
-      await axios.delete(`http://localhost:3001/product/review/${id}`, {
+      await axios.delete(`${BACK_ROUTE}/product/review/${id}`, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -56,12 +62,14 @@ const deleteReviews = (id: number, productId: string, token:string) => {
   };
 };
 
-const modifyReview = (id: number) => {
+const modifyReview = (id: number, changes:any, token:string) => {
   return async (dispatch: any) => {
     try {
-      console.log(id);
-      const res = await axios.post(`http://localhost:3001/product/review/${id}`);
-      console.table(res.data);
+      await axios.put(`${BACK_ROUTE}/product/review/${id}`, changes, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
     } catch (err) {
       console.error(err);
     }

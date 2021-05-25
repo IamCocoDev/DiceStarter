@@ -2,6 +2,7 @@ import {
   SET_USER,
   SET_USERS,
   SET_TOKEN,
+  USER_LOGIN_FAILED,
 } from '../constants/constants';
 
 // Types
@@ -30,6 +31,11 @@ const formReducer = (state = initialState, action: any) => {
       return {
         ...state,
         userToken: action.payload,
+      };
+    case USER_LOGIN_FAILED:
+      return {
+        ...state,
+        inputs: action.payload,
       };
     default:
       return state;

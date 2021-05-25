@@ -98,17 +98,18 @@ function ProductsList() {
         ></Select>
       </div>
       <div className="productsListGrid">
-        <h1 className='productsListName'>Name</h1>
-        <h1 className='productsListPrice'>Price</h1>
-        <h1 className='productsListCategories'>Categories</h1>
-        <h1 className='productsListDescription'>Description</h1>
-        <h1 className='productsListStock'>Stock</h1>
-        <h1 className='productsListSize'>Size</h1>
-        <h1 className='productsListColors'>Colors</h1>
-        <h1 className='productsListImageUrl'>Image Url</h1>
-      </div>
-      <div>
-        { adminProducts !== null &&
+        <div className='productsListLabels'>
+          <span className='productsListName'>Name</span>
+          <span className='productsListPrice'>Price</span>
+          <span className='productsListCategories'>Categories</span>
+          <span className='productsListDescription'>Description</span>
+          <span className='productsListStock'>Stock</span>
+          <span className='productsListSize'>Size</span>
+          <span className='productsListColors'>Colors</span>
+          <span className='productsListImageUrl'>Image Url</span>
+        </div>
+        <div className='productsListProducts'>
+          { adminProducts !== null &&
         adminProducts.map((listProduct) => (
           <ProductList
             key={listProduct.id}
@@ -124,14 +125,15 @@ function ProductsList() {
             size={listProduct.size}
           />
         ))}
+        </div>
       </div>
       <div style={{'display': 'flex', 'justifyContent': 'center'}}>
         {filters.page > 1 ?
-        <button style={{'border': '2px solid black'}}
+        <button className='productsPages' style={{'border': '2px solid black'}}
           onClick={() => onClickPage(-1)}>
           Previous</button> : null}
         {pagesTotal > filters.page ?
-        <button style={{'border': '2px solid black'}}
+        <button className='productsPages' style={{'border': '2px solid black'}}
           onClick={() => onClickPage(1)}>
           Next</button> : null}
       </div>

@@ -40,6 +40,7 @@ const Cart = () => {
   useEffect(() => {
     dispatch(getProductsInCart(userId));
     findDuplicates(productsInCart);
+    console.log(userId);
   }, []);
 
   useEffect(() => {

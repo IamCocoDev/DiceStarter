@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
 
 const accessTokenSecret = 'tomasvigilante';
-const { User } = require('../db.js');
+
+const { User } = require('../db');
 
 module.exports = async (req, res, next) => {
   const authHeader = req.headers.authorization;
+  // eslint-disable-next-line no-console
   if (authHeader) {
     const token = authHeader.split(' ')[1];
     jwt.verify(token, accessTokenSecret, async (err, user) => {
@@ -24,7 +26,7 @@ module.exports = async (req, res, next) => {
           res.status(404).send('User not exist');
         }
       } catch {
-        res.status(400).send('Value must be of type UUID');
+        res.sendStatus(400);
       }
       return null;
     });

@@ -1,68 +1,30 @@
-import React, {useState, useEffect} from 'react';
+/* eslint-disable max-len */
+import React, {useEffect} from 'react';
 import './postedUserReviews.css';
 import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
 import {ReviewPost} from '../../types';
-import {deleteReviews,
-  getReviews} from '../../app/actions/reviewsActions/index';
+import {getReviews} from '../../app/actions/reviewsActions/index';
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
+import UserReview from '../userReview/userReview';
 
 const PostedUserReviews = (props:{id:string}) => {
-  const [toggle, setToggle] = useState(false);
   const postedReviews = useAppSelector(reviewsResponse);
-  const user = useAppSelector(userInfo);
   const token = useAppSelector(userToken);
+  const user = useAppSelector(userInfo);
   const dispatch = useAppDispatch();
-  const handleOnClick = (e: any) => {
-    if (e.target.value > 0) {
-      dispatch(deleteReviews(e.target.value, props.id, token));
-      dispatch(getReviews(props.id));
-    }
-  };
-  const toggleEdit = () => setToggle(!toggle);
   useEffect(() => {
     dispatch(getReviews(props.id));
   }, [dispatch, props]);
   useEffect(() => {}, [postedReviews]);
   return (
-    user.role === 'Admin' ?
     <div className='postedUserReviewsAll'>
       {
-        postedReviews !== null && postedReviews.map((review: ReviewPost) => (
-          <div className='postedUserReviewsReview' key={review.id}>
-            {
-                toggle === false ?
-                <p className='postedUserReviewsComment'>{review.comment}</p> :
-                <p className='postedUserReviewsComment'
-                  suppressContentEditableWarning={true} contentEditable>
-                  {review.comment}
-                </p>
-            }
-            <button className='postedUserReviewsButtonDelete' type='button'
-              onClick={handleOnClick} value={review.id}>
-               Delete Opinion
-            </button>
-            <button className='postedUserReviewsEditButton'
-              onClick={toggleEdit}> Edit </button>
-          </div>
+        postedReviews !== null && postedReviews.map((r: ReviewPost, i:number) => (
+          <UserReview review={r} key={i} token={token} user={user} id={props.id}/>
         ))
       }
-    </div> :
-    postedReviews !== null && postedReviews.map((review: ReviewPost) => (
-      <div className='postedUserReviewsReview' key={review.id}>
-        {
-          review.userId === user.id &&
-            toggle === false ?
-            <p className='postedUserReviewsComment'>{review.comment}</p> :
-            <p className='postedUserReviewsComment'
-              suppressContentEditableWarning={true} contentEditable>
-              {review.comment}
-            </p>
-        }
-        <button className='postedUserReviewsEditButton'
-          onClick={toggleEdit}> Edit </button>
-      </div>
-    ))
+    </div>
   );
 };
 

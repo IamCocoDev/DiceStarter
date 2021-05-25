@@ -3,10 +3,12 @@ const express = require('express');
 const isAdmin = require('../middleware/auth');
 
 const router = express.Router();
+const { transporter } = require('../configs/mailer');
+const templateorder = require('./emails/emailOrder.js');
 
 const {
   User, Order, Productxorder, Product,
-} = require('../db.js');
+} = require('../db');
 
 // POST UNA ORDEN
 
@@ -45,9 +47,46 @@ router.post('/:idUser/cart', (req, res, next) => {
   });
 });
 
+router.post('/:idUser/invited/cart', (req, res) => {
+  const { idUser } = req.params; // Id del usuario
+  const { body } = req; // 2 propiedades(products: array de id de productos [1,2,3] y address)
+  Order.findAll({ where: { userId: idUser, status: 'Created' } }).then(
+    (ord) => {
+      if (ord.length) {
+        for (let i = 0; i < body.products.length; i += 1) {
+          Product.findByPk(body.products[i]).then((producto) => {
+            producto.addOrder(ord);
+            return res.status(200).send('Order created');
+          });
+        }
+      } else {
+        // El usuario no tiene orden, creo la orden primero y luego anado el producto.
+        Order.create({
+          status: 'Created',
+          address: body.address,
+        }).then((order) => {
+          User.findByPk(idUser)
+            .then((user) => {
+              order.setUser(user);
+              for (let i = 0; i < body.products.length; i += 1) {
+                Product.findByPk(body.products[i]).then((producto) => {
+                  producto.addOrder(order);
+                  res.status(200).send('Order created');
+                });
+              }
+            })
+            .catch(() => {
+              res.status(404).send('Error. Order no created!');
+            });
+        });
+      }
+    },
+  );
+});
+
 router.get('/search/user/:userId/', (req, res) => {
   const { userId } = req.params;
-  Order.findAll({ where: { userId, status: 'Created' }, include: { model: Product } })
+  Order.findAll({ where: { userId }, include: { model: Product } })
     .then((data) => {
       res.send(data);
     }).catch((error) => res.send(error));
@@ -114,7 +153,7 @@ router.get('/products/:idOrder', isAdmin, (req, res) => {
 
 // DELETE A LA RELACION PRODUCT/ORDER
 
-router.delete('/orderdelete/:orderId/:productId', isAdmin, (req, res) => {
+router.delete('/orderdelete/:orderId/:productId', (req, res) => {
   const { orderId, productId } = req.params;
   Productxorder.destroy({
     where: {
@@ -166,9 +205,11 @@ router.post('/:idUser/c/cart', (req, res, next) => {
     .catch(() => res.status(400).send('ERROR. Order has not been complete'));
 });
 
-router.post('/:idUser/update/cart', (req, res) => {
+router.post('/:idUser/update/cart', (req, res, next) => {
   const { idUser } = req.params;
-  const { body } = req; // recibe por body: satatus: processing  y direccion, cancelled , complete;
+  const { body } = req; // recibe por body: satatus: In process, Canceled , Complete;
+  // eslint-disable-next-line no-console
+  console.log('BODY EN ESTA RUTA: ', body);
   if (req.body.status === 'Canceled' || req.body.status === 'In process' || req.body.status === 'Complete') {
     Order.update(body, { where: { userId: idUser, status: 'Created' } }).then(
       (data) => {
@@ -178,19 +219,19 @@ router.post('/:idUser/update/cart', (req, res) => {
           res.status(404).send('You do not have an order created');
         }
       },
-    );
+    )
+      .catch((err) => next(err));
   }
 });
 
 router.post('/:idUser/invited/cart', (req, res) => {
-  // console.log("este es el consolelogg",req);
   const { idUser } = req.params; // Id del usuario
-  const { body } = req; // un arrays con productos [1, 5 , 13]
+  const { body } = req; // 2 propiedades(products: array de id de productos [1,2,3] y address)
   Order.findAll({ where: { userId: idUser, status: 'Created' } }).then(
     (ord) => {
       if (ord.length) {
-        for (let i = 0; i < body.length; i += 1) {
-          Product.findByPk(body[i]).then((producto) => {
+        for (let i = 0; i < body.products.length; i += 1) {
+          Product.findByPk(body.products[i]).then((producto) => {
             producto.addOrder(ord);
             return res.status(200).send('Order created');
           });
@@ -204,8 +245,8 @@ router.post('/:idUser/invited/cart', (req, res) => {
           User.findByPk(idUser)
             .then((user) => {
               order.setUser(user);
-              for (let i = 0; i < body.length; i += 1) {
-                Product.findByPk(body[i]).then((producto) => {
+              for (let i = 0; i < body.products.length; i += 1) {
+                Product.findByPk(body.products[i]).then((producto) => {
                   producto.addOrder(order);
                   res.status(200).send('Order created');
                 });
@@ -218,6 +259,24 @@ router.post('/:idUser/invited/cart', (req, res) => {
       }
     },
   );
+});
+
+router.post('/sendorder/:first/:last/:email', async (req, res, next) => {
+  const { first } = req.params;
+  const { last } = req.params;
+  const { email } = req.params;
+  const { body } = req;
+  const { totalPrice } = body;
+  const htmlorder = templateorder(first, last, totalPrice);
+
+  await transporter.sendMail({
+    from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+    to: email, // list of receivers
+    subject: 'Successful purchase ✔', // Subject line
+    html: htmlorder, // html body
+  })
+    .catch((err) => next(err));
+  res.send('Sending e-mail');
 });
 
 module.exports = router;

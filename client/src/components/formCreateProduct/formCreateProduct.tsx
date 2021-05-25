@@ -54,27 +54,27 @@ function validate(input: Inputs) {
   }
 
   if (!input.categories.length) {
-    errors.categories = 'categories are required';
+    errors.categories = 'Categories are required';
   };
 
   if (!input.color.length) {
-    errors.color = 'colors are required';
+    errors.color = 'Colors are required';
   }
 
   if (input.size === '0') {
-    errors.size = 'size is required';
+    errors.size = 'Size is required';
   }
 
   if (!input.stock) {
-    errors.stock = 'stock is required';
+    errors.stock = 'Stock is required';
   }
 
   if (!input.description) {
-    errors.description = 'description is required';
+    errors.description = 'Description is required';
   }
 
   if (!input.picture.length) {
-    errors.picture = 'picture is required';
+    errors.picture = 'Picture is required';
   }
   return errors;
 };
@@ -179,7 +179,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductName'>
           <label className='formCreateProductLabel'
-            htmlFor="">name</label>
+            htmlFor="">Name</label>
           <input
             className='formCreateProductInput'
             type="text"
@@ -191,7 +191,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductPrice'>
           <label className='formCreateProductLabel'
-            htmlFor="">price
+            htmlFor="">Price
           </label>
           <input
             className='formCreateProductInput'
@@ -206,7 +206,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductStock'>
           <label className='formCreateProductLabel'
-            htmlFor="">stock
+            htmlFor="">Stock
           </label>
           <input
             className='formCreateProductInput'
@@ -220,7 +220,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductSize'>
           <label className='formCreateProductLabel'
-            htmlFor="">size
+            htmlFor="">Size
           </label>
           <input
             className='formCreateProductInput'
@@ -233,7 +233,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductColor'>
           <label className='formCreateProductLabel'
-            htmlFor="">color
+            htmlFor="">Color
           </label>
           <div className='formCreateProductColorBalls'>
             {input.color.length ?
@@ -245,7 +245,7 @@ const FormCreateProduct = () => {
             null}
           </div>
           <input
-            className='formCreateProductInput'
+            className='formCreateProductColorSelector'
             type="color"
             value={input.color}
             name = "color"
@@ -253,13 +253,13 @@ const FormCreateProduct = () => {
           />
           <input className='formCreateProductColorButton'
             type="button"
-            value="add color"
+            value="Add Color"
             onClick={() => addColor(color)} />
           <p className='formCreateProductError'>{errors.color}</p>
         </div>
         <div className='formCreateProductDescription'>
           <label className='formCreateProductLabel'
-            htmlFor="">description
+            htmlFor="">Description
           </label>
           <textarea className='formCreateProductDescriptionTextArea'
             value={input.description}

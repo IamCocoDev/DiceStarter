@@ -1,45 +1,28 @@
 .createButtonRouterGrid{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    max-width: 100vw;
-    height: 88vh;
-    width: 100%;
-    background-color: #5A5A5A;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 5rem 0;
 }
 
-.createButtonRouterProduct{
-    grid-column: 2/3;
-    grid-row: 2/3;
-    justify-self: center;
-    align-self:flex-end;
+.createButtonRouterProduct, .createButtonRouterCategory{
+  color: white;
+  outline: none;
 }
 
-.createButtonRouterProductButton{
-    font-size: 1.5vw;
-    min-width: 20vw;
-    min-height: 5vw;
-    width: 20vw;
-    height: auto;
-    border-radius: 1vw;
-    background-color: #74009D;
-    color: white;
+.createButtonRouterProductButton, .createButtonRouterCategoryButton{
+  cursor: pointer;
+  border: none;
+  margin: 2rem 0;;
+  font-size: 1.25rem;
+  width: 16rem;
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  background-color: #74009D;
+  color: white;
 }
 
-.createButtonRouterCategory{
-    grid-column: 2/3;
-    grid-row: 4/5;
-    justify-self: center;
-    align-self: flex-start;
-}
-
-.createButtonRouterCategoryButton{
-    font-size: 1.5vw;
-    min-width: 20vw;
-    min-height: 5vw;
-    width: 20vw;
-    height: auto;
-    border-radius: 1vw;
-    background-color: #74009D;
-    color: white;
+.createButtonRouterProductButton:hover, .createButtonRouterCategoryButton:hover{
+  background-color: #9e00d3;
 }

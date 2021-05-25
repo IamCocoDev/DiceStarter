@@ -3,7 +3,7 @@
     width: 100%;
     max-width: 100vw;
     height: 140vh;
-    background-color: #5A5A5A;
+    background-color: #202020;
     align-items: center;
     justify-content: center;
     color: white;
@@ -11,7 +11,7 @@
 
 .registerGrid{
     
-    background-color: #404040;
+    background-color: #101010;
     height: 130vh;
     width: 50vw;
     display: grid;

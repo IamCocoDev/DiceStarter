@@ -130,7 +130,7 @@ const FormRegisterForm = () => {
     <div className='registerBackground'>
       {
         redirect === true &&
-        <Redirect to={`/admin/home`}></Redirect>
+        <Redirect to={`/home?page=1`}></Redirect>
       }
       <form className='registerGrid' onSubmit={handleSubmit}>
         <div className='registerName'>
