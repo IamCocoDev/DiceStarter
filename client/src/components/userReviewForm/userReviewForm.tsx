@@ -22,19 +22,21 @@ const UserReviewForm = (props: {id:string}) => {
   const handleClickStarValue = (e: any) => {
     setInput({...input, rating: e.target.value});
   };
+  // flags for authenticating users and reviews
   let flag = true;
+  let guestFlag = true;
   const handleReviewSubmit = (e: any) => {
     e.preventDefault();
     if (!user.name) {
       alert('You must be logged in for writing a review!');
-      flag = false;
+      guestFlag = false;
       setRedirect(true);
     }
     postedReviews.forEach((r:any) => {
       if (r.user.name === user.name) flag = false;
     });
     if (flag === false) return alert('You already gave your opinion');
-    if (input.comment) {
+    if (input.comment && flag === true && guestFlag === true) {
       if (input.comment.length < 255) {
         if (input.rating > 0) {
           dispatch(postReview({...input, id: props.id}, props.id, token));
@@ -44,7 +46,8 @@ const UserReviewForm = (props: {id:string}) => {
       } else {
         alert('Your review must have less than 255 characters');
       }
-    } else {
+      // Prevents unnecessary alerts
+    } else if (guestFlag === true && flag === true) {
       alert('Your review must have something to say');
     }
   };
@@ -81,7 +84,7 @@ const UserReviewForm = (props: {id:string}) => {
         >
         </textarea>
         <button className='userReviewFormButton' type='submit'>
-          Post Opinion
+          +
         </button>
       </div>
     </form>
