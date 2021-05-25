@@ -66,7 +66,7 @@ export interface ReviewRes {
     id: number,
     rating: number,
     comment: string,
-    name:string,
+    userId:string,
 }
 export interface SearchInput {
     name?:string,

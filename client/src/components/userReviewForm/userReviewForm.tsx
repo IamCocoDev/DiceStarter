@@ -3,6 +3,7 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import './userReviewForm.css';
 import {postReview} from '../../app/actions/reviewsActions/index';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
+// import swal from 'sweetalert';
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
 import {Redirect} from 'react-router-dom';
 
