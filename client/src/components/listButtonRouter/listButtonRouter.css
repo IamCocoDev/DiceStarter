@@ -18,6 +18,10 @@
   color: white;
 }
 
+.listButtonRouterProductButton:hover, .listButtonRouterCategoryButton:hover, .listButtonRouterUsersButton:hover{
+  background-color: #9e00d3;
+}
+
 .listButtonRouterUsers, .listButtonRouterCategory, .listButtonRouterProduct {
   color: white;
   outline: none;
