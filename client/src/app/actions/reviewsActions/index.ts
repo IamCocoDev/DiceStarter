@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {BACK_ROUTE} from '../../../ROUTE';
 import {
   SET_REVIEWS,
 } from '../../constants/constants';
@@ -16,7 +17,7 @@ const postReview = (review: ReviewPost, id:string, token) => {
   console.log(review);
   return async (dispatch: any) => {
     try {
-      await axios.post(`http://54.232.68.2:3001/product/${review.id}/review`, review, {
+      await axios.post(`${BACK_ROUTE}/product/${review.id}/review`, review, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -31,7 +32,7 @@ const postReview = (review: ReviewPost, id:string, token) => {
 const getReviews = (id: string) => {
   return async (dispatch: any) => {
     try {
-      const res = await axios.get(`http://54.232.68.2:3001/product/${id}/review`);
+      const res = await axios.get(`${BACK_ROUTE}/product/${id}/review`);
       console.log(res.data);
       const reviews = res.data.all.map((review: any) => ({
         id: review.id,
@@ -49,7 +50,7 @@ const getReviews = (id: string) => {
 const deleteReviews = (id: number, productId: string, token:string) => {
   return async (dispatch: any) => {
     try {
-      await axios.delete(`http://54.232.68.2:3001/product/review/${id}`, {
+      await axios.delete(`${BACK_ROUTE}/product/review/${id}`, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -64,7 +65,7 @@ const deleteReviews = (id: number, productId: string, token:string) => {
 const modifyReview = (id: number, changes:any, token:string) => {
   return async (dispatch: any) => {
     try {
-      await axios.put(`http://localhost:3001/product/review/${id}`, changes, {
+      await axios.put(`${BACK_ROUTE}/product/review/${id}`, changes, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },

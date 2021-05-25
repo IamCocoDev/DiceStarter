@@ -32,7 +32,7 @@ const UserReviewForm = (props: {id:string}) => {
       guestFlag = false;
       setRedirect(true);
     }
-    postedReviews.forEach((r:any) => {
+    postedReviews !== null && postedReviews.forEach((r:any) => {
       if (r.user.name === user.name) flag = false;
     });
     if (flag === false) return alert('You already gave your opinion');
