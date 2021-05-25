@@ -60,21 +60,23 @@ const loginFormAsync = (form: any) => {
     try {
       const res = await axios.post(`${BACK_ROUTE}/user/signin`, form);
       const loginUser = res.data;
+      console.log('llega');
       if (typeof res.data !== 'object') {
         dispatch(loginFailed());
       } else {
-        console.log(loginUser);
         localStorage.setItem('user', JSON.stringify(loginUser.user));
         localStorage.setItem('token', JSON.stringify(loginUser.token));
         dispatch(setUser(loginUser.user));
         const cartLocal = await JSON.parse(localStorage.getItem('cart') || '[]');
         const cartUser = await dispatch(getProductsInCart(loginUser.user.id));
+        console.log('hola?');
         const nuevo = arrayUnique(cartLocal.concat(cartUser.payload));
         const produsctId = nuevo.map((el) => el.id);
         await axios.post(`${BACK_ROUTE}/orders/${loginUser.user.id}/invited/cart`, {products: produsctId, address: 'cordoba'});
         dispatch(setToken(loginUser.token));
       }
     } catch (err) {
+      dispatch(loginFailed());
       console.error(err);
     }
   };

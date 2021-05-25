@@ -17,7 +17,6 @@ export const getProductsInCart = (idUser = '') => (dispatch) => {
   } else {
     return axios.get(`${BACK_ROUTE}/orders/search/user/${idUser}`)
         .then((res) => {
-          console.log(res.data[0].id);
           const products = res.data[0].products.map((el) => {
             return {
               image: el.picture,

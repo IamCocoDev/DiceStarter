@@ -5,6 +5,7 @@ import {deleteReviews,
   getReviews,
   modifyReview} from '../../app/actions/reviewsActions/index';
 import {userInfo} from '../../app/reducers/registerReducer';
+import './userReview';
 const UserReview = (props:{review, token, user, id}) => {
   const user = useAppSelector(userInfo);
   const [toggle, setToggle] = useState(false);
@@ -30,7 +31,7 @@ const UserReview = (props:{review, token, user, id}) => {
     dispatch(getReviews(props.id));
   };
   useEffect(() => {
-    review.user.name === user.name || user.role === 'Admin' ? setToggle(true) : null;
+    review.user.name === user.name ? setToggle(true) : null;
   });
   return (
     <div>
@@ -38,10 +39,10 @@ const UserReview = (props:{review, token, user, id}) => {
       <p suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleRatingChange}>{review.rating}</p>
       <p suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleCommentChange}>{review.comment}</p>
       { toggle === true &&
-          <button onClick={handleEditMode}>Edit </button>
+          <button onClick={handleEditMode}>✎ </button>
       }
-      { toggle === true &&
-        <button onClick={handleDelete} value={review.id}> Delete Review </button>
+      { toggle === true && review.user.name === user.name &&
+        <button onClick={handleDelete} value={review.id}> 🗑 </button>
       }
       {
         changes.comment !== review.comment || changes.rating !== review.rating ?
