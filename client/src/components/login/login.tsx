@@ -51,16 +51,19 @@ const Login = () => {
           .then((r) => {
             console.log(r);
             if (r !== 'error') {
-              console.log('llega aca');
               swal({
                 title: 'Logged in succesfully!',
                 icon: 'success',
-                buttons: {},
+                buttons: {
+                  ok: true,
+                },
               })
-                  .then((r) => {
-                    if (r) {
-                      setRedirect(true);
-                      dispatch(getProductsInCart());
+                  .then((ok) => {
+                    if (ok) {
+                      setTimeout(() => {
+                        setRedirect(true);
+                        dispatch(getProductsInCart());
+                      }, 4000);
                     }
                   })
                   .catch((err) => console.error(err));
@@ -72,7 +75,7 @@ const Login = () => {
             }
           }).catch((err) => console.error(err));
     } else {
-      swal('mal');
+      swal('You need to insert an e-mail and a password');
     }
   };
   useEffect(() => {
