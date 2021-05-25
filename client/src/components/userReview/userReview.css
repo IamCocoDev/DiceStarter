@@ -1,0 +1,53 @@
+.userReviewAll{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #101010;
+  border-radius: 0.5rem;
+  color: white;
+  width: 70rem;
+  height: 100%;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.userReviewButtons{
+  display: flex;
+}
+
+.userReviewBox{
+  margin-left: 1rem;
+}
+
+.userReviewTitle, .userReviewRating, .userReviewComment{
+  margin: 0.5rem 0;
+}
+
+.userReviewRating, .userReviewComment{
+  font-size: 1.1rem;
+}
+
+.userReviewEditButton, .userReviewDeleteButton{
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #74009D;
+  color: white;
+  height: 2rem;
+  width: 2rem;
+  font-size: 1.3rem;
+  margin: 1rem 0.5rem 0 0.5rem;
+}
+
+.userReviewDeleteButton{
+  background-color: rgb(150, 0, 0)
+}
+
+.userReviewEditButton:hover{
+  background-color: #9e00d3;
+}
+
+.userReviewDeleteButton:hover{
+  background-color: rgb(200, 0, 0);
+}
