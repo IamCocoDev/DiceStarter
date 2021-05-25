@@ -22,3 +22,7 @@
   background-color: #74009D;
   color: white;
 }
+
+.createButtonRouterProductButton:hover, .createButtonRouterCategoryButton:hover{
+  background-color: #9e00d3;
+}
