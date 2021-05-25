@@ -84,8 +84,13 @@ router.post('/:id/review', isLogged, (req, res, next) => {
   const { userId } = req.body;
   const { rating } = req.body;
   const { comment } = req.body;
-  console.log(req.body);
-  console.log(userId);
+  const productRating = rating;
+  Product.findByPk(id)
+    .then((r) => {
+      const totalRating = r.rating + productRating;
+      console.log(r);
+      r.update(totalRating, { where: id });
+    });
   Reviews.create({
     rating,
     comment,
