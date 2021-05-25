@@ -85,7 +85,7 @@ const UserReviewForm = (props: {id:string}) => {
         >
         </textarea>
         <button className='userReviewFormButton' type='submit'>
-          +
+          Send
         </button>
       </div>
     </form>

@@ -4,7 +4,7 @@
   justify-content: space-evenly;
   background-color: #101010;
   margin: 5rem auto;
-  width: 80%;
+  width: 70rem;
   height: 100%;
   padding: 1rem;
   border-radius: 0.5rem;
@@ -47,7 +47,7 @@
   font-family: inherit;
   font-size: inherit;
   padding: 0.5rem 1rem;
-  background-color: purple;
+  background-color: #74009D;
   color: white;
   outline: none;
   border: none;

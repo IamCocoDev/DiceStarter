@@ -1,4 +1,6 @@
 .userReviewFormAll {
+  display: flex;
+  justify-content: center;
 }
 
 .userReviewFormOne {
@@ -14,14 +16,17 @@
 }
 
 .usersReviewsDescription {
-  width: 50vw;
+  outline: none;
+  width: 70rem;
   height:15vh;
-  border-radius: 1vw;
-  background-color: rgb(255, 255, 255);
-  padding: 0.2vw;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1.1rem;
 }
 
 .userReviewFormText{
+  display: flex;
+  flex-direction: column;
 }
 
 .userReviewFormStarOne {
@@ -29,33 +34,44 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
-  width: 5vw;
-  height:5vh;
-  font-size: 2vw;
+  width: 0.1rem;
+  height:0.1rem;
 }
 
 .userReviewFormRating{
   text-align: center;
-  width: 5vw;
-  height:5vh;
-  transition: 0.3s;
+  width: 5rem;
+  height:5rem;
+  font-size: 2rem;
   text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  outline: none;
 }
 
 .userReviewFormRating:hover {
-  color: rgba(133, 165, 16, 0.788);
+  color: #74009D;
 }
 
 .userReviewFormRating:focus {
-  color: rgba(133, 165, 16, 0.788);
+  color: #74009D;
 }
 
 .userReviewFormButton {
-    justify-self: center;
-    width: 15vh;
-    background-color: white;
-    border-radius: 1vw;
-    padding: 0.2vw;
-    margin-bottom: 6vh;
-    margin-top: 3vh
+  cursor: pointer;
+  margin-top: 1rem;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  background-color: #74009D;
+  border-radius: 0.5rem;
+  height: 2rem;
+  width: 5rem;
+}
+
+.userReviewFormButton:hover {
+  background-color: #9e00d3;
 }
