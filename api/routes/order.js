@@ -56,30 +56,29 @@ router.post('/:idUser/invited/cart', (req, res) => {
         for (let i = 0; i < body.products.length; i += 1) {
           Product.findByPk(body.products[i]).then((producto) => {
             producto.addOrder(ord);
-            return res.status(200).send('Order created');
           });
         }
-      } else {
-        // El usuario no tiene orden, creo la orden primero y luego anado el producto.
-        Order.create({
-          status: 'Created',
-          address: body.address,
-        }).then((order) => {
-          User.findByPk(idUser)
-            .then((user) => {
-              order.setUser(user);
-              for (let i = 0; i < body.products.length; i += 1) {
-                Product.findByPk(body.products[i]).then((producto) => {
-                  producto.addOrder(order);
-                  res.status(200).send('Order created');
-                });
-              }
-            })
-            .catch(() => {
-              res.status(404).send('Error. Order no created!');
-            });
-        });
+        return res.status(200).send('Order created');
       }
+      // El usuario no tiene orden, creo la orden primero y luego anado el producto.
+      Order.create({
+        status: 'Created',
+        address: body.address,
+      }).then((order) => {
+        User.findByPk(idUser)
+          .then((user) => {
+            order.setUser(user);
+            for (let i = 0; i < body.products.length; i += 1) {
+              Product.findByPk(body.products[i]).then((producto) => {
+                producto.addOrder(order);
+              });
+            }
+            res.status(200).send('Order created');
+          })
+          .catch(() => {
+            res.status(404).send('Error. Order no created!');
+          });
+      });
     },
   );
 });
