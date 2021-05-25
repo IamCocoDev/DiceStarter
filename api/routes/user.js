@@ -8,11 +8,17 @@ const isAdmin = require('../middleware/auth');
 const { isNotLogged } = require('../middleware/logged');
 const { transporter } = require('../configs/mailer');
 const template = require('./emails/emailRegistration');
-const templateorder = require('./emails/emailOrder');
 
 const {
   accessTokenSecret,
 } = process.env;
+
+let {
+  NEW_ID,
+} = process.env;
+
+// eslint-disable-next-line radix
+NEW_ID = parseInt(NEW_ID);
 
 const router = express.Router();
 
@@ -97,15 +103,18 @@ router.post('/signupgoogle', async (req, res, next) => {
       token: accessToken,
     });
   }
+  console.log(NEW_ID)
   const newUser = {
     id,
-    name,
+    name: `${name}#${NEW_ID}`,
     firstName,
     lastName,
     email,
     googleId,
     profilePicture,
   };
+  NEW_ID += 1;
+  console.log(NEW_ID)
   User.create(newUser).then(async () => {
     // send mail with defined transport object
     await transporter.sendMail({
@@ -114,14 +123,7 @@ router.post('/signupgoogle', async (req, res, next) => {
       subject: 'SignUp Success ✔', // Subject line
       html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
     });
-    const accessToken = jwt.sign({
-      name: user.name,
-      role: user.role,
-    }, accessTokenSecret);
-    return res.send({
-      user: user.dataValues,
-      token: accessToken,
-    });
+    return res.send({ msg: 'User created' });
   })
     .catch((e) => {
       res.status(400);
