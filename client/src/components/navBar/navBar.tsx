@@ -8,7 +8,6 @@ import {cartsReducer} from '../../app/reducers/cartReducer';
 function NavBar(props: any): JSX.Element {
   const cart = useAppSelector(cartsReducer);
   const User = useAppSelector(userInfo);
-  console.log(cart);
   return (
     <div className='navBarGrid'>
       <Link to={`/home?page=1`} className='navBarLogo'>

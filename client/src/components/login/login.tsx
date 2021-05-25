@@ -49,14 +49,26 @@ const Login = () => {
     if (deepEqualError(errors)) {
       dispatch(loginFormAsync(input))
           .then((r) => {
-            if (r === 'error') {
+            console.log(r);
+            if (r !== 'error') {
+              console.log('llega aca');
+              swal({
+                title: 'Logged in succesfully!',
+                icon: 'success',
+                buttons: {},
+              })
+                  .then((r) => {
+                    if (r) {
+                      setRedirect(true);
+                      dispatch(getProductsInCart());
+                    }
+                  })
+                  .catch((err) => console.error(err));
+            } else {
               swal({
                 text: 'The email or username does not exist',
                 icon: 'error',
               });
-            } else {
-              setRedirect(true);
-              dispatch(getProductsInCart());
             }
           }).catch((err) => console.error(err));
     } else {
