@@ -86,13 +86,12 @@ const loginGoogle = (googleUser) => {
   return async (dispatch: any) => {
     try {
       const res = await axios.post(`${BACK_ROUTE}/user/signupgoogle`, googleUser);
-      console.log(res);
       const loginUser = res.data;
-      console.log(res.data.token);
       if (typeof res.data !== 'object') {
         dispatch(loginFailed());
+      } else if (!res.data.token || !res.data.user) {
+        alert('SignUp successfuly, please Log in');
       } else {
-        console.log(loginUser);
         localStorage.setItem('user', JSON.stringify(loginUser.user));
         localStorage.setItem('token', JSON.stringify(loginUser.token));
         dispatch(setUser(loginUser.user));
