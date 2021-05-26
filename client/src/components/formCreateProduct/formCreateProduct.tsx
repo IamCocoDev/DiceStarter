@@ -18,7 +18,7 @@ import {
 import ColorCircle from '../colorCircle/ColorCircle';
 import {productCategories} from '../../app/reducers/handleProductsReducer';
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import {storage} from '../../firebase';
 function deepEqualError(a: errorsInput) {
   return JSON.stringify(a) === JSON.stringify({
