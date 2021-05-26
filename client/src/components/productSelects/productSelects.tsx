@@ -48,7 +48,8 @@ const FilterSelect = () => {
   const handleSortSelectChange = (e: any) => setSort(e.value);
   useEffect(() => {
     if (filter.length > 0 || sort.length > 0) {
-    dispatch(getProductsAsync({page: 1, name: '', filter: filter, sort: sort}));
+      dispatch(getProductsAsync({page: 1, name: '',
+        filter: filter, sort: sort}));
     }
     dispatch(getCategoriesAsync());
   }, [sort, filter]);

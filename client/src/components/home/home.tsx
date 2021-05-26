@@ -26,7 +26,7 @@ function Home(props: any) {
   const status = new URLSearchParams(useLocation().search).get('status');
   const foundQueryNumber = props.location.search.indexOf('=');
   let page = parseInt(props.location.search.slice(foundQueryNumber +1));
-   useEffect(() => {
+  useEffect(() => {
     if (!page) page = 1;
     if (page === NaN) page = 1;
     dispatch(getProductsAsync({
@@ -35,7 +35,7 @@ function Home(props: any) {
       filter: searchFilter,
       sort: searchSort,
     }));
-  }, [page]); 
+  }, [page]);
   useEffect(() => {
     const checkout = props.location.search;
     if (checkout.includes('status')) {

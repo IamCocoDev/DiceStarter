@@ -3,7 +3,7 @@ import {formData, formInputData, loginInput} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {loginFormAsync} from '../../app/actions/actionsUser/index';
 import {userInfo} from '../../app/reducers/registerReducer';
-import swal from 'sweetalert2';
+import swal from 'sweetalert';
 import './login.css';
 import GoogleComp from '../googleComp/googleComp';
 import {getProductsInCart} from '../../app/actions/cartActions/index';
@@ -51,7 +51,7 @@ const Login = () => {
           .then((r) => {
             console.log(r);
             if (r !== 'error') {
-              swal.fire({
+              swal({
                 title: 'Logged in succesfully!',
                 icon: 'success',
                 // fix buttons
@@ -66,14 +66,14 @@ const Login = () => {
                   })
                   .catch((err) => console.error(err));
             } else {
-              swal.fire({
+              swal({
                 text: 'The email or username does not exist',
                 icon: 'error',
               });
             }
           }).catch((err) => console.error(err));
     } else {
-      swal.fire('You need to insert an e-mail and a password');
+      swal('You need to insert an e-mail and a password');
     }
   };
   useEffect(() => {

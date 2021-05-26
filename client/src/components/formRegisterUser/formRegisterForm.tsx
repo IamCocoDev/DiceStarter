@@ -5,7 +5,7 @@ import {useAppDispatch} from '../../app/hooks';
 import {sendFormAsync, loginFormAsync} from '../../app/actions/actionsUser';
 import './formRegisterForm.css';
 import {Redirect} from 'react-router-dom';
-import swal from 'sweetalert2';
+import swal from 'sweetalert';
 // eslint-disable-next-line no-unused-vars
 import GoogleComp from '../googleComp/googleComp';
 
@@ -101,28 +101,29 @@ const FormRegisterForm = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      //using dispatch as a promise for error handling
+      // using dispatch as a promise for error handling
       dispatch(sendFormAsync(input))
           .then((r:any) => {
             if (r !== 'error') {
-              swal.fire({
+              swal({
                 title: 'Register completed!',
                 icon: 'success',
               });
-              const loginInput = {username: input.name, password: input.password};
-            dispatch(loginFormAsync(loginInput))
-            .then((r) => {
-              setRedirect(true);
-            }).catch((err) => console.error(err));
+              const loginInput = {username: input.name,
+                password: input.password};
+              dispatch(loginFormAsync(loginInput))
+                  .then((r) => {
+                    setRedirect(true);
+                  }).catch((err) => console.error(err));
             } else {
-              swal.fire({
+              swal({
                 title: 'Register Failed',
-                text: 'Your '
-              })
+                text: 'Your ',
+              });
             }
           }).catch((err) => console.error(err));
     } else {
-      swal.fire({
+      swal({
         title: 'Complete the required spaces!',
         icon: 'warning',
       });
