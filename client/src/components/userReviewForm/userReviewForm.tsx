@@ -36,20 +36,34 @@ const UserReviewForm = (props: {id:string}) => {
     postedReviews !== null && postedReviews.forEach((r:any) => {
       if (r.user.name === user.name) flag = false;
     });
-    if (flag === false) return alert('You already gave your opinion');
+    if (flag === false) {
+      return swal({
+        text: 'You already gave your opinion',
+        icon: 'info',
+      });
+    }
     if (input.comment && flag === true && guestFlag === true) {
       if (input.comment.length < 255) {
         if (input.rating > 0) {
           dispatch(postReview({...input, id: props.id}, props.id, token));
         } else {
-          swal('A rating score is required for posting a review');
+          swal({
+            text: 'A rating score is required for posting a review',
+            icon: 'warning',
+          });
         }
       } else {
-        swal('Your review must have less than 255 characters');
+        swal({
+          text: 'Your review must have less than 255 characters',
+          icon: 'warning',
+        });
       }
       // Prevents unnecessary alerts
     } else if (guestFlag === true && flag === true) {
-      swal('Your review must have something to say');
+      swal({
+        text: 'Your review must have something to say',
+        icon: 'info',
+      });
     }
   };
   return (
