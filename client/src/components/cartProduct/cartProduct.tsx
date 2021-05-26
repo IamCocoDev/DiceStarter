@@ -29,26 +29,28 @@ const CartProduct = (props) => {
   return (
     <div className='cartProductGrid'>
       <img className='cartProductImage' src={image && image[0]} alt={name} />
-      <div className='cartProductName'>{name}</div>
-      <div className='cartProductAmout'>
-        { productAmount > 1 &&
-        <button className='cartProductAmountDecrease'
-          onClick={() => setProductAmount(productAmount - 1)}>
-        -
-        </button>
-        }
-        <h1>{productAmount}</h1>
-        { productAmount < stock &&
-          <button className='cartProductAmountIncrease'
-            onClick={() => setProductAmount(productAmount + 1)}>
-             +
+      <div className='cartProductInfo'>
+        <div className='cartProductName'>{name}</div>
+        <div className='cartProductAmout'>
+          { productAmount > 1 &&
+          <button className='cartProductAmountDecrease'
+            onClick={() => setProductAmount(productAmount - 1)}>
+            -
           </button>
-        }
+          }
+          <p className='cartProductNumber'>{productAmount}</p>
+          { productAmount < stock &&
+            <button className='cartProductAmountIncrease'
+              onClick={() => setProductAmount(productAmount + 1)}>
+              +
+            </button>
+          }
+        </div>
+        <button className='cartProductDelete'
+          onClick={handleDeleteProduct} ><i className='material-icons'>
+            delete
+          </i></button>
       </div>
-      <button className='cartProductDelete'
-        onClick={handleDeleteProduct} ><i className='material-icons'>
-          delete
-        </i></button>
     </div>
   );
 };
