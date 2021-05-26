@@ -5,7 +5,7 @@ import {useAppDispatch} from '../../app/hooks';
 import {sendFormAsync, loginFormAsync} from '../../app/actions/actionsUser';
 import './formRegisterForm.css';
 import {Redirect} from 'react-router-dom';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 // eslint-disable-next-line no-unused-vars
 import GoogleComp from '../googleComp/googleComp';
 
@@ -105,7 +105,7 @@ const FormRegisterForm = () => {
       dispatch(sendFormAsync(input))
           .then((r:any) => {
             if (r !== 'error') {
-              swal({
+              swal.fire({
                 title: 'Register completed!',
                 icon: 'success',
               });
@@ -115,14 +115,14 @@ const FormRegisterForm = () => {
               setRedirect(true);
             }).catch((err) => console.error(err));
             } else {
-              swal({
+              swal.fire({
                 title: 'Register Failed',
                 text: 'Your '
               })
             }
           }).catch((err) => console.error(err));
     } else {
-      swal({
+      swal.fire({
         title: 'Complete the required spaces!',
         icon: 'warning',
       });
