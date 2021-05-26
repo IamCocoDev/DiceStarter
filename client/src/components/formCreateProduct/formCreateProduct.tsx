@@ -20,7 +20,7 @@ import {
 import ColorCircle from '../colorCircle/ColorCircle';
 import {productCategories} from '../../app/reducers/handleProductsReducer';
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 function deepEqualError(a: errorsInput) {
   return JSON.stringify(a) === JSON.stringify({
@@ -119,7 +119,7 @@ const FormCreateProduct = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      swal({
+      swal.fire({
         title: 'Succesfully created!',
         icon: 'success',
       });
@@ -137,7 +137,7 @@ const FormCreateProduct = () => {
       });
       setRedirect(true);
     } else {
-      swal({
+      swal.fire({
         text: 'Complete the required spaces!',
         icon: 'info',
       });
