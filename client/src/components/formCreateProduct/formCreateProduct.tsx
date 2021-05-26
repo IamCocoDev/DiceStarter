@@ -6,7 +6,6 @@ import {
   getCategoriesAsync,
 } from '../../app/actions/handleProductsActions/index';
 import './formCreateProduct.css';
-import FileBase64 from 'react-file-base64';
 import Select from 'react-select';
 import {
   formData,
@@ -14,14 +13,13 @@ import {
   formTextAreaData,
   Inputs,
   errorsInput,
-  base64,
   Categories,
 } from '../../types';
 import ColorCircle from '../colorCircle/ColorCircle';
 import {productCategories} from '../../app/reducers/handleProductsReducer';
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
-import swal from 'sweetalert2';
-
+import swal from 'sweetalert';
+import {storage} from '../../firebase';
 function deepEqualError(a: errorsInput) {
   return JSON.stringify(a) === JSON.stringify({
     name: '',
@@ -90,6 +88,7 @@ const FormCreateProduct = () => {
   }, [redirect]);
   const productCats = useAppSelector(productCategories);
   const [color, setColor] = useState('');
+  const [image, setImage] = useState(null);
   const [errors, setErrors] = useState<errorsInput>({
     name: '',
     price: '',
@@ -168,9 +167,30 @@ const FormCreateProduct = () => {
     });
     setInput({...input, categories: data});
   };
-  const handlePictureChange = (e: base64[]): void => {
-    setInput({...input, picture: e.map((p: base64) => p.base64)});
+  const handlePictureChange = (e) => {
+    setImage(e.target.files[0]);
   };
+  const handlePictureUpload = () => {
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+        'state_changed',
+        (snapshot) => {},
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+              .ref('images')
+              .child(image.name)
+              .getDownloadURL()
+              .then((u) => {
+                console.log(u);
+                setInput({...input, picture: [...input.picture, u]});
+              });
+        },
+    );
+  };
+
   return (
     user.role === 'Admin' ?
     <div className='formCreateProductGrid'>
@@ -179,9 +199,8 @@ const FormCreateProduct = () => {
       }
       <form className='formCreateProductForm' onSubmit={handleSubmit}>
         <div className='formCreateProductUrlPicture'>
-          <label className='formCreateProductLabel'
-            htmlFor="">Add image</label>
-          <FileBase64 multiple={true} onDone={handlePictureChange} required />
+          <input type="file" onChange={handlePictureChange} required />
+          <button onClick={handlePictureUpload}>Upload</button>
           <p className='formCreateProductError'>{errors.picture}</p>
         </div>
         <div className='formCreateProductName'>

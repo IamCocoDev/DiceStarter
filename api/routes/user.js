@@ -76,7 +76,7 @@ router.post('/signup', isNotLogged, (req, res, next) => {
         subject: 'SignUp Success ✔', // Subject line
         html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
       });
-      return res.send(info);
+      res.send(info);
     })
       .catch((e) => {
         res.status(400);
