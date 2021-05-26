@@ -47,8 +47,10 @@ const FilterSelect = () => {
   const handleFilterSelectChange = (e: any) => setFilter(e.value);
   const handleSortSelectChange = (e: any) => setSort(e.value);
   useEffect(() => {
-    dispatch(getCategoriesAsync());
+    if (filter.length > 0 || sort.length > 0) {
     dispatch(getProductsAsync({page: 1, name: '', filter: filter, sort: sort}));
+    }
+    dispatch(getCategoriesAsync());
   }, [sort, filter]);
   return (
     <div className='productSelectsGrid'>{

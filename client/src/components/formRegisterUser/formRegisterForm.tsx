@@ -101,28 +101,26 @@ const FormRegisterForm = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      swal({
-        title: 'Register completed!',
-        icon: 'success',
-      });
+      //using dispatch as a promise for error handling
       dispatch(sendFormAsync(input))
-          .then((r) => {
-            const loginInput = {username: input.name, password: input.password};
+          .then((r:any) => {
+            if (r !== 'error') {
+              swal({
+                title: 'Register completed!',
+                icon: 'success',
+              });
+              const loginInput = {username: input.name, password: input.password};
             dispatch(loginFormAsync(loginInput))
-                .then((r) => {
-                  setRedirect(true);
-                }).catch((err) => console.error(err));
+            .then((r) => {
+              setRedirect(true);
+            }).catch((err) => console.error(err));
+            } else {
+              swal({
+                title: 'Register Failed',
+                text: 'Your '
+              })
+            }
           }).catch((err) => console.error(err));
-      setInput({
-        name: '',
-        email: '',
-        firstName: '',
-        lastName: '',
-        password: '',
-        confirmPassword: '',
-        birthday: '',
-        country: '',
-      });
     } else {
       swal({
         title: 'Complete the required spaces!',
