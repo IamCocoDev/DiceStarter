@@ -81,9 +81,9 @@ function ProductsList() {
           options={sortType}
           placeholder='Choose your order...'
           onChange={(e) => {
-            setFilters({...filters, sort: e?.label});
+            setFilters({...filters, sort: e.label});
             dispatch(getProductsAsync({name: filters.name,
-              page: filters.page, filter: filters.filter, sort: e?.label}));
+              page: filters.page, filter: filters.filter, sort: e.label}));
           }}
         ></Select>
         <Select
@@ -91,9 +91,9 @@ function ProductsList() {
           options={categoriesCopy}
           placeholder='Choose your sort...'
           onChange={(e) => {
-            setFilters({...filters, filter: e?.value});
+            setFilters({...filters, filter: e.value});
             dispatch(getProductsAsync({name: filters.name,
-              page: filters.page, filter: e?.value, sort: filters.sort}));
+              page: filters.page, filter: e.value, sort: filters.sort}));
           }}
         ></Select>
       </div>
