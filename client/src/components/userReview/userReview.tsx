@@ -50,7 +50,7 @@ const UserReview = (props:{review, token, user, id}) => {
       </div>
       {
         changes.comment !== review.comment || changes.rating !== review.rating ?
-        <button onClick={() => dispatch(modifyReview(review.id, changes, token))}>Save Changes</button> : null
+        <button className='userReviewSaveButton' onClick={() => dispatch(modifyReview(review.id, changes, token))}>Save Changes</button> : null
       }
     </div>
   );
