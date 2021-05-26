@@ -5,7 +5,7 @@ import {addCategoryAsync} from '../../app/actions/handleProductsActions/index';
 import {formData} from '../../types';
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
 import './formCategoryCreation.css';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 const FormCategoryCreation = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ const FormCategoryCreation = () => {
     let flag = true;
     if (input === '') {
       flag = false;
-      return swal({
+      return swal.fire({
         text: 'Insert a category name!',
         icon: 'info',
       });

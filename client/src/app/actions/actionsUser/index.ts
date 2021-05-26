@@ -53,6 +53,8 @@ const sendFormAsync = (form: any) => {
       await axios.post(`${BACK_ROUTE}/user/signup`, form);
     } catch (err) {
       console.log(err);
+      // this is for error handling
+      if (err) return 'error';
     }
   };
 };
@@ -61,7 +63,6 @@ const loginFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
       const res = await axios.post(`${BACK_ROUTE}/user/signin`, form);
-      console.log(res.data);
       const loginUser = res.data;
       if (typeof res.data !== 'object') {
         dispatch(loginFailed());
@@ -81,7 +82,7 @@ const loginFormAsync = (form: any) => {
     } catch (err) {
       dispatch(loginFailed());
       console.error(err);
-      // this here for helping with error handling
+      // this is here for helping with error handling
       if (err) return 'error';
     }
   };

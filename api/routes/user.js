@@ -66,6 +66,9 @@ router.post('/signup', isNotLogged, (req, res, next) => {
       password,
     };
     User.create(newUser).then(async (info) => {
+      // error handling for the client
+      if (newUser.name === name) return res.send('Username already exists');
+      if (newUser.email === email) return res.send('Email already exists');
       // send mail with defined transport object
       await transporter.sendMail({
         from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
@@ -73,7 +76,8 @@ router.post('/signup', isNotLogged, (req, res, next) => {
         subject: 'SignUp Success ✔', // Subject line
         html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
       });
-      res.send(info); })
+      res.send(info);
+    })
       .catch((e) => {
         res.status(400);
         next(e);
@@ -103,7 +107,6 @@ router.post('/signupgoogle', async (req, res, next) => {
       token: accessToken,
     });
   }
-  console.log(NEW_ID)
   const newUser = {
     id,
     name: `${name}#${NEW_ID}`,
@@ -114,7 +117,6 @@ router.post('/signupgoogle', async (req, res, next) => {
     profilePicture,
   };
   NEW_ID += 1;
-  console.log(NEW_ID)
   User.create(newUser).then(async () => {
     // send mail with defined transport object
     await transporter.sendMail({
@@ -210,7 +212,7 @@ router.post('/admin', isAdmin, (req, res, next) => {
   }
 });
 
-router.put('/:id', isAdmin, (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   try {
     const { id } = req.params;
     const { body } = req;

@@ -5,7 +5,7 @@ import {useAppDispatch} from '../../app/hooks';
 import {sendFormAsync, loginFormAsync} from '../../app/actions/actionsUser';
 import './formRegisterForm.css';
 import {Redirect} from 'react-router-dom';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 // eslint-disable-next-line no-unused-vars
 import GoogleComp from '../googleComp/googleComp';
 
@@ -101,30 +101,31 @@ const FormRegisterForm = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      swal({
-        title: 'Register completed!',
-        icon: 'success',
-      });
+      // using dispatch as a promise for error handling
       dispatch(sendFormAsync(input))
-          .then((r) => {
-            const loginInput = {username: input.name, password: input.password};
-            dispatch(loginFormAsync(loginInput))
-                .then((r) => {
-                  setRedirect(true);
-                }).catch((err) => console.error(err));
+          .then((r:any) => {
+            console.log(r);
+            if (r !== 'error') {
+              swal.fire({
+                title: 'Register completed!',
+                icon: 'success',
+              });
+              const loginInput = {username: input.name,
+                password: input.password};
+              dispatch(loginFormAsync(loginInput))
+                  .then((r) => {
+                    setRedirect(true);
+                  }).catch((err) => console.error(err));
+            } else {
+              swal.fire({
+                title: 'Register Failed',
+                html: `Email or Username already exists!
+                <a href='/profile'>Log in Here!</a>`,
+              });
+            }
           }).catch((err) => console.error(err));
-      setInput({
-        name: '',
-        email: '',
-        firstName: '',
-        lastName: '',
-        password: '',
-        confirmPassword: '',
-        birthday: '',
-        country: '',
-      });
     } else {
-      swal({
+      swal.fire({
         title: 'Complete the required spaces!',
         icon: 'warning',
       });

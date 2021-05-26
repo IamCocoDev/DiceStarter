@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import './userReviewForm.css';
 import {postReview} from '../../app/actions/reviewsActions/index';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
 import {Redirect} from 'react-router-dom';
 
@@ -29,7 +29,7 @@ const UserReviewForm = (props: {id:string}) => {
   const handleReviewSubmit = (e: any) => {
     e.preventDefault();
     if (!user.name) {
-      swal('You must be logged in for writing a review!');
+      swal.fire('You must be logged in for writing a review!');
       guestFlag = false;
       setRedirect(true);
     }
@@ -37,7 +37,7 @@ const UserReviewForm = (props: {id:string}) => {
       if (r.user.name === user.name) flag = false;
     });
     if (flag === false) {
-      return swal({
+      return swal.fire({
         text: 'You already gave your opinion',
         icon: 'info',
       });
@@ -47,20 +47,20 @@ const UserReviewForm = (props: {id:string}) => {
         if (input.rating > 0) {
           dispatch(postReview({...input, id: props.id}, props.id, token));
         } else {
-          swal({
+          swal.fire({
             text: 'A rating score is required for posting a review',
             icon: 'warning',
           });
         }
       } else {
-        swal({
+        swal.fire({
           text: 'Your review must have less than 255 characters',
           icon: 'warning',
         });
       }
       // Prevents unnecessary alerts
     } else if (guestFlag === true && flag === true) {
-      swal({
+      swal.fire({
         text: 'Your review must have something to say',
         icon: 'info',
       });
