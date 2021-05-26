@@ -23,6 +23,11 @@
   margin: 0.5rem 0;
 }
 
+.userReviewTitle{
+  padding-bottom: 0.25rem;
+  border-bottom: 0.1rem solid white;
+}
+
 .userReviewRating, .userReviewComment{
   font-size: 1.1rem;
 }
