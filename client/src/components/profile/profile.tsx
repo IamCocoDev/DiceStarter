@@ -6,6 +6,7 @@ import {userInfo} from '../../app/reducers/registerReducer';
 import './profile.css';
 import Login from '../login/login';
 import user from '../../img/user.png';
+import {NavLink} from 'react-router-dom';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -27,10 +28,18 @@ const Profile = () => {
       </div>
       <div className='profileRight'>
         <p className='profileBirthday'>Birthday: <p className= 'noteditable'>{birthDate}</p></p>
-        <p className='profileAddress'> Address:<p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}> {User.address}</p> </p>
-        <p className='profileCity'>City: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}> {User.city}, {User.country}</p></p>
-        <p className='profilePostal'>Postal Code: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}>{User.postalCode}</p> </p>
-        <p className='profilePhoneNumber'>Phone Number: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}>{User.phoneNumber}</p> </p>
+        {
+          User.address ?
+          <div>
+            <p className='profileAddress'> Address:<p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}> {User.address}</p> </p>
+            <p className='profileCity'>City: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}> {User.city}, {User.country}</p></p>
+            <p className='profilePostal'>Postal Code: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}>{User.postalCode}</p> </p>
+            <p className='profilePhoneNumber'>Phone Number: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}>{User.phoneNumber}</p> </p>
+          </div> :
+            <p className='profileAddressForm'>
+            It seems you do not have an address, <NavLink to='/profile/address'> create one here!  </NavLink>
+            </p>
+        }
         <p className='profileEmail'>Email Adress: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}> {User.email}</p></p>
         <div className='profileButtons'>
           <input className='profileEditButton' type='button' value='Edit' onClick={() => setEditMode(!editMode)}/>
