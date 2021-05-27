@@ -52,7 +52,11 @@ export const addProductInCart = (product, userId = '') => (dispatch) => {
       price: product.price,
       address: 'cordoba',
     })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          console.error(err);
+          // error string for error handling
+          return 'error';
+        });
   }
 };
 

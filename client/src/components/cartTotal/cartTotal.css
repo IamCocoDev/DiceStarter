@@ -5,7 +5,11 @@
 
 .cartTotalText{
   font-size: 2rem;
-  margin-top: 5rem;
+  margin-top: 3rem;
+}
+.cartTotalProductTotal{
+  font-size: 1rem;
+  margin-top: 3rem;
 }
 
 .cartButtonToCheckout, .cartButtonSignIn{

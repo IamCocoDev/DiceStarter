@@ -12,6 +12,8 @@ const CartTotal = () => {
   const dispatch = useAppDispatch();
   const productsInCart = useAppSelector(cartsReducer);
   const reduxUser = useAppSelector(userInfo);
+  let productsTotal = productsInCart.length;
+  productsInCart.forEach((p:any) => productsTotal += p.amount);
   const user = JSON.parse(localStorage
       .getItem('user') || '{}');
   const userId = user.id;
@@ -27,7 +29,6 @@ const CartTotal = () => {
 
   const handleGoToCheckout = () => {
     // checks if user has adress
-    console.log(reduxUser);
     if (reduxUser.address) {
       if (productsInCart.length > 0) {
         // if it has one adress dispatch checkout
@@ -49,6 +50,7 @@ const CartTotal = () => {
 
   return (
     <div className='cartTotal'>
+      <p className='cartTotalProductTotal'>Products in cart: {productsTotal}</p>
       <p className='cartTotalText'>TOTAL: ${total}</p>
       {
         userId ? <button onClick={handleGoToCheckout}
