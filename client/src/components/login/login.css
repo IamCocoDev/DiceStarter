@@ -2,8 +2,8 @@
 .loginGrid{
     background-color: #101010;
     color: white;
-    height: 27.5rem;
-    width: 27.5rem;
+    height: 30rem;
+    width: 30rem;
     margin: 3rem auto;
     display: flex;
     justify-content: space-evenly;
