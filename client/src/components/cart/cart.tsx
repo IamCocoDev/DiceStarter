@@ -5,6 +5,7 @@ import CartProduct from '../cartProduct/cartProduct';
 import {deleteAllCart, getProductsInCart} from '../../app/actions/cartActions';
 import CartTotal from '../cartTotal/cartTotal';
 import {userInfo} from '../../app/reducers/registerReducer';
+import swal from 'sweetalert2';
 import './cart.css';
 
 const Cart = () => {
@@ -14,11 +15,45 @@ const Cart = () => {
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
   const [products, setProducts] = React.useState([]);
-  const handleDeleteCart = async () => {
-    await dispatch(deleteAllCart(userId));
-    dispatch(getProductsInCart(userId));
-    findDuplicates(productsInCart);
+  const handleDeleteCart = () => {
+    if (productsInCart.length <= 0) {
+      swal.fire({
+        text: 'You already deleted all the products from this cart!',
+        icon: 'info',
+      });
+    } else {
+      swal.fire({
+        title: 'Are you sure?',
+        text: 'This will delete the whole cart!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+      })
+          .then((result) => {
+            if (result.isConfirmed) {
+              dispatch(deleteAllCart(userId))
+                  .then((r) => {
+                    if (r !== 'error') {
+                      dispatch(getProductsInCart(userId));
+                      findDuplicates(productsInCart);
+                      swal.fire({
+                        text: 'Cart deleted successfully',
+                        icon: 'info',
+                      });
+                    } else {
+                      swal.fire({
+                        text: 'Oops, something went wrong',
+                        icon: 'error',
+                      });
+                    }
+                  }).catch((err) => console.error(err));
+            }
+          });
+    }
   };
+
 
   const findDuplicates = (array) => {
     if (array.length !== 0) {
@@ -40,7 +75,6 @@ const Cart = () => {
   useEffect(() => {
     dispatch(getProductsInCart(userId));
     findDuplicates(productsInCart);
-    console.log(userId);
   }, []);
 
   useEffect(() => {

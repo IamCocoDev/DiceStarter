@@ -13,6 +13,7 @@ import Carousel from '../carousel/carousel';
 import {userInfo} from '../../app/reducers/registerReducer';
 import {addProductInCart} from '../../app/actions/cartActions/index';
 import RatingStars from '../ratingStars/ratingStars';
+import swal from 'sweetalert2';
 
 function ProductDetail(props:any ) {
   const User = useAppSelector(userInfo);
@@ -39,6 +40,10 @@ function ProductDetail(props:any ) {
     const duplicate = JSON.parse(localStorage
         .getItem('cart') || '[]').find((el) => el.id === product.id);
     if (duplicate) {
+      swal.fire({
+        text: 'You already added this product to cart!',
+        icon: 'info',
+      });
     } else {
       dispatch(addProductInCart({
         id: product.id,
@@ -48,6 +53,10 @@ function ProductDetail(props:any ) {
         stock: product.stock,
         amount: 1,
       }, User.id));
+      swal.fire({
+        text: 'Product added succesfully!',
+        icon: 'success',
+      });
     }
   };
   return (

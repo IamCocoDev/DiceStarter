@@ -6,6 +6,7 @@ import {deleteReviews,
   modifyReview} from '../../app/actions/reviewsActions/index';
 import {userInfo} from '../../app/reducers/registerReducer';
 import './userReview.css';
+import RatingStars from '../ratingStars/ratingStars';
 const UserReview = (props:{review, token, user, id}) => {
   const user = useAppSelector(userInfo);
   const [toggle, setToggle] = useState(false);
@@ -21,16 +22,10 @@ const UserReview = (props:{review, token, user, id}) => {
   const handleCommentChange = (e: any) => {
     setChanges({...changes, comment: e.target.innerText});
   };
-  const handleRatingChange = (e: any) => {
-    if (parseInt(e.target.innerText) <= 5) {
-      setChanges({...changes, rating: e.target.innerText});
-    }
-  };
   const handleDelete = (e) => {
     dispatch(deleteReviews(e.target.value, props.id, token));
     dispatch(getReviews(props.id));
   };
-  console.log(review);
   useEffect(() => {
     review.user.name === user.name ? setToggle(true) : null;
   });
@@ -38,7 +33,7 @@ const UserReview = (props:{review, token, user, id}) => {
     <div className='userReviewAll'>
       <div className='userReviewBox'>
         <h2 className='userReviewTitle'>{review.user.name}</h2>
-        <p className='userReviewRating' suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleRatingChange}>{review.rating}</p>
+        <p className='userReviewRating' ><RatingStars rating={review.rating}/></p>
         <p className='userReviewComment' suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleCommentChange}>{review.comment}</p>
       </div>
       <div className='userReviewButtons'>

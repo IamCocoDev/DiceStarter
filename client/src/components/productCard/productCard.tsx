@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {userInfo} from '../../app/reducers/registerReducer';
 import {addProductInCart} from '../../app/actions/cartActions/index';
 import RatingStars from '../ratingStars/ratingStars';
+import swal from 'sweetalert2';
 
 function ProductCard(
     props:{
@@ -23,6 +24,10 @@ function ProductCard(
     const duplicate = JSON.parse(localStorage
         .getItem('cart') || '[]').find((el) => el.id === props.id);
     if (duplicate) {
+      swal.fire({
+        text: 'You already added this product to cart!',
+        icon: 'info',
+      });
     } else {
       dispatch(addProductInCart({
         id: props.id,
@@ -32,6 +37,10 @@ function ProductCard(
         stock: props.stock,
         amount: 1,
       }, user.id));
+      swal.fire({
+        text: 'Product added succesfully!',
+        icon: 'success',
+      });
     }
   };
   return (
