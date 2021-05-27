@@ -34,9 +34,9 @@ function validate(input: registerInput) {
     country: '',
   };
   if (!input.name) {
-    errors.name = 'name is required';
+    errors.name = 'User Name is required';
   } else if (!/[0-9a-zA-Z]{5,}/.test(input.name)) {
-    errors.name = 'name is invalid';
+    errors.name = 'Name is invalid';
   }
   if (!input.email) {
     errors.email = 'Email is required';
@@ -44,17 +44,17 @@ function validate(input: registerInput) {
     errors.email = 'Email is invalid';
   }
   if (!input.firstName) {
-    errors.firstName = 'firstName is required';
+    errors.firstName = 'First Name is required';
   } else if (/[\d.]/.test(input.firstName)) {
-    errors.firstName = 'firstName is invalid';
+    errors.firstName = 'First Name is invalid';
   }
   if (!input.lastName) {
-    errors.lastName = 'lastName is required';
+    errors.lastName = 'Last Name is required';
   } else if (/[\d.]/.test(input.lastName)) {
-    errors.lastName = 'lastName is invalid';
+    errors.lastName = 'Last Name is invalid';
   }
   if (!input.birthday) {
-    errors.birthday = 'birthday is required';
+    errors.birthday = 'Birthday is required';
   }
   if (!input.password) {
     errors.password = 'Password is required';
@@ -148,7 +148,7 @@ const FormRegisterForm = () => {
       }
       <form className='registerGrid' onSubmit={handleSubmit}>
         <div className='registerName'>
-          <label className='registerH1' htmlFor="">Name</label>
+          <label className='registerH1' htmlFor="">User Name</label>
           <input className='registerInput'
             type="text"
             name="name"

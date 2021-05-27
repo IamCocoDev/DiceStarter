@@ -20,7 +20,7 @@
     color: white;
 }
 
-.profileBirthday, .profileAddress, .profileCity, .profilePostal, .profilePhoneNumber, .profileEmail{
+.profileBirthday, .profileAddress, .profileCity, .profilePostal, .profilePhoneNumber, .profileEmail, .profileAddressForm{
     display: inline-block;
     font-size: 1.1rem;
     color: white;
@@ -91,7 +91,6 @@
   margin: 0 0.5rem;
   display: inline-block;
 }
-
 
 
 

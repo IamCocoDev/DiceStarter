@@ -16,47 +16,67 @@ const FormAddress = () => {
     postalCode: '',
     phone: '',
   });
+
   const token = useAppSelector(userToken);
   const dispatch = useAppDispatch();
   const handleAddressChange = (e: any) => {
     setAddress({...address, [e.target.name]: e.target.value});
   };
+  const phoneValidator = (phone:string) => {
+    // eslint-disable-next-line max-len
+    const phoneValidator = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+    if (phone.length > 0) {
+      phoneValidator.test(phone) === false ? false : true;
+    } else {
+      return true;
+    }
+  };
+
   const handleAddressSubmit = (e: any) => {
     e.preventDefault();
     const phoneNumber = parseInt(address.phone);
-    if (address.address.length > 0) {
-      if (address.city.length > 0) {
-        if (address.postalCode.length > 0) {
-          if (typeof phoneNumber === 'number' || address.phone === '') {
-            dispatch(modifyAddress(address, token))
-                .then((r) => {
-                  if (r !== 'error') {
-                    swal.fire('Address changed succesfully!');
-                  } else {
-                    swal.fire('Oops, something went wrong');
-                  }
-                }).catch((err) => console.error(err));
+    // all these code is form validation
+    if (phoneValidator(address.phone)) {
+      if (address.address.length > 0) {
+        if (address.city.length > 0) {
+          if (address.postalCode.length > 0) {
+            if (typeof phoneNumber === 'number' || address.phone === '') {
+              // here is the dispatch
+              dispatch(modifyAddress(address, token))
+                  .then((r) => {
+                    if (r !== 'error') {
+                      swal.fire('Address changed succesfully!');
+                    } else {
+                      swal.fire('Oops, something went wrong');
+                    }
+                  }).catch((err) => console.error(err));
+            } else {
+              swal.fire({
+                text: 'You need to insert a proper phone number!',
+                icon: 'warning',
+              });
+            }
           } else {
             swal.fire({
-              text: 'You need to insert a proper phone number!',
+              text: 'You need to insert your Postal Code!',
               icon: 'warning',
             });
           }
         } else {
           swal.fire({
-            text: 'You need to insert your Postal Code!',
+            text: 'You need to insert your city!',
             icon: 'warning',
           });
         }
       } else {
         swal.fire({
-          text: 'You need to insert your city!',
+          text: 'You need to insert your address!',
           icon: 'warning',
         });
       }
     } else {
       swal.fire({
-        text: 'You need to insert your address!',
+        text: 'The phone you added is not correct!',
         icon: 'warning',
       });
     }

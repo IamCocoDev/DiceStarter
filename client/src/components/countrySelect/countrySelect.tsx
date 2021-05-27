@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import './countrySelect.css';
 
 
 const CountrySelect = (props) => {
@@ -7,7 +8,7 @@ const CountrySelect = (props) => {
   // eslint-disable-next-line react/prop-types
   const {handle, val} = props;
   return (
-    <select
+    <select className='countrySelectAll'
       name='country'
       onChange={(e) => handle(e)}
       value={val}
