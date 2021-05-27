@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Select from 'react-select';
 import {userChanges} from '../../types';
-import {modifyUser, getUsers} from '../../app/actions/actionsUser/index';
+import {modifyUser} from '../../app/actions/actionsUser/index';
 import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {userToken} from '../../app/reducers/registerReducer';
 import './userList.css';
@@ -23,6 +23,7 @@ const UserList = (props:any) => {
   const token = useAppSelector(userToken);
   const handleRoleChange = (e: any) => {
     setChanges({...changes, role: e.label});
+    console.log(changes);
   };
   const handleStatusChange = (e:any) => {
     setChanges({...changes, status: e.target.label});
@@ -42,9 +43,6 @@ const UserList = (props:any) => {
       status: '',
     });
   };
-  useEffect(() => {
-    dispatch(getUsers(token));
-  }, [changes]);
   return (
     <div className='userListGrid'>
       <h1 className='userListName'>{props.name}</h1>

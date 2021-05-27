@@ -27,9 +27,10 @@ router.post('/', isAdmin, async (req, res, next) => {
     const {
       name, size, color, picture, price, stock, description, categories,
     } = req.body;
+    const rating = 0.00;
 
     const newProduct = {
-      id, name, size, color, picture, price, stock, description,
+      id, name, size, color, picture, price, stock, description, rating,
     };
     const info = await Product.create(newProduct);
     info.setCategories(categories);
@@ -84,14 +85,22 @@ router.post('/:id/review', isLogged, (req, res, next) => {
   const { userId } = req.body;
   const { rating } = req.body;
   const { comment } = req.body;
-  console.log(req.body);
-  console.log(userId);
+
   Reviews.create({
     rating,
     comment,
     productId: id,
   })
     .then((r) => {
+      Product.findByPk(id)
+        .then(async (r) => {
+          const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
+          const quantityRev = await Reviews.count({ where: { productId: id } });
+          const average = sumReviews / quantityRev;
+          console.log(sumReviews);
+          console.log(quantityRev);
+          r.update({ rating: parseFloat(average.toFixed(2)) });
+        });
       User.findByPk(userId)
         .then((u) => {
           r.setUser(u);

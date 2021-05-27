@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {formData, formInputData, registerInput} from '../../types';
 import CountrySelect from '../countrySelect/countrySelect';
 import {useAppDispatch} from '../../app/hooks';
-import {sendFormAsync} from '../../app/actions/actionsUser';
+import {sendFormAsync, loginFormAsync} from '../../app/actions/actionsUser';
 import './formRegisterForm.css';
 import {Redirect} from 'react-router-dom';
+import swal from 'sweetalert2';
 // eslint-disable-next-line no-unused-vars
 import GoogleComp from '../googleComp/googleComp';
 
@@ -100,21 +101,34 @@ const FormRegisterForm = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      alert('Register completed!');
-      dispatch(sendFormAsync(input));
-      setRedirect(true);
-      setInput({
-        name: '',
-        email: '',
-        firstName: '',
-        lastName: '',
-        password: '',
-        confirmPassword: '',
-        birthday: '',
-        country: '',
-      });
+      // using dispatch as a promise for error handling
+      dispatch(sendFormAsync(input))
+          .then((r:any) => {
+            console.log(r);
+            if (r !== 'error') {
+              swal.fire({
+                title: 'Register completed!',
+                icon: 'success',
+              });
+              const loginInput = {username: input.name,
+                password: input.password};
+              dispatch(loginFormAsync(loginInput))
+                  .then((r) => {
+                    setRedirect(true);
+                  }).catch((err) => console.error(err));
+            } else {
+              swal.fire({
+                title: 'Register Failed',
+                html: `Email or Username already exists!
+                <a href='/profile'>Log in Here!</a>`,
+              });
+            }
+          }).catch((err) => console.error(err));
     } else {
-      alert('Complete the requiered spaces!');
+      swal.fire({
+        title: 'Complete the required spaces!',
+        icon: 'warning',
+      });
     }
   };
 

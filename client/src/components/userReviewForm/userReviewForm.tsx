@@ -3,6 +3,7 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import './userReviewForm.css';
 import {postReview} from '../../app/actions/reviewsActions/index';
 import {reviewsResponse} from '../../app/reducers/reviewsReducer';
+import swal from 'sweetalert2';
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
 import {Redirect} from 'react-router-dom';
 
@@ -22,30 +23,47 @@ const UserReviewForm = (props: {id:string}) => {
   const handleClickStarValue = (e: any) => {
     setInput({...input, rating: e.target.value});
   };
+  // flags for authenticating users and reviews
   let flag = true;
+  let guestFlag = true;
   const handleReviewSubmit = (e: any) => {
     e.preventDefault();
     if (!user.name) {
-      alert('You must be logged in for writing a review!');
-      flag = false;
+      swal.fire('You must be logged in for writing a review!');
+      guestFlag = false;
       setRedirect(true);
     }
-    postedReviews.forEach((r:any) => {
+    postedReviews !== null && postedReviews.forEach((r:any) => {
       if (r.user.name === user.name) flag = false;
     });
-    if (flag === false) return alert('You already gave your opinion');
-    if (input.comment) {
+    if (flag === false) {
+      return swal.fire({
+        text: 'You already gave your opinion',
+        icon: 'info',
+      });
+    }
+    if (input.comment && flag === true && guestFlag === true) {
       if (input.comment.length < 255) {
         if (input.rating > 0) {
           dispatch(postReview({...input, id: props.id}, props.id, token));
         } else {
-          alert('A rating score is required for posting a review');
+          swal.fire({
+            text: 'A rating score is required for posting a review',
+            icon: 'warning',
+          });
         }
       } else {
-        alert('Your review must have less than 255 characters');
+        swal.fire({
+          text: 'Your review must have less than 255 characters',
+          icon: 'warning',
+        });
       }
-    } else {
-      alert('Your review must have something to say');
+      // Prevents unnecessary alerts
+    } else if (guestFlag === true && flag === true) {
+      swal.fire({
+        text: 'Your review must have something to say',
+        icon: 'info',
+      });
     }
   };
   return (
@@ -81,7 +99,7 @@ const UserReviewForm = (props: {id:string}) => {
         >
         </textarea>
         <button className='userReviewFormButton' type='submit'>
-          Post Opinion
+          Send
         </button>
       </div>
     </form>

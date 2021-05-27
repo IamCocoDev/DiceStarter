@@ -5,6 +5,7 @@ import {deleteReviews,
   getReviews,
   modifyReview} from '../../app/actions/reviewsActions/index';
 import {userInfo} from '../../app/reducers/registerReducer';
+import './userReview.css';
 const UserReview = (props:{review, token, user, id}) => {
   const user = useAppSelector(userInfo);
   const [toggle, setToggle] = useState(false);
@@ -30,22 +31,26 @@ const UserReview = (props:{review, token, user, id}) => {
     dispatch(getReviews(props.id));
   };
   useEffect(() => {
-    review.user.name === user.name || user.role === 'Admin' ? setToggle(true) : null;
+    review.user.name === user.name ? setToggle(true) : null;
   });
   return (
-    <div>
-      <h1>{review.user.name}</h1>
-      <p suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleRatingChange}>{review.rating}</p>
-      <p suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleCommentChange}>{review.comment}</p>
-      { toggle === true &&
-          <button onClick={handleEditMode}>Edit </button>
-      }
-      { toggle === true &&
-        <button onClick={handleDelete} value={review.id}> Delete Review </button>
-      }
+    <div className='userReviewAll'>
+      <div className='userReviewBox'>
+        <h2 className='userReviewTitle'>{review.user.name}</h2>
+        <p className='userReviewRating' suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleRatingChange}>{review.rating}</p>
+        <p className='userReviewComment' suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleCommentChange}>{review.comment}</p>
+      </div>
+      <div className='userReviewButtons'>
+        { toggle === true &&
+          <button className='userReviewEditButton' onClick={handleEditMode}>✎</button>
+        }
+        { toggle === true && review.user.name === user.name &&
+        <button className='userReviewDeleteButton' onClick={handleDelete} value={review.id}>🗑</button>
+        }
+      </div>
       {
         changes.comment !== review.comment || changes.rating !== review.rating ?
-        <button onClick={() => dispatch(modifyReview(review.id, changes, token))}>Save Changes</button> : null
+        <button className='userReviewSaveButton' onClick={() => dispatch(modifyReview(review.id, changes, token))}>Save Changes</button> : null
       }
     </div>
   );

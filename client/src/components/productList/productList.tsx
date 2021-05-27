@@ -1,26 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import {
-  ProductRes, formInputData, formTextAreaData,
-  Categories,
+  ProductRes, formInputData,
 } from '../../types';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {
   changeProductInDBAsync, deleteProductByIdAsync}
   from '../../app/actions/handleProductsActions/index';
-import {
-  productCategories,
-} from '../../app/reducers/handleProductsReducer';
 import ColorCircle from '../colorCircle/ColorCircle';
 import './productList.css';
-import Select from 'react-select';
 import {userToken} from '../../app/reducers/registerReducer';
 
 function ProductList(props: ProductRes): JSX.Element {
   const dispatch = useAppDispatch();
   const [color, setColor] = useState('');
   const [available, setAvailable] = useState('true');
-  const productCats = useAppSelector(productCategories);
-  const [categories, setCategories] = useState<Categories[]>();
   const [input, setInput] = useState<ProductRes>({
     id: props.id,
     name: props.name,
@@ -43,24 +36,8 @@ function ProductList(props: ProductRes): JSX.Element {
     } else {
       setAvailable('false');
     }
-    const myCategories = props.categories.map((el) => {
-      return {
-        value: el.name,
-        label: el.name,
-      };
-    });
-    // const inputCategories = props.categories.map((el) => el.id);
     setInput({...input, categories: props.categories});
-    setCategories(myCategories);
   }, []);
-
-  const handleSelectChange = (e: any) : void => {
-    setCategories(e);
-    const data = e.map((el: Categories) => {
-      return el.value;
-    });
-    setInput({...input, categories: data});
-  };
 
   useEffect(() => {
   }, [input]);
@@ -71,10 +48,6 @@ function ProductList(props: ProductRes): JSX.Element {
       data = parseFloat(data);
     };
     setInput({...input, [e.target.name]: data});
-  };
-
-  const handleTextAreaChange = (e: formTextAreaData) => {
-    setInput({...input, [e.target.name]: e.target.value});
   };
 
   const addColor = (color: string) => {
@@ -111,22 +84,6 @@ function ProductList(props: ProductRes): JSX.Element {
         step="0.1"
         onChange={handleNumberChange}
       ></input>
-      <Select
-        isMulti
-        name="categories"
-        className="productsListCategories"
-        options={productCats}
-        value={categories}
-        onChange={handleSelectChange}
-        defaultValue={categories}
-      ></Select>
-      <textarea
-        className="productsListDescription"
-        placeholder={'Description'}
-        value={input.description}
-        name="description"
-        onChange={handleTextAreaChange}
-      ></textarea>
       <input
         className="productsListStock"
         type="number"
@@ -161,14 +118,6 @@ function ProductList(props: ProductRes): JSX.Element {
           value="Add color"
           onClick={() => addColor(color)} />
       </div>
-      <input
-        className="productsListImageUrl"
-        type="text"
-        placeholder={'Image'}
-        value={input.picture}
-        name="picture"
-        onChange={handleNumberChange}
-      ></input>
       <button className="productsListEditButton" onClick={() => {
         if (window.confirm(`Save changes to ${input.name}?`)) {
           dispatch(changeProductInDBAsync(input, token));

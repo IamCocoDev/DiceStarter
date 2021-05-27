@@ -81,9 +81,9 @@ function ProductsList() {
           options={sortType}
           placeholder='Choose your order...'
           onChange={(e) => {
-            setFilters({...filters, sort: e?.label});
+            setFilters({...filters, sort: e.label});
             dispatch(getProductsAsync({name: filters.name,
-              page: filters.page, filter: filters.filter, sort: e?.label}));
+              page: filters.page, filter: filters.filter, sort: e.label}));
           }}
         ></Select>
         <Select
@@ -91,9 +91,9 @@ function ProductsList() {
           options={categoriesCopy}
           placeholder='Choose your sort...'
           onChange={(e) => {
-            setFilters({...filters, filter: e?.value});
+            setFilters({...filters, filter: e.value});
             dispatch(getProductsAsync({name: filters.name,
-              page: filters.page, filter: e?.value, sort: filters.sort}));
+              page: filters.page, filter: e.value, sort: filters.sort}));
           }}
         ></Select>
       </div>
@@ -101,12 +101,9 @@ function ProductsList() {
         <div className='productsListLabels'>
           <span className='productsListName'>Name</span>
           <span className='productsListPrice'>Price</span>
-          <span className='productsListCategories'>Categories</span>
-          <span className='productsListDescription'>Description</span>
           <span className='productsListStock'>Stock</span>
           <span className='productsListSize'>Size</span>
           <span className='productsListColors'>Colors</span>
-          <span className='productsListImageUrl'>Image Url</span>
         </div>
         <div className='productsListProducts'>
           { adminProducts !== null &&

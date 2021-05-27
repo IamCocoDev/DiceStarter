@@ -16,7 +16,7 @@ const CategoryList = () => {
     dispatch(getCategoriesAsync());
   }, []);
   return (
-    <div>
+    <div className='categoryListAll'>
       {productCats.length ?
               productCats.map((el) =>
                 <CategoriesList key={el.value} name={el.label} />) :

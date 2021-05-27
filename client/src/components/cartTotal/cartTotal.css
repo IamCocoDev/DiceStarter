@@ -1,31 +1,28 @@
+.cartTotal{
+  background-color: #101010;
+  border-radius: 0.5rem;
+}
+
 .cartTotalText{
-    font-size: 3vw;
+  font-size: 2rem;
+  margin-top: 5rem;
 }
 
-.cartButtonToCheckout{
-    border: none;
-    color: white;
-    margin: 1vw;
-    width: 12vw;
-    height: auto;
-    justify-self: center;
-    align-self: center;
-    font-size: 3vh;
-    background-color: #74009D;
-    border-radius: 0.5vw;
-    text-align: center;
+.cartButtonToCheckout, .cartButtonSignIn{
+  cursor: pointer;
+  border: none;
+  color: white;
+  margin: 1rem;
+  width: 10rem;
+  height: 3rem;
+  justify-self: center;
+  align-self: center;
+  font-size: 1.2rem;
+  background-color: #74009D;
+  border-radius: 0.5rem;
+  text-align: center;
 }
 
-.cartButtonSignIn{
-    border: none;
-    color: white;
-    margin: 1vw;
-    width: 12vw;
-    height: auto;
-    justify-self: center;
-    align-self: center;
-    font-size: 3vh;
-    background-color: #74009D;
-    border-radius: 0.5vw;
-    text-align: center;
+.cartButtonToCheckout:hover, .cartButtonSignIn:hover{
+  background-color: #9e00d3;
 }

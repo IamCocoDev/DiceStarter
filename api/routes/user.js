@@ -8,11 +8,17 @@ const isAdmin = require('../middleware/auth');
 const { isNotLogged } = require('../middleware/logged');
 const { transporter } = require('../configs/mailer');
 const template = require('./emails/emailRegistration');
-const templateorder = require('./emails/emailOrder');
 
 const {
   accessTokenSecret,
 } = process.env;
+
+let {
+  NEW_ID,
+} = process.env;
+
+// eslint-disable-next-line radix
+NEW_ID = parseInt(NEW_ID);
 
 const router = express.Router();
 
@@ -60,6 +66,9 @@ router.post('/signup', isNotLogged, (req, res, next) => {
       password,
     };
     User.create(newUser).then(async (info) => {
+      // error handling for the client
+      if (newUser.name === name) return res.send('Username already exists');
+      if (newUser.email === email) return res.send('Email already exists');
       // send mail with defined transport object
       await transporter.sendMail({
         from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
@@ -67,12 +76,61 @@ router.post('/signup', isNotLogged, (req, res, next) => {
         subject: 'SignUp Success ✔', // Subject line
         html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
       });
-      res.send(info); })
+      res.send(info);
+    })
       .catch((e) => {
         res.status(400);
         next(e);
       });
   });
+  return null;
+});
+
+router.post('/signupgoogle', async (req, res, next) => {
+  const id = uuidv4();
+  const {
+    name,
+    firstName,
+    lastName,
+    email,
+    googleId,
+    profilePicture,
+  } = req.body;
+  const user = await User.findOne({ where: { email } });
+  if (user) {
+    const accessToken = jwt.sign({
+      name: user.name,
+      role: user.role,
+    }, accessTokenSecret);
+    return res.send({
+      user: user.dataValues,
+      token: accessToken,
+    });
+  }
+  const newUser = {
+    id,
+    name: `${name}#${NEW_ID}`,
+    firstName,
+    lastName,
+    email,
+    googleId,
+    profilePicture,
+  };
+  NEW_ID += 1;
+  User.create(newUser).then(async () => {
+    // send mail with defined transport object
+    await transporter.sendMail({
+      from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+      to: newUser.email, // list of receivers
+      subject: 'SignUp Success ✔', // Subject line
+      html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
+    });
+    return res.send({ msg: 'User created' });
+  })
+    .catch((e) => {
+      res.status(400);
+      next(e);
+    });
   return null;
 });
 
@@ -154,7 +212,7 @@ router.post('/admin', isAdmin, (req, res, next) => {
   }
 });
 
-router.put('/:id', isAdmin, (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   try {
     const { id } = req.params;
     const { body } = req;
