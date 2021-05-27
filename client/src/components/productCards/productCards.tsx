@@ -8,6 +8,7 @@ import './productCards.css';
 
 function ProductCards() {
   const products = useSelector(productsList);
+  console.log(products);
   return (
     <div className='productCardsFlex'>
       {

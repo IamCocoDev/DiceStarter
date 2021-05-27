@@ -13,8 +13,9 @@ function ProductCard(
     image:string[],
     id:string,
     stock:number,
-    rating:string,
+    rating:number,
   }) {
+  console.log(props.rating);
   // const productToCart = useAppSelector(productDetail);
   const user = useAppSelector(userInfo);
   // const {id} = userInfo;

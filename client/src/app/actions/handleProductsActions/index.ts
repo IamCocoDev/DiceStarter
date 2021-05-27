@@ -33,7 +33,6 @@ const getProductsAsync = (SearchInput: SearchInput) => {
       dispatch(setProducts([]));
       const res = await axios.get(`${BACK_ROUTE}/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
       const totalPages = res.data.totalPages;
-      console.log(res.data);
       const products = res.data.products.map((product: ProductRes) => {
         return {
           id: product.id,
@@ -46,6 +45,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
           color: product.color,
           available: product.available,
           description: product.description,
+          rating: product.rating,
         };
       });
       dispatch(setProducts(products,
