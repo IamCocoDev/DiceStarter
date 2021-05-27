@@ -174,7 +174,6 @@ router.post('/logout', (req, res) => {
   res.send('Logout successful');
 });
 
-
 router.post('/admin', isAdmin, (req, res, next) => {
   const id = uuidv4();
   try {
@@ -220,6 +219,7 @@ router.put('/:id', (req, res, next) => {
     User.findByPk(id)
       .then((response) => {
         response.update(body, { where: { id } });
+        res.status(200).send('OK');
       }).catch((e) => next(e));
   } catch (err) {
     res.status(400);

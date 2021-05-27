@@ -30,6 +30,7 @@ const UserReview = (props:{review, token, user, id}) => {
     dispatch(deleteReviews(e.target.value, props.id, token));
     dispatch(getReviews(props.id));
   };
+  console.log(review);
   useEffect(() => {
     review.user.name === user.name ? setToggle(true) : null;
   });
