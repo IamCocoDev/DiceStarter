@@ -12,6 +12,7 @@ import UserReviews from '../userReviews/userReviews';
 import Carousel from '../carousel/carousel';
 import {userInfo} from '../../app/reducers/registerReducer';
 import {addProductInCart} from '../../app/actions/cartActions/index';
+import RatingStars from '../ratingStars/ratingStars';
 
 function ProductDetail(props:any ) {
   const User = useAppSelector(userInfo);
@@ -26,6 +27,7 @@ function ProductDetail(props:any ) {
     stock: props.stock,
     description: props.description,
     categories: props.categories,
+    rating: props.rating,
   });
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);
@@ -93,6 +95,9 @@ function ProductDetail(props:any ) {
                   <span className='ProductDetailSize'>
                   Size: {product.size}
                   </span>
+                  <span className='ProductDetailRating'>
+                    <RatingStars rating={product.rating}/>
+                  </span>
                 </div>
               </div>
             </div>
@@ -106,14 +111,6 @@ function ProductDetail(props:any ) {
         <UserReviews id={id}/>
       </div>
       }
-      {/*
-        productStatus === 'failed' &&
-        <div>
-          <h1 className='ProductDetailErrorHeader'>
-            Something went wrong
-          </h1>
-        </div>
-      */}
     </div>
   );
 }
