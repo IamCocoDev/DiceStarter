@@ -25,6 +25,24 @@ const getOrders = (token) => {
   };
 };
 
+const putOrderStatus = (idUser, newStatus, token) => {
+  return async (dispatch: any) => {
+    try {
+      await axios.post(`${BACK_ROUTE}/orders/${idUser}/update/cart`, newStatus);
+      const res = await axios.get(`${BACK_ROUTE}/orders/status/allorders`, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
+      dispatch(setOrders(res.data));
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export {
   getOrders,
+  putOrderStatus,
 };

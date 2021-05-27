@@ -19,7 +19,8 @@ const OrderList = () => {
   return (
     <div>
       {orders.length ? orders.map((el) =>
-        <OrderListItem key={el.id} id={el.id} status={el.status} />) : null}
+        // eslint-disable-next-line max-len
+        <OrderListItem key={el.id} id={el.id} status={el.status} order={el} />) : null}
     </div>
   );
 };
