@@ -15,7 +15,6 @@ function ProductCard(
     stock:number,
     rating:number,
   }) {
-  console.log(props.rating);
   // const productToCart = useAppSelector(productDetail);
   const user = useAppSelector(userInfo);
   // const {id} = userInfo;

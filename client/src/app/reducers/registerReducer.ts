@@ -16,8 +16,11 @@ const initialState: FormRegisterState = {
 };
 
 const formReducer = (state = initialState, action: any) => {
+  console.log('llegal al reducerstate');
   switch (action.type) {
     case SET_USER:
+      console.log(action.payload);
+      console.log('llega al reducer');
       return {
         ...state,
         inputs: action.payload,

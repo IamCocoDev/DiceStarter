@@ -27,7 +27,8 @@ const CartTotal = () => {
 
   const handleGoToCheckout = () => {
     // checks if user has adress
-    if (reduxUser.adress) {
+    console.log(reduxUser);
+    if (reduxUser.address) {
       if (productsInCart.length > 0) {
         // if it has one adress dispatch checkout
         dispatch(goToCheckout(productsInCart));
@@ -40,7 +41,7 @@ const CartTotal = () => {
     } else {
       swal.fire({
         html: `it seems you don't have an adress, 
-        <a href='/profile/adress'>Add one here</a>`,
+        <a href='/profile/address'>Add one here</a>`,
         icon: 'info',
       });
     };

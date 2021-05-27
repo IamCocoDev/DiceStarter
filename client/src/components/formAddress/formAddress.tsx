@@ -9,13 +9,7 @@ import './formAddress.css';
 const FormAddress = () => {
   // using typescript for securing data types
   const user = useAppSelector(userInfo);
-  const [address, setAddress] = useState<Address>({
-    id: user.id,
-    address: '',
-    city: '',
-    postalCode: '',
-    phone: '',
-  });
+  const [address, setAddress] = useState<Address>(user);
 
   const token = useAppSelector(userToken);
   const dispatch = useAppDispatch();
@@ -25,7 +19,7 @@ const FormAddress = () => {
   const phoneValidator = (phone:string) => {
     // eslint-disable-next-line max-len
     const phoneValidator = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
-    if (phone.length > 0) {
+    if (phone?.length > 0) {
       phoneValidator.test(phone) === false ? false : true;
     } else {
       return true;

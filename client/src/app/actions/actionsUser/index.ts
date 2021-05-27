@@ -55,6 +55,7 @@ const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
       await axios.post(`${BACK_ROUTE}/user/signup`, form);
+      dispatch(loginFormAsync(form));
     } catch (err) {
       console.log(err);
       // this is for error handling
@@ -158,6 +159,7 @@ const modifyAddress = (address:Address, token:string) => {
     try {
       dispatch(setUser(address));
       dispatch(setToken(token));
+      console.log(address);
       await axios.put(`${BACK_ROUTE}/user/${address.id}`, address, {
         headers: {
           'Authorization': 'Bearer ' + token,
