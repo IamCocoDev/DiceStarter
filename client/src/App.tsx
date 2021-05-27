@@ -72,7 +72,7 @@ function App() {
       <Route exact path='/profile' component={Profile} />
       <Route path='/cart' component={Cart}/>
       <Route exact path='/list/userlist' component={UserList}/>
-      <Route exact path='/profile/adress' component={FormAddress}></Route>
+      <Route exact path='/profile/address' component={FormAddress}></Route>
     </div>
   );
 }
