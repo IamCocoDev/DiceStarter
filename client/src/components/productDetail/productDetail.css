@@ -3,14 +3,14 @@
   flex-direction: column;
   justify-content: space-evenly;
   background-color: #101010;
-  margin: 5rem auto;
+  margin: 5rem auto 2rem auto;
   width: 70rem;
   height: 100%;
   padding: 1rem;
   border-radius: 0.5rem;
   text-align: center;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .carouselandinfo{
@@ -23,6 +23,7 @@
 .detailDescription, .ProductDetailDescription{
   margin: 1.5rem 0;
 }
+
 
 .productDetailinformation{
   margin: 3.5rem 0;
@@ -43,6 +44,10 @@
   font-size: 1.2rem;
 }
 
+.productDetailDescritionTitle{
+  padding-top: 1rem;
+  border-top: 0.1rem solid white;
+}
 .productDetailAddToCart{
   font-family: inherit;
   font-size: inherit;

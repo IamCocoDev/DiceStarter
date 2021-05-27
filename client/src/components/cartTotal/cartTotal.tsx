@@ -5,10 +5,13 @@ import {getProductsInCart, goToCheckout} from
   '../../app/actions/cartActions/index';
 import './cartTotal.css';
 import {NavLink} from 'react-router-dom';
+import {userInfo} from '../../app/reducers/registerReducer';
+import swal from 'sweetalert2';
 
 const CartTotal = () => {
   const dispatch = useAppDispatch();
   const productsInCart = useAppSelector(cartsReducer);
+  const reduxUser = useAppSelector(userInfo);
   const user = JSON.parse(localStorage
       .getItem('user') || '{}');
   const userId = user.id;
@@ -22,7 +25,26 @@ const CartTotal = () => {
     dispatch(getProductsInCart());
   }, [dispatch, userId]);
 
-  const handleGoToCheckout = () => dispatch(goToCheckout(productsInCart));
+  const handleGoToCheckout = () => {
+    // checks if user has adress
+    if (reduxUser.adress) {
+      if (productsInCart.length > 0) {
+        // if it has one adress dispatch checkout
+        dispatch(goToCheckout(productsInCart));
+      } else {
+        swal.fire({
+          text: 'You must add products to your cart in order to buy them!',
+          icon: 'info',
+        });
+      };
+    } else {
+      swal.fire({
+        html: `it seems you don't have an adress, 
+        <a href='/profile/adress'>Add one here</a>`,
+        icon: 'info',
+      });
+    };
+  };
 
   return (
     <div className='cartTotal'>
@@ -30,7 +52,7 @@ const CartTotal = () => {
       {
         userId ? <button onClick={handleGoToCheckout}
           className='cartButtonToCheckout'>Go To Checkout
-        </button> : <NavLink to='/login'>
+        </button> : <NavLink to='/profile'>
           <button className='cartButtonSignIn' >Sign in</button></NavLink>
       }
     </div>
