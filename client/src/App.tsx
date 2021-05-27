@@ -25,6 +25,7 @@ import {useAppSelector} from './app/hooks';
 import UserList from './components/usersList/usersList';
 import CategoryList from './components/categoryList/categoryList';
 import searchBar from './components/searchBar/searchBar';
+import OrderList from './components/orderList/orderList';
 
 function App() {
   const user = useAppSelector(userInfo);
@@ -56,7 +57,8 @@ function App() {
         component={CategoryList}/>
       {/* <Route exact path={['/login', '/profile']} component={Login}/> */}
       <Route exact path ={['/home', '/list/productlist']}
-        component={searchBar}/>
+        component={searchBar} />
+      <Route exact path='/list/order' component={OrderList} />
       <Route exact path='/list/productlist' component={ProductsList}/>
       <Route exact path='/register' component={FormRegisterForm}/>
       <Route exact path='/about' component={About}/>
