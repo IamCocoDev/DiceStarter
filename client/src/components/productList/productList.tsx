@@ -25,6 +25,7 @@ function ProductList(props: ProductRes): JSX.Element {
     stock: props.stock,
     description: props.description,
     categories: [],
+    rating: props.rating,
   });
 
   const token = useAppSelector(userToken);

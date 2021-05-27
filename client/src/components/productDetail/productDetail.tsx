@@ -26,6 +26,7 @@ function ProductDetail(props:any ) {
     stock: props.stock,
     description: props.description,
     categories: props.categories,
+    rating: props.rating,
   });
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);

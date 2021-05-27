@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {userInfo} from '../../app/reducers/registerReducer';
 import {addProductInCart} from '../../app/actions/cartActions/index';
+import RatingStars from '../ratingStars/ratingStars';
 
 function ProductCard(
     props:{
@@ -12,6 +13,7 @@ function ProductCard(
     image:string[],
     id:string,
     stock:number,
+    rating:string,
   }) {
   // const productToCart = useAppSelector(productDetail);
   const user = useAppSelector(userInfo);
@@ -41,6 +43,7 @@ function ProductCard(
         <div className='productNamePrice'>
           <h2 className='productCardName'>{props.name}</h2>
           <div className='productCardPrice'>$ {props.price}</div>
+          <RatingStars rating={props.rating}/>
         </div>
         {props.stock === 0 ?
         <div className='productCardSOLDOUT'>SOLD OUT</div>: null}

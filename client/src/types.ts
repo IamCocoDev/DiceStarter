@@ -93,6 +93,7 @@ export interface ProductRes {
     stock:string,
     description:string,
     categories: dbCategories[],
+    rating: string,
 }
 
 export interface Inputs {
