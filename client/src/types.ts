@@ -1,4 +1,11 @@
 
+export interface Address {
+    id: string,
+    address: string,
+    city: string,
+    postalCode: string,
+    phone: string | null,
+}
 export interface userChanges {
     id:string,
     name:string,

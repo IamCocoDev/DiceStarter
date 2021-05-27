@@ -17,7 +17,6 @@ import FormCategoryCreation
 import Profile
   from './components/profile/profile';
 import FormRegisterForm from './components/formRegisterUser/formRegisterForm';
-// import Login from './components/login/login';
 import Cart from './components/cart/cart';
 import {userInfo} from './app/reducers/registerReducer';
 import {useAppSelector} from './app/hooks';
@@ -25,6 +24,7 @@ import {useAppSelector} from './app/hooks';
 import UserList from './components/usersList/usersList';
 import CategoryList from './components/categoryList/categoryList';
 import searchBar from './components/searchBar/searchBar';
+import FormAddress from './components/formAddress/formAddress';
 
 function App() {
   const user = useAppSelector(userInfo);
@@ -70,6 +70,7 @@ function App() {
       <Route exact path='/profile' component={Profile} />
       <Route path='/cart' component={Cart}/>
       <Route exact path='/list/userlist' component={UserList}/>
+      <Route exact path='/profile/adress' component={FormAddress}></Route>
     </div>
   );
 }
