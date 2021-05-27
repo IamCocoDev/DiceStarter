@@ -68,7 +68,7 @@ function ProductList(props: ProductRes): JSX.Element {
   return (
     <div className="productListGrid">
       <input
-        className="productsListName"
+        className="productListName"
         type="text"
         placeholder={'Name'}
         value={input.name}
@@ -76,7 +76,7 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       ></input>
       <input
-        className="productsListPrice"
+        className="productListPrice"
         type="number"
         placeholder={'Price'}
         value={input.price}
@@ -85,7 +85,7 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       ></input>
       <input
-        className="productsListStock"
+        className="productListStock"
         type="number"
         placeholder={'Stock'}
         value={input.stock}
@@ -93,7 +93,7 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       ></input>
       <input
-        className="productsListSize"
+        className="productListSize"
         type="text"
         placeholder={'Size'}
         value={input.size}
@@ -102,7 +102,7 @@ function ProductList(props: ProductRes): JSX.Element {
         onChange={handleNumberChange}
       >
       </input>
-      <div className='productsListColors'>
+      <div className='productListColors'>
         {input.color.length ?
           input.color.map((el) => <ColorCircle key={el} color={el}
             onClick={() => {
@@ -118,17 +118,17 @@ function ProductList(props: ProductRes): JSX.Element {
           value="Add color"
           onClick={() => addColor(color)} />
       </div>
-      <button className="productsListEditButton" onClick={() => {
+      <button className="productListEditButton" onClick={() => {
         if (window.confirm(`Save changes to ${input.name}?`)) {
           dispatch(changeProductInDBAsync(input, token));
         }
-      }}>Save Changes</button>
-      <button className="productsListDeleteButton" onClick={() => {
+      }}><i className='material-icons'>save</i></button>
+      <button className="productListDeleteButton" onClick={() => {
         if (window.confirm(`Are you sure you want to delete ${input.name}?`)) {
           dispatch(deleteProductByIdAsync(input.id, token));
         }
       }}>
-        Delete This Product
+        <i className='material-icons'>delete</i>
       </button>
     </div>
   );

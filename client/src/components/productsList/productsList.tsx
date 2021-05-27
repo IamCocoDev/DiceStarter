@@ -98,15 +98,14 @@ function ProductsList() {
         ></Select>
       </div>
       <div className="productsListGrid">
-        <div className='productsListLabels'>
-          <span className='productsListName'>Name</span>
-          <span className='productsListPrice'>Price</span>
-          <span className='productsListStock'>Stock</span>
-          <span className='productsListSize'>Size</span>
-          <span className='productsListColors'>Colors</span>
-        </div>
-        <div className='productsListProducts'>
-          { adminProducts !== null &&
+        <span className='productsListName'>Name</span>
+        <span className='productsListPrice'>Price</span>
+        <span className='productsListStock'>Stock</span>
+        <span className='productsListSize'>Size</span>
+        <span className='productsListColors'>Colors</span>
+      </div>
+      <div className='productsListProducts'>
+        { adminProducts !== null &&
         adminProducts.map((listProduct) => (
           <ProductList
             key={listProduct.id}
@@ -122,15 +121,14 @@ function ProductsList() {
             size={listProduct.size}
           />
         ))}
-        </div>
       </div>
       <div style={{'display': 'flex', 'justifyContent': 'center'}}>
         {filters.page > 1 ?
-        <button className='productsPages' style={{'border': '2px solid black'}}
+        <button className='productsPages'
           onClick={() => onClickPage(-1)}>
           Previous</button> : null}
         {pagesTotal > filters.page ?
-        <button className='productsPages' style={{'border': '2px solid black'}}
+        <button className='productsPages'
           onClick={() => onClickPage(1)}>
           Next</button> : null}
       </div>
