@@ -174,7 +174,8 @@ router.post('/logout', (req, res) => {
   res.send('Logout successful');
 });
 
-router.post('/admin', isAdmin, isAdmin, (req, res, next) => {
+
+router.post('/admin', isAdmin, (req, res, next) => {
   const id = uuidv4();
   try {
     let { password } = req.body;
