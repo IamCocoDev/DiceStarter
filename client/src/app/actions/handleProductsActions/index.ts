@@ -45,6 +45,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
           color: product.color,
           available: product.available,
           description: product.description,
+          rating: product.rating,
         };
       });
       dispatch(setProducts(products,
@@ -69,6 +70,7 @@ const getProductByIdAsync = (id: any) => {
         available,
         description,
         categories,
+        rating,
       } = res.data;
       const productResponse: ProductRes = {
         id,
@@ -81,6 +83,7 @@ const getProductByIdAsync = (id: any) => {
         description,
         size,
         categories,
+        rating,
       };
       dispatch(setProductById(productResponse));
     } catch (err) {

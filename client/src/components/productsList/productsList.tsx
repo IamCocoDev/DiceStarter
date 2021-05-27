@@ -8,7 +8,7 @@ import {
   productCategories,
 } from '../../app/reducers/handleProductsReducer';
 import ProductList from '../productList/productList';
-import {Categories, SearchInput} from '../../types';
+import {Categories, ProductRes, SearchInput} from '../../types';
 import Select from 'react-select';
 import {getCategoriesAsync, getProductsAsync} from
   '../../app/actions/handleProductsActions';
@@ -106,7 +106,7 @@ function ProductsList() {
       </div>
       <div className='productsListProducts'>
         { adminProducts !== null &&
-        adminProducts.map((listProduct) => (
+        adminProducts.map((listProduct: ProductRes) => (
           <ProductList
             key={listProduct.id}
             categories={listProduct.categories}
@@ -119,6 +119,7 @@ function ProductsList() {
             available={listProduct.available}
             stock={listProduct.stock}
             size={listProduct.size}
+            rating={listProduct.rating}
           />
         ))}
       </div>

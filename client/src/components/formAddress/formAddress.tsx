@@ -82,36 +82,36 @@ const FormAddress = () => {
     }
   };
   return (
-    <div className='FormAdressAll'>
-      <form onSubmit={handleAddressSubmit}>
-        <h1 className='FormAdressHeader'>Add your adress data here</h1>
+    <div className='formAddressAll'>
+      <form className='formAdressForm' onSubmit={handleAddressSubmit}>
+        <h2 className='formAddressHeader'>Address</h2>
         <input
           name='address'
-          className='FormAddressAdress'
+          className='formAddressAdress'
           type='text'
           onChange={handleAddressChange}
           value={address.address}
           placeholder='Adress...' />
         <input name='city'
-          className='FormAdressCity'
+          className='formAdressCity'
           type='text'
           onChange={handleAddressChange}
           value={address.city}
           placeholder='City...' />
         <input name='postalCode'
-          className='FormAdressPC'
+          className='formAdressPC'
           type='text'
           onChange={handleAddressChange}
           value={address.postalCode}
           placeholder='Postal Code...' />
         <label>Optional</label>
         <input name='phone'
-          className='FormAdressPhone'
+          className='formAdressPhone'
           type='text'
           onChange={handleAddressChange}
           value={address.phone}
           placeholder='Phone Number...'/>
-        <button type='submit' className='FormAdressButton'>Submit</button>
+        <button type='submit' className='formAddressButton'>Submit</button>
       </form>
     </div>
   );

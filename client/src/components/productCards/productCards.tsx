@@ -8,6 +8,7 @@ import './productCards.css';
 
 function ProductCards() {
   const products = useSelector(productsList);
+  console.log(products);
   return (
     <div className='productCardsFlex'>
       {
@@ -19,6 +20,7 @@ function ProductCards() {
             image={product.picture}
             price={product.price}
             stock={product.stock}
+            rating={product.rating}
           />
         ))
       }
