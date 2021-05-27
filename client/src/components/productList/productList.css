@@ -1,9 +1,10 @@
 .productListGrid{
     text-align: center;
     display: grid;
-    grid-template-columns: 1fr 7vw 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr;
-    width: 170vw;
+    width: 100%;
+    max-width: 100vw;
     border-top: 0.01vw white solid;
     color: white;
 }

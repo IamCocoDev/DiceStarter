@@ -101,12 +101,9 @@ function ProductsList() {
         <div className='productsListLabels'>
           <span className='productsListName'>Name</span>
           <span className='productsListPrice'>Price</span>
-          <span className='productsListCategories'>Categories</span>
-          <span className='productsListDescription'>Description</span>
           <span className='productsListStock'>Stock</span>
           <span className='productsListSize'>Size</span>
           <span className='productsListColors'>Colors</span>
-          <span className='productsListImageUrl'>Image Url</span>
         </div>
         <div className='productsListProducts'>
           { adminProducts !== null &&

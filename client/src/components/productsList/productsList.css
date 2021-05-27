@@ -4,19 +4,17 @@
 
 .productsListGrid{
   display: block;
-  width: 100%vw;
-  height: 100%vh;
+  width: 80%;
+  height: 120%;
   border-bottom: 0.1rem white solid;
   text-align: center;
   color: white;
-  overflow: hidden;
-  overflow-y: scroll;
-  overflow-x: scroll;
-  margin: 0 auto;
+  margin: 0 auto;   
 }
 
 .productsListLabels{
-  width: 170vw;
+  width: 100%;
+  max-width: 100vw;
   display: flex;
   align-items: center;
   height: 4rem;
