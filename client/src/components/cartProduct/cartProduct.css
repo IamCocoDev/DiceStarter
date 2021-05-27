@@ -1,83 +1,69 @@
 .cartProductGrid{
-    display: grid;
-    grid-template-columns: 0.5vw 1fr 0.5vw 1fr 0.5vw 1fr 0.5vw 10vw 0.5vw 1fr 0.5vw;
-    grid-template-rows: 0.5vh 1fr 0.5vh;
-    width: 100vw;
-    height: 20vh;
-    max-width: 100%;
-    color: white;
-    margin: 1vw;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-evenly;
+  border-top: 0.1rem solid white;
 }
 
 .cartProductImage{
-    grid-row: 2/3;
-    grid-column: 2/3;
-    max-width: 10vw;
-    max-height: auto;
-    border-radius: 1vw;
+  background-color: white;
+  height: 7rem;
+  width: 7rem;
+  margin: 1rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.cartProductInfo{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #101010;
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 7rem;
 }
 
 .cartProductName{
-    grid-row: 2/3;
-    grid-column: 4/5;
-    align-self: center;
-    justify-self: center;
-    text-align: center;
+  text-align: center;
+  width: 16rem;
 }
 
 .cartProductAmout{
-    grid-row: 2/3;
-    grid-column: 6/7;
-    align-self: center;
-    justify-self: center;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  align-items: center;  
 }
 
-.cartProductPrice{
-    grid-row: 2/3;
-    grid-column: 8/9;
-    align-self: center;
-    justify-self: center;
-    text-align: center;
-    width: 10vw;
-    height: auto;
+.cartProductNumber{
+  margin: 0 0.5rem;
 }
 
 .cartProductDelete{
-    grid-row: 2/3;
-    grid-column: 10/11;
-    align-self: center;
-    justify-self: center;
-    text-align: center;
-    width: 10vw;
-    color: white;
-    background-color: #74009D;
-    border-radius: 1vh;
-    border:none;
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  color: white;
+  background-color: rgb(150, 0, 0);
+  border-radius: 0.5rem;
+  border:none;
+  outline: none;
 }
 
-.cartProductAmountIncrease{
-    width: 2vw;
-    height: 4vh;
-    align-self: center;
-    background-color: #74009D;
-    border: none;
-    color: white;
-    border-radius: 1vh;
-    font-size: 3vh;
-    margin-left: 1vw;
+.cartProductDelete:hover{
+  background-color: rgb(200, 0, 0);
 }
 
-.cartProductAmountDecrease{
-    width: 2vw;
-    height: 4vh;
-    align-self: center;
-    background-color: #74009D;
-    border: none;
-    color: white;
-    border-radius: 1vh;
-    font-size: 3vh;
-    margin-right: 1vw;
+.cartProductAmountIncrease, .cartProductAmountDecrease{
+  cursor: pointer;
+  width: 1.7rem;
+  height: 1.7rem;
+  background-color: #74009D;
+  border: none;
+  outline: none;
+  color: white;
+  border-radius: 0.5rem;
+}
+
+.cartProductAmountIncrease:hover, .cartProductAmountDecrease:hover{
+  background-color: #9e00d3;
 }

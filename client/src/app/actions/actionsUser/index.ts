@@ -9,7 +9,7 @@ import {SET_USER,
   SET_TOKEN,
   USER_LOGIN_FAILED,
 } from '../../constants/constants';
-import {userChanges} from '../../../types';
+import {userChanges, Address} from '../../../types';
 
 function arrayUnique(array) {
   const a = array.concat();
@@ -32,21 +32,25 @@ const setUser = (user: any) => {
   };
 };
 
+// sets users locally
 const setUsers = (users:any) => ({
   type: SET_USERS,
   payload: users,
 });
 
+// sets JWT
 const setToken = (token:string) => ({
   type: SET_TOKEN,
   payload: token,
 });
 
+// sets redux state to empty (this prevents the app from crashing)
 const loginFailed = () => ({
   type: USER_LOGIN_FAILED,
   payload: {},
 });
 
+// requests register to back-end
 const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
@@ -59,6 +63,7 @@ const sendFormAsync = (form: any) => {
   };
 };
 
+// requests login to back-end
 const loginFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
@@ -88,6 +93,7 @@ const loginFormAsync = (form: any) => {
   };
 };
 
+// requests login with google to back-end
 const loginGoogle = (googleUser) => {
   return async (dispatch: any) => {
     try {
@@ -114,6 +120,7 @@ const loginGoogle = (googleUser) => {
   };
 };
 
+// logs out locally
 const logout = () => {
   return async (dispatch: any) => {
     try {
@@ -127,6 +134,7 @@ const logout = () => {
   };
 };
 
+// request to modify user to back-end
 const modifyUser = (changes:userChanges, token:string) => {
   return async (dispatch:any) => {
     try {
@@ -143,6 +151,27 @@ const modifyUser = (changes:userChanges, token:string) => {
   };
 };
 
+// request to modify user adress to back-end
+
+const modifyAddress = (address:Address, token:string) => {
+  return async (dispatch:any) => {
+    try {
+      dispatch(setUser(address));
+      dispatch(setToken(token));
+      await axios.put(`${BACK_ROUTE}/user/${address.id}`, address, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+      // this is for error handling
+      return 'error';
+    }
+  };
+};
+
+// request all users to back-end
 const getUsers = (token:string) => {
   return async (dispatch:any) => {
     try {
@@ -167,4 +196,5 @@ export {
   logout,
   modifyUser,
   getUsers,
+  modifyAddress,
 };
