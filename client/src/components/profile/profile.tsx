@@ -33,8 +33,8 @@ const Profile = () => {
           <div>
             <p className='profileAddress'> Address:<p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}> {User.address}</p> </p>
             <p className='profileCity'>City: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}> {User.city}, {User.country}</p></p>
-            <p className='profilePostal'>Postal Code: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}>{User.postalCode}</p> </p>
-            <p className='profilePhoneNumber'>Phone Number: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}>{User.phoneNumber}</p> </p>
+            <p className='profilePostal'>Postal Code: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}>{User.postalCode}</p></p>
+            <p className='profilePhoneNumber'>Phone Number: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}>{User.phoneNumber}</p></p>
           </div> :
             <p className='profileAddressForm'>
             It seems you do not have an address, <NavLink to='/profile/address'> create one here!  </NavLink>

@@ -12,7 +12,7 @@ const CartTotal = () => {
   const dispatch = useAppDispatch();
   const productsInCart = useAppSelector(cartsReducer);
   const reduxUser = useAppSelector(userInfo);
-  let productsTotal = productsInCart.length;
+  let productsTotal = 0;
   productsInCart.forEach((p:any) => productsTotal += p.amount);
   const user = JSON.parse(localStorage
       .getItem('user') || '{}');
