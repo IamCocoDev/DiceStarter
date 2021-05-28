@@ -4,12 +4,14 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {userToken, userInfo} from '../../app/reducers/registerReducer';
 import {Address} from '../../types';
 import swal from 'sweetalert2';
+import {Redirect} from 'react-router-dom';
 import './formAddress.css';
 
 const FormAddress = () => {
   // using typescript for securing data types
   const user = useAppSelector(userInfo);
   const [address, setAddress] = useState<Address>(user);
+  const [redirect, setRedirect] = useState(false);
 
   const token = useAppSelector(userToken);
   const dispatch = useAppDispatch();
@@ -40,6 +42,7 @@ const FormAddress = () => {
                   .then((r) => {
                     if (r !== 'error') {
                       swal.fire('Address changed succesfully!');
+                      setRedirect(true);
                     } else {
                       swal.fire('Oops, something went wrong');
                     }
@@ -77,6 +80,10 @@ const FormAddress = () => {
   };
   return (
     <div className='formAddressAll'>
+      {
+        redirect === true &&
+         <Redirect to='/profile'></Redirect>
+      }
       <form className='formAdressForm' onSubmit={handleAddressSubmit}>
         <h2 className='formAddressHeader'>Address</h2>
         <input

@@ -60,7 +60,6 @@ const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`${BACK_ROUTE}/product/${id}`);
-      console.log(res.data);
       const {name,
         picture,
         price,
@@ -108,6 +107,7 @@ const deleteProductByIdAsync = (id: any, token:string) => {
 };
 
 const changeProductInDBAsync = (product: any, token:string) => {
+  console.log('despacha');
   return async (dispatch: any) => {
     try {
       const toSend = {
@@ -130,6 +130,7 @@ const changeProductInDBAsync = (product: any, token:string) => {
       });
     } catch (err) {
       console.log(err);
+      if (err) return 'error';
     }
   };
 };

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, {useEffect, useState} from 'react';
 import './productDetail.css';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
@@ -6,35 +7,40 @@ import ColorCircle from '../colorCircle/ColorCircle';
 import {
   ProductRes,
 } from '../../types';
-import {getProductByIdAsync}
+import {changeProductInDBAsync, getProductByIdAsync}
   from '../../app/actions/handleProductsActions/index';
 import UserReviews from '../userReviews/userReviews';
 import Carousel from '../carousel/carousel';
-import {userInfo} from '../../app/reducers/registerReducer';
+import {userInfo, userToken} from '../../app/reducers/registerReducer';
 import {addProductInCart} from '../../app/actions/cartActions/index';
 import RatingStars from '../ratingStars/ratingStars';
 import swal from 'sweetalert2';
 
 function ProductDetail(props:any ) {
+  const token = useAppSelector(userToken);
   const User = useAppSelector(userInfo);
-  const [input, setInput] = useState<ProductRes>({
-    id: props.id,
-    name: props.name,
-    picture: props.picture,
-    price: props.price,
-    size: props.size,
-    color: props.color,
-    available: props.available,
-    stock: props.stock,
-    description: props.description,
-    categories: props.categories,
-    rating: props.rating,
-  });
+  const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);
+  const [changes, setChanges] = useState<ProductRes>({
+    id: '',
+    name: '',
+    picture: [],
+    price: '',
+    size: '',
+    color: [],
+    available: true,
+    stock: '',
+    description: '',
+    categories: [],
+    rating: '',
+  });
   const id = props.match.params.id;
   useEffect(() => {
-    dispatch(getProductByIdAsync(id));
+    dispatch(getProductByIdAsync(id))
+        .then((p) => {
+          setChanges(product);
+        });
   }, []);
   const handleOnClick = () => {
     const duplicate = JSON.parse(localStorage
@@ -59,6 +65,28 @@ function ProductDetail(props:any ) {
       });
     }
   };
+  // saves changes to product
+  const handleProductChange = () => {
+    dispatch(changeProductInDBAsync(changes, token))
+        .then((r) => {
+          if (r !== 'error') {
+            swal.fire({
+              text: 'Changes Saved!',
+              icon: 'success',
+            });
+          } else {
+            swal.fire({
+              text: 'Oops, something went wrong',
+              icon: 'error',
+            });
+          }
+        }).catch((err) => console.error(err));
+  };
+  const handleNameChange = (e:any) => setChanges({...changes, name: e.target.innerText});
+  const handleDescriptionChange = (e:any) => setChanges({...changes, description: e.target.innerText});
+  const handleStockChange = (e:any) => setChanges({...changes, stock: e.target.innerText});
+  const handleSizeChange = (e:any) => setChanges({...changes, size: e.target.innerText});
+  const handlePriceChange = (e:any) => setChanges({...changes, price: e.target.innerText});
   return (
     <div className='productDetailBackground'>
       {
@@ -73,19 +101,28 @@ function ProductDetail(props:any ) {
           <div className='carouselandinfo'>
             <Carousel pictures={product.picture}/>
             <div className='ProductDetailGrid'>
-              <h2 className='ProductDetailName'>{product.name}</h2>
+              <h2 className='ProductDetailName' suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleNameChange}>{
+                product.name}
+              </h2>
               <div className='productDetailinformation'>
                 <div className='productDetailButton'>
-                  <span className='ProductDetailPrice'>
-                Price: $ {product.price}
+                  <p>Price: $</p>
+                  <span className='ProductDetailPrice' suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePriceChange}>
+                    {product.price}
                   </span>
                   {
                     User.role !== 'Admin' ?
-                      <button className='productDetailAddToCart'
-                        onClick={handleOnClick}
+                      <button className='productDetailAddToCart' onClick={handleOnClick}
                       >
                     Add to Cart
-                      </button>:null
+                      </button>:
+                      <button type='button' className='productDetailAddToCart' onClick={() => setEditMode(!editMode)}>
+                          Edit
+                      </button>
+                  }
+                  {
+                      changes?.name !== product.name || changes?.description !== product.description || changes?.price !== product.price || changes?.size !== product.size || changes?.stock !== product.stock ?
+                      <button onClick={handleProductChange}>Save changes</button> : null
                   }
                 </div>
                 <div className='productDetailInfo'>
@@ -96,13 +133,15 @@ function ProductDetail(props:any ) {
                   onClick={() => {
                     const toChange =
                 product.color.filter((color:any) => el !== color);
-                    setInput({...input, color: toChange});
+                    setChanges({...changes, color: toChange});
                   }}/>):null}</div>
-                  <span className='ProductDetailStock'>
-                  Stock: {product.stock}
+                  <p>Stock: </p>
+                  <span className='ProductDetailStock' suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleStockChange}>
+                    {product.stock}
                   </span>
-                  <span className='ProductDetailSize'>
-                  Size: {product.size}
+                  <p>Size:</p>
+                  <span className='ProductDetailSize' suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleSizeChange}>
+                    {product.size}
                   </span>
                   <span className='ProductDetailRating'>
                     <RatingStars rating={product.rating}/>
@@ -113,7 +152,8 @@ function ProductDetail(props:any ) {
           </div>
           <div className='detailDescription'>
             <h3 className='productDetailDescritionTitle'>Description</h3>
-            <p className='ProductDetailDescription'>{product.description}
+            <p className='ProductDetailDescription' suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleDescriptionChange}>
+              {product.description}
             </p>
           </div>
         </div>

@@ -17,6 +17,7 @@ const CartProduct = (props) => {
   const userId = userInf.id;
   const token = useAppSelector(userToken);
   const dispatch = useAppDispatch();
+  const totalPrice = amount * price;
   const handleDeleteProduct = () => {
     swal.fire({
       title: 'Delete Product?',
@@ -61,6 +62,7 @@ const CartProduct = (props) => {
             </button>
           }
         </div>
+        <div>${totalPrice}</div>
         <button className='cartProductDelete'
           onClick={handleDeleteProduct} ><i className='material-icons'>
             delete

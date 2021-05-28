@@ -141,8 +141,7 @@ const logout = () => {
 const modifyUser = (changes:userChanges, token:string) => {
   return async (dispatch:any) => {
     try {
-      dispatch(setUser(changes));
-      dispatch(setToken(token));
+      localStorage.setItem('user', JSON.stringify(changes));
       await axios.put(`${BACK_ROUTE}/user/${changes.id}`, changes, {
         headers: {
           'Authorization': 'Bearer ' + token,
@@ -150,6 +149,7 @@ const modifyUser = (changes:userChanges, token:string) => {
       });
     } catch (err) {
       console.error(err);
+      if (err) return 'error';
     }
   };
 };
@@ -170,7 +170,7 @@ const modifyAddress = (address:Address, token:string) => {
     } catch (err) {
       console.error(err);
       // this is for error handling
-      return 'error';
+      if (err) return 'error';
     }
   };
 };
@@ -201,4 +201,5 @@ export {
   modifyUser,
   getUsers,
   modifyAddress,
+  setUser,
 };
