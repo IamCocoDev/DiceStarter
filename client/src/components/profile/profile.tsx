@@ -7,6 +7,7 @@ import './profile.css';
 import Login from '../login/login';
 import user from '../../img/user.png';
 import {NavLink} from 'react-router-dom';
+import swal from 'sweetalert2';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -15,20 +16,6 @@ const Profile = () => {
   let birthDate;
   if (User.birthday) birthDate = User.birthday.slice(0, 10);
   const [editMode, setEditMode] = useState(false);
-  // const [changes, setChanges] = useState({
-  //   id: '',
-  //   name: '',
-  //   firstName: '',
-  //   lastName: '',
-  //   birthday: '',
-  //   profilePicture: '',
-  //   address: '',
-  //   city: '',
-  //   postalCode: '',
-  //   phone: '',
-  //   country: '',
-  //   email: '',
-  // });
   const [changes, setChanges] = useState(User);
   const handleLogout = (e) => {
     e.preventDefault();
@@ -49,11 +36,21 @@ const Profile = () => {
   const handleLastNameChange = (e:any) => setChanges({...changes, lastName: e.target.innerText});
 
   const handleSubmitChanges = () => {
-    dispatch(modifyUser(changes, token));
+    dispatch(modifyUser(changes, token))
+        .then((r) => {
+          if (r !== 'error') {
+            swal.fire({
+              text: 'Changes saved succesfully!',
+              icon: 'success',
+            });
+          } else {
+            swal.fire({
+              text: 'Oops, something went wrong',
+              icon: 'error',
+            });
+          }
+        }).catch((err) => console.error(err));
   };
-
-  console.log(changes);
-  console.log(User);
 
   return (
     User.name ?

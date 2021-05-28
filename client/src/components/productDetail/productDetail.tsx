@@ -68,9 +68,19 @@ function ProductDetail(props:any ) {
   // saves changes to product
   const handleProductChange = () => {
     dispatch(changeProductInDBAsync(changes, token))
-        .then(() => {
-
-        });
+        .then((r) => {
+          if (r !== 'error') {
+            swal.fire({
+              text: 'Changes Saved!',
+              icon: 'success',
+            });
+          } else {
+            swal.fire({
+              text: 'Oops, something went wrong',
+              icon: 'error',
+            });
+          }
+        }).catch((err) => console.error(err));
   };
   const handleNameChange = (e:any) => setChanges({...changes, name: e.target.innerText});
   const handleDescriptionChange = (e:any) => setChanges({...changes, description: e.target.innerText});
