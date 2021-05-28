@@ -7,6 +7,7 @@ import {
   getCategoriesAsync,
 } from '../../app/actions/handleProductsActions/index';
 import CategoriesList from '../categoriesList/categoriesList';
+import './categoryList.css';
 
 const CategoryList = () => {
   // eslint-disable-next-line no-unused-vars
@@ -16,11 +17,16 @@ const CategoryList = () => {
     dispatch(getCategoriesAsync());
   }, []);
   return (
-    <div className='categoryListAll'>
-      {productCats.length ?
+    <div>
+      <div className='categoryListAll'>
+        <span className='categoryListName'>Name</span>
+      </div>
+      <div>
+        {productCats.length ?
               productCats.map((el) =>
                 <CategoriesList key={el.value} name={el.label} />) :
               null}
+      </div>
     </div>
   );
 };
