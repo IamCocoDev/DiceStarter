@@ -35,7 +35,6 @@ function ProductDetail(props:any ) {
     categories: [],
     rating: '',
   });
-  console.log(changes);
   const id = props.match.params.id;
   useEffect(() => {
     dispatch(getProductByIdAsync(id))
@@ -68,15 +67,16 @@ function ProductDetail(props:any ) {
   };
   // saves changes to product
   const handleProductChange = () => {
-    dispatch(changeProductInDBAsync(changes, token));
+    dispatch(changeProductInDBAsync(changes, token))
+        .then(() => {
+
+        });
   };
-  // start of content editable functions
   const handleNameChange = (e:any) => setChanges({...changes, name: e.target.innerText});
   const handleDescriptionChange = (e:any) => setChanges({...changes, description: e.target.innerText});
   const handleStockChange = (e:any) => setChanges({...changes, stock: e.target.innerText});
   const handleSizeChange = (e:any) => setChanges({...changes, size: e.target.innerText});
   const handlePriceChange = (e:any) => setChanges({...changes, price: e.target.innerText});
-  // end of content editable functions
   return (
     <div className='productDetailBackground'>
       {

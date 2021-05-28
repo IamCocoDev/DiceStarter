@@ -168,7 +168,7 @@ const modifyAddress = (address:Address, token:string) => {
     } catch (err) {
       console.error(err);
       // this is for error handling
-      return 'error';
+      if (err) return 'error';
     }
   };
 };

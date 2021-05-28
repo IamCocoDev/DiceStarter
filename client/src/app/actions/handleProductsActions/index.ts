@@ -130,6 +130,7 @@ const changeProductInDBAsync = (product: any, token:string) => {
       });
     } catch (err) {
       console.log(err);
+      if (err) return 'error';
     }
   };
 };
