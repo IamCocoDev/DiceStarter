@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {userToken} from '../../app/reducers/registerReducer';
 import {putCategory, deleteCategory} from
   '../../app/actions/handleProductsActions';
+import './categoriesList.css';
 
 const CategoriesList = (props) => {
   const [input, setInput] = useState(props.name);
@@ -23,14 +24,16 @@ const CategoriesList = (props) => {
     dispatch(deleteCategory(props.name, token));
   };
   return (
-    <>
-      <div>
-        <input type="text" value={input}
-          onChange={(e) => setInput(e.target.value)} />
-        <input type="button" value="Modify" onClick={handleClick} />
-        <input type="button" value='Delete' onClick={handleDelete} />
-      </div>
-    </>
+    <div className='categoriesListAll'>
+      <input className='categoriesListName' type="text" value={input}
+        onChange={(e) => setInput(e.target.value)} />
+      <button className='categoriesListSave' onClick={handleClick}>
+        <i className='material-icons'>save</i>
+      </button>
+      <button className='categoriesListDelete' onClick={handleDelete}>
+        <i className='material-icons'>delete</i>
+      </button>
+    </div>
   );
 };
 
