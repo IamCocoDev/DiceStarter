@@ -47,7 +47,7 @@ module.exports = (sequelize) => {
     priceDiscount: {
       type: DataTypes.DECIMAL,
       min: 0.00,
-    }
+    },
   }, {
     timestamps: false,
   });

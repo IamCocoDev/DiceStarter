@@ -53,9 +53,11 @@ router.put('/stock/:productId', async (req, res, next) => {
 });
 
 router.put('/:id', async (req, res, next) => {
-  const { id } = req.params;
-  const { body } = req;
   try {
+    const { id } = req.params;
+    const { body } = req;
+    // eslint-disable-next-line no-mixed-operators
+    body.priceDiscount = (body.price - (body.price * body.discount / 100)).toFixed(2);
     const product = await Product.findByPk(id, { include: Category });
     await product.update(body, { where: { id }, include: Category });
     product.setCategories(body.categories);
@@ -169,23 +171,6 @@ router.get('/:id/review', (req, res, next) => {
   } catch {
     res.sendStatus(400);
   }
-});
-
-router.put('/:id/discount', (req, res, next) => {
-  const { id } = req.params;
-  const { discount } = req.body;
-  Product.findByPk(id)
-    .then((response) => {
-      // eslint-disable-next-line no-mixed-operators
-      const priceDiscount = response.price - (response.price * discount / 100);
-      response.update({
-        discount,
-        priceDiscount: parseFloat(priceDiscount.toFixed(2)),
-      }, { where: { id } })
-        .then(() => {
-          res.send('update discount');
-        });
-    }).catch((e) => next(e));
 });
 
 module.exports = router;

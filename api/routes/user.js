@@ -244,4 +244,22 @@ router.put('/:id/updatePassword', (req, res, next) => {
   });
 });
 
+router.put('/:email/subscribe', (req, res, next) => {
+  const { email } = req.params;
+  const suscriber = 'true';
+  User.findOne({ where: { email } })
+    .then((response) => {
+      response.update({ suscriber })
+        .then(async () => {
+          await transporter.sendMail({
+            from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+            to: response.email, // list of receivers
+            subject: 'SignUp Success ✔', // Subject line
+            html: template(response.name, response.firstName, response.lastName), // html body
+          });
+          res.send('Thank you for subscribe');
+        });
+    }).catch((e) => next(e));
+});
+
 module.exports = router;
