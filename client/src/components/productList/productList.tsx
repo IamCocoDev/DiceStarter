@@ -104,20 +104,22 @@ function ProductList(props: ProductRes): JSX.Element {
       >
       </input>
       <div className='productListColors'>
-        {input.color.length ?
+        <div> {
+          input.color.length ?
           input.color.map((el) => <ColorCircle key={el} color={el}
             onClick={() => {
               const toChange = input.color.filter((color) => el !== color);
               setInput({...input, color: toChange});
             }}/>) : null}
-        <input type="color"
+        </div>
+        <input
+          type="color"
           onChange={(e) => setColor(e.target.value)}
           name="color"
           value={color}
         />
-        <input type="button"
-          value="Add color"
-          onClick={() => addColor(color)} />
+        <button className='productListColorsButton'
+          onClick={() => addColor(color)}>Add color</button>
       </div>
       <button className="productListEditButton" onClick={() => {
         if (window.confirm(`Save changes to ${input.name}?`)) {
