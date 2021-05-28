@@ -17,7 +17,8 @@ export const getProductsInCart = (idUser = '') => (dispatch) => {
   } else {
     return axios.get(`${BACK_ROUTE}/orders/search/user/${idUser}`)
         .then((res) => {
-          const products = res.data[0].products.map((el) => {
+          const test = res.data.find((el) => el.status === 'Created') || [];
+          const products = test.products.map((el) => {
             return {
               image: el.picture,
               name: el.name,
@@ -25,7 +26,7 @@ export const getProductsInCart = (idUser = '') => (dispatch) => {
               price: parseFloat(el.price),
               id: el.id,
               stock: el.stock,
-              idOrder: res.data[0].id,
+              idOrder: test.id,
             };
           });
           localStorage.setItem('cart', JSON.stringify(products));
@@ -145,7 +146,7 @@ export const getCheckoutTicket =
             Promise.all(promises)
                 .then(() => {
                   console.log('LUEGO DEL PROMISE.ALL');
-                  return axios.post(`${BACK_ROUTE}/orders/${userId}/update/cart`, {status})
+                  return axios.post(`${BACK_ROUTE}/orders/${userId}/update/cart`, {status: 'Complete'})
                       .then(() => {
                         console.log('ADENTRO DEL PROMISE.ALL');
                         dispatch({type: DELETE_ALL_CART});
