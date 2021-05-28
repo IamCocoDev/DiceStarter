@@ -9,10 +9,11 @@ const setOrders = (orders) => ({
   payload: orders,
 });
 
-const getOrders = (token) => {
+const getOrders = (token, orderStatus) => {
   return async (dispatch: any) => {
     try {
-      const res = await axios.get(`${BACK_ROUTE}/orders/status/allorders`, {
+      // eslint-disable-next-line max-len
+      const res = await axios.get(`${BACK_ROUTE}/orders/status/${orderStatus}`, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -57,4 +58,5 @@ const getUserOrders = (userId) => {
 export {
   getOrders,
   putOrderStatus,
+  getUserOrders,
 };
