@@ -40,7 +40,7 @@ const Profile = () => {
             It seems you do not have an address, <NavLink to='/profile/address'> create one here!  </NavLink>
             </p>
         }
-        <p className='profileEmail'>Email Adress: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}> {User.email}</p></p>
+        <p className='profileEmail'>Email Address: <p className={editMode ? 'editable' : 'noteditable'} contentEditable={editMode}> {User.email}</p></p>
         <div className='profileButtons'>
           <input className='profileEditButton' type='button' value='Edit' onClick={() => setEditMode(!editMode)}/>
           <input className='profileLogOut' type='button' value='Log Out' onClick={handleLogout}/>
