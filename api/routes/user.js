@@ -246,18 +246,28 @@ router.put('/:id/updatePassword', (req, res, next) => {
 
 router.put('/:email/subscribe', (req, res, next) => {
   const { email } = req.params;
-  const suscriber = 'true';
   User.findOne({ where: { email } })
     .then((response) => {
+      const suscriber = response.suscriber === 'false' ? 'true' : 'false';
       response.update({ suscriber })
         .then(async () => {
-          await transporter.sendMail({
-            from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
-            to: response.email, // list of receivers
-            subject: 'SignUp Success ✔', // Subject line
-            html: template(response.name, response.firstName, response.lastName), // html body
-          });
-          res.send('Thank you for subscribe');
+          if (response.suscriber === 'true') {
+            await transporter.sendMail({
+              from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+              to: response.email, // list of receivers
+              subject: 'Subscribe Success ✔', // Subject line
+              text: 'Thank you for subscribe', // html body
+            });
+            res.send('Thank you for subscribe');
+          } else {
+            await transporter.sendMail({
+              from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+              to: response.email, // list of receivers
+              subject: 'Unsubscribe Success ✔', // Subject line
+              text: 'We hope to see you soon', // html body
+            });
+            res.send('unsubscribe');
+          }
         });
     }).catch((e) => next(e));
 });
