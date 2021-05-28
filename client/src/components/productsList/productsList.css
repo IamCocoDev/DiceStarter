@@ -1,4 +1,3 @@
-
 .productsListGrid{
   display: grid;
   grid-template-columns: 1fr 30vw 7vw 7vw 10vw 27vw 5vw 5vw 1fr;
