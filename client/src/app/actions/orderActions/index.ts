@@ -42,6 +42,18 @@ const putOrderStatus = (idUser, newStatus, token) => {
   };
 };
 
+const getUserOrders = (userId) => {
+  return async (dispatch: any) => {
+    try {
+      // eslint-disable-next-line max-len
+      const res = await axios.post(`${BACK_ROUTE}/orders/search/user/${userId}/`);
+      dispatch(setOrders(res.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export {
   getOrders,
   putOrderStatus,

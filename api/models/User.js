@@ -57,6 +57,10 @@ module.exports = (sequelize) => {
     googleId: {
       type: DataTypes.STRING,
     },
+    suscriber: {
+      type: DataTypes.ENUM('true', 'false'),
+      defaultValue: 'false',
+    },
     status: {
       type: DataTypes.ENUM('Active', 'Closed', 'Banned'),
       defaultValue: 'Active',

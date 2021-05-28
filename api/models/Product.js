@@ -40,6 +40,14 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    discount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    priceDiscount: {
+      type: DataTypes.DECIMAL,
+      min: 0.00,
+    }
   }, {
     timestamps: false,
   });

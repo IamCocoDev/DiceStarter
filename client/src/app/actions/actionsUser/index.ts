@@ -9,6 +9,7 @@ import {SET_USER,
   SET_TOKEN,
   USER_LOGIN_FAILED,
 } from '../../constants/constants';
+import {DELETE_ALL_CART} from '../cartActions';
 import {userChanges, Address} from '../../../types';
 
 function arrayUnique(array) {
@@ -128,7 +129,8 @@ const logout = () => {
       localStorage.setItem('user', '{}');
       localStorage.setItem('token', '');
       localStorage.removeItem('cart');
-      dispatch(setUser({}));
+      await dispatch(setUser({}));
+      await dispatch({type: DELETE_ALL_CART});
     } catch (err) {
       console.log(err);
     }

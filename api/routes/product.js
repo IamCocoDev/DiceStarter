@@ -97,8 +97,6 @@ router.post('/:id/review', isLogged, (req, res, next) => {
           const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
           const quantityRev = await Reviews.count({ where: { productId: id } });
           const average = sumReviews / quantityRev;
-          console.log(sumReviews);
-          console.log(quantityRev);
           r.update({ rating: parseFloat(average.toFixed(2)) });
         });
       User.findByPk(userId)
@@ -125,14 +123,12 @@ router.put('/review/:idReview', (req, res, next) => {
   const { idReview } = req.params;
   const { comment } = req.body;
   const { rating } = req.body;
-  console.log(req.body);
   Reviews.findOne({ where: { id: idReview } })
     .then((resp) => {
       if (resp) {
         resp.update({ comment });
         resp.update({ rating });
       }
-      console.log(resp);
       res.send(resp); // Resultado del UPDATE
     })
     .catch((e) => {
@@ -173,6 +169,23 @@ router.get('/:id/review', (req, res, next) => {
   } catch {
     res.sendStatus(400);
   }
+});
+
+router.put('/:id/discount', (req, res, next) => {
+  const { id } = req.params;
+  const { discount } = req.body;
+  Product.findByPk(id)
+    .then((response) => {
+      // eslint-disable-next-line no-mixed-operators
+      const priceDiscount = response.price - (response.price * discount / 100);
+      response.update({
+        discount,
+        priceDiscount: parseFloat(priceDiscount.toFixed(2)),
+      }, { where: { id } })
+        .then(() => {
+          res.send('update discount');
+        });
+    }).catch((e) => next(e));
 });
 
 module.exports = router;
