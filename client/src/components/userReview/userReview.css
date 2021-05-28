@@ -65,12 +65,12 @@
   border: none;
   color: white;
   font-size: 1.1rem;
-  background-color: #74009D;
+  background-color: rgb(0, 150, 0);
   border-radius: 0.5rem;
   height: 2rem;
-  width: 8rem;
+  width: 2rem;
 }
 
 .userReviewSaveButton:hover{
-  background-color: #9e00d3;
+  background-color: rgb(0, 200, 0);
 }

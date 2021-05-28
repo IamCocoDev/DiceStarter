@@ -38,15 +38,15 @@ const UserReview = (props:{review, token, user, id}) => {
       </div>
       <div className='userReviewButtons'>
         { toggle === true &&
-          <button className='userReviewEditButton' onClick={handleEditMode}>✎</button>
+          <button className='material-icons userReviewEditButton' onClick={handleEditMode}>edit</button>
         }
         { toggle === true && review.user.name === user.name &&
-        <button className='userReviewDeleteButton' onClick={handleDelete} value={review.id}>🗑</button>
+        <button className='material-icons userReviewDeleteButton' onClick={handleDelete} value={review.id}>delete</button>
         }
       </div>
       {
         changes.comment !== review.comment || changes.rating !== review.rating ?
-        <button className='userReviewSaveButton' onClick={() => dispatch(modifyReview(review.id, changes, token))}>Save Changes</button> : null
+        <button className='material-icons userReviewSaveButton' onClick={() => dispatch(modifyReview(review.id, changes, token))}>save</button> : null
       }
     </div>
   );
