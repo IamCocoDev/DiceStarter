@@ -52,17 +52,17 @@ function ProductCard(
       <div className='productInfo'>
         <div className='productNamePrice'>
           <h2 className='productCardName'>{props.name}</h2>
+          <RatingStars rating={props.rating}/>
           { props.priceDiscount ?
           <div className='productCardDiscount'>
-            {props.priceDiscount}
             <div className='productCardDiscountPrice'>
               {/* aca la idea es mostrar el precio sin descuento tachado*/}
-              {props.price}
+              $ {props.price}
             </div>
+            $ {props.priceDiscount}
           </div> :
             <div className='productCardPrice'>$ {props.price}</div>
           }
-          <RatingStars rating={props.rating}/>
         </div>
         {props.stock === 0 ?
         <div className='productCardSOLDOUT'>SOLD OUT</div>: null}
