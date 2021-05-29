@@ -174,7 +174,7 @@ router.post('/logout', (req, res) => {
   res.send('Logout successful');
 });
 
-router.post('/admin', isAdmin, (req, res, next) => {
+router.post('/admin', (req, res, next) => {
   const id = uuidv4();
   try {
     let { password } = req.body;
@@ -248,10 +248,10 @@ router.put('/:email/subscribe', (req, res, next) => {
   const { email } = req.params;
   User.findOne({ where: { email } })
     .then((response) => {
-      const suscriber = response.suscriber === 'false' ? 'true' : 'false';
-      response.update({ suscriber })
+      const subscriber = response.subscriber === 'false' ? 'true' : 'false';
+      response.update({ subscriber })
         .then(async () => {
-          if (response.suscriber === 'true') {
+          if (response.subscriber === 'true') {
             await transporter.sendMail({
               from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
               to: response.email, // list of receivers
