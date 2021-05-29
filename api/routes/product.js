@@ -6,6 +6,7 @@ const { isLogged } = require('../middleware/logged');
 
 const router = express.Router();
 const { transporter } = require('../configs/mailer');
+const template = require('./emails/emailNewProduct');
 
 const {
   Product, Category, Reviews, User,
@@ -28,13 +29,12 @@ router.post('/', isAdmin, async (req, res, next) => {
     const {
       name, size, color, picture, price, stock, description, categories,
     } = req.body;
-    const rating = 0.00;
-
     const newProduct = {
-      id, name, size, color, picture, price, stock, description, rating,
+      id, name, size, color, picture, price, stock, description,
     };
+    if (typeof (categories[0]) !== 'number') return res.send('You must send a value as ID');
     const info = await Product.create(newProduct);
-    info.setCategories(categories);
+    info.setCategories(categories).then().catch((e) => next(e));
     User.findAll({ where: { subscriber: 'true' } })
       .then(async (users) => {
         for (let i = 0; i < users.length; i += 1) {
@@ -44,7 +44,9 @@ router.post('/', isAdmin, async (req, res, next) => {
               from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
               to: users[i].dataValues.email, // list of receivers
               subject: 'Check it this new product ✔', // Subject line
-              text: `${users[i].dataValues.firstName} check it this new product`, // html body
+              html: template(users[i].dataValues.firstName,
+                users[i].dataValues.lastName,
+                picture[0]), // html body
             });
           }
         }
@@ -54,6 +56,7 @@ router.post('/', isAdmin, async (req, res, next) => {
     res.status(400);
     next(e);
   }
+  return null;
 });
 
 router.put('/stock/:productId', async (req, res, next) => {
@@ -71,6 +74,7 @@ router.put('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const { body } = req;
+    if (typeof (body.categories[0]) !== 'number') return res.send('You must send a value as ID');
     const product = await Product.findByPk(id, { include: Category });
     if (body.discount !== product.discount) {
       User.findAll({ where: { subscriber: 'true' } })
@@ -89,12 +93,13 @@ router.put('/:id', async (req, res, next) => {
         }).catch((e) => next(e));
     }
     await product.update(body, { where: { id }, include: Category });
-    product.setCategories(body.categories);
+    product.setCategories(body.categories).then().catch((e) => next(e));
     res.send(product);
   } catch (err) {
     res.status(400);
     next(err);
   }
+  return null;
 });
 
 router.delete('/:id', isAdmin, (req, res, next) => {
@@ -124,11 +129,11 @@ router.post('/:id/review', isLogged, (req, res, next) => {
   })
     .then((r) => {
       Product.findByPk(id)
-        .then(async (r) => {
+        .then(async (resp) => {
           const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
           const quantityRev = await Reviews.count({ where: { productId: id } });
           const average = sumReviews / quantityRev;
-          r.update({ rating: parseFloat(average.toFixed(2)) });
+          resp.update({ rating: parseFloat(average.toFixed(2)) });
         });
       User.findByPk(userId)
         .then((u) => {
