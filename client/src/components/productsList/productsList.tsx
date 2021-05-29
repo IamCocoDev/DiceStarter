@@ -8,7 +8,7 @@ import {
   productCategories,
 } from '../../app/reducers/handleProductsReducer';
 import ProductList from '../productList/productList';
-import {Categories, ProductRes, SearchInput} from '../../types';
+import {Categories, SearchInput} from '../../types';
 import Select from 'react-select';
 import {getCategoriesAsync, getProductsAsync} from
   '../../app/actions/handleProductsActions';
@@ -100,13 +100,14 @@ function ProductsList() {
       <div className="productsListGrid">
         <span className='productsListName'>Name</span>
         <span className='productsListPrice'>Price</span>
+        <span className='productsListDiscount'>Discount</span>
         <span className='productsListStock'>Stock</span>
         <span className='productsListSize'>Size</span>
         <span className='productsListColors'>Colors</span>
       </div>
       <div className='productsListProducts'>
         { adminProducts !== null &&
-        adminProducts.map((listProduct: ProductRes) => (
+        adminProducts.map((listProduct:any) => (
           <ProductList
             key={listProduct.id}
             categories={listProduct.categories}
@@ -120,6 +121,8 @@ function ProductsList() {
             stock={listProduct.stock}
             size={listProduct.size}
             rating={listProduct.rating}
+            priceDiscount={listProduct.priceDiscount}
+            discount={listProduct.discount}
           />
         ))}
       </div>
