@@ -57,7 +57,7 @@ module.exports = (sequelize) => {
     googleId: {
       type: DataTypes.STRING,
     },
-    suscriber: {
+    subscriber: {
       type: DataTypes.ENUM('true', 'false'),
       defaultValue: 'false',
     },
