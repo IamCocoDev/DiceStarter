@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node",
+    "start": "nodemon -L",
     "dev": "nodemon",
     "test": "mocha -w ./tests/**/*.spec.js"
   },
@@ -27,6 +27,7 @@
     "jsonwebtoken": "^8.5.1",
     "mercadopago": "^1.5.7",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.6",
     "nodemailer": "^6.6.1",
     "pg": "^8.5.1",
     "sequelize": "^6.3.5",
@@ -38,7 +39,6 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
     "mocha": "^8.2.1",
-    "nodemon": "^2.0.6",
     "supertest": "^6.0.1",
     "supertest-session": "^4.1.0"
   }

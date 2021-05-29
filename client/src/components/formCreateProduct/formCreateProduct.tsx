@@ -6,7 +6,6 @@ import {
   getCategoriesAsync,
 } from '../../app/actions/handleProductsActions/index';
 import './formCreateProduct.css';
-import FileBase64 from 'react-file-base64';
 import Select from 'react-select';
 import {
   formData,
@@ -14,13 +13,13 @@ import {
   formTextAreaData,
   Inputs,
   errorsInput,
-  base64,
   Categories,
 } from '../../types';
 import ColorCircle from '../colorCircle/ColorCircle';
 import {productCategories} from '../../app/reducers/handleProductsReducer';
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
-
+import swal from 'sweetalert2';
+import {storage} from '../../firebase';
 function deepEqualError(a: errorsInput) {
   return JSON.stringify(a) === JSON.stringify({
     name: '',
@@ -54,27 +53,27 @@ function validate(input: Inputs) {
   }
 
   if (!input.categories.length) {
-    errors.categories = 'categories are required';
+    errors.categories = 'Categories are required';
   };
 
   if (!input.color.length) {
-    errors.color = 'colors are required';
+    errors.color = 'Colors are required';
   }
 
   if (input.size === '0') {
-    errors.size = 'size is required';
+    errors.size = 'Size is required';
   }
 
   if (!input.stock) {
-    errors.stock = 'stock is required';
+    errors.stock = 'Stock is required';
   }
 
   if (!input.description) {
-    errors.description = 'description is required';
+    errors.description = 'Description is required';
   }
 
   if (!input.picture.length) {
-    errors.picture = 'picture is required';
+    errors.picture = 'Picture is required';
   }
   return errors;
 };
@@ -89,6 +88,7 @@ const FormCreateProduct = () => {
   }, [redirect]);
   const productCats = useAppSelector(productCategories);
   const [color, setColor] = useState('');
+  const [image, setImage] = useState(null);
   const [errors, setErrors] = useState<errorsInput>({
     name: '',
     price: '',
@@ -118,7 +118,10 @@ const FormCreateProduct = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      alert('Succesfully created!');
+      swal.fire({
+        title: 'Succesfully created!',
+        icon: 'success',
+      });
       dispatch(sendFormAsync(input, token));
       setInput({
         name: '',
@@ -133,7 +136,10 @@ const FormCreateProduct = () => {
       });
       setRedirect(true);
     } else {
-      alert('Complete the required spaces!');
+      swal.fire({
+        text: 'Complete the required spaces!',
+        icon: 'info',
+      });
     }
   };
   const handleChange = (e: formInputData) => {
@@ -161,9 +167,30 @@ const FormCreateProduct = () => {
     });
     setInput({...input, categories: data});
   };
-  const handlePictureChange = (e: base64[]): void => {
-    setInput({...input, picture: e.map((p: base64) => p.base64)});
+  const handlePictureChange = (e) => {
+    setImage(e.target.files[0]);
   };
+  const handlePictureUpload = () => {
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+        'state_changed',
+        (snapshot) => {},
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+              .ref('images')
+              .child(image.name)
+              .getDownloadURL()
+              .then((u) => {
+                console.log(u);
+                setInput({...input, picture: [...input.picture, u]});
+              });
+        },
+    );
+  };
+
   return (
     user.role === 'Admin' ?
     <div className='formCreateProductGrid'>
@@ -172,14 +199,13 @@ const FormCreateProduct = () => {
       }
       <form className='formCreateProductForm' onSubmit={handleSubmit}>
         <div className='formCreateProductUrlPicture'>
-          <label className='formCreateProductLabel'
-            htmlFor="">Add image</label>
-          <FileBase64 multiple={true} onDone={handlePictureChange} required />
+          <input type="file" onChange={handlePictureChange} required />
+          <button onClick={handlePictureUpload}>Upload</button>
           <p className='formCreateProductError'>{errors.picture}</p>
         </div>
         <div className='formCreateProductName'>
           <label className='formCreateProductLabel'
-            htmlFor="">name</label>
+            htmlFor="">Name</label>
           <input
             className='formCreateProductInput'
             type="text"
@@ -191,7 +217,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductPrice'>
           <label className='formCreateProductLabel'
-            htmlFor="">price
+            htmlFor="">Price
           </label>
           <input
             className='formCreateProductInput'
@@ -206,7 +232,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductStock'>
           <label className='formCreateProductLabel'
-            htmlFor="">stock
+            htmlFor="">Stock
           </label>
           <input
             className='formCreateProductInput'
@@ -220,7 +246,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductSize'>
           <label className='formCreateProductLabel'
-            htmlFor="">size
+            htmlFor="">Size
           </label>
           <input
             className='formCreateProductInput'
@@ -233,7 +259,7 @@ const FormCreateProduct = () => {
         </div>
         <div className='formCreateProductColor'>
           <label className='formCreateProductLabel'
-            htmlFor="">color
+            htmlFor="">Color
           </label>
           <div className='formCreateProductColorBalls'>
             {input.color.length ?
@@ -245,7 +271,7 @@ const FormCreateProduct = () => {
             null}
           </div>
           <input
-            className='formCreateProductInput'
+            className='formCreateProductColorSelector'
             type="color"
             value={input.color}
             name = "color"
@@ -253,13 +279,13 @@ const FormCreateProduct = () => {
           />
           <input className='formCreateProductColorButton'
             type="button"
-            value="add color"
+            value="Add Color"
             onClick={() => addColor(color)} />
           <p className='formCreateProductError'>{errors.color}</p>
         </div>
         <div className='formCreateProductDescription'>
           <label className='formCreateProductLabel'
-            htmlFor="">description
+            htmlFor="">Description
           </label>
           <textarea className='formCreateProductDescriptionTextArea'
             value={input.description}

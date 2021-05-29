@@ -81,9 +81,9 @@ function ProductsList() {
           options={sortType}
           placeholder='Choose your order...'
           onChange={(e) => {
-            setFilters({...filters, sort: e?.label});
+            setFilters({...filters, sort: e.label});
             dispatch(getProductsAsync({name: filters.name,
-              page: filters.page, filter: filters.filter, sort: e?.label}));
+              page: filters.page, filter: filters.filter, sort: e.label}));
           }}
         ></Select>
         <Select
@@ -91,26 +91,23 @@ function ProductsList() {
           options={categoriesCopy}
           placeholder='Choose your sort...'
           onChange={(e) => {
-            setFilters({...filters, filter: e?.value});
+            setFilters({...filters, filter: e.value});
             dispatch(getProductsAsync({name: filters.name,
-              page: filters.page, filter: e?.value, sort: filters.sort}));
+              page: filters.page, filter: e.value, sort: filters.sort}));
           }}
         ></Select>
       </div>
       <div className="productsListGrid">
-        <div className='productsListLabels'>
-          <span className='productsListName'>Name</span>
-          <span className='productsListPrice'>Price</span>
-          <span className='productsListCategories'>Categories</span>
-          <span className='productsListDescription'>Description</span>
-          <span className='productsListStock'>Stock</span>
-          <span className='productsListSize'>Size</span>
-          <span className='productsListColors'>Colors</span>
-          <span className='productsListImageUrl'>Image Url</span>
-        </div>
-        <div className='productsListProducts'>
-          { adminProducts !== null &&
-        adminProducts.map((listProduct) => (
+        <span className='productsListName'>Name</span>
+        <span className='productsListPrice'>Price</span>
+        <span className='productsListDiscount'>Discount</span>
+        <span className='productsListStock'>Stock</span>
+        <span className='productsListSize'>Size</span>
+        <span className='productsListColors'>Colors</span>
+      </div>
+      <div className='productsListProducts'>
+        { adminProducts !== null &&
+        adminProducts.map((listProduct:any) => (
           <ProductList
             key={listProduct.id}
             categories={listProduct.categories}
@@ -123,17 +120,19 @@ function ProductsList() {
             available={listProduct.available}
             stock={listProduct.stock}
             size={listProduct.size}
+            rating={listProduct.rating}
+            priceDiscount={listProduct.priceDiscount}
+            discount={listProduct.discount}
           />
         ))}
-        </div>
       </div>
       <div style={{'display': 'flex', 'justifyContent': 'center'}}>
         {filters.page > 1 ?
-        <button className='productsPages' style={{'border': '2px solid black'}}
+        <button className='productsPages'
           onClick={() => onClickPage(-1)}>
           Previous</button> : null}
         {pagesTotal > filters.page ?
-        <button className='productsPages' style={{'border': '2px solid black'}}
+        <button className='productsPages'
           onClick={() => onClickPage(1)}>
           Next</button> : null}
       </div>

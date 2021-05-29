@@ -14,7 +14,6 @@ module.exports = async (req, res, next) => {
         return res.sendStatus(403);
       }
       req.user = user;
-
       try {
         const username = await User.findOne({ where: { name: user.name } });
         if (username) {

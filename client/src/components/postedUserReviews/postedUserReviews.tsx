@@ -15,7 +15,7 @@ const PostedUserReviews = (props:{id:string}) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getReviews(props.id));
-  }, [dispatch, props]);
+  }, [dispatch]);
   useEffect(() => {}, [postedReviews]);
   return (
     <div className='postedUserReviewsAll'>

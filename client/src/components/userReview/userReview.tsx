@@ -5,7 +5,8 @@ import {deleteReviews,
   getReviews,
   modifyReview} from '../../app/actions/reviewsActions/index';
 import {userInfo} from '../../app/reducers/registerReducer';
-import './userReview';
+import './userReview.css';
+import RatingStars from '../ratingStars/ratingStars';
 const UserReview = (props:{review, token, user, id}) => {
   const user = useAppSelector(userInfo);
   const [toggle, setToggle] = useState(false);
@@ -21,11 +22,6 @@ const UserReview = (props:{review, token, user, id}) => {
   const handleCommentChange = (e: any) => {
     setChanges({...changes, comment: e.target.innerText});
   };
-  const handleRatingChange = (e: any) => {
-    if (parseInt(e.target.innerText) <= 5) {
-      setChanges({...changes, rating: e.target.innerText});
-    }
-  };
   const handleDelete = (e) => {
     dispatch(deleteReviews(e.target.value, props.id, token));
     dispatch(getReviews(props.id));
@@ -34,19 +30,23 @@ const UserReview = (props:{review, token, user, id}) => {
     review.user.name === user.name ? setToggle(true) : null;
   });
   return (
-    <div>
-      <h1>{review.user.name}</h1>
-      <p suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleRatingChange}>{review.rating}</p>
-      <p suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleCommentChange}>{review.comment}</p>
-      { toggle === true &&
-          <button onClick={handleEditMode}>✎ </button>
-      }
-      { toggle === true && review.user.name === user.name &&
-        <button onClick={handleDelete} value={review.id}> 🗑 </button>
-      }
+    <div className='userReviewAll'>
+      <div className='userReviewBox'>
+        <h2 className='userReviewTitle'>{review.user.name}</h2>
+        <div className='userReviewRating' ><RatingStars rating={review.rating}/></div>
+        <p className='userReviewComment' suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleCommentChange}>{review.comment}</p>
+      </div>
+      <div className='userReviewButtons'>
+        { toggle === true &&
+          <button className='material-icons userReviewEditButton' onClick={handleEditMode}>edit</button>
+        }
+        { toggle === true && review.user.name === user.name &&
+        <button className='material-icons userReviewDeleteButton' onClick={handleDelete} value={review.id}>delete</button>
+        }
+      </div>
       {
         changes.comment !== review.comment || changes.rating !== review.rating ?
-        <button onClick={() => dispatch(modifyReview(review.id, changes, token))}>Save Changes</button> : null
+        <button className='material-icons userReviewSaveButton' onClick={() => dispatch(modifyReview(review.id, changes, token))}>save</button> : null
       }
     </div>
   );

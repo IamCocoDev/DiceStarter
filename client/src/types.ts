@@ -1,4 +1,11 @@
 
+export interface Address {
+    id: string,
+    address: string,
+    city: string,
+    postalCode: string,
+    phone: string | null,
+}
 export interface userChanges {
     id:string,
     name:string,
@@ -66,7 +73,7 @@ export interface ReviewRes {
     id: number,
     rating: number,
     comment: string,
-    name:string,
+    userId:string,
 }
 export interface SearchInput {
     name?:string,
@@ -86,6 +93,7 @@ export interface ProductRes {
     stock:string,
     description:string,
     categories: dbCategories[],
+    rating: string,
 }
 
 export interface Inputs {

@@ -32,9 +32,21 @@ module.exports = (sequelize) => {
       allowNull: false,
       min: 0,
     },
+    rating: {
+      type: DataTypes.DECIMAL,
+      defaultValue: 0.00,
+    },
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    discount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    priceDiscount: {
+      type: DataTypes.DECIMAL,
+      min: 0.00,
     },
   }, {
     timestamps: false,

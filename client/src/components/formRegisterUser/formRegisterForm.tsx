@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {formData, formInputData, registerInput} from '../../types';
 import CountrySelect from '../countrySelect/countrySelect';
 import {useAppDispatch} from '../../app/hooks';
-import {sendFormAsync} from '../../app/actions/actionsUser';
+import {sendFormAsync, loginFormAsync} from '../../app/actions/actionsUser';
 import './formRegisterForm.css';
 import {Redirect} from 'react-router-dom';
+import swal from 'sweetalert2';
 // eslint-disable-next-line no-unused-vars
 import GoogleComp from '../googleComp/googleComp';
 
@@ -33,9 +34,9 @@ function validate(input: registerInput) {
     country: '',
   };
   if (!input.name) {
-    errors.name = 'name is required';
+    errors.name = 'User Name is required';
   } else if (!/[0-9a-zA-Z]{5,}/.test(input.name)) {
-    errors.name = 'name is invalid';
+    errors.name = 'Name is invalid';
   }
   if (!input.email) {
     errors.email = 'Email is required';
@@ -43,17 +44,17 @@ function validate(input: registerInput) {
     errors.email = 'Email is invalid';
   }
   if (!input.firstName) {
-    errors.firstName = 'firstName is required';
+    errors.firstName = 'First Name is required';
   } else if (/[\d.]/.test(input.firstName)) {
-    errors.firstName = 'firstName is invalid';
+    errors.firstName = 'First Name is invalid';
   }
   if (!input.lastName) {
-    errors.lastName = 'lastName is required';
+    errors.lastName = 'Last Name is required';
   } else if (/[\d.]/.test(input.lastName)) {
-    errors.lastName = 'lastName is invalid';
+    errors.lastName = 'Last Name is invalid';
   }
   if (!input.birthday) {
-    errors.birthday = 'birthday is required';
+    errors.birthday = 'Birthday is required';
   }
   if (!input.password) {
     errors.password = 'Password is required';
@@ -100,21 +101,34 @@ const FormRegisterForm = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      alert('Register completed!');
-      dispatch(sendFormAsync(input));
-      setRedirect(true);
-      setInput({
-        name: '',
-        email: '',
-        firstName: '',
-        lastName: '',
-        password: '',
-        confirmPassword: '',
-        birthday: '',
-        country: '',
-      });
+      // using dispatch as a promise for error handling
+      dispatch(sendFormAsync(input))
+          .then((r:any) => {
+            console.log(r);
+            if (r !== 'error') {
+              swal.fire({
+                title: 'Register completed!',
+                icon: 'success',
+              });
+              const loginInput = {username: input.name,
+                password: input.password};
+              dispatch(loginFormAsync(loginInput))
+                  .then((r) => {
+                    setRedirect(true);
+                  }).catch((err) => console.error(err));
+            } else {
+              swal.fire({
+                title: 'Register Failed',
+                html: `Email or Username already exists!
+                <a href='/profile'>Log in Here!</a>`,
+              });
+            }
+          }).catch((err) => console.error(err));
     } else {
-      alert('Complete the requiered spaces!');
+      swal.fire({
+        title: 'Complete the required spaces!',
+        icon: 'warning',
+      });
     }
   };
 
@@ -134,7 +148,7 @@ const FormRegisterForm = () => {
       }
       <form className='registerGrid' onSubmit={handleSubmit}>
         <div className='registerName'>
-          <label className='registerH1' htmlFor="">Name</label>
+          <label className='registerH1' htmlFor="">User Name</label>
           <input className='registerInput'
             type="text"
             name="name"

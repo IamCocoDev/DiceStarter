@@ -27,9 +27,10 @@ router.post('/', isAdmin, async (req, res, next) => {
     const {
       name, size, color, picture, price, stock, description, categories,
     } = req.body;
+    const rating = 0.00;
 
     const newProduct = {
-      id, name, size, color, picture, price, stock, description,
+      id, name, size, color, picture, price, stock, description, rating,
     };
     const info = await Product.create(newProduct);
     info.setCategories(categories);
@@ -52,9 +53,9 @@ router.put('/stock/:productId', async (req, res, next) => {
 });
 
 router.put('/:id', async (req, res, next) => {
-  const { id } = req.params;
-  const { body } = req;
   try {
+    const { id } = req.params;
+    const { body } = req;
     const product = await Product.findByPk(id, { include: Category });
     await product.update(body, { where: { id }, include: Category });
     product.setCategories(body.categories);
@@ -84,14 +85,20 @@ router.post('/:id/review', isLogged, (req, res, next) => {
   const { userId } = req.body;
   const { rating } = req.body;
   const { comment } = req.body;
-  console.log(req.body);
-  console.log(userId);
+
   Reviews.create({
     rating,
     comment,
     productId: id,
   })
     .then((r) => {
+      Product.findByPk(id)
+        .then(async (r) => {
+          const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
+          const quantityRev = await Reviews.count({ where: { productId: id } });
+          const average = sumReviews / quantityRev;
+          r.update({ rating: parseFloat(average.toFixed(2)) });
+        });
       User.findByPk(userId)
         .then((u) => {
           r.setUser(u);
@@ -116,14 +123,12 @@ router.put('/review/:idReview', (req, res, next) => {
   const { idReview } = req.params;
   const { comment } = req.body;
   const { rating } = req.body;
-  console.log(req.body);
   Reviews.findOne({ where: { id: idReview } })
     .then((resp) => {
       if (resp) {
         resp.update({ comment });
         resp.update({ rating });
       }
-      console.log(resp);
       res.send(resp); // Resultado del UPDATE
     })
     .catch((e) => {

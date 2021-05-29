@@ -1,34 +1,47 @@
 .cartFlex{
-    display: flex;
-    flex-direction: column;
+  position: relative;
 }
 
 .cartFlexItems{
     display: flex;
     flex-direction: column;
     margin: 1vw;
+    width: 60%;
+    position: absolute;
+    left: 0;
 }
 
 .cartFlexTotal{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-self: center;
-    justify-self: center;
-    margin: 1vw;
-    color: white;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+  color: white;
+  width: 25%;
+  height: 50%;
+  position: fixed;
+  right: 6rem;
+  top: 10rem;
+  background-color: #101010;
+  border-radius: 0.5rem;
 }
 
 .cartDeleteButton{
-    border: none;
-    color: white;
-    margin: 1vw;
-    width: 12vw;
-    height: auto;
-    justify-self: center;
-    align-self: center;
-    font-size: 3vh;
-    background-color: #74009D;
-    border-radius: 0.5vw;
-    text-align: center;
+  cursor: pointer;
+  border: none;
+  color: white;
+  margin: 1rem;
+  width: 10rem;
+  height: 3rem;
+  justify-self: center;
+  align-self: center;
+  font-size: 1.2rem;
+  background-color: #74009D;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.cartDeleteButton:hover{
+  background-color: #9e00d3;
 }

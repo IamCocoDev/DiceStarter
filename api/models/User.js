@@ -10,7 +10,6 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     firstName: {
       type: DataTypes.STRING,
@@ -47,7 +46,6 @@ module.exports = (sequelize) => {
       validate: {
         isEmail: true,
       },
-      unique: true,
     },
     password: {
       type: DataTypes.STRING,
@@ -58,6 +56,10 @@ module.exports = (sequelize) => {
     },
     googleId: {
       type: DataTypes.STRING,
+    },
+    suscriber: {
+      type: DataTypes.ENUM('true', 'false'),
+      defaultValue: 'false',
     },
     status: {
       type: DataTypes.ENUM('Active', 'Closed', 'Banned'),

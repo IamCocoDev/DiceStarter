@@ -3,6 +3,7 @@ import {formData, formInputData, loginInput} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {loginFormAsync} from '../../app/actions/actionsUser/index';
 import {userInfo} from '../../app/reducers/registerReducer';
+import swal from 'sweetalert2';
 import './login.css';
 import GoogleComp from '../googleComp/googleComp';
 import {getProductsInCart} from '../../app/actions/cartActions/index';
@@ -46,11 +47,33 @@ const Login = () => {
   const handleSubmit = (e: formData) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
-      dispatch(loginFormAsync(input));
-      setRedirect(true);
-      dispatch(getProductsInCart());
+      dispatch(loginFormAsync(input))
+          .then((r) => {
+            console.log(r);
+            if (r !== 'error') {
+              swal.fire({
+                title: 'Logged in succesfully!',
+                icon: 'success',
+                // fix buttons
+              })
+                  .then((ok) => {
+                    if (ok) {
+                      setTimeout(() => {
+                        setRedirect(true);
+                        dispatch(getProductsInCart());
+                      }, 4000);
+                    }
+                  })
+                  .catch((err) => console.error(err));
+            } else {
+              swal.fire({
+                text: 'The email or username does not exist',
+                icon: 'error',
+              });
+            }
+          }).catch((err) => console.error(err));
     } else {
-      alert('mal');
+      swal.fire('You need to insert an e-mail and a password');
     }
   };
   useEffect(() => {

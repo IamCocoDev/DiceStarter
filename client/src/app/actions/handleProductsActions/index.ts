@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import axios from 'axios';
-import {ProductRes, SearchInput} from '../../../types';
+import {SearchInput} from '../../../types';
 import {BACK_ROUTE} from '../../../ROUTE.js';
 
 import {SET_PRODUCTS,
@@ -33,7 +33,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
       dispatch(setProducts([]));
       const res = await axios.get(`${BACK_ROUTE}/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
       const totalPages = res.data.totalPages;
-      const products = res.data.products.map((product: ProductRes) => {
+      const products = res.data.products.map((product) => {
         return {
           id: product.id,
           name: product.name,
@@ -45,6 +45,9 @@ const getProductsAsync = (SearchInput: SearchInput) => {
           color: product.color,
           available: product.available,
           description: product.description,
+          rating: product.rating,
+          discount: product.discount,
+          priceDiscount: product.priceDiscount,
         };
       });
       dispatch(setProducts(products,
@@ -59,7 +62,6 @@ const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`${BACK_ROUTE}/product/${id}`);
-      console.log(res.data);
       const {name,
         picture,
         price,
@@ -69,8 +71,11 @@ const getProductByIdAsync = (id: any) => {
         available,
         description,
         categories,
+        rating,
+        priceDiscount,
+        discount,
       } = res.data;
-      const productResponse: ProductRes = {
+      const productResponse: any = {
         id,
         name,
         picture,
@@ -81,6 +86,9 @@ const getProductByIdAsync = (id: any) => {
         description,
         size,
         categories,
+        rating,
+        priceDiscount,
+        discount,
       };
       dispatch(setProductById(productResponse));
     } catch (err) {
@@ -107,26 +115,14 @@ const deleteProductByIdAsync = (id: any, token:string) => {
 const changeProductInDBAsync = (product: any, token:string) => {
   return async (dispatch: any) => {
     try {
-      const toSend = {
-        id: product.id,
-        name: product.name,
-        available: product.available,
-        categories: product.categories,
-        color: product.color,
-        description: product.description,
-        picture: product.picture,
-        price: product.price,
-        rating: product.rating,
-        size: product.size,
-        stock: product.stock,
-      };
-      await axios.put(`${BACK_ROUTE}/product/${product.id}`, toSend, {
+      await axios.put(`${BACK_ROUTE}/product/${product.id}`, product, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
       });
     } catch (err) {
       console.log(err);
+      if (err) return 'error';
     }
   };
 };

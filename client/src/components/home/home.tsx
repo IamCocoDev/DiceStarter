@@ -38,7 +38,6 @@ function Home(props: any) {
   }, [page]);
   useEffect(() => {
     const checkout = props.location.search;
-    console.log(checkout);
     if (checkout.includes('status')) {
       dispatch(getCheckoutTicket(User.firstName,
           User.lastName, User.email, status));
