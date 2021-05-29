@@ -9,35 +9,48 @@
 }
 
 .formCategoryCreationGrid{
-    display: grid;
-    grid-template-columns: 0.5vw 1fr 0.5vw;
-    grid-template-rows: 0.5vh 1fr 1fr 0.5vh;
-    background-color: #101010;
-    height: 40vh;
-    width: 30vw;
-    border-radius: 0.5vw;
+  display: grid;
+  grid-template-columns: 0.5vw 1fr 0.5vw;
+  grid-template-rows: 0.5vh 1fr 1fr 0.5vh;
+  background-color: #101010;
+  height: 40vh;
+  width: 30vw;
+  border-radius: 0.5vw;
 }
 
 .formCategoryCreationName{
-    grid-column: 2/3;
-    grid-row: 2/3;
-    justify-self: center;
-    align-self: center;
-    height: 30%;
-    width: 60%;
-    color:black;
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  grid-column: 2/3;
+  grid-row: 2/3;
+  justify-self: center;
+  align-self: center;
+  height: 2rem;
+  width: 15rem;
+  color:black;
 }
 
 .formCategoryCreationName:placeholder-shown{
-    padding-left: 1vw;
+  padding-left: 1vw;
 }
 
 .formCategoryCreationSubmit{
-    grid-column: 2/3;
-    grid-row: 3/4;
-    justify-self: center;
-    align-self: center;
-    height: 30%;
-    width: 60%;
-    color:black;
+  cursor: pointer;
+  background-color: #74009D;
+  color: white;
+  grid-column: 2/3;
+  grid-row: 3/4;
+  justify-self: center;
+  align-self: center;
+  outline: none;
+  border: none;
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  height: 2rem;
+  width: 4rem;
+}
+
+.formCategoryCreationSubmit:hover{
+  background-color: #9e00d3;
 }
