@@ -192,6 +192,15 @@ const getUsers = (token:string) => {
   };
 };
 
+const setSubscribe = (email:string) => {
+  return async (dispatch:any) => {
+    try {
+      await axios.put(`${BACK_ROUTE}/user/${email}/subscribe`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
 
 export {
   sendFormAsync,
@@ -202,4 +211,5 @@ export {
   getUsers,
   modifyAddress,
   setUser,
+  setSubscribe,
 };

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {logout, modifyUser} from '../../app/actions/actionsUser';
+import {logout, modifyUser, setSubscribe} from '../../app/actions/actionsUser';
 import {userInfo, userToken} from '../../app/reducers/registerReducer';
 import './profile.css';
 import Login from '../login/login';
@@ -133,6 +133,8 @@ const Profile = () => {
           }
           <input className='profileLogOut' type='button' value='Log Out' onClick={handleLogout}/>
         </div>
+        <label>Subscribe to our Newsletter to get the latest products and offers!</label>
+        <input type='checkbox' onClick={() => dispatch(setSubscribe(User.email))}/>
       </div>
     </div> :
     <div><Login/></div>
