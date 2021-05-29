@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  ProductRes, formInputData,
-} from '../../types';
+import {formInputData} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {
   changeProductInDBAsync, deleteProductByIdAsync}
@@ -9,12 +7,13 @@ import {
 import ColorCircle from '../colorCircle/ColorCircle';
 import './productList.css';
 import {userToken} from '../../app/reducers/registerReducer';
+import swal from 'sweetalert2';
 
-function ProductList(props: ProductRes): JSX.Element {
+function ProductList(props:any): JSX.Element {
   const dispatch = useAppDispatch();
   const [color, setColor] = useState('');
   const [available, setAvailable] = useState('true');
-  const [input, setInput] = useState<ProductRes>({
+  const [input, setInput] = useState({
     id: props.id,
     name: props.name,
     picture: props.picture,
@@ -26,6 +25,8 @@ function ProductList(props: ProductRes): JSX.Element {
     description: props.description,
     categories: [],
     rating: props.rating,
+    discount: props.discount,
+    priceDiscount: props.priceDiscount,
   });
 
   const token = useAppSelector(userToken);
@@ -51,6 +52,10 @@ function ProductList(props: ProductRes): JSX.Element {
     setInput({...input, [e.target.name]: data});
   };
 
+  const handleDiscountChange = (e:any) => {
+    setInput({...input, [e.target.name]: parseInt(e.target.value)});
+  };
+
   const addColor = (color: string) => {
     const repColor = input.color.find((el: string) => el === color);
     if (!repColor) {
@@ -66,6 +71,18 @@ function ProductList(props: ProductRes): JSX.Element {
       setInput({...input, available: false});
     }
   }, [available]);
+
+  const handleOnSubmit = () => {
+    if (input.discount < 99) {
+      dispatch(changeProductInDBAsync(input, token));
+    } else {
+      swal.fire({
+        text: `You can't add a 100% discount!`,
+        icon: 'info',
+      });
+    }
+  };
+
   return (
     <div className="productListGrid">
       <input
@@ -79,12 +96,26 @@ function ProductList(props: ProductRes): JSX.Element {
       <input
         className="productListPrice"
         type="number"
-        placeholder={'Price'}
-        value={input.price}
+        placeholder={input.priceDiscount ? input.priceDiscount : input.price}
+        value={input.priceDiscount ? input.priceDiscount : input.price}
         name="price"
         step="0.1"
         onChange={handleNumberChange}
       ></input>
+      {
+        <p className='productListDiscountLabel'>%
+          <input
+            className='productListDiscount'
+            type='number'
+            name='discount'
+            onChange={handleDiscountChange}
+            placeholder={props.discount || 0}
+            min='0'
+            max='99'
+            step='1'
+          />
+        </p>
+      }
       <input
         className="productListStock"
         type="number"
@@ -99,7 +130,6 @@ function ProductList(props: ProductRes): JSX.Element {
         placeholder={'Size'}
         value={input.size}
         name="size"
-        step="0.1"
         onChange={handleNumberChange}
       >
       </input>
@@ -121,11 +151,8 @@ function ProductList(props: ProductRes): JSX.Element {
         <button className='productListColorsButton'
           onClick={() => addColor(color)}>Add color</button>
       </div>
-      <button className="productListEditButton" onClick={() => {
-        if (window.confirm(`Save changes to ${input.name}?`)) {
-          dispatch(changeProductInDBAsync(input, token));
-        }
-      }}><i className='material-icons'>save</i></button>
+      <button className="productListEditButton" onClick={handleOnSubmit}>
+        <i className='material-icons'>save</i></button>
       <button className="productListDeleteButton" onClick={() => {
         if (window.confirm(`Are you sure you want to delete ${input.name}?`)) {
           dispatch(deleteProductByIdAsync(input.id, token));

@@ -56,8 +56,6 @@ router.put('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const { body } = req;
-    // eslint-disable-next-line no-mixed-operators
-    body.priceDiscount = (body.price - (body.price * body.discount / 100)).toFixed(2);
     const product = await Product.findByPk(id, { include: Category });
     await product.update(body, { where: { id }, include: Category });
     product.setCategories(body.categories);
