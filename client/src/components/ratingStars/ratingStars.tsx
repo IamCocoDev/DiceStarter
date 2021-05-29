@@ -1,4 +1,5 @@
 import React from 'react';
+import './ratingStars.css';
 
 const RatingStars = (props: any) => {
   // quiero tener un array con el integer rating
@@ -12,15 +13,16 @@ const RatingStars = (props: any) => {
     const starArr = [];
     const numStar = Math.round(num);
     for (let i = 0; i < numStar; i++) {
-      starArr.push('★');
+      starArr.push(<div className='material-icons'>star</div>);
     }
     return starArr;
   };
   const {rating} = props;
   const ratingStars = starConverter(rating);
   return (
-    ratingStars.length > 0 &&
-    <div>Rating: {ratingStars}</div>
+    ratingStars.length > 0 ?
+    <div className='ratingStars'>{ratingStars}</div> :
+    <div className='noRating'> No rating yet</div>
   );
 };
 
