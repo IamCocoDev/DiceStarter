@@ -5,6 +5,7 @@ const isAdmin = require('../middleware/auth');
 const { isLogged } = require('../middleware/logged');
 
 const router = express.Router();
+const { transporter } = require('../configs/mailer');
 
 const {
   Product, Category, Reviews, User,
@@ -34,6 +35,20 @@ router.post('/', isAdmin, async (req, res, next) => {
     };
     const info = await Product.create(newProduct);
     info.setCategories(categories);
+    User.findAll({ where: { subscriber: 'true' } })
+      .then(async (users) => {
+        for (let i = 0; i < users.length; i += 1) {
+          if (users[i].dataValues.subscriber === 'true') {
+            // eslint-disable-next-line no-await-in-loop
+            await transporter.sendMail({
+              from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+              to: users[i].dataValues.email, // list of receivers
+              subject: 'Check it this new product ✔', // Subject line
+              text: `${users[i].dataValues.firstName} check it this new product`, // html body
+            });
+          }
+        }
+      }).catch((e) => next(e));
     res.status(200).json(info);
   } catch (e) {
     res.status(400);
