@@ -33,7 +33,7 @@ const UserReview = (props:{review, token, user, id}) => {
     <div className='userReviewAll'>
       <div className='userReviewBox'>
         <h2 className='userReviewTitle'>{review.user.name}</h2>
-        <p className='userReviewRating' ><RatingStars rating={review.rating}/></p>
+        <div className='userReviewRating' ><RatingStars rating={review.rating}/></div>
         <p className='userReviewComment' suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleCommentChange}>{review.comment}</p>
       </div>
       <div className='userReviewButtons'>
