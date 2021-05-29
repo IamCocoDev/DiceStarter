@@ -15,6 +15,7 @@ function ProductCard(
     id:string,
     stock:number,
     rating:number,
+    priceDiscount:string,
   }) {
   // const productToCart = useAppSelector(productDetail);
   const user = useAppSelector(userInfo);
@@ -51,7 +52,16 @@ function ProductCard(
       <div className='productInfo'>
         <div className='productNamePrice'>
           <h2 className='productCardName'>{props.name}</h2>
-          <div className='productCardPrice'>$ {props.price}</div>
+          { props.priceDiscount ?
+          <div className='productCardDiscount'>
+            {props.priceDiscount}
+            <div className='productCardDiscountPrice'>
+              {/* aca la idea es mostrar el precio sin descuento tachado*/}
+              {props.price}
+            </div>
+          </div> :
+            <div className='productCardPrice'>$ {props.price}</div>
+          }
           <RatingStars rating={props.rating}/>
         </div>
         {props.stock === 0 ?

@@ -258,7 +258,7 @@ router.put('/:email/subscribe', (req, res, next) => {
               subject: 'Subscribe Success ✔', // Subject line
               text: 'Thank you for subscribe', // html body
             });
-            res.send('Thank you for subscribe');
+            res.status(200).send('Thank you for subscribe');
           } else {
             await transporter.sendMail({
               from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
@@ -266,7 +266,7 @@ router.put('/:email/subscribe', (req, res, next) => {
               subject: 'Unsubscribe Success ✔', // Subject line
               text: 'We hope to see you soon', // html body
             });
-            res.send('unsubscribe');
+            res.status(200).send('unsubscribe');
           }
         });
     }).catch((e) => next(e));

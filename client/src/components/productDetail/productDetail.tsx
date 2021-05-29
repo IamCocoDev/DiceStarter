@@ -4,9 +4,6 @@ import './productDetail.css';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {productDetail} from '../../app/reducers/handleProductsReducer';
 import ColorCircle from '../colorCircle/ColorCircle';
-import {
-  ProductRes,
-} from '../../types';
 import {changeProductInDBAsync, getProductByIdAsync}
   from '../../app/actions/handleProductsActions/index';
 import UserReviews from '../userReviews/userReviews';
@@ -22,7 +19,7 @@ function ProductDetail(props:any ) {
   const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);
-  const [changes, setChanges] = useState<ProductRes>({
+  const [changes, setChanges] = useState({
     id: '',
     name: '',
     picture: [],
@@ -40,7 +37,7 @@ function ProductDetail(props:any ) {
     dispatch(getProductByIdAsync(id))
         .then((p) => {
           setChanges(product);
-        });
+        }).catch((err) => console.error(err));
   }, []);
   const handleOnClick = () => {
     const duplicate = JSON.parse(localStorage
@@ -87,6 +84,7 @@ function ProductDetail(props:any ) {
   const handleStockChange = (e:any) => setChanges({...changes, stock: e.target.innerText});
   const handleSizeChange = (e:any) => setChanges({...changes, size: e.target.innerText});
   const handlePriceChange = (e:any) => setChanges({...changes, price: e.target.innerText});
+  console.log(changes);
   return (
     <div className='productDetailBackground'>
       {
@@ -107,9 +105,17 @@ function ProductDetail(props:any ) {
               <div className='productDetailinformation'>
                 <div className='productDetailButton'>
                   <p>Price: $</p>
-                  <span className='ProductDetailPrice' suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePriceChange}>
-                    {product.price}
-                  </span>
+                  { product.priceDiscount ?
+                  <div className='ProductDetailPrices'>
+                    <span className='ProductDetailDiscount'>{product.priceDiscount}</span>
+                    <span className='ProductDetailPrice' suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePriceChange}>
+                      {product.price}
+                    </span>
+                  </div> :
+                    <span className='ProductDetailPrice' suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePriceChange}>
+                      {product.price}
+                    </span>
+                  }
                   {
                     User.role !== 'Admin' ?
                       <button className='productDetailAddToCart' onClick={handleOnClick}
@@ -143,9 +149,9 @@ function ProductDetail(props:any ) {
                   <span className='ProductDetailSize' suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleSizeChange}>
                     {product.size}
                   </span>
-                  <span className='ProductDetailRating'>
+                  <div className='ProductDetailRating'>
                     <RatingStars rating={product.rating}/>
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>
