@@ -60,6 +60,7 @@ export interface FormRegisterState {
 }
 export interface ReviewState {
     reviewsResponse: ReviewRes[] | null,
+    allReviews: ReviewRes[] | null,
     body: string,
     id: string,
 }

@@ -112,7 +112,7 @@ router.post('/:id/review', isLogged, (req, res, next) => {
 
 router.get('/reviews/allreviews', isAdmin, (req, res, next) => {
   Reviews.findAll({ attributes: { exclude: ['userId'] }, include: { model: User, attributes: ['name'] } })
-    .then((data) => res.send(data))
+    .then((data) => res.status(200).send(data))
     .catch((e) => {
       res.status(400);
       next(e);
