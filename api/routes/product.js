@@ -72,6 +72,22 @@ router.put('/:id', async (req, res, next) => {
     const { id } = req.params;
     const { body } = req;
     const product = await Product.findByPk(id, { include: Category });
+    if (body.discount !== product.discount) {
+      User.findAll({ where: { subscriber: 'true' } })
+        .then(async (users) => {
+          for (let i = 0; i < users.length; i += 1) {
+            if (users[i].dataValues.subscriber === 'true') {
+            // eslint-disable-next-line no-await-in-loop
+              await transporter.sendMail({
+                from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+                to: users[i].dataValues.email, // list of receivers
+                subject: 'Check it this new discount ✔', // Subject line
+                text: `${users[i].dataValues.firstName} check it this new discount`, // html body
+              });
+            }
+          }
+        }).catch((e) => next(e));
+    }
     await product.update(body, { where: { id }, include: Category });
     product.setCategories(body.categories);
     res.send(product);
