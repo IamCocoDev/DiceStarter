@@ -16,6 +16,7 @@ function ProductCard(
     stock:number,
     rating:number,
     priceDiscount:string,
+    discount: number,
   }) {
   // const productToCart = useAppSelector(productDetail);
   const user = useAppSelector(userInfo);
@@ -53,13 +54,18 @@ function ProductCard(
         <div className='productNamePrice'>
           <h2 className='productCardName'>{props.name}</h2>
           <RatingStars rating={props.rating}/>
-          { props.priceDiscount ?
+          { props.priceDiscount || props.discount ?
           <div className='productCardDiscount'>
             <div className='productCardDiscountPrice'>
-              {/* aca la idea es mostrar el precio sin descuento tachado*/}
-              $ {props.price}
+              ${props.price}
             </div>
-            $ {props.priceDiscount}
+            { props.priceDiscount ?
+            <div>${props.priceDiscount}</div> :
+            <div>
+              ${parseFloat(props.price) -
+              parseFloat((parseFloat(props.price) *
+              props.discount/100).toFixed(2))}
+            </div> }
           </div> :
             <div className='productCardPrice'>$ {props.price}</div>
           }

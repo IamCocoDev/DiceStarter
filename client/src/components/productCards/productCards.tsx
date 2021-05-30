@@ -21,6 +21,7 @@ function ProductCards() {
             stock={product.stock}
             rating={product.rating}
             priceDiscount={product.priceDiscount}
+            discount={product.discount}
           />
         ))
       }

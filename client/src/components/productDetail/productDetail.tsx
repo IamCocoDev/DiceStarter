@@ -84,7 +84,6 @@ function ProductDetail(props:any ) {
   const handleStockChange = (e:any) => setChanges({...changes, stock: e.target.innerText});
   const handleSizeChange = (e:any) => setChanges({...changes, size: e.target.innerText});
   const handlePriceChange = (e:any) => setChanges({...changes, price: e.target.innerText});
-  console.log(changes);
   return (
     <div className='productDetailBackground'>
       {
@@ -99,7 +98,7 @@ function ProductDetail(props:any ) {
           <div className='carouselandinfo'>
             <Carousel pictures={product.picture}/>
             <div className='ProductDetailGrid'>
-              <h2 className={!editMode ? 'ProductDetailName' : 'editable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleNameChange}>{
+              <h2 className={!editMode ? 'ProductDetailName' : 'editableProductDetailName'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleNameChange}>{
                 product.name}
               <div className='ProductDetailRating'>
                 <RatingStars rating={product.rating}/>
@@ -107,18 +106,21 @@ function ProductDetail(props:any ) {
               </h2>
               <div className='productDetailinformation'>
                 <div className='productDetailButton'>
-                  <p>Price:</p>
-                  { product.priceDiscount ?
-                  <div className='ProductDetailPrices'>
-                    <div className={editMode ? 'editable' :'productDetailPriceDiscount'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePriceChange}>
-                      $ {product.price}
-                    </div>
-                    <div className='productDetailDiscount'> $ {product.priceDiscount}</div>
-                  </div> :
-                    <div className={editMode ? 'editable' :'ProductDetailPrice'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePriceChange}>
-                      $ {product.price}
-                    </div>
-                  }
+                  <p>Price:
+                    { product.priceDiscount || product.discount ?
+                  <span className='ProductDetailPrices'>
+                    <span className='productDetailPriceDiscount' onInput={handlePriceChange}>
+                      ${product.price}
+                    </span>
+                    {product.priceDiscount ?
+                    <span className='productDetailDiscount'> ${product.priceDiscount}</span> :
+                    <span className='productDetailDiscount'> ${product.price - parseFloat((props.price * props.discount/100).toFixed(2))}</span>}
+                  </span> :
+                    <span className={editMode ? 'editable' :'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePriceChange}>
+                      ${product.price}
+                    </span>
+                    }
+                  </p>
                   {
                     User.role !== 'Admin' ?
                       <button className='productDetailAddToCart' onClick={handleOnClick}
@@ -144,21 +146,23 @@ function ProductDetail(props:any ) {
                 product.color.filter((color:any) => el !== color);
                     setChanges({...changes, color: toChange});
                   }}/>):null}</div>
-                  <p>Stock: </p>
-                  <span className={editMode ? 'editable':'ProductDetailStock'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleStockChange}>
-                    {product.stock}
-                  </span>
-                  <p>Size:</p>
-                  <span className={editMode ? 'editable':'ProductDetailSize'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleSizeChange}>
-                    {product.size}
-                  </span>
+                  <p>Stock:
+                    <span className={editMode ? 'editable':'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleStockChange}>
+                      {product.stock}
+                    </span>
+                  </p>
+                  <p>Size:
+                    <span className={editMode ? 'editable':'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleSizeChange}>
+                      {product.size}
+                    </span>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
           <div className='detailDescription'>
             <h3 className='productDetailDescritionTitle'>Description</h3>
-            <p className={editMode ? 'editable': 'ProductDetailDescription'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleDescriptionChange}>
+            <p className={editMode ? 'editableProductDetailDescription': 'ProductDetailDescription'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleDescriptionChange}>
               {product.description}
             </p>
           </div>
