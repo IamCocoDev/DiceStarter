@@ -8,6 +8,7 @@ const isAdmin = require('../middleware/auth');
 const { isNotLogged } = require('../middleware/logged');
 const { transporter } = require('../configs/mailer');
 const template = require('./emails/emailRegistration');
+const templateForgottenPassword = require('./emails/emailForgottenPassword');
 
 const {
   accessTokenSecret,
@@ -76,7 +77,7 @@ router.post('/signup', isNotLogged, (req, res, next) => {
         subject: 'SignUp Success ✔', // Subject line
         html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
       });
-      res.send(info);
+      return res.send(info);
     })
       .catch((e) => {
         res.status(400);
@@ -269,6 +270,45 @@ router.put('/:email/subscribe', (req, res, next) => {
             res.status(200).send('unsubscribe');
           }
         });
+    }).catch((e) => next(e));
+});
+
+router.put('/:email/recoverpassword', (req, res, next) => {
+  const { email } = req.params;
+  let { password } = req.body;
+  const { confirmPassword } = req.body;
+  if (password === confirmPassword) {
+    bcrypt.hash(password, 10, (err, hash) => {
+      password = hash;
+      if (err) {
+        next(err);
+      }
+      req.body.password = password;
+      User.findOne({ where: { email } })
+        .then((response) => {
+          response.update({ password }, { where: { email } })
+            .then(() => res.send('Password Update'));
+        }).catch((e) => next(e));
+    });
+  } else {
+    res.status(400).send('The two passwords must match');
+  }
+});
+
+router.get('/:email/recoverpassword', (req, res, next) => {
+  const { email } = req.params;
+  User.findOne({ where: { email } })
+    .then(async (response) => {
+      if (response) {
+        await transporter.sendMail({
+          from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+          to: response.email, // list of receivers
+          subject: 'Recover your password', // Subject line
+          html: templateForgottenPassword(response.firstName, response.lastName), // html body
+        });
+        return res.send('E-mail sent');
+      }
+      return res.send('Account no exist');
     }).catch((e) => next(e));
 });
 
