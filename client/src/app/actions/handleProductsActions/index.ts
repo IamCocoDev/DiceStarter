@@ -150,7 +150,7 @@ const addCategoryAsync = (label: string, token:string) => {
   return async (dispatch: any) => {
     try {
       const name = label;
-      await axios.post('${BACK_ROUTE}/categories', {name}, {
+      await axios.post(`${BACK_ROUTE}/categories`, {name}, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
