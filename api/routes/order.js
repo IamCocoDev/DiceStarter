@@ -269,7 +269,7 @@ router.post('/sendorder/:first/:last/:email', async (req, res, next) => {
   const htmlorder = templateorder(first, last, totalPrice);
 
   await transporter.sendMail({
-    from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+    from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
     to: email, // list of receivers
     subject: 'Successful purchase ✔', // Subject line
     html: htmlorder, // html body
