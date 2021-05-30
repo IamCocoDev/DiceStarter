@@ -154,6 +154,7 @@ const modifyUser = (changes:userChanges, token:string) => {
           'Authorization': 'Bearer ' + token,
         },
       });
+      dispatch(setUser(changes));
     } catch (err) {
       console.error(err);
       if (err) return 'error';
