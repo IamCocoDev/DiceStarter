@@ -119,7 +119,7 @@ const Profile = (props:any) => {
             }
           </div> :
             <p className='profileAddressForm'>
-            It seems you do not have an address, <NavLink to='/profile/address'> create one here!  </NavLink>
+            It seems you do not have an address, <NavLink to='/address'> create one here!  </NavLink>
             </p>
         }
         <p className='profileEmail'>

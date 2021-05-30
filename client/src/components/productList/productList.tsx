@@ -103,20 +103,19 @@ function ProductList(props:any): JSX.Element {
         step="0.1"
         onChange={handleNumberChange}
       ></input>
-      {
-        <p className='productListDiscountLabel'>%
-          <input
-            className='productListDiscount'
-            type='number'
-            name='discount'
-            onChange={handleDiscountChange}
-            placeholder={props.discount || 0}
-            min='0'
-            max='99'
-            step='1'
-          />
-        </p>
-      }
+      {/* <div className='productListDiscountAll'>
+        <p className='productListDiscountLabel'>%</p> */}
+      <input
+        className='productListDiscount'
+        type='number'
+        name='discount'
+        onChange={handleDiscountChange}
+        value={props.discount || 0}
+        min='0'
+        max='99'
+        step='1'
+      />
+      {/*  </div> */}
       <input
         className="productListStock"
         type="number"
