@@ -207,6 +207,7 @@ router.post('/:idUser/c/cart', (req, res, next) => {
 router.post('/:idUser/update/cart', (req, res, next) => {
   const { idUser } = req.params;
   const { body } = req; // recibe por body: satatus: In process, Canceled , Complete;
+  body.modificationDate = new Date();
   // eslint-disable-next-line no-console
   console.log('BODY EN ESTA RUTA: ', body);
   if (req.body.status === 'Canceled' || req.body.status === 'In process' || req.body.status === 'Complete') {

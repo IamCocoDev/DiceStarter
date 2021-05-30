@@ -9,6 +9,7 @@ const { isNotLogged } = require('../middleware/logged');
 const { transporter } = require('../configs/mailer');
 const template = require('./emails/emailRegistration');
 const templateForgottenPassword = require('./emails/emailForgottenPassword');
+const templatePassword = require('./emails/emailPassword');
 
 const {
   accessTokenSecret,
@@ -240,7 +241,15 @@ router.put('/:id/updatePassword', (req, res, next) => {
     User.findByPk(id)
       .then((response) => {
         response.update({ password }, { where: { id } })
-          .then(() => res.send('Password Update'));
+          .then(async () => {
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: response.email, // list of receivers
+              subject: 'Recover your password', // Subject line
+              html: templatePassword(response.firstName, response.lastName), // html body
+            });
+            res.send('Password Update');
+          });
       }).catch((e) => next(e));
   });
 });
@@ -287,7 +296,15 @@ router.put('/:email/recoverpassword', (req, res, next) => {
       User.findOne({ where: { email } })
         .then((response) => {
           response.update({ password }, { where: { email } })
-            .then(() => res.send('Password Update'));
+            .then(async () => {
+              await transporter.sendMail({
+                from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+                to: response.email, // list of receivers
+                subject: 'Recover your password', // Subject line
+                html: templatePassword(response.firstName, response.lastName), // html body
+              });
+              res.send('Password Update');
+            });
         }).catch((e) => next(e));
     });
   } else {
