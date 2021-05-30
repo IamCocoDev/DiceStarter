@@ -41,6 +41,7 @@ const UserOrdersItem = (props) => {
       {redirect && <Redirect to='/list/order/info' />}
       <h1>{order.id}</h1>
       <h1>{order.status}</h1>
+      <h1>{order.modificationDate.slice(0, 10)}</h1>
       <h1>{total}</h1>
       <input type="button" value='More' onClick={handleClick} />
     </div>

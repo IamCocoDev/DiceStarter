@@ -55,6 +55,7 @@ function App() {
         '/cart',
         '/product',
         '/profile',
+        '/list',
       ]} component={NavBar}/>
       }
       <Route exact path='/list/productcategory'

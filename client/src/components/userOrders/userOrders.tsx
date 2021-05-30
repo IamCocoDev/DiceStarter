@@ -21,6 +21,7 @@ const UserOrders = () => {
   }, [orders]);
   return (
     <div>
+      <h1>Your orders</h1>
       {orders.length ? orders.map((el) =>
         <UserOrdersItem key={el.id} order={el}
           orderProduct={el.products} />) : null}
