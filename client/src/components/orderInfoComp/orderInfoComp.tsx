@@ -19,6 +19,7 @@ const OrderInfoComp = () => {
   return (
     <div>
       <h1>ID: {order.id}</h1>
+      <h1>Fecha: {order.modificationDate.slice(0, 10)}</h1>
       {products ? products.map((el) => <OrderInfoProduct key={el.id} id={el.id} product={el} />) : null}
       <h1>TOTAL: ${order.price}</h1>
     </div>
