@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');

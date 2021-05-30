@@ -26,6 +26,10 @@ import CategoryList from './components/categoryList/categoryList';
 import searchBar from './components/searchBar/searchBar';
 import OrderList from './components/orderList/orderList';
 import FormAddress from './components/formAddress/formAddress';
+import ReviewsList from './components/reviewsList/reviewsList';
+import ProfileView from './components/profileView/profileView';
+import UserOrders from './components/userOrders/userOrders';
+import OrderInfoComp from './components/orderInfoComp/orderInfoComp';
 
 function App() {
   const user = useAppSelector(userInfo);
@@ -51,6 +55,7 @@ function App() {
         '/cart',
         '/product',
         '/profile',
+        '/list',
       ]} component={NavBar}/>
       }
       <Route exact path='/list/productcategory'
@@ -58,6 +63,8 @@ function App() {
       {/* <Route exact path={['/login', '/profile']} component={Login}/> */}
       <Route exact path ={['/home', '/list/productlist']}
         component={searchBar} />
+      <Route exact path='/list/order/info' component={OrderInfoComp} />
+      <Route exact path='/list/orderUser' component={UserOrders} />
       <Route exact path='/list/order' component={OrderList} />
       <Route exact path='/list/productlist' component={ProductsList}/>
       <Route exact path='/register' component={FormRegisterForm}/>
@@ -69,10 +76,12 @@ function App() {
       <Route exact path='/create/category'
         component={FormCategoryCreation}/>
       <Route exact path='/create' component={CreateButtonRouter}/>
-      <Route exact path='/profile' component={Profile} />
+      <Route exact path='/profile/:id' component={ProfileView}/>
+      <Route exact path='/profile' component={Profile}/>
       <Route path='/cart' component={Cart}/>
       <Route exact path='/list/userlist' component={UserList}/>
-      <Route exact path='/profile/address' component={FormAddress}></Route>
+      <Route exact path='/profile/address' component={FormAddress}/>
+      <Route exact path='/list/reviews' component={ReviewsList}/>
     </div>
   );
 }

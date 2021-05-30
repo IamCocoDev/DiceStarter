@@ -16,28 +16,35 @@ import {userInfo} from '../../app/reducers/registerReducer';
 const sortType: Array<Categories> = [{
   value: '',
   label: 'None',
+  id: 0,
 }, {
   value: 'A-Z',
   label: 'A-Z',
+  id: 0,
 }, {
   value: 'Z-A',
   label: 'Z-A',
+  id: 0,
 },
 {
   value: 'maxPrice',
   label: 'maxPrice',
+  id: 0,
 },
 {
   value: 'minPrice',
   label: 'minPrice',
+  id: 0,
 },
 {
   value: 'maxRating',
   label: 'maxRating',
+  id: 0,
 },
 {
   value: 'minRating',
   label: 'minRating',
+  id: 0,
 },
 ];
 // 10 product properties without counting id

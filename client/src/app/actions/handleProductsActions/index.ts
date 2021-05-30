@@ -32,7 +32,6 @@ const getProductsAsync = (SearchInput: SearchInput) => {
     try {
       dispatch(setProducts([]));
       const res = await axios.get(`${BACK_ROUTE}/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
-      console.log(res.data);
       const totalPages = res.data.totalPages;
       const products = res.data.products.map((product) => {
         return {
@@ -137,6 +136,7 @@ const getCategoriesAsync = () => {
         return {
           value: category.name,
           label: category.name,
+          id: category.id,
         };
       });
       dispatch(setCategories(categories));
@@ -150,7 +150,7 @@ const addCategoryAsync = (label: string, token:string) => {
   return async (dispatch: any) => {
     try {
       const name = label;
-      await axios.post('${BACK_ROUTE}/categories', {name}, {
+      await axios.post(`${BACK_ROUTE}/categories`, {name}, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },

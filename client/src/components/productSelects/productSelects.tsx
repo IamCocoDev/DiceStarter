@@ -11,29 +11,36 @@ import {productCategories} from '../../app/reducers/handleProductsReducer';
 const sortType: Array<Categories> = [{
   value: 'None',
   label: 'None',
+  id: 0,
 },
 {
   value: 'A-Z',
   label: 'A-Z',
+  id: 0,
 }, {
   value: 'Z-Z',
   label: 'Z-A',
+  id: 0,
 },
 {
   value: 'maxPrice',
   label: 'maxPrice',
+  id: 0,
 },
 {
   value: 'minPrice',
   label: 'minPrice',
+  id: 0,
 },
 {
   value: 'maxRating',
   label: 'maxRating',
+  id: 0,
 },
 {
   value: 'minRating',
   label: 'minRating',
+  id: 0,
 },
 ];
 

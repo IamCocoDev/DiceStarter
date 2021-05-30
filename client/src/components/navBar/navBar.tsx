@@ -35,7 +35,7 @@ function NavBar(props: any): JSX.Element {
         {User.name ?
       <div className='userName'>Hello, {User.firstName}!</div>:
       <div className='userName'>Hello, Guest!</div>}
-        <Link to={'/profile'} className='navBarProfile'>
+        <Link to={`/profile`} className='navBarProfile'>
           <i className='material-icons'>account_circle</i>
         </Link>
       </div>

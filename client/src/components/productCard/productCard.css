@@ -41,6 +41,11 @@
   margin: 0.7rem 0;
 }
 
+.categories{
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
 .productCardDiscountPrice{
   text-decoration: line-through;
   color: rgb(200, 0, 0);

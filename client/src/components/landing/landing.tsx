@@ -9,7 +9,7 @@ function Landing() {
       <div className='landingBackground'>
         <h1 className='landingLogo'>DiceStarter</h1>
         <div className='landingText'>BRINGING YOU CLOSER TO THE TABLE</div>
-        <NavLink className='landingButton' to={'/home'}>
+        <NavLink className='landingButton' to={'/home?page=1'}>
           <button className='landingButtonText'>Find Your Game
             <div className='landingChevron'>{'>'}</div>
           </button>

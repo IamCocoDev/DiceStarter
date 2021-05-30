@@ -9,18 +9,22 @@ import user from '../../img/user.png';
 import {NavLink} from 'react-router-dom';
 import swal from 'sweetalert2';
 
-const Profile = () => {
+const Profile = (props:any) => {
   const dispatch = useAppDispatch();
-  const User = useAppSelector(userInfo);
   const token = useAppSelector(userToken);
   let birthDate;
-  if (User.birthday) birthDate = User.birthday.slice(0, 10);
   const [editMode, setEditMode] = useState(false);
-  const [changes, setChanges] = useState(User);
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
   };
+
+  const User = useAppSelector(userInfo);
+
+  const [changes, setChanges] = useState(User);
+
+  if (User.birthday) birthDate = User.birthday.slice(0, 10);
+
   const handleAddressChange = (e:any) => setChanges({...changes, address: e.target.innerText});
 
   const handleCityChange = (e:any) => setChanges({...changes, city: e.target.innerText});
@@ -51,33 +55,33 @@ const Profile = () => {
           }
         }).catch((err) => console.error(err));
   };
-
   return (
+  // anidacion de ternarios for the win! el segundo es por si es un administrador quien mira el perfil y el primero para loguearse
     User.name ?
     <div className='profileAll'>
       <div className='profileLeft'>
         <img className='profilePhoto' src={User.profilePicture || user} alt='profile Pic'/>
         <div className='profileNames'>
-          <h3 className='profileName'>
+          <h2 className='profileName'>
             <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleFirstNameChange}>
               {User.firstName}
             </p>
-          </h3>
-          <h3 className='profileLastName'>
+          </h2>
+          <h2 className='profileLastName'>
             <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleLastNameChange}>
               {User.lastName}
             </p>
-          </h3>
+          </h2>
         </div>
-        <h4 className='profileUsername'>{User.name}</h4>
+        <h2 className='profileUsername'>{User.name}</h2>
       </div>
       <div className='profileRight'>
-        <h1 className='profileBirthday'>
+        <p className='profileBirthday'>
           Birthday:
           <p className= 'noteditable'>
             {birthDate}
           </p>
-        </h1>
+        </p>
         {
           User.address ?
           <div>
@@ -87,20 +91,18 @@ const Profile = () => {
                 {User.address}
               </p>
             </p>
-            <div className='profileNationality'>
-              <p className='profileCity'>
-              City:
-                <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleCityChange}>
-                  {User.city},
-                </p>
+            <p className='profileCity'>
+            City:
+              <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleCityChange}>
+                {User.city},
               </p>
-              <p className='profileCountry'>
-                Country:
-                <p>
-                  {User.country}
-                </p>
+            </p>
+            <p className='profileCountry'>
+            Country:
+              <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleCityChange}>
+                {User.country}
               </p>
-            </div>
+            </p>
             <p className='profilePostal'>
               Postal Code:
               <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePCChange}>
@@ -121,23 +123,25 @@ const Profile = () => {
             </p>
         }
         <p className='profileEmail'>
-          Email Adress:
+          Email:
           <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleEmailChange}>
             {User.email}
           </p>
         </p>
         <div className='profileButtons'>
-          <input className='profileEditButton' type='button' value='Edit' onClick={() => setEditMode(!editMode)}/>
+          <input className='material-icons profileEditButton' type='button' value='edit' onClick={() => setEditMode(!editMode)}/>
           { changes.firstName !== User.firstName || changes.lastName !== User.lastName || changes.address !== User.address || changes.city !== User.city || changes.postalCode !== User.postalCode || changes.email !== User.email || changes.phone !== User.phone ?
-            <input className='profileSaveChangesButton' type='button' value='Save Changes' onClick={handleSubmitChanges}/> : null
+            <input className='material-icons profileSaveChangesButton' type='button' value='save' onClick={handleSubmitChanges}/> : null
           }
           <input className='profileLogOut' type='button' value='Log Out' onClick={handleLogout}/>
         </div>
-        <label>Subscribe to our Newsletter to get the latest products and offers!</label>
-        <input type='checkbox' onClick={() => dispatch(setSubscribe(User.email))}/>
+        <div className='suscribeMail'>
+          <input className='suscribeMailBox' type='checkbox' onClick={() => dispatch(setSubscribe(User.email))}/>
+          <label className='suscribeMailText'>Subscribe to our Newsletter to get the latest products and offers!</label>
+        </div>
       </div>
     </div> :
-    <div><Login/></div>
+     <div><Login/></div>
   );
 };
 

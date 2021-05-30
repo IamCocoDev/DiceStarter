@@ -48,6 +48,7 @@
   padding-top: 1rem;
   border-top: 0.1rem solid white;
 }
+
 .productDetailAddToCart{
   font-family: inherit;
   font-size: inherit;
@@ -103,4 +104,23 @@
 .productDetailPriceDiscount{
   text-decoration: line-through;
   color: rgb(200, 0, 0);
+  margin: 0 0.25rem 0 0.5rem;
+}
+
+.productDetailDiscount{
+  margin: 0 0.25rem;
+}
+
+.editableProductDetailDescription{
+  margin: 1.5rem 0;
+  background: white;
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  color: black;
+}
+
+.dCategories{
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
 }
