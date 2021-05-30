@@ -22,6 +22,7 @@ function ProductCards() {
             rating={product.rating}
             priceDiscount={product.priceDiscount}
             discount={product.discount}
+            categories={product.categories.map((c) => c.name)}
           />
         ))
       }

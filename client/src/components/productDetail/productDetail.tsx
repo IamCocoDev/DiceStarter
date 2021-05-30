@@ -99,11 +99,13 @@ function ProductDetail(props:any ) {
             <Carousel pictures={product.picture}/>
             <div className='ProductDetailGrid'>
               <h2 className={!editMode ? 'ProductDetailName' : 'editableProductDetailName'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleNameChange}>{
-                product.name}
+                product.name} </h2>
               <div className='ProductDetailRating'>
                 <RatingStars rating={product.rating}/>
               </div>
-              </h2>
+              {/* eslint-disable-next-line react/jsx-key */}
+              <div> {product.categories.map((c) => <span className='dCategories'>{c.name}</span>)}
+              </div>
               <div className='productDetailinformation'>
                 <div className='productDetailButton'>
                   <p>Price:
