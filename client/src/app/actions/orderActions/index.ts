@@ -3,10 +3,16 @@ import axios from 'axios';
 import {BACK_ROUTE} from '../../../ROUTE.js';
 
 export const GET_ORDERS = 'GET_ORDERS';
+export const GET_ONE_ORDERS = 'GET_ONE_ORDERS';
 
 const setOrders = (orders) => ({
   type: GET_ORDERS,
   payload: orders,
+});
+
+const setOneOrders = (order) => ({
+  type: GET_ONE_ORDERS,
+  payload: order,
 });
 
 const getOrders = (token, orderStatus) => {
@@ -47,8 +53,39 @@ const getUserOrders = (userId) => {
   return async (dispatch: any) => {
     try {
       // eslint-disable-next-line max-len
-      const res = await axios.post(`${BACK_ROUTE}/orders/search/user/${userId}/`);
+      const res = await axios.get(`${BACK_ROUTE}/orders/search/user/${userId}/`);
       dispatch(setOrders(res.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+const clearOrders = () => {
+  return async (dispatch: any) => {
+    try {
+      dispatch(setOrders([]));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+const clearOneOrder = () => {
+  return async (dispatch: any) => {
+    try {
+      dispatch(setOneOrders({}));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+const getOneOrder = (order, total) => {
+  return async (dispatch: any) => {
+    try {
+      const neworder = {...order, price: total};
+      dispatch(setOneOrders(neworder));
     } catch (error) {
       console.log(error);
     }
@@ -59,4 +96,7 @@ export {
   getOrders,
   putOrderStatus,
   getUserOrders,
+  clearOrders,
+  clearOneOrder,
+  getOneOrder,
 };
