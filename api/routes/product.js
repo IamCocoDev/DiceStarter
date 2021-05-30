@@ -188,7 +188,7 @@ router.delete('/review/:idReview', isLogged, (req, res, next) => {
 router.get('/:id/review', (req, res, next) => {
   const { id } = req.params;
   try {
-    Reviews.findAll({ attributes: { exclude: ['userId'] }, where: { productId: id }, include: { model: User, attributes: ['name'] } })
+    Reviews.findAll({ attributes: { exclude: ['userId'] }, where: { productId: id }, include: { model: User, attributes: ['name', 'id'] } })
       .then(async (resp) => {
         const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
         const quantityRev = await Reviews.count({ where: { productId: id } });
