@@ -155,7 +155,8 @@ export interface Products {
 
 export type Categories = {
     value: string,
-    label: string
+    label: string,
+    id: number,
 };
 
 export interface loginInput {

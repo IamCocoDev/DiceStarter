@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, {useState, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {getOrders} from '../../app/actions/orderActions';
+import {getOrders, clearOrders} from '../../app/actions/orderActions';
 import {userToken} from '../../app/reducers/registerReducer';
 import OrderListItem from '../orderListItem/orderListItem';
 import {orderList} from '../../app/reducers/orderReducer';
@@ -38,6 +38,9 @@ const OrderList = () => {
   const orders = useAppSelector(orderList);
   useEffect(() => {
     dispatch(getOrders(token, input.value));
+    return () => {
+      dispatch(clearOrders());
+    };
   }, []);
   useEffect(() => {
     dispatch(getOrders(token, input.value));

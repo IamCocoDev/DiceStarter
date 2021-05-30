@@ -120,7 +120,7 @@ router.post('/signupgoogle', async (req, res, next) => {
   User.create(newUser).then(async () => {
     // send mail with defined transport object
     await transporter.sendMail({
-      from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+      from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
       to: newUser.email, // list of receivers
       subject: 'SignUp Success ✔', // Subject line
       html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
@@ -253,7 +253,7 @@ router.put('/:email/subscribe', (req, res, next) => {
         .then(async () => {
           if (response.subscriber === 'true') {
             await transporter.sendMail({
-              from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
               to: response.email, // list of receivers
               subject: 'Subscribe Success ✔', // Subject line
               text: 'Thank you for subscribe', // html body
@@ -261,7 +261,7 @@ router.put('/:email/subscribe', (req, res, next) => {
             res.status(200).send('Thank you for subscribe');
           } else {
             await transporter.sendMail({
-              from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
               to: response.email, // list of receivers
               subject: 'Unsubscribe Success ✔', // Subject line
               text: 'We hope to see you soon', // html body

@@ -28,6 +28,8 @@ import OrderList from './components/orderList/orderList';
 import FormAddress from './components/formAddress/formAddress';
 import ReviewsList from './components/reviewsList/reviewsList';
 import ProfileView from './components/profileView/profileView';
+import UserOrders from './components/userOrders/userOrders';
+import OrderInfoComp from './components/orderInfoComp/orderInfoComp';
 
 function App() {
   const user = useAppSelector(userInfo);
@@ -60,6 +62,8 @@ function App() {
       {/* <Route exact path={['/login', '/profile']} component={Login}/> */}
       <Route exact path ={['/home', '/list/productlist']}
         component={searchBar} />
+      <Route exact path='/list/order/info' component={OrderInfoComp} />
+      <Route exact path='/list/orderUser' component={UserOrders} />
       <Route exact path='/list/order' component={OrderList} />
       <Route exact path='/list/productlist' component={ProductsList}/>
       <Route exact path='/register' component={FormRegisterForm}/>

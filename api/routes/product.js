@@ -41,7 +41,7 @@ router.post('/', isAdmin, async (req, res, next) => {
           if (users[i].dataValues.subscriber === 'true') {
             // eslint-disable-next-line no-await-in-loop
             await transporter.sendMail({
-              from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
               to: users[i].dataValues.email, // list of receivers
               subject: 'Check it this new product ✔', // Subject line
               html: template(users[i].dataValues.firstName,
@@ -75,6 +75,7 @@ router.put('/:id', async (req, res, next) => {
     const { id } = req.params;
     const { body } = req;
     if (typeof (body.categories[0]) !== 'number') return res.send('You must send a value as ID');
+    body.priceDiscount = body.price - (body.price * body.discount / 100).toFixed(2);
     const product = await Product.findByPk(id, { include: Category });
     if (body.discount !== product.discount) {
       User.findAll({ where: { subscriber: 'true' } })
@@ -83,7 +84,7 @@ router.put('/:id', async (req, res, next) => {
             if (users[i].dataValues.subscriber === 'true') {
             // eslint-disable-next-line no-await-in-loop
               await transporter.sendMail({
-                from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+                from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
                 to: users[i].dataValues.email, // list of receivers
                 subject: 'Check it this new discount ✔', // Subject line
                 text: `${users[i].dataValues.firstName} check it this new discount`, // html body

@@ -136,6 +136,7 @@ const getCategoriesAsync = () => {
         return {
           value: category.name,
           label: category.name,
+          id: category.id,
         };
       });
       dispatch(setCategories(categories));
