@@ -57,6 +57,23 @@ export interface FormRegisterState {
     },
     userToken: string,
     users:User[] | null,
+   userProfile: {
+    id: string,
+    name: string,
+    firstName: string,
+    lastName: string,
+    birthday: string,
+    profilePicture: string,
+    address: string,
+    city: string,
+    postalCode: number,
+    phone: string,
+    country: string,
+    email: string,
+    password: string,
+    role: string,
+    status: string
+   } | {}
 }
 export interface ReviewState {
     reviewsResponse: ReviewRes[] | null,

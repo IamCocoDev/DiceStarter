@@ -27,12 +27,12 @@ const UserReview = (props:{review, token, user, id}) => {
     dispatch(getReviews(props.id));
   };
   useEffect(() => {
-    review.user.name === user.name ? setToggle(true) : null;
-  });
+    review.user?.name === user.name ? setToggle(true) : null;
+  }, []);
   return (
     <div className='userReviewAll'>
       <div className='userReviewBox'>
-        <h2 className='userReviewTitle'>{review.user.name}</h2>
+        <h2 className='userReviewTitle'>{review.user?.name}</h2>
         <div className='userReviewRating' ><RatingStars rating={review.rating}/></div>
         <p className='userReviewComment' suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleCommentChange}>{review.comment}</p>
       </div>

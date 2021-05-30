@@ -9,18 +9,22 @@ import user from '../../img/user.png';
 import {NavLink} from 'react-router-dom';
 import swal from 'sweetalert2';
 
-const Profile = () => {
+const Profile = (props:any) => {
   const dispatch = useAppDispatch();
-  const User = useAppSelector(userInfo);
   const token = useAppSelector(userToken);
   let birthDate;
-  if (User.birthday) birthDate = User.birthday.slice(0, 10);
   const [editMode, setEditMode] = useState(false);
-  const [changes, setChanges] = useState(User);
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
   };
+
+  const User = useAppSelector(userInfo);
+
+  const [changes, setChanges] = useState(User);
+
+  if (User.birthday) birthDate = User.birthday.slice(0, 10);
+
   const handleAddressChange = (e:any) => setChanges({...changes, address: e.target.innerText});
 
   const handleCityChange = (e:any) => setChanges({...changes, city: e.target.innerText});
@@ -53,6 +57,7 @@ const Profile = () => {
   };
 
   return (
+  // anidacion de ternarios for the win! el segundo es por si es un administrador quien mira el perfil y el primero para loguearse
     User.name ?
     <div className='profileAll'>
       <div className='profileLeft'>
@@ -137,7 +142,7 @@ const Profile = () => {
         <input type='checkbox' onClick={() => dispatch(setSubscribe(User.email))}/>
       </div>
     </div> :
-    <div><Login/></div>
+     <div><Login/></div>
   );
 };
 

@@ -16,5 +16,6 @@ export const DELETE_USER = 'DELETE_USER';
 export const SET_TOKEN = 'SET_TOKEN';
 // User Error handler
 export const USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
+export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 

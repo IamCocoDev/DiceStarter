@@ -59,6 +59,7 @@ const deleteReviews = (id: number, productId: string, token:string) => {
         },
       });
       dispatch(getReviews(productId));
+      dispatch(getAllReviews(token));
     } catch (err) {
       console.error(err);
     };

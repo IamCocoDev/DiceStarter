@@ -3,7 +3,8 @@ import './reviewList.css';
 import RatingStars from '../ratingStars/ratingStars';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {deleteReviews} from '../../app/actions/reviewsActions/index';
-import {userToken, userInfo} from '../../app/reducers/registerReducer';
+import {userToken} from '../../app/reducers/registerReducer';
+import {NavLink} from 'react-router-dom';
 
 const ReviewList = (props:{
     comment:string,
@@ -11,18 +12,18 @@ const ReviewList = (props:{
     name:string,
     id:number,
     productId: string,
+    userId:string,
 }) => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector(userInfo)
   const token = useAppSelector(userToken);
   const handleDelete = () => {
     dispatch(deleteReviews(props.id, props.productId, token));
   };
   return (
     <div className='ReviewListAll'>
-      <p className='ReviewListName'>
+      <NavLink to={`/profile/${props.userId}`} className='ReviewListName'>
         {props.name}
-      </p>
+      </NavLink>
       <p className='ReviewListComment'>
         {props.comment}
       </p>

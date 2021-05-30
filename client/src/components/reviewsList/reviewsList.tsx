@@ -12,9 +12,12 @@ const ReviewsList = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getAllReviews(token));
-  }, [ReviewList]);
+  }, []);
   const reviews = useAppSelector(allReviews);
-  console.log(reviews);
+  // this UF is watching for changes in redux state, do not delete
+  useEffect(() => {
+
+  }, [reviews]);
   return (
       user.role === 'Admin' ?
     <div className='ReviewsListAll'>
@@ -29,9 +32,10 @@ const ReviewsList = () => {
               <ReviewList
                 comment={r.comment}
                 rating={r.rating}
-                name={r.user.name}
+                name={r.user?.name}
                 id={r.id}
-                productId={r.productId}/>
+                productId={r.productId}
+                userId={r.user?.id}/>
             </div>
           ))
       }
