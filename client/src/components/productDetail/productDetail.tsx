@@ -112,9 +112,12 @@ function ProductDetail(props:any ) {
                     <span className='productDetailPriceDiscount' onInput={handlePriceChange}>
                       ${product.price}
                     </span>
-                    {product.priceDiscount ?
+                    {product.priceDiscount !== null ?
                     <span className='productDetailDiscount'> ${product.priceDiscount}</span> :
-                    <span className='productDetailDiscount'> ${product.price - parseFloat((props.price * props.discount/100).toFixed(2))}</span>}
+                    <span className='productDetailDiscount'>
+                      ${parseFloat(product.price) -
+                      parseFloat((parseFloat(product.price) *
+                      product.discount/100).toFixed(2))}</span>}
                   </span> :
                     <span className={editMode ? 'editable' :'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePriceChange}>
                       ${product.price}
