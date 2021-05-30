@@ -100,8 +100,8 @@ function ProductsList() {
       <div className="productsListGrid">
         <span className='productsListName'>Name</span>
         <span className='productsListPrice'>Price</span>
-        <span className='productsListDiscount'>Discount</span>
         <span className='productsListStock'>Stock</span>
+        <span className='productsListDiscount'>Discount %</span>
         <span className='productsListSize'>Size</span>
         <span className='productsListColors'>Colors</span>
       </div>
