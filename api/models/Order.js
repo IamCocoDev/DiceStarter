@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, NOW } = require('sequelize');
 
 module.exports = (sequelize) => {
   sequelize.define('order', {
@@ -12,6 +12,14 @@ module.exports = (sequelize) => {
     },
     address: {
       type: DataTypes.TEXT,
+    },
+    date: {
+      type: DataTypes.DATE,
+      defaultValue: NOW,
+    },
+    modificationDate: {
+      type: DataTypes.DATE,
+      defaultValue: NOW,
     },
   }, {
     timestamps: false,

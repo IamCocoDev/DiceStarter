@@ -45,8 +45,11 @@ const UserReview = (props:{review, token, user, id}) => {
         }
       </div>
       {
-        changes.comment !== review.comment || changes.rating !== review.rating ?
-        <button className='material-icons userReviewSaveButton' onClick={() => dispatch(modifyReview(review.id, changes, token))}>save</button> : null
+        editMode && (changes.comment !== review.comment || changes.rating !== review.rating) ?
+        <button className='material-icons userReviewSaveButton' onClick={() => {
+          dispatch(modifyReview(review.id, changes, token));
+          setEditMode(!editMode);
+        }}>save</button> : null
       }
     </div>
   );

@@ -78,6 +78,7 @@ function ProductDetail(props:any ) {
             });
           }
         }).catch((err) => console.error(err));
+    setEditMode(!editMode);
   };
   const handleNameChange = (e:any) => setChanges({...changes, name: e.target.innerText});
   const handleDescriptionChange = (e:any) => setChanges({...changes, description: e.target.innerText});
@@ -137,7 +138,7 @@ function ProductDetail(props:any ) {
                       </button>
                   }
                   {
-                      changes?.name !== product.name || changes?.description !== product.description || changes?.price !== product.price || changes?.size !== product.size || changes?.stock !== product.stock ?
+                      editMode && (changes?.name !== product.name || changes?.description !== product.description || changes?.price !== product.price || changes?.size !== product.size || changes?.stock !== product.stock) ?
                       <button className='material-icons productDetailSave' onClick={handleProductChange}>save</button> : null
                   }
                 </div>

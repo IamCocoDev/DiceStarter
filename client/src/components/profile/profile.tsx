@@ -55,7 +55,6 @@ const Profile = (props:any) => {
           }
         }).catch((err) => console.error(err));
   };
-
   return (
   // anidacion de ternarios for the win! el segundo es por si es un administrador quien mira el perfil y el primero para loguearse
     User.name ?
