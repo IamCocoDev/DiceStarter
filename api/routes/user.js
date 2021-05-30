@@ -163,7 +163,7 @@ router.post('/signin', isNotLogged, async (req, res, next) => {
       return res.send('Input invalid');
     }
   } catch (e) {
-    res.status(400);
+    res.status(400).send('User not Found');
     next(e);
   }
   return null;

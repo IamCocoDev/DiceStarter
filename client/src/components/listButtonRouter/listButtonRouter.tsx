@@ -25,6 +25,11 @@ function listButtonRouter() {
           Orders
         </button>
       </NavLink>
+      <NavLink to={'/list/reviews'} className='listButtonRouterReviews'>
+        <button className='listButtonRouterUsersButton'>
+          Reviews
+        </button>
+      </NavLink>
     </div>
   );
 }

@@ -13,7 +13,7 @@ const RatingStars = (props: any) => {
     const starArr = [];
     const numStar = Math.round(num);
     for (let i = 0; i < numStar; i++) {
-      starArr.push(<div className='material-icons'>star</div>);
+      starArr.push(<div key={i} className='material-icons'>star</div>);
     }
     return starArr;
   };

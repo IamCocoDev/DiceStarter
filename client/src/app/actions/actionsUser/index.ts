@@ -8,6 +8,7 @@ import {SET_USER,
   SET_USERS,
   SET_TOKEN,
   USER_LOGIN_FAILED,
+  SET_USER_PROFILE,
 } from '../../constants/constants';
 import {DELETE_ALL_CART} from '../cartActions';
 import {userChanges, Address} from '../../../types';
@@ -49,6 +50,12 @@ const setToken = (token:string) => ({
 const loginFailed = () => ({
   type: USER_LOGIN_FAILED,
   payload: {},
+});
+
+// sets the user for profile page
+const setUserProfile = (user:any) => ({
+  type: SET_USER_PROFILE,
+  payload: user,
 });
 
 // requests register to back-end
@@ -202,6 +209,22 @@ const setSubscribe = (email:string) => {
   };
 };
 
+const getUser = (id:string, token:string) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`${BACK_ROUTE}/user/${id}`, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
+      const userProfile = res.data;
+      dispatch(setUserProfile(userProfile));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 export {
   sendFormAsync,
   loginFormAsync,
@@ -212,4 +235,5 @@ export {
   modifyAddress,
   setUser,
   setSubscribe,
+  getUser,
 };
