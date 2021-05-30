@@ -12,7 +12,7 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
   // Data
   productsList: null,
   productById: null,
-  productCategories: [{label: '', value: ''}],
+  productCategories: [{label: '', value: '', id: 0}],
   totalPages: 0,
   queryFilter: '',
   querySort: '',

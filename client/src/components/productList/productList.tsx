@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, {useState, useEffect} from 'react';
 import {formInputData} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
@@ -12,7 +13,7 @@ import swal from 'sweetalert2';
 function ProductList(props:any): JSX.Element {
   const dispatch = useAppDispatch();
   const [color, setColor] = useState('');
-  const [available, setAvailable] = useState('true');
+  // const [available, setAvailable] = useState('true');
   const [input, setInput] = useState({
     id: props.id,
     name: props.name,
@@ -23,7 +24,7 @@ function ProductList(props:any): JSX.Element {
     available: props.available,
     stock: props.stock,
     description: props.description,
-    categories: [],
+    categories: props.categories.map((c) => c.id),
     rating: props.rating,
     discount: props.discount,
     priceDiscount: props.priceDiscount,
@@ -31,18 +32,18 @@ function ProductList(props:any): JSX.Element {
 
   const token = useAppSelector(userToken);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     setInput(props);
     if (input.available) {
       setAvailable('true');
     } else {
       setAvailable('false');
     }
-    setInput({...input, categories: props.categories});
-  }, []);
+    // setInput({...input, categories: props.categories.map((c) => c.id)});
+  }, [props]); */
 
-  useEffect(() => {
-  }, [input]);
+  // useEffect(() => {
+  // }, [input]);
 
   const handleNumberChange = (e: formInputData) => {
     let data: string | number | boolean = e.target.value;
@@ -64,13 +65,13 @@ function ProductList(props:any): JSX.Element {
     }
   };
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (available === 'true') {
       setInput({...input, available: true});
     } else if (available === 'false') {
       setInput({...input, available: false});
     }
-  }, [available]);
+  }, [available]); */
 
   const handleOnSubmit = () => {
     if (input.discount < 99) {
@@ -82,7 +83,7 @@ function ProductList(props:any): JSX.Element {
       });
     }
   };
-
+  console.log(input);
   return (
     <div className="productListGrid">
       <input
