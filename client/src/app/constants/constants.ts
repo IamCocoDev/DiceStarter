@@ -2,6 +2,7 @@
 export const SET_PRODUCTS = 'SET_PRODUCTS';
 export const SET_PRODUCT_BY_ID = 'SET_PRODUCT_BY_ID';
 export const SET_CATEGORIES = 'SET_CATEGORIES';
+export const SET_BEST_PRODUCTS = 'SET_BEST_PRODUCTS';
 // Review Setters
 export const SET_REVIEWS = 'SET_REVIEWS';
 export const SET_ALL_REVIEWS = 'SET_ALL_REVIEWS';

@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import './paginate.css';
 
-const Paginate = (props: {page:number, pagesTotal:number}) => {
+const Paginate = (props:any) => {
   const pages = [];
   for (let i = 0; i < props.pagesTotal; i+=1) {
     pages.push(i + 1);
@@ -19,12 +19,24 @@ const Paginate = (props: {page:number, pagesTotal:number}) => {
       <ul className='paginateNumbers'>
         {
           pages.map((p:number) => (
+            props.page === p ?
+            <li key={p}>
+              <NavLink className='paginateCurrentPage' to={`/home?page=${p}`}>
+                {p}
+              </NavLink>
+            </li> :
             <li key={p}>
               <NavLink className='paginatePages' to={`/home?page=${p}`}>
                 {p}
               </NavLink>
             </li>
           ))
+        }
+        {
+          pages.length > 10 ?
+          <li>
+            <NavLink to={`/home?page=${pages.length - 1}`}></NavLink>
+          </li> : null
         }
       </ul>
       {
