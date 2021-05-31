@@ -4,12 +4,13 @@ import {BACK_ROUTE} from '../../../ROUTE.js';
 export const GET_PRODUCTS_IN_WISHLIST = 'GET_PRODUCTS_IN_WISHLIST';
 export const ADD_PRODUCT_IN_WISHLIST = 'ADD_PRODUCT_IN_WISHLIST';
 export const DELETE_ALL_WISHLIST = 'DELETE_ALL_WISHLIST';
+export const DELETE_PRODUCT_FROM_WISHLIST = 'DELETE_PRODUCT_FROM_WISHLIST';
 
 
 export const getProductsInWishlist = (idUser = '') => (dispatch) => {
   const productsInWishlist =
   JSON.parse(localStorage.getItem('wishlist') || '[]');
-  if (productsInWishlist.length > 0) {
+  if (idUser === '' || productsInWishlist.length > 0) {
     console.log(productsInWishlist);
     return dispatch({type: GET_PRODUCTS_IN_WISHLIST,
       payload: productsInWishlist});
@@ -38,20 +39,33 @@ export const getProductsInWishlist = (idUser = '') => (dispatch) => {
 };
 
 export const addProductInWishlist = (product, userId = '') => (dispatch) => {
-  if (userId === '') {
-    dispatch({type: ADD_PRODUCT_IN_WISHLIST, payload: product});
-  } else {
-    dispatch({type: ADD_PRODUCT_IN_WISHLIST, payload: product});
-  };
+  const productsInWishlist = JSON.parse(localStorage
+      .getItem('wishlist') || '[]').concat(product);
+  localStorage.setItem('wishlist', JSON.stringify(productsInWishlist));
+  dispatch({
+    type: ADD_PRODUCT_IN_WISHLIST,
+    payload: product});
 };
 
-export const saveWishlist = (userId = '') => (dispatch) => {
+export const deleteProductInWishlist = (id) => (dispatch) => {
+  const productsInCart = JSON
+      .parse(localStorage
+          .getItem('wishlist') || '[]').filter((product) => product.id !== id);
+  localStorage.setItem('wishlist', JSON.stringify(productsInCart));
+  dispatch({
+    type: DELETE_PRODUCT_FROM_WISHLIST,
+    payload: id,
+  });
+};
+
+export const saveWishlist = (userId) => (dispatch) => {
   const productsInWishlist = JSON.parse(localStorage
       .getItem('wishlist') || '[]');
-  localStorage.setItem('wishlist', JSON.stringify(productsInWishlist));
+  const products = productsInWishlist.map((p) => p.id);
+  console.log(products, userId);
   return axios.post(`${BACK_ROUTE}/wishlist`, {
     user: userId,
-    products: productsInWishlist,
+    products: products,
   }).catch((err) => {
     console.error(err);
     // error string for error handling

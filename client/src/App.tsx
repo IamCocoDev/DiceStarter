@@ -97,8 +97,8 @@ function App() {
       <Route exact path='/list/userlist' component={UserList}/>
       <Route exact path='/address' component={FormAddress}/>
       <Route exact path='/list/reviews' component={ReviewsList}/>
-      <Route path='/' component={Footer} />
       <Route path='/wishlist' component={Wishlist}/>
+      <Route path='/' component={Footer} />
     </div>
   );
 }

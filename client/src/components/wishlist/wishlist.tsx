@@ -3,7 +3,6 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {wishlistsReducer} from '../../app/reducers/wishlistReducer';
 import {deleteAllWishlist, getProductsInWishlist, saveWishlist}
   from '../../app/actions/wishlistActions';
-import CartTotal from '../cartTotal/cartTotal';
 import {userInfo} from '../../app/reducers/registerReducer';
 import swal from 'sweetalert2';
 import './wishlist.css';
@@ -17,12 +16,9 @@ const Wishlist = () => {
   const userId = userInf.id;
   const [products, setProducts] = React.useState([]);
   const handleSave = () => {
-    productsInWishlist.length > 0 ? saveWishlist(userId) :
-    swal.fire({
-      text: 'You must be logged in!',
-      icon: 'error',
-    });
+    dispatch(saveWishlist(userId));
   };
+  console.log(productsInWishlist);
   const handleDeleteWishlist = () => {
     if (productsInWishlist.length <= 0) {
       swal.fire({
@@ -94,28 +90,24 @@ const Wishlist = () => {
       <div className='wishlistItems'>
         {products.length > 0 ?
           products.map((product, index) =>
-          /* este componente hace una llamada rara al back */
             <ProductCard
               key={index}
               id={product.id}
               name={product.name}
-              image={product.picture}
+              image={product.image}
               price={product.price}
               stock={product.stock}
               rating={product.rating}
               priceDiscount={product.priceDiscount}
               discount={product.discount}
-              categories={product.categories.map((c) => c.name)} />) :
+              categories={['dnd']} />) :
           <div>No products in wishlist</div>
         }
       </div>
-      <div className='wishlistTotal'>
-        <CartTotal />
-        <button className='wishlistSaveButton'
-          onClick={handleSave} >Save Wishlist</button>
-        <button className='wishlistDeleteButton'
-          onClick={handleDeleteWishlist} >Delete Wishlist</button>
-      </div>
+      <button className='wishlistSaveButton'
+        onClick={handleSave} >Save Wishlist</button>
+      <button className='wishlistDeleteButton'
+        onClick={handleDeleteWishlist} >Delete Wishlist</button>
     </div>
   );
 };

@@ -12,11 +12,8 @@ const {
 } = require('../db');
 
 router.get('/:id', async (req, res, next) => {
-  const wishlist = await Wishlist.findOne({
-    include: [
-      { model: User, where: { id: req.params.id }, attributes: ['id'] }],
-  });
-  if (wishlist.length > 0) {
+  const wishlist = await Wishlist.findOne({ where: { userId: req.params.id } });
+  if (wishlist && wishlist.length > 0) {
     wishlist.products.map((p) => Product.findByPk(p, { include: Category })
       .then((response) => {
         res.json(response);
@@ -24,14 +21,38 @@ router.get('/:id', async (req, res, next) => {
         res.status(400);
         next(e);
       }));
+  } else {
+    res.send('no wishlist for this user');
   }
 });
 
-router.post('/', isLogged, async (req, res, next) => {
-  const { products, user } = req.body;
-  const wishlist = Wishlist.create(products);
-  wishlist.setUser(user);
-  res.send(wishlist);
+router.post('/', async (req, res, next) => {
+  try {
+    const { products, user } = req.body;
+    const newWishlist = { products };
+    const info = await Wishlist.findOne({ where: { userId: user } });
+    if (info) {
+      info.update({ products }, { where: { userId: user } })
+        .then((response) => {
+          res.send('Wishlist updated');
+        })
+        .catch((e) => next(e));
+    } else {
+      const wishlist = await Wishlist.create(newWishlist);
+      const userInfo = await User.findByPk(user);
+      wishlist.setUser(userInfo);
+      res.send(wishlist);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete('/:id', (req, res, next) => {
+  const { id } = req.params;
+  Wishlist.destroy({ where: { userId: id } })
+    .then((response) => res.send('Wishlist deleted'))
+    .catch((e) => next(e));
 });
 
 module.exports = router;

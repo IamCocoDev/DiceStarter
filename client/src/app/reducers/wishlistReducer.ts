@@ -1,5 +1,6 @@
 import {ADD_PRODUCT_IN_WISHLIST,
   DELETE_ALL_WISHLIST,
+  DELETE_PRODUCT_FROM_WISHLIST,
   GET_PRODUCTS_IN_WISHLIST,
 } from '../actions/wishlistActions';
 import {RootState} from '../store';
@@ -25,6 +26,12 @@ const wishlistReducer = (state = initialState, action) => {
       return {
         ...state,
         productsInWishlist: [],
+      };
+    case DELETE_PRODUCT_FROM_WISHLIST:
+      return {
+        ...state,
+        productsInWishlist:
+        state.productsInWishlist.filter((p) => p.id !== action.payload),
       };
     default:
       return state;

@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, {useState, useEffect} from 'react';
 import './productCard.css';
 import {NavLink} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
@@ -6,7 +7,8 @@ import {userInfo} from '../../app/reducers/registerReducer';
 import {addProductInCart} from '../../app/actions/cartActions/index';
 import RatingStars from '../ratingStars/ratingStars';
 import swal from 'sweetalert2';
-import {addProductInWishlist} from '../../app/actions/wishlistActions';
+import {addProductInWishlist, deleteProductInWishlist}
+  from '../../app/actions/wishlistActions';
 
 function ProductCard(
     props:{
@@ -47,14 +49,36 @@ function ProductCard(
       });
     }
   };
+
+  const [active, setActive] = useState(false);
+
+  /*  useEffect(() => {
+    if (JSON.parse(localStorage
+        .getItem('wishlist' || '[]'))
+        .filter((product) => product.name === props.name).length > 0) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [active, props.name, localStorage]); */
+
+  function toggle() {
+    setActive(!active);
+  }
+
+  // useState seteado a active o inactive
+  // dependiendo si el producto esta en la wishlist
+  // hacer estilos para el boton dependiendo del estado
+  // si el producto ya esta en la wishlist hay
+  // que traerse el localstorage y filtrarlo para poder sacarlo
+  // (hacer accion para sacarlo del estado de redux)
+
+
   const handleOnWishlist = () => {
     const duplicate = JSON.parse(localStorage
-        .getItem('wishlist') || '[]').find((el) => el.id === props.id);
-    if (duplicate) {
-      swal.fire({
-        text: 'You already added this product to your wishlist!',
-        icon: 'info',
-      });
+        .getItem('wishlist') || '[]').filter((p) => p.id === props.id);
+    if (duplicate.length > 0) {
+      dispatch(deleteProductInWishlist(props.id));
     } else {
       dispatch(addProductInWishlist({
         id: props.id,
@@ -64,10 +88,6 @@ function ProductCard(
         stock: props.stock,
         amount: 1,
       }, user.id));
-      swal.fire({
-        text: 'Product added succesfully!',
-        icon: 'success',
-      });
     }
   };
   return (
@@ -102,13 +122,16 @@ function ProductCard(
         <div className='productCardButtons'>
           {
                 user.role !== 'Admin' && props.stock > 0 ?
-                <div>
+                <div className='productCardUserButtons'>
+                  <button onClick={() => {
+                    handleOnWishlist(); toggle();
+                  }}
+                  className={`${active ? 'activeWishlist' :
+                  'inactiveWishlist'} material-icons`}>
+                      favorite
+                  </button>
                   <button onClick={handleOnCart} className='productCardButton'>
                   Add to cart
-                  </button>
-                  <button onClick={handleOnWishlist}
-                    className='productCardButton'>
-                 Add to wishlist
                   </button>
                 </div>:null
           }
