@@ -14,7 +14,7 @@ function NavBar(props: any): JSX.Element {
         <h1>DiceStarter</h1>
       </Link>
       <div className='navBarMenuIcons'>
-        { cart.length !== 0 || User.role === 'Admin' ?
+        { cart.length !== 0 || User.role !== 'Admin' ?
          <div className='navBarCart'>
            <h3 className='navBarCartCount'>{cart.length}</h3>
            <Link to='/cart'>

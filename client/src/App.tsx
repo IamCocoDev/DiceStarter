@@ -33,6 +33,7 @@ import OrderInfoComp from './components/orderInfoComp/orderInfoComp';
 import ResetPasswordEmail from
   './components/resetPasswordEmail/resetPasswordEmail';
 import ResetNewPassword from './components/resetNewPassword/resetNewPassword';
+import Footer from './components/footer/footer';
 
 function App() {
   const user = useAppSelector(userInfo);
@@ -51,11 +52,13 @@ function App() {
         '/create/category',
         '/cart',
         '/list/userlist',
+        '/address',
         '/profile']} component={NavBar}/> :
       <Route path={['/home',
         '/login',
         '/register',
         '/cart',
+        '/address',
         '/product',
         '/profile',
         '/list',
@@ -88,8 +91,9 @@ function App() {
       <Route exact path='/profile' component={Profile}/>
       <Route path='/cart' component={Cart}/>
       <Route exact path='/list/userlist' component={UserList}/>
-      <Route exact path='/profile/address' component={FormAddress}/>
+      <Route exact path='/address' component={FormAddress}/>
       <Route exact path='/list/reviews' component={ReviewsList}/>
+      <Route path='/' component={Footer} />
     </div>
   );
 }

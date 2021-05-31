@@ -78,6 +78,42 @@ function validate(input: Inputs) {
   return errors;
 };
 
+const style = {
+  container: (provided, state) => ({
+    ...provided,
+    outline: 'none',
+    backgroundColor: '#202020',
+    color: 'white',
+  }),
+  control: (provided, state) => ({
+    ...provided,
+    border: state.isSelected ? 'none' : 'white',
+    boxShadow: 'none',
+    backgroundColor: '#202020',
+    color: 'white',
+  }),
+  ValueContainer: () => ({
+    backgroundColor: '#101010',
+    color: 'white',
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? '#74009D':'#202020',
+    cursor: state.isFocused ? 'pointer': 'default',
+    color: 'white',
+  }),
+  IndicatorsContainer: () => ({
+    backgroundColor: '#101010',
+    color: 'white',
+    width: '1rem',
+  }),
+  menu: (provided, state) => ({
+    ...provided,
+    backgroundColor: '#202020',
+    color: 'white',
+  }),
+};
+
 const FormCreateProduct = () => {
   const dispatch = useAppDispatch();
   const [redirect, setRedirect] = useState(false);
@@ -296,6 +332,7 @@ const FormCreateProduct = () => {
             </div>
             <div className='formCreateProductSelector'>
               <Select
+                styles={style}
                 className='formCreateProductInput'
                 isMulti
                 name="categories"

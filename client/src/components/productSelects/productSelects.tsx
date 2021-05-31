@@ -44,6 +44,43 @@ const sortType: Array<Categories> = [{
 },
 ];
 
+const style = {
+  container: (provided, state) => ({
+    ...provided,
+    outline: 'none',
+    backgroundColor: '#101010',
+    color: 'white',
+  }),
+  control: (provided, state) => ({
+    ...provided,
+    border: state.isSelected ? 'none' : 'white',
+    boxShadow: 'none',
+    backgroundColor: '#101010',
+    color: 'white',
+  }),
+  ValueContainer: () => ({
+    backgroundColor: '#101010',
+    color: 'white',
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? '#74009D': '#101010',
+    cursor: state.isFocused ? 'pointer': 'default',
+    color: 'white',
+  }),
+  IndicatorsContainer: (provided, state) => ({
+    ...provided,
+    backgroundColor: '#101010',
+    cursor: state.isFocused ? 'pointer': 'default',
+    color: 'white',
+  }),
+  menu: (provided, state) => ({
+    ...provided,
+    backgroundColor: '#101010',
+    color: 'white',
+  }),
+};
+
 const FilterSelect = () => {
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState('');
@@ -61,22 +98,19 @@ const FilterSelect = () => {
     dispatch(getCategoriesAsync());
   }, [sort, filter]);
   return (
-    <div className='productSelectsGrid'>{
+    <div className='productSelectsGrid'>
       <Select className='productSelectsCateogires'
+        styles={style}
         options={categoriesCopy}
         onChange={handleFilterSelectChange}
         placeholder='Choose Your Category...'
-      >
-      </Select>
-    }
-    {
+      />
       <Select className='productSelectsSortType'
+        styles={style}
         options={sortType}
         onChange={handleSortSelectChange}
         placeholder='Choose Your Sort...'
-      >
-      </Select>
-    }
+      />
     </div>
   );
 };

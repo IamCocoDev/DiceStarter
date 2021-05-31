@@ -29,3 +29,19 @@
     padding: 0.5vw;
     border-radius: 0.5vw;
 }
+
+.postedUserReviewsButtonMore {
+    color: white;
+    outline: none;
+    border: none;
+    cursor:pointer;
+    margin-top: 2rem;
+    width: 4rem;
+    border-radius: 0.5rem;
+    background-color: #74009D;
+}
+
+.postedUserReviewsButtonMore:hover {
+    color: white;
+    background-color: #9e00d3;
+}
