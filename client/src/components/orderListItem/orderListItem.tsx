@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './orderListItem.css';
 import Select from 'react-select';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
@@ -36,7 +36,7 @@ const OrderListItem = (props) => {
     value: status,
     label: status,
   });
-  const statusSelect = [{
+  const [statusSelect, setstatusSelect] = useState([{
     value: 'Created',
     label: 'Created',
   },
@@ -52,7 +52,7 @@ const OrderListItem = (props) => {
     value: 'Complete',
     label: 'Complete',
   },
-  ];
+  ]);
 
   const handleChange = (e) => {
     setInput(e);
@@ -75,6 +75,40 @@ const OrderListItem = (props) => {
     dispatch(getOneOrder(props.order, total));
     setRedirect(true);
   };
+  useEffect(() => {
+    if (status === 'In process') {
+      setstatusSelect([{
+        value: 'In process',
+        label: 'In process',
+      },
+      {
+        value: 'Canceled',
+        label: 'Canceled',
+      },
+      {
+        value: 'Complete',
+        label: 'Complete',
+      },
+      ]);
+    }
+  }, [status]);
+  useEffect(() => {
+    if (status === 'In process') {
+      setstatusSelect([{
+        value: 'In process',
+        label: 'In process',
+      },
+      {
+        value: 'Canceled',
+        label: 'Canceled',
+      },
+      {
+        value: 'Complete',
+        label: 'Complete',
+      },
+      ]);
+    }
+  }, []);
   return (
     <div className='orderListItemGrid'>
       {redirect && <Redirect to='/list/order/info' />}
@@ -82,7 +116,7 @@ const OrderListItem = (props) => {
       <h2 className='orderListAdress'>Adress: {address}</h2>
       {user ? <h2 className='orderListUser'>User: {user.name}</h2> : null}
       <div className='orderListStatus'>
-        {status === 'Created' ? <Select
+        {status === 'Created' || status === 'In process' ? <Select
           className='formCreateProductInput'
           name="categories"
           options={statusSelect}
@@ -91,7 +125,7 @@ const OrderListItem = (props) => {
         >
         </Select> : <h2>Status: {status}</h2>}
       </div>
-      {status === 'Created' ?
+      {status === 'Created' || status === 'In process' ?
         <button
           className='orderListEdit'
           onClick={handleSubmit}>
