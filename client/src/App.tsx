@@ -63,11 +63,8 @@ function App() {
         '/product',
         '/profile',
         '/list',
-<<<<<<< HEAD
         '/about',
-=======
         '/user',
->>>>>>> f8f66855a085008a6e9506de2b4f924b6127b3b2
       ]} component={NavBar}/>
       }
       <Route exact path='/list/productcategory'
