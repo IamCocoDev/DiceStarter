@@ -19,12 +19,15 @@ const ReviewsList = () => {
 
   }, [reviews]);
   return (
-      user.role === 'Admin' ?
-    <div className='ReviewsListAll'>
-      <p className='ReviewsListName'>Username</p>
-      <p className='ReviewsListComment'>Comment</p>
-      <p className='ReviesListComment'>Rating</p>
-      {
+    user.role === 'Admin' ?
+      <div>
+        <div className='reviewsListGrid'>
+          <p className='reviewsListName'>Username</p>
+          <p className='reviewsListComment'>Comment</p>
+          <p className='reviewsListRating'>Rating</p>
+        </div>
+        <div>
+          {
           reviews === null ?
           <div className='ReviewsListLoading'>Loading...</div> :
           reviews.map((r) => (
@@ -38,9 +41,9 @@ const ReviewsList = () => {
                 userId={r.user?.id}/>
             </div>
           ))
-      }
-    </div> :
-    <div className='ReviewsListRestriction'>401 not authorized</div>
+          }
+        </div>
+      </div> : <div className='ReviewsListRestriction'>401 not authorized</div>
   );
 };
 
