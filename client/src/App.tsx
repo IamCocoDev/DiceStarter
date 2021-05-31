@@ -49,6 +49,7 @@ function App() {
         '/cart',
         '/list/userlist',
         '/address',
+        '/about',
         '/profile']} component={NavBar}/> :
       <Route path={['/home',
         '/login',
@@ -58,6 +59,7 @@ function App() {
         '/product',
         '/profile',
         '/list',
+        '/about',
       ]} component={NavBar}/>
       }
       <Route exact path='/list/productcategory'

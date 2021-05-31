@@ -51,20 +51,26 @@ const OrderListItem = (props) => {
     dispatch(putOrderStatus(userId, newOrder, token));
   };
   return (
-    <div className='orderElement'>
-      <h2>{'$ ' + price}</h2>
-      <h2>{address}</h2>
-      {user ? <h2>{user.name}</h2> : null}
-      {status === 'Created' ? <Select
-        className='formCreateProductInput'
-        name="categories"
-        options={statusSelect}
-        value={input}
-        onChange={handleChange}
-      >
-      </Select> : <h2>{status}</h2>}
+    <div className='orderListItemGrid'>
+      <h2 className='orderListPrice'>Price: {'$ ' + price}</h2>
+      <h2 className='orderListAdress'>Adress: {address}</h2>
+      {user ? <h2 className='orderListUser'>User: {user.name}</h2> : null}
+      <div className='orderListStatus'>
+        {status === 'Created' ? <Select
+          className='formCreateProductInput'
+          name="categories"
+          options={statusSelect}
+          value={input}
+          onChange={handleChange}
+        >
+        </Select> : <h2>Status: {status}</h2>}
+      </div>
       {status === 'Created' ?
-        <input type="button" onClick={handleSubmit} value='edit' /> : null}
+        <button
+          className='orderListEdit'
+          onClick={handleSubmit}>
+          <i className="material-icons">save</i>
+        </button> : null}
       <br />
     </div>
   );

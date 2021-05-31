@@ -6,6 +6,7 @@ import {userToken} from '../../app/reducers/registerReducer';
 import OrderListItem from '../orderListItem/orderListItem';
 import {orderList} from '../../app/reducers/orderReducer';
 import Select from 'react-select';
+import './orderList.css';
 
 const OrderList = () => {
   const [input, setInput] = useState({
@@ -52,18 +53,21 @@ const OrderList = () => {
     setInput(e);
   };
   return (
-    <div>
-      <Select
-        className='formCreateProductInput'
-        name="categories"
-        options={statusSelect}
-        value={input}
-        onChange={handleChange}
-      >
-      </Select>
-      {orders.length ? orders.map((el) =>
+    <div className='orderListGrid'>
+      <div className='formCreateProductInputBox'>
+        <Select
+          className='formCreateProductInput'
+          options={statusSelect}
+          value={input}
+          onChange={handleChange}
+        >
+        </Select>
+      </div>
+      <div className='orderListMap'>
+        {orders.length ? orders.map((el) =>
         // eslint-disable-next-line max-len
-        <OrderListItem key={el.id} id={el.id} status={el.status} order={el} />) : null}
+          <OrderListItem key={el.id} id={el.id} status={el.status} order={el} />) : null}
+      </div>
     </div>
   );
 };
