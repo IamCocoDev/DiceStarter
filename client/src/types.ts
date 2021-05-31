@@ -25,6 +25,11 @@ export interface FormState {
 export interface cartState {
     productsInCart: ProductRes[]
 }
+
+export interface wishlistState {
+  productsInWishlist: ProductRes[]
+}
+
 export interface User {
         id: string,
         name: string,

@@ -34,6 +34,7 @@ import ResetPasswordEmail from
   './components/resetPasswordEmail/resetPasswordEmail';
 import ResetNewPassword from './components/resetNewPassword/resetNewPassword';
 import Footer from './components/footer/footer';
+import Wishlist from './components/wishlist/wishlist';
 
 function App() {
   const user = useAppSelector(userInfo);
@@ -65,6 +66,7 @@ function App() {
         '/list',
         '/about',
         '/user',
+        '/wishlist',
       ]} component={NavBar}/>
       }
       <Route exact path='/list/productcategory'
@@ -95,6 +97,7 @@ function App() {
       <Route exact path='/list/userlist' component={UserList}/>
       <Route exact path='/address' component={FormAddress}/>
       <Route exact path='/list/reviews' component={ReviewsList}/>
+      <Route path='/wishlist' component={Wishlist}/>
       <Route path='/' component={Footer} />
     </div>
   );
