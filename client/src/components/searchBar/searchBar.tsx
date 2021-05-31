@@ -19,10 +19,8 @@ function searchBar(): JSX.Element {
   };
 
   useEffect(() => {
-    if (input.length > 0) {
-      dispatch(getProductsAsync({name: input, page: 1,
-        filter: searchFilter, sort: searchSort}));
-    }
+    dispatch(getProductsAsync({name: input, page: 1,
+      filter: searchFilter, sort: searchSort}));
   }, [input]);
   return (
     <form className='searchBarFlex'>
