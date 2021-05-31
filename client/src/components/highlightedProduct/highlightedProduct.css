@@ -1,0 +1,33 @@
+.HighlightedProductAll {
+    padding-top: 2rem;
+    display: grid;
+    grid-template-rows: 1fr 0.5fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    max-height: 20rem;
+    width: 15rem;
+    align-self: center;
+    text-align: center;
+}
+.HighlightedProductImage {
+    grid-row: 2/3;
+    max-width: 10rem;
+    max-height: 8rem;
+    justify-self: center;
+}
+
+.HighlightedProductTitle {
+    grid-row: 1/2;
+    font-size: 1rem;
+}
+
+.HighlightedProductRating {
+    grid-row: 3/4;
+    color: gold;
+    justify-self: center;
+}
+
+.HighlightedProductPrice{
+    grid-row:4/5;
+    color: white;
+}
+

@@ -14,6 +14,7 @@ import './home.css';
 import {getCheckoutTicket} from '../../app/actions/cartActions/index';
 import {userInfo} from '../../app/reducers/registerReducer';
 import {useLocation} from 'react-router-dom';
+import HighlightedProducts from '../highlightedProducts/highlightedProducts';
 
 function Home(props: any) {
   const searchName = useAppSelector(queryName);
@@ -45,6 +46,9 @@ function Home(props: any) {
   }, []);
   return (
     <div className='homeBackground'>
+      {
+        <div className='homeProductCarousel'><HighlightedProducts /></div>
+      }
       {
         <ProductsSelect />
       }

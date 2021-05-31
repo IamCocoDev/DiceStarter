@@ -26,22 +26,10 @@ const UserList = (props:any) => {
     console.log(changes);
   };
   const handleStatusChange = (e:any) => {
-    setChanges({...changes, status: e.target.label});
+    setChanges({...changes, status: e.label});
   };
   const handleSubmit = () => {
     dispatch(modifyUser(changes, token));
-    setChanges({
-      id: '',
-      name: '',
-      firstName: '',
-      lastName: '',
-      birthday: '',
-      country: '',
-      email: '',
-      password: '',
-      role: '',
-      status: '',
-    });
   };
   return (
     <div className='userListGrid'>

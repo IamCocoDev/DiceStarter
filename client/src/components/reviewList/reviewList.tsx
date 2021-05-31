@@ -20,16 +20,18 @@ const ReviewList = (props:{
     dispatch(deleteReviews(props.id, props.productId, token));
   };
   return (
-    <div className='ReviewListAll'>
-      <NavLink to={`/profile/${props.userId}`} className='ReviewListName'>
+    <div className='reviewListAll'>
+      <NavLink to={`/profile/${props.userId}`} className='reviewListName'>
         {props.name}
       </NavLink>
-      <p className='ReviewListComment'>
+      <p className='reviewListComment'>
         {props.comment}
       </p>
-      <RatingStars rating={props.rating}/>
-      <button className='ReviewListDeleteButton' onClick={handleDelete}>
-          Delete Review
+      <div className='reviewListRating'>
+        <RatingStars rating={props.rating}/>
+      </div>
+      <button className='reviewListDeleteButton' onClick={handleDelete}>
+        <i className='material-icons'>delete</i>
       </button>
     </div>
   );

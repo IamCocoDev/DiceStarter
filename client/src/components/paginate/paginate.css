@@ -75,3 +75,23 @@
     flex-direction: row;
     text-decoration: none;
 }
+
+.paginateCurrentPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background-color: #4c0366;
+    border-radius: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    text-decoration: none;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+}
+
+.paginateCurrentPage:hover {
+    color: white;
+    background-color: #74009D;
+}

@@ -73,4 +73,19 @@ router.get('/', (req, res, next) => {
       });
   }
 });
+
+router.get('/bestRated', (req, res, next) => {
+  Product.findAll({
+    where: { rating: { [Op.gte]: 4 } },
+    include: [{ model: Category, attributes: ['id', 'name'] }],
+  })
+    .then((response) => {
+      onOrder('maxRating', response);
+      const bestProducts = response.slice(0, 5);
+      res.send(bestProducts);
+    }).catch((e) => {
+      next(e);
+    });
+});
+
 module.exports = router;

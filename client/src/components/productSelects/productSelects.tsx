@@ -7,9 +7,10 @@ import {
   getProductsAsync} from '../../app/actions/handleProductsActions';
 import {Categories} from '../../types';
 import {productCategories} from '../../app/reducers/handleProductsReducer';
+import {queryName} from '../../app/reducers/handleProductsReducer';
 
 const sortType: Array<Categories> = [{
-  value: 'None',
+  value: '',
   label: 'None',
   id: 0,
 },
@@ -85,16 +86,15 @@ const FilterSelect = () => {
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState('');
   const dispatch = useAppDispatch();
+  const name = useAppSelector(queryName);
   const categories = useAppSelector(productCategories);
   const categoriesCopy = [...categories];
   categoriesCopy.unshift({value: '', label: 'None'});
   const handleFilterSelectChange = (e: any) => setFilter(e.value);
   const handleSortSelectChange = (e: any) => setSort(e.value);
   useEffect(() => {
-    if (filter.length > 0 || sort.length > 0) {
-      dispatch(getProductsAsync({page: 1, name: '',
-        filter: filter, sort: sort}));
-    }
+    dispatch(getProductsAsync({page: 1, name: name,
+      filter: filter, sort: sort}));
     dispatch(getCategoriesAsync());
   }, [sort, filter]);
   return (

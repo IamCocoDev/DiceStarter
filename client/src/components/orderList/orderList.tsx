@@ -66,7 +66,7 @@ const OrderList = () => {
       <div className='orderListMap'>
         {orders.length ? orders.map((el) =>
         // eslint-disable-next-line max-len
-          <OrderListItem key={el.id} id={el.id} status={el.status} order={el} />) : null}
+          <OrderListItem key={el.id} id={el.id} status={el.status} order={el} orderProduct={el.products} />) : null}
       </div>
     </div>
   );

@@ -1,0 +1,49 @@
+.reviewListAll{
+  display: grid;
+  grid-template-columns: 1fr 20vw 25vw 20vw 10vw 1fr;
+  grid-template-rows: 5vh;
+  width: 100%;
+  height: 120%;
+  text-align: center;
+  color: white;
+  margin: 1rem;   
+  font-size: 1.4rem;
+}
+
+.reviewListName{
+  border-top: 0.1rem solid white;
+  grid-column: 2/3;
+  grid-row: 1/2;
+  text-decoration: none;
+  color: white;
+}
+
+.reviewListComment{
+  border-top: 0.1rem solid white;
+  grid-column: 3/4;
+  grid-row: 1/2;
+}
+
+.reviewListRating{
+  border-top: 0.1rem solid white;
+  grid-column: 4/5;
+  grid-row: 1/2;
+}
+
+.reviewListDeleteButton{
+  border-top: 0.1rem solid white;
+  grid-column: 5/6;
+  grid-row: 1/2;
+  border:none;
+  align-self: center;
+  justify-self: center;
+  background-color: rgb(150 00 00);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color:white;
+}
+.reviewListDeleteButton:hover{
+  background-color: rgb(200 00 00);
+}

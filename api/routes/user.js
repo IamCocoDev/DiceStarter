@@ -147,6 +147,8 @@ router.post('/signin', isNotLogged, async (req, res, next) => {
       emailRegEx.test(username)
         ? user = await User.findOne({ where: { email: username } })
         : user = await User.findOne({ where: { name: username } });
+      if (user.status === 'Banned') return res.status(401).send('User banned');
+      if (user.status === 'Closed') return res.status(401).send('Account closed');
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) return res.send('password invalid');
         if (result) {
