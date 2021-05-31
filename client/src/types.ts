@@ -146,6 +146,7 @@ export interface Products {
     productsList: ProductRes[] | null,
     productById: ProductRes | null,
     productCategories: Categories[]
+    bestProducts: ProductRes[] | null,
     // Status
     totalPages: number,
     queryFilter: string,

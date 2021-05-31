@@ -6,6 +6,7 @@ import {BACK_ROUTE} from '../../../ROUTE.js';
 import {SET_PRODUCTS,
   SET_PRODUCT_BY_ID,
   SET_CATEGORIES,
+  SET_BEST_PRODUCTS,
 } from '../../constants/constants';
 
 const setProducts = (products: any,
@@ -24,6 +25,12 @@ const setProductById = (productResponse: any) => ({
 const setCategories = (categories: any) => ({
   type: SET_CATEGORIES,
   payload: categories,
+});
+
+// Set best products to redux state
+const setBestProducts = (products: any) => ({
+  type: SET_BEST_PRODUCTS,
+  payload: products,
 });
 
 // Actual async functions
@@ -199,6 +206,17 @@ const deleteCategory = (categoryName, token) => {
   };
 };
 
+const getBestProducts = () => {
+  return async (dispatch:any) => {
+    try {
+      const res = await axios.get(`${BACK_ROUTE}/products/bestRated`);
+      dispatch(setBestProducts(res.data));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 export {
   getProductsAsync,
   getProductByIdAsync,
@@ -208,4 +226,5 @@ export {
   addCategoryAsync,
   putCategory,
   deleteCategory,
+  getBestProducts,
 };
