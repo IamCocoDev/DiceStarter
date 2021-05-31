@@ -12,6 +12,7 @@ import {userInfo, userToken} from '../../app/reducers/registerReducer';
 import {addProductInCart} from '../../app/actions/cartActions/index';
 import RatingStars from '../ratingStars/ratingStars';
 import swal from 'sweetalert2';
+import {addProductInWishlist} from '../../app/actions/wishlistActions';
 
 function ProductDetail(props:any ) {
   const token = useAppSelector(userToken);
@@ -39,7 +40,7 @@ function ProductDetail(props:any ) {
           setChanges(product);
         }).catch((err) => console.error(err));
   }, []);
-  const handleOnClick = () => {
+  const handleOnCart = () => {
     const duplicate = JSON.parse(localStorage
         .getItem('cart') || '[]').find((el) => el.id === product.id);
     if (duplicate) {
@@ -49,6 +50,29 @@ function ProductDetail(props:any ) {
       });
     } else {
       dispatch(addProductInCart({
+        id: product.id,
+        name: product.name,
+        price: parseFloat(product.price),
+        image: product.picture[0],
+        stock: product.stock,
+        amount: 1,
+      }, User.id));
+      swal.fire({
+        text: 'Product added succesfully!',
+        icon: 'success',
+      });
+    }
+  };
+  const handleOnWishlist = () => {
+    const duplicate = JSON.parse(localStorage
+        .getItem('wishlist') || '[]').find((el) => el.id === product.id);
+    if (duplicate) {
+      swal.fire({
+        text: 'You already added this product to wishlist!',
+        icon: 'info',
+      });
+    } else {
+      dispatch(addProductInWishlist({
         id: product.id,
         name: product.name,
         price: parseFloat(product.price),
@@ -129,10 +153,14 @@ function ProductDetail(props:any ) {
                   </p>
                   {
                     User.role !== 'Admin' ?
-                      <button className='productDetailAddToCart' onClick={handleOnClick}
-                      >
+                      <div>
+                        <button className='productDetailAddToCart' onClick={handleOnCart}>
                         Add to Cart
-                      </button>:
+                        </button>
+                        <button className='productDetailAddToCart' onClick={handleOnWishlist}>
+                        Add to Wishlist
+                        </button>
+                      </div>:
                       <button type='button' className=' material-icons productDetailEdit' onClick={() => setEditMode(!editMode)}>
                         edit
                       </button>

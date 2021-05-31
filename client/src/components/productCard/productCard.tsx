@@ -6,6 +6,7 @@ import {userInfo} from '../../app/reducers/registerReducer';
 import {addProductInCart} from '../../app/actions/cartActions/index';
 import RatingStars from '../ratingStars/ratingStars';
 import swal from 'sweetalert2';
+import {addProductInWishlist} from '../../app/actions/wishlistActions';
 
 function ProductCard(
     props:{
@@ -23,7 +24,7 @@ function ProductCard(
   const user = useAppSelector(userInfo);
   // const {id} = userInfo;
   const dispatch = useAppDispatch();
-  const handleOnClick = () => {
+  const handleOnCart = () => {
     const duplicate = JSON.parse(localStorage
         .getItem('cart') || '[]').find((el) => el.id === props.id);
     if (duplicate) {
@@ -33,6 +34,29 @@ function ProductCard(
       });
     } else {
       dispatch(addProductInCart({
+        id: props.id,
+        name: props.name,
+        price: parseFloat(props.price),
+        image: props.image,
+        stock: props.stock,
+        amount: 1,
+      }, user.id));
+      swal.fire({
+        text: 'Product added succesfully!',
+        icon: 'success',
+      });
+    }
+  };
+  const handleOnWishlist = () => {
+    const duplicate = JSON.parse(localStorage
+        .getItem('wishlist') || '[]').find((el) => el.id === props.id);
+    if (duplicate) {
+      swal.fire({
+        text: 'You already added this product to your wishlist!',
+        icon: 'info',
+      });
+    } else {
+      dispatch(addProductInWishlist({
         id: props.id,
         name: props.name,
         price: parseFloat(props.price),
@@ -78,9 +102,15 @@ function ProductCard(
         <div className='productCardButtons'>
           {
                 user.role !== 'Admin' && props.stock > 0 ?
-                <button onClick={handleOnClick} className='productCardButton'>
+                <div>
+                  <button onClick={handleOnCart} className='productCardButton'>
                   Add to cart
-                </button>:null
+                  </button>
+                  <button onClick={handleOnWishlist}
+                    className='productCardButton'>
+                 Add to wishlist
+                  </button>
+                </div>:null
           }
           <NavLink className='productCardlink'
             to={`/product/${props.id}`}>
