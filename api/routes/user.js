@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 
 const { v4: uuidv4 } = require('uuid');
@@ -290,7 +291,7 @@ router.put('/:email/recoverpassword', (req, res, next) => {
     bcrypt.hash(password, 10, (err, hash) => {
       password = hash;
       if (err) {
-        next(err);
+        return next(err);
       }
       req.body.password = password;
       User.findOne({ where: { email } })
@@ -303,13 +304,14 @@ router.put('/:email/recoverpassword', (req, res, next) => {
                 subject: 'Recover your password', // Subject line
                 html: templatePassword(response.firstName, response.lastName), // html body
               });
-              res.send('Password Update');
+              return res.send('Password Update');
             });
         }).catch((e) => next(e));
     });
   } else {
-    res.status(400).send('The two passwords must match');
+    return res.status(400).send('The two passwords must match');
   }
+  return null;
 });
 
 router.get('/:email/recoverpassword', (req, res, next) => {
@@ -321,11 +323,13 @@ router.get('/:email/recoverpassword', (req, res, next) => {
           from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
           to: response.email, // list of receivers
           subject: 'Recover your password', // Subject line
-          html: templateForgottenPassword(response.firstName, response.lastName), // html body
+          html: templateForgottenPassword(response.firstName,
+            response.lastName,
+            email), // html body
         });
         return res.send('E-mail sent');
       }
-      return res.send('Account no exist');
+      return res.status(404).send('Account no exist');
     }).catch((e) => next(e));
 });
 
