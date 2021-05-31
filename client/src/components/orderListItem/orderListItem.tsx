@@ -6,10 +6,30 @@ import Select from 'react-select';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {userToken} from '../../app/reducers/registerReducer';
 import {putOrderStatus} from '../../app/actions/orderActions';
+import {Redirect} from 'react-router';
+import {getOneOrder} from '../../app/actions/orderActions';
+
+const process = (array) => {
+  let total = 0;
+  for (let i = 0; i < array.length; i++) {
+    total += array[i].price * array[i].amount;
+  }
+  return total;
+};
 
 const OrderListItem = (props) => {
   // eslint-disable-next-line no-unused-vars
   const {address, id, price, status, user, userId} = props.order;
+  const orderProduct = props.orderProduct;
+  console.log(orderProduct);
+  const cosas = orderProduct.map((el) => {
+    return {
+      price: parseFloat(el.price),
+      amount: el.productxorder.amount,
+    };
+  });
+  const total = process(cosas);
+  const [redirect, setRedirect] = useState(false);
   const dispatch = useAppDispatch();
   const token = useAppSelector(userToken);
   const [input, setInput] = useState({
@@ -50,9 +70,15 @@ const OrderListItem = (props) => {
     console.log(newOrder);
     dispatch(putOrderStatus(userId, newOrder, token));
   };
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(getOneOrder(props.order, total));
+    setRedirect(true);
+  };
   return (
     <div className='orderListItemGrid'>
-      <h2 className='orderListPrice'>Price: {'$ ' + price}</h2>
+      {redirect && <Redirect to='/list/order/info' />}
+      <h2 className='orderListPrice'>Price: {'$ ' + total}</h2>
       <h2 className='orderListAdress'>Adress: {address}</h2>
       {user ? <h2 className='orderListUser'>User: {user.name}</h2> : null}
       <div className='orderListStatus'>
@@ -71,6 +97,7 @@ const OrderListItem = (props) => {
           onClick={handleSubmit}>
           <i className="material-icons">save</i>
         </button> : null}
+      <button onClick={handleClick} >see more</button>
       <br />
     </div>
   );

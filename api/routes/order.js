@@ -96,9 +96,16 @@ router.get('/search/user/:userId/', (req, res) => {
 router.get('/status/:status', isAdmin, (req, res, next) => {
   const { status } = req.params;
   if (status === 'allorders') {
-    Order.findAll({ include: User }).then((data) => res.send(data));
+    Order.findAll({
+      include: [{ model: User },
+        { model: Product }],
+    }).then((data) => res.send(data));
   } else {
-    Order.findAll({ where: { status }, include: User }).then((result) => {
+    Order.findAll({
+      where: { status },
+      include: [{ model: User },
+        { model: Product }],
+    }).then((result) => {
       res.send(result);
     }).catch((e) => {
       res.status(400);
