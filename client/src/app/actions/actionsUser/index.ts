@@ -226,6 +226,26 @@ const getUser = (id:string, token:string) => {
   };
 };
 
+const resetPasswordEmail = (email) => {
+  return async (dispatch) => {
+    try {
+      await axios.get(`${BACK_ROUTE}/user/${email}/recoverpassword`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+const setNewPassword = (email, input) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${BACK_ROUTE}/user/${email}/recoverpassword`, input);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export {
   sendFormAsync,
   loginFormAsync,
@@ -237,4 +257,6 @@ export {
   setUser,
   setSubscribe,
   getUser,
+  resetPasswordEmail,
+  setNewPassword,
 };

@@ -55,8 +55,8 @@ function ProductCard(
         <div className='productNamePrice'>
           <h2 className='productCardName'>{props.name}</h2>
           <RatingStars rating={props.rating}/>
-          {/* eslint-disable-next-line react/jsx-key */}
-          {props.categories.map((c) => <span className='categories'>{c}</span>)}
+          {props.categories.map((c) => <span key={c}
+            className='categories'>{c}</span>)}
           { props.priceDiscount || props.discount ?
           <div className='productCardDiscount'>
             <div className='productCardDiscountPrice'>

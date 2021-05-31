@@ -24,6 +24,10 @@ const FormCategoryCreation = () => {
       });
     }
     flag === true && dispatch(addCategoryAsync(input, token));
+    return swal.fire({
+      text: 'Category created successfully',
+      icon: 'success',
+    });
   };
   return (
     user.role === 'Admin' ?
@@ -31,7 +35,7 @@ const FormCategoryCreation = () => {
       <form className='formCategoryCreationGrid' onSubmit={handleSubmit}>
         <input className='formCategoryCreationName' placeholder='Category Name'
           type="text" onChange={(e) => setInput(e.target.value)} />
-        <input className='formCategoryCreationSubmit'
+        <input className='formCategoryCreationSubmit' value='Submit'
           type="submit" />
       </form>
     </div> :

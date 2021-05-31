@@ -106,6 +106,9 @@ const Login = () => {
             name="password"
             onChange={handleChange}
           />
+          <Link to='/user/recoverpassword' >
+            <p>Forgot your password?</p>
+          </Link>
           <p className='loginErrors'>{errors.password}</p>
         </div>
         <button className='loginSend' type="submit">Login</button>

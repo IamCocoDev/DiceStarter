@@ -1,29 +1,22 @@
 .formCategoryCreationFlex{
-    display: flex;
-    width: 100vw;
-    height: 88vh;
-    background-color: #202020;
-    align-items: center;
-    justify-content: center;
-    color: white;
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
 .formCategoryCreationGrid{
+  padding: 2rem;
   display: grid;
-  grid-template-columns: 0.5vw 1fr 0.5vw;
-  grid-template-rows: 0.5vh 1fr 1fr 0.5vh;
   background-color: #101010;
-  height: 40vh;
-  width: 30vw;
-  border-radius: 0.5vw;
+  border-radius: 0.5rem;
 }
 
 .formCategoryCreationName{
   outline: none;
   border: none;
   border-radius: 0.5rem;
-  grid-column: 2/3;
-  grid-row: 2/3;
   justify-self: center;
   align-self: center;
   height: 2rem;
@@ -36,11 +29,10 @@
 }
 
 .formCategoryCreationSubmit{
+  margin-top: 3rem;
   cursor: pointer;
   background-color: #74009D;
   color: white;
-  grid-column: 2/3;
-  grid-row: 3/4;
   justify-self: center;
   align-self: center;
   outline: none;

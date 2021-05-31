@@ -30,6 +30,10 @@ import ReviewsList from './components/reviewsList/reviewsList';
 import ProfileView from './components/profileView/profileView';
 import UserOrders from './components/userOrders/userOrders';
 import OrderInfoComp from './components/orderInfoComp/orderInfoComp';
+import ResetPasswordEmail from
+  './components/resetPasswordEmail/resetPasswordEmail';
+import ResetNewPassword from './components/resetNewPassword/resetNewPassword';
+import Footer from './components/footer/footer';
 
 function App() {
   const user = useAppSelector(userInfo);
@@ -59,7 +63,11 @@ function App() {
         '/product',
         '/profile',
         '/list',
+<<<<<<< HEAD
         '/about',
+=======
+        '/user',
+>>>>>>> f8f66855a085008a6e9506de2b4f924b6127b3b2
       ]} component={NavBar}/>
       }
       <Route exact path='/list/productcategory'
@@ -67,6 +75,10 @@ function App() {
       {/* <Route exact path={['/login', '/profile']} component={Login}/> */}
       <Route exact path ={['/home', '/list/productlist']}
         component={searchBar} />
+      <Route exact path='/user/:email/recoverpassword'
+        component={ResetNewPassword} />
+      <Route exact path='/user/recoverpassword'
+        component={ResetPasswordEmail} />
       <Route exact path='/list/order/info' component={OrderInfoComp} />
       <Route exact path='/list/orderUser' component={UserOrders} />
       <Route exact path='/list/order' component={OrderList} />
@@ -86,6 +98,7 @@ function App() {
       <Route exact path='/list/userlist' component={UserList}/>
       <Route exact path='/address' component={FormAddress}/>
       <Route exact path='/list/reviews' component={ReviewsList}/>
+      <Route path='/' component={Footer} />
     </div>
   );
 }
