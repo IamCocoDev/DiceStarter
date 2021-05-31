@@ -30,6 +30,7 @@ import ReviewsList from './components/reviewsList/reviewsList';
 import ProfileView from './components/profileView/profileView';
 import UserOrders from './components/userOrders/userOrders';
 import OrderInfoComp from './components/orderInfoComp/orderInfoComp';
+import Footer from './components/footer/footer';
 
 function App() {
   const user = useAppSelector(userInfo);
@@ -84,6 +85,7 @@ function App() {
       <Route exact path='/list/userlist' component={UserList}/>
       <Route exact path='/address' component={FormAddress}/>
       <Route exact path='/list/reviews' component={ReviewsList}/>
+      <Route path='/' component={Footer} />
     </div>
   );
 }
