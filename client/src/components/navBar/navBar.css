@@ -3,6 +3,7 @@
     height: 5rem;
     background-color: #74009D;
     width: 100%;
+    max-width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;

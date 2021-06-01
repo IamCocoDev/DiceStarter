@@ -3,6 +3,8 @@
   width: 25rem;
   overflow: hidden;
   align-items: center;
+  width: 100%;
+  max-width: 100vw;
 }
 
 .carouselAll {
