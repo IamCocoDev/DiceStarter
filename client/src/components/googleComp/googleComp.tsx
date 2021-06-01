@@ -27,7 +27,7 @@ const GoogleComp = () => {
   }, [User]);
   return (
     <div>
-      {redirect === true && <Redirect to={`/home`}></Redirect>}
+      {redirect === true && <Redirect to={`/profile`}></Redirect>}
       <GoogleLogin
         // eslint-disable-next-line max-len
         clientId='196643905398-a4uprd8n3b6k4bop2rvgeb1bpv6p4t87.apps.googleusercontent.com'

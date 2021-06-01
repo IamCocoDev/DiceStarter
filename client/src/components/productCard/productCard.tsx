@@ -9,6 +9,7 @@ import RatingStars from '../ratingStars/ratingStars';
 import swal from 'sweetalert2';
 import {addProductInWishlist, deleteProductInWishlist}
   from '../../app/actions/wishlistActions';
+import {wishlistsReducer} from '../../app/reducers/wishlistReducer';
 
 function ProductCard(
     props:{
@@ -24,7 +25,7 @@ function ProductCard(
   }) {
   // const productToCart = useAppSelector(productDetail);
   const user = useAppSelector(userInfo);
-  // const {id} = userInfo;
+  const wishlist = useAppSelector(wishlistsReducer);
   const dispatch = useAppDispatch();
   const handleOnCart = () => {
     const duplicate = JSON.parse(localStorage
@@ -90,6 +91,13 @@ function ProductCard(
       }, user.id));
     }
   };
+  useEffect(() => {
+    if (wishlist.find((el) => el.id === props.id)) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, []);
   return (
     <div className='productCardAll'>
       <img className='productCardImage'
