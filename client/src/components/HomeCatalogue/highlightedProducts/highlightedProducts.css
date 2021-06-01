@@ -1,8 +1,9 @@
 .HighlightedProductsGeneral {
     text-align: center;
     margin-top: 1rem;   
-    background-color: rgba(0, 0, 0, 0.412);
+    background-color: #101010;
     width: 70rem;
+    height: 20rem;
     margin-left: 7rem;
     border-radius: 0.5rem;
 }
