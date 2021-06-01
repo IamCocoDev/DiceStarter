@@ -152,7 +152,7 @@ function ProductDetail(props:any ) {
                   </p>
                   {
                     User.role !== 'Admin' ?
-                      <div>
+                      <div className= 'productDetailUserButtons'>
                         <button className='productDetailAddToCart' onClick={handleOnCart}>
                         Add to Cart
                         </button>
