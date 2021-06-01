@@ -138,7 +138,7 @@ const Profile = (props:any) => {
           <input className='profileLogOut' type='button' value='Log Out' onClick={handleLogout}/>
         </div>
         <div className='suscribeMail'>
-          <input className='suscribeMailBox' type='checkbox' onClick={() => dispatch(setSubscribe(User.email))}/>
+          <input className='suscribeMailBox' type='checkbox' onClick={() => dispatch(setSubscribe(User.email, User.status))}/>
           <label className='suscribeMailText'>Subscribe to our Newsletter to get the latest products and offers!</label>
         </div>
         <NavLink className='profileHistoryButton' to='/list/order/info'>Your Purchases</NavLink>
