@@ -36,14 +36,10 @@ const UsersList = () => {
   return (
     <div className='usersListAll'>
       <div className='usersListHeaders'>
-        <h1>Username</h1>
-        <h1>Name</h1>
-        <h1>Last Name</h1>
-        <h1>Birthday</h1>
-        <h1>Country</h1>
-        <h1>Email</h1>
-        <h1>Role</h1>
-        <h1>Status</h1>
+        <h1 className='usersListUsername'>Username</h1>
+        <h1 className='usersListEmail'>Email</h1>
+        <h1 className='usersListRole'>Role</h1>
+        <h1 className='usersListStatus'>Status</h1>
       </div>
       {
         usersArray !== null && usersArray.map((u:User, i:number) => (
