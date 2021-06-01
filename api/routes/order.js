@@ -297,4 +297,17 @@ router.post('/sendorder/:first/:last/:email', async (req, res, next) => {
   res.send('Sending e-mail');
 });
 
+router.put('/:userId/updateorder', async (req, res, next) => {
+  const { userId } = req.params;
+  const { price, address } = req.body;
+  const order = await Order.findOne({ where: { userId, status: 'Created' } });
+  if (order) {
+    order.update({ price, address }, { where: { userId, status: 'Created' } })
+      .then(() => res.send('Order update'))
+      .catch((e) => next(e));
+  } else {
+    res.send('No orders for this user');
+  }
+});
+
 module.exports = router;
