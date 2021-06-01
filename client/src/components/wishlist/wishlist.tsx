@@ -83,7 +83,7 @@ const Wishlist = () => {
   }, [wishlistProducts]);
 
   return (
-    <div className='wishlist'>
+    <div className='wishlistGrid'>
       <div className='wishlistItems'>
         {products.length > 0 ?
           products.map((product, index) =>
@@ -101,8 +101,11 @@ const Wishlist = () => {
           <div>No products in wishlist</div>
         }
       </div>
-      <button className='wishlistDeleteButton'
-        onClick={handleDeleteWishlist} >Delete Wishlist</button>
+      {
+        products.length > 0 ?
+        <button className='wishlistDeleteButton'
+          onClick={handleDeleteWishlist} >Delete Wishlist</button>:null
+      }
     </div>
   );
 };
