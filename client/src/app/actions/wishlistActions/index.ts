@@ -18,6 +18,10 @@ export const getProductsInWishlist = (idUser = '') => (dispatch) => {
             price: parseFloat(el.price),
             id: el.id,
             stock: el.stock,
+            priceDiscount: el.priceDiscount,
+            discount: el.discount,
+            categories: el.categories,
+            rating: el.rating,
           };
         });
         localStorage.setItem('wishlist', JSON.stringify(products));

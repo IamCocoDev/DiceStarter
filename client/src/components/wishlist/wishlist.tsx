@@ -11,13 +11,11 @@ import ProductCard from '../productCard/productCard';
 const Wishlist = () => {
   const dispatch = useAppDispatch();
   const wishlistProducts = useAppSelector(wishlistsReducer);
-  const productsInWishlist = [...wishlistProducts];
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
-  const [products, setProducts] = React.useState([]);
-  console.log(productsInWishlist);
+  console.log(wishlistProducts);
   const handleDeleteWishlist = () => {
-    if (productsInWishlist.length <= 0) {
+    if (wishlistProducts.length <= 0) {
       swal.fire({
         text: 'You already deleted all the products from this wishlist!',
         icon: 'info',
@@ -38,7 +36,6 @@ const Wishlist = () => {
                   .then((r) => {
                     if (r !== 'error') {
                       dispatch(getProductsInWishlist(userId));
-                      findDuplicates(productsInWishlist);
                       swal.fire({
                         text: 'Wishlist deleted successfully',
                         icon: 'info',
@@ -55,38 +52,15 @@ const Wishlist = () => {
     }
   };
 
-
-  const findDuplicates = (array) => {
-    if (array.length !== 0) {
-      const products = [array[0]];
-      for (let i = 1; i < array.length; i++) {
-        const product = products.find((p) => p.id === array[i].id);
-        if (product === undefined) {
-          products.push(array[i]);
-        }
-        if (product !== undefined) {
-          product.amount += array[i].amount;
-        };
-      }
-      setProducts(products);
-    } else {
-      setProducts([]);
-    }
-  };
   useEffect(() => {
     dispatch(getProductsInWishlist(userId));
-    findDuplicates(productsInWishlist);
   }, []);
-
-  useEffect(() => {
-    findDuplicates(productsInWishlist);
-  }, [wishlistProducts]);
 
   return (
     <div className='wishlistGrid'>
       <div className='wishlistItems'>
-        {products.length > 0 ?
-          products.map((product, index) =>
+        {wishlistProducts.length > 0 ?
+          wishlistProducts.map((product, index) =>
             <ProductCard
               key={index}
               id={product.id}
@@ -97,12 +71,13 @@ const Wishlist = () => {
               rating={product.rating}
               priceDiscount={product.priceDiscount}
               discount={product.discount}
-              categories={['dnd']} />) :
+              categories={product.categories ?
+                product.categories.map((el) => el.name) : []} />) :
           <div>No products in wishlist</div>
         }
       </div>
       {
-        products.length > 0 ?
+        wishlistProducts.length > 0 ?
         <button className='wishlistDeleteButton'
           onClick={handleDeleteWishlist} >Delete Wishlist</button>:null
       }
