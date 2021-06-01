@@ -141,6 +141,9 @@ const Profile = (props:any) => {
           <input className='suscribeMailBox' type='checkbox' onClick={() => dispatch(setSubscribe(User.email))}/>
           <label className='suscribeMailText'>Subscribe to our Newsletter to get the latest products and offers!</label>
         </div>
+        <div className='profileHistoryButton'>
+          <NavLink to='/list/order/info'>Your Purchases</NavLink>
+        </div>
       </div>
     </div> :
      <div><Login/></div>

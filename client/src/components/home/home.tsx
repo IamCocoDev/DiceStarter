@@ -48,27 +48,19 @@ function Home(props: any) {
     }
   }, []);
   return (
+    products !== null ?
     <div className='homeBackground'>
-      { products !== null &&
-        <div className='homeProductCarousel'><HighlightedProducts /></div>
-      }
-      { products !== null &&
-        <ProductsSelect />
-      }
-      {
-        products === null &&
-       <div className='homeLoading'>
-         <LoadingScreen />
-       </div>
-      }
+      <div className='homeProductCarousel'><HighlightedProducts /></div>
+      <ProductsSelect />
       <div>
-        { products !== null &&
-          <div className='homeGood'>
-            <ProductCards></ProductCards>
-            <Paginate page={page} pagesTotal={pagesTotal}/>
-          </div>
-        }
+        <div className='homeGood'>
+          <ProductCards></ProductCards>
+          <Paginate page={page} pagesTotal={pagesTotal}/>
+        </div>
       </div>
+    </div> :
+    <div className='homeLoadingScreen'>
+      <LoadingScreen />
     </div>
   );
 }

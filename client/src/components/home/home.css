@@ -1,47 +1,13 @@
-.homeLoading {
-  animation-name: HomeLoadingScreen;
-  margin: 15vh 42vw 15vh 42vw;
-  font-size: 3vw;
-  border-radius: 1vw;
-  padding: 1vw;
-  animation-duration: 60s;
-  background-color: white;
+.homeLoadingScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homeBackground {
+  height: 100vh;
 }
 
 .homeProductCarousel {
   justify-self: center;
 }
-
-@keyframes HomeLoadingScreen {
-  0%   {color: #74009D; color:black}
-  5% {color: black; color:white}
-10%  {color:white ; color:black}
-15% {color: #74009D; color:black}
-20%  {color: black; color:white}
-25% {color: white; color:black}
-30% {color: #74009D; color:black}
-35% {color: black; color:white}
-40% {color:white ; color:black}
-45% {color: #74009D; color:black}
-50% {color: black; color:white}
-55% {color: white; color:black}
-60% {color: #74009D; color:black}
-65% {color: black; color:white}
-70% {color:white ; color:black}
-75% {color: #74009D; color:black}
-80% {color: black; color:white}
-85% {color: white; color:black}
-90% {color: #74009D; color:black}
-95% {color: black; color:white}
-100% {color: white; color:black}
-}
-
-
- .homeFailed {
-     display:inline-block;
-     margin-top: 15vh;
-     margin-left:37.5vw;
-     width: 50vw;
-     font-size: 3vw;
-     background-color: #5A5A5A;
- }
