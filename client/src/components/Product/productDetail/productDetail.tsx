@@ -21,24 +21,11 @@ function ProductDetail(props:any ) {
   const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);
-  const [changes, setChanges] = useState({
-    id: '',
-    name: '',
-    picture: [],
-    price: '',
-    size: '',
-    color: [],
-    available: true,
-    stock: '',
-    description: '',
-    categories: [],
-    rating: '',
-  });
   const id = props.match.params.id;
   useEffect(() => {
     dispatch(getProductByIdAsync(id))
         .then((p) => {
-          setChanges(product);
+          setChanges(p);
         }).catch((err) => console.error(err));
   }, []);
   const handleOnCart = () => {
@@ -105,6 +92,19 @@ function ProductDetail(props:any ) {
         }).catch((err) => console.error(err));
     setEditMode(!editMode);
   };
+  const [changes, setChanges] = useState({
+    id: product?.id,
+    name: product?.name,
+    picture: product?.picture,
+    price: product?.price,
+    size: product?.size,
+    color: product?.color,
+    available: product?.available,
+    stock: product?.stock,
+    description: product?.description,
+    categories: product?.categories,
+    rating: product?.rating,
+  });
   const handleNameChange = (e:any) => setChanges({...changes, name: e.target.innerText});
   const handleDescriptionChange = (e:any) => setChanges({...changes, description: e.target.innerText});
   const handleStockChange = (e:any) => setChanges({...changes, stock: e.target.innerText});
