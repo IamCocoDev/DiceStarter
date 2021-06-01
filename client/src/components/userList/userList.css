@@ -1,53 +1,71 @@
 .userListGrid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    width: 180vw;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-    border-width: 0.4rem 0rem 0rem 0rem;
-    border-style: groove;
-    border-bottom:cornsilk;
+    grid-template-columns: 1fr 20vw 20vw 15vw 15vw 10vw 1fr;
+    grid-template-rows: 10vh;
+    height: 10vh;
+    max-width: 100vw;
+    width: 100%;
+    font-size: 1rem;
 }
 .userListName {
-    grid-column: 1/2;
-    grid-row: 1/2;
-}
-.userListFirstName {
     grid-column: 2/3;
     grid-row: 1/2;
-}
-.userListLastName {
-    grid-column: 3/4;
-    grid-row: 1/2;
-}
-.userListBirthday {
-    grid-column: 4/5;
-    grid-row: 1/2;
-}
-.userListCountry {
-    grid-column: 5/6;
-    grid-row: 1/2;
-}
-.userListEmail {
-    grid-column: 6/7;
-    grid-row: 1/2;
-}
-.userListRole {
-    grid-column: 7/8;
-    grid-row: 1/2;
-    color:black;
-    max-width: 15vw;
-}
-.userListStatus {
-    grid-column: 8/9;
-    grid-row: 1/2;
-    color:black;
-    max-width: 15vw;
-}
-.userListSubmmitButton {
-    grid-column: 9/10;
-    grid-row: 1/2;
-    background-color: chartreuse;
+    border-top: 0.1rem solid white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
 }
 
+.userListEmail {
+    grid-column: 3/4;
+    grid-row: 1/2;
+    border-top: 0.1rem solid white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userListRole {
+    grid-column: 4/5;
+    grid-row: 1/2;
+    border-top: 0.1rem solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userListStatus {
+    grid-column: 5/6;
+    grid-row: 1/2;
+    border-top: 0.1rem solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userListSubmitButton {
+    grid-column: 6/7;
+    grid-row: 1/2;
+    border-top: 0.1rem solid white;
+    text-align: center;
+}
+
+.userListSubmitButton{
+    background-color: rgb(0, 150, 0);
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    align-self: center;
+    color: white;
+    justify-self: center;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.userListSubmitButton:hover{
+    background-color: rgb(0, 200, 0);
+}
