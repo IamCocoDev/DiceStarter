@@ -46,11 +46,18 @@ export const addProductInWishlist = (product, userId = '') => (dispatch) => {
   });
 };
 
-export const deleteProductInWishlist = (id) => (dispatch) => {
-  const productsInCart = JSON
+export const deleteProductInWishlist = (id, userId= '') => (dispatch) => {
+  const productsInWishlist = JSON
       .parse(localStorage
           .getItem('wishlist') || '[]').filter((product) => product.id !== id);
-  localStorage.setItem('wishlist', JSON.stringify(productsInCart));
+  const products = productsInWishlist.map((p) => p.id);
+  axios.post(`${BACK_ROUTE}/wishlist`, {
+    user: userId,
+    products: products,
+  }).catch((err) => {
+    console.error(err);
+  });
+  localStorage.setItem('wishlist', JSON.stringify(productsInWishlist));
   dispatch({
     type: DELETE_PRODUCT_FROM_WISHLIST,
     payload: id,
