@@ -6,6 +6,7 @@ import {deleteReviews,
   modifyReview} from '../../app/actions/reviewsActions/index';
 import {userInfo} from '../../app/reducers/registerReducer';
 import './userReview.css';
+import {NavLink} from 'react-router-dom';
 import RatingStars from '../ratingStars/ratingStars';
 const UserReview = (props:{review, token, user, id}) => {
   const user = useAppSelector(userInfo);
@@ -32,7 +33,13 @@ const UserReview = (props:{review, token, user, id}) => {
   return (
     <div className='userReviewAll'>
       <div className='userReviewBox'>
-        <h2 className='userReviewTitle'>{review.user?.name}</h2>
+        {
+          user.role === 'Admin' ?
+          <NavLink className='userReviewTitle' to={`/profile${user.id}`}>
+            {review.user?.name}
+          </NavLink> :
+          <h2 className='userReviewTitle'>{review.user?.name}</h2>
+        }
         <div className='userReviewRating' ><RatingStars rating={review.rating}/></div>
         <p className='userReviewComment' suppressContentEditableWarning={true} contentEditable={editMode && toggle} onInput={handleCommentChange}>{review.comment}</p>
       </div>
