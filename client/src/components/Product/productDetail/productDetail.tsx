@@ -14,6 +14,8 @@ import RatingStars from '../../DummyComponents/ratingStars/ratingStars';
 import swal from 'sweetalert2';
 import {addProductInWishlist} from '../../../app/actions/wishlistActions';
 import LoadingScreen from '../../DummyComponents/loadingScreen/loadingScreen';
+import Select from 'react-select';
+import {getCategoriesAsync} from '../../../app/actions/handleProductsActions/index';
 
 function ProductDetail(props:any ) {
   const token = useAppSelector(userToken);
@@ -105,11 +107,16 @@ function ProductDetail(props:any ) {
     categories: product?.categories,
     rating: product?.rating,
   });
+
+  useEffect(() => {
+    dispatch(getCategoriesAsync());
+  });
   const handleNameChange = (e:any) => setChanges({...changes, name: e.target.innerText});
   const handleDescriptionChange = (e:any) => setChanges({...changes, description: e.target.innerText});
   const handleStockChange = (e:any) => setChanges({...changes, stock: e.target.innerText});
   const handleSizeChange = (e:any) => setChanges({...changes, size: e.target.innerText});
   const handlePriceChange = (e:any) => setChanges({...changes, price: e.target.innerText});
+  console.log(changes);
   return (
     <div className='productDetailBackground'>
       {
@@ -127,9 +134,11 @@ function ProductDetail(props:any ) {
               <div className='ProductDetailRating'>
                 <RatingStars rating={product.rating}/>
               </div>
-              {/* eslint-disable-next-line react/jsx-key */}
-              <div> {product.categories.map((c) => <span className='dCategories'>{c.name}</span>)}
-              </div>
+              { editMode === false ?
+                <div> {product.categories.map((c, i) => <span key={i} className='productDetailCategories'>{c.name}</span>)}
+                </div> :
+                <Select options={product.categories}></Select>
+              }
               <div className='productDetailinformation'>
                 <div className='productDetailButton'>
                   <p>Price:

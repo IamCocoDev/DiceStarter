@@ -46,6 +46,10 @@ const UserReviewForm = (props: {id:string}) => {
       if (input.comment.length < 255) {
         if (input.rating > 0) {
           dispatch(postReview({...input, id: props.id}, props.id, token));
+          swal.fire({
+            text: 'Review Posted succesfully!',
+            icon: 'success',
+          });
         } else {
           swal.fire({
             text: 'A rating score is required for posting a review',

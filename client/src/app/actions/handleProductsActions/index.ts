@@ -69,35 +69,8 @@ const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`${BACK_ROUTE}/product/${id}`);
-      // const {name,
-      //   picture,
-      //   price,
-      //   stock,
-      //   color,
-      //   size,
-      //   available,
-      //   description,
-      //   categories,
-      //   rating,
-      //   priceDiscount,
-      //   discount,
-      // } = res.data;
-      // const productResponse: any = {
-      //   id,
-      //   name,
-      //   picture,
-      //   price,
-      //   stock,
-      //   color,
-      //   available,
-      //   description,
-      //   size,
-      //   categories,
-      //   rating,
-      //   priceDiscount,
-      //   discount,
-      // };
       dispatch(setProductById(res.data));
+      console.log(res.data);
       return res.data;
     } catch (err) {
       console.log(err);
