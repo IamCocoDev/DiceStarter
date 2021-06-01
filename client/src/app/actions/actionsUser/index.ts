@@ -133,9 +133,10 @@ const loginGoogle = (googleUser) => {
 const logout = () => {
   return async (dispatch: any) => {
     try {
-      localStorage.setItem('user', '{}');
-      localStorage.setItem('token', '');
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
       localStorage.removeItem('cart');
+      localStorage.removeItem('wishlist');
       await dispatch(setUser({}));
       await dispatch({type: DELETE_ALL_CART});
     } catch (err) {

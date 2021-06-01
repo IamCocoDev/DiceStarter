@@ -8,6 +8,7 @@ import Login from '../login/login';
 import user from '../../img/user.png';
 import {NavLink} from 'react-router-dom';
 import swal from 'sweetalert2';
+import {deleteAllLocalWishlist} from '../../app/actions/wishlistActions';
 
 const Profile = (props:any) => {
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ const Profile = (props:any) => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    dispatch(deleteAllLocalWishlist());
   };
 
   const User = useAppSelector(userInfo);

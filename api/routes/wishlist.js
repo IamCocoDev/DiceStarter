@@ -12,17 +12,25 @@ const {
 } = require('../db');
 
 router.get('/:id', async (req, res, next) => {
-  const wishlist = await Wishlist.findOne({ where: { userId: req.params.id } });
-  if (wishlist && wishlist.length > 0) {
-    wishlist.products.map((p) => Product.findByPk(p, { include: Category })
-      .then((response) => {
-        res.json(response);
-      }).catch((e) => {
-        res.status(400);
-        next(e);
-      }));
-  } else {
-    res.send('no wishlist for this user');
+  try {
+    const wishlist = await Wishlist.findOne({ where: { userId: req.params.id } });
+    if (wishlist && wishlist.dataValues.products.length > 0) {
+      const favProducts = [];
+      for (let i = 0; i < wishlist.dataValues.products.length; i += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        const product = await Product.findByPk(
+          wishlist.dataValues.products[i],
+          { include: Category },
+        );
+        favProducts.push(product);
+      }
+      res.send(favProducts);
+    } else {
+      res.send('no wishlist for this user');
+    }
+  } catch (e) {
+    res.sendStatus(400);
+    next(e);
   }
 });
 

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {wishlistsReducer} from '../../app/reducers/wishlistReducer';
-import {deleteAllWishlist, getProductsInWishlist, saveWishlist}
+import {deleteAllWishlist, getProductsInWishlist}
   from '../../app/actions/wishlistActions';
 import {userInfo} from '../../app/reducers/registerReducer';
 import swal from 'sweetalert2';
@@ -15,9 +15,6 @@ const Wishlist = () => {
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
   const [products, setProducts] = React.useState([]);
-  const handleSave = () => {
-    dispatch(saveWishlist(userId));
-  };
   console.log(productsInWishlist);
   const handleDeleteWishlist = () => {
     if (productsInWishlist.length <= 0) {
@@ -104,8 +101,6 @@ const Wishlist = () => {
           <div>No products in wishlist</div>
         }
       </div>
-      <button className='wishlistSaveButton'
-        onClick={handleSave} >Save Wishlist</button>
       <button className='wishlistDeleteButton'
         onClick={handleDeleteWishlist} >Delete Wishlist</button>
     </div>
