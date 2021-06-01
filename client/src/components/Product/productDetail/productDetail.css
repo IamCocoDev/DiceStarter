@@ -58,6 +58,7 @@
   outline: none;
   border: none;
   border-radius: 0.5rem;
+  margin: 0.25rem 0;
 }
 
 .productDetailAddToCart:hover{
@@ -123,4 +124,9 @@
 .dCategories{
   margin-right: 0.5rem;
   font-size: 1.2rem;
+}
+
+.productDetailUserButtons{
+  display: flex;
+  flex-direction: column;
 }
