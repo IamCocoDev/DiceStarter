@@ -39,9 +39,6 @@ const HighlightedProducts = () => {
   return (
     highlights !== undefined &&
     <div className='HighlightedProductsGeneral'>
-      <h1 className='HighlightedProductsFeatured'>
-        Featured Products
-      </h1>
       <div className='HighlightedProductsAll'>
         <button onClick={changeFirstItem}
           className='material-icons HighlightedProductsButtonBackward'>
