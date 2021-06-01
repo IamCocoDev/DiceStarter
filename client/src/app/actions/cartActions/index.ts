@@ -23,8 +23,11 @@ export const getProductsInCart = (idUser = '') => (dispatch) => {
               image: el.picture,
               name: el.name,
               amount: el.productxorder.amount ? el.productxorder.amount : 1,
-              price: parseFloat(el.price),
+              price: el.priceDiscount ? parseFloat(el.priceDiscount) : parseFloat(el.price),
               id: el.id,
+              priceDiscount: el.priceDiscount,
+              discount: el.discount,
+              categories: el.categories,
               stock: el.stock,
               idOrder: test.id,
             };
