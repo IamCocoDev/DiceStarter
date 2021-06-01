@@ -90,7 +90,7 @@ const Cart = () => {
           products.map((product) =>
             <CartProduct key={product.id} product={product}
               setProduct={setProducts} />) :
-          <div>No products in cart</div>
+          <div className='cartNoProducts'>No products in cart</div>
         }
       </div>
       <div className='cartFlexTotal'>

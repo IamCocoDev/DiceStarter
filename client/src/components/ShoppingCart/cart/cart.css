@@ -43,3 +43,9 @@
 .cartDeleteButton:hover{
   background-color: #9e00d3;
 }
+
+.cartNoProducts{
+  margin-top: 10rem;
+  color: white;
+  text-align: center;
+}

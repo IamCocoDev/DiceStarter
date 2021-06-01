@@ -4,13 +4,6 @@
   align-items: center;
 }
 
-<<<<<<< HEAD:client/src/components/HomeCatalogue/home/home.css
-.homeBackground {
-  height: fit-content;
-}
-
-=======
->>>>>>> e148964a515d1289889705d7748f97d4f7c8b234:client/src/components/home/home.css
 .homeProductCarousel {
   justify-self: center;
   width: 100%;
