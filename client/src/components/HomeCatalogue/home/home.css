@@ -1,0 +1,13 @@
+.homeLoadingScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homeBackground {
+  height: fit-content;
+}
+
+.homeProductCarousel {
+  justify-self: center;
+}
