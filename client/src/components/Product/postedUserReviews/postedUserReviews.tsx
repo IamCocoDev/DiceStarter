@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 import React, {useState, useEffect} from 'react';
 import './postedUserReviews.css';
-import {useAppSelector, useAppDispatch} from '../../app/hooks';
-import {reviewsResponse} from '../../app/reducers/reviewsReducer';
-import {ReviewPost} from '../../types';
-import {getReviews} from '../../app/actions/reviewsActions/index';
-import {userInfo, userToken} from '../../app/reducers/registerReducer';
+import {useAppSelector, useAppDispatch} from '../../../app/hooks';
+import {reviewsResponse} from '../../../app/reducers/reviewsReducer';
+import {ReviewPost} from '../../../types';
+import {getReviews} from '../../../app/actions/reviewsActions/index';
+import {userInfo, userToken} from '../../../app/reducers/registerReducer';
 import UserReview from '../userReview/userReview';
 
 const PostedUserReviews = (props:{id:string}) => {

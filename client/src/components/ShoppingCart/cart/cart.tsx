@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {cartsReducer} from '../../app/reducers/cartReducer';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import {cartsReducer} from '../../../app/reducers/cartReducer';
 import CartProduct from '../cartProduct/cartProduct';
-import {deleteAllCart, getProductsInCart} from '../../app/actions/cartActions';
+import {deleteAllCart, getProductsInCart} from
+  '../../../app/actions/cartActions';
 import CartTotal from '../cartTotal/cartTotal';
-import {userInfo} from '../../app/reducers/registerReducer';
+import {userInfo} from '../../../app/reducers/registerReducer';
 import swal from 'sweetalert2';
 import './cart.css';
 

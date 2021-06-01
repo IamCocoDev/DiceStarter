@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, {useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {orderInfo} from '../../app/reducers/orderReducer';
-import {getOneOrder} from '../../app/actions/orderActions';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import {orderInfo} from '../../../app/reducers/orderReducer';
+import {getOneOrder} from '../../../app/actions/orderActions';
 import './userOrdersItem.css';
 import {Redirect} from 'react-router';
 

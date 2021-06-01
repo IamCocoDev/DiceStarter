@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {getUserOrders, clearOrders} from '../../app/actions/orderActions';
-import {orderList} from '../../app/reducers/orderReducer';
-import {userInfo} from '../../app/reducers/registerReducer';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import {getUserOrders, clearOrders} from '../../../app/actions/orderActions';
+import {orderList} from '../../../app/reducers/orderReducer';
+import {userInfo} from '../../../app/reducers/registerReducer';
 import UserOrdersItem from '../userOrdersItem/userOrdersItem';
 
 const UserOrders = () => {

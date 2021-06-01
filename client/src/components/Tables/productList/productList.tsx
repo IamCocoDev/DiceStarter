@@ -1,13 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 import React, {useState, useEffect} from 'react';
-import {formInputData} from '../../types';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {formInputData} from '../../../types';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import {
   changeProductInDBAsync, deleteProductByIdAsync}
-  from '../../app/actions/handleProductsActions/index';
-import ColorCircle from '../colorCircle/ColorCircle';
+  from '../../../app/actions/handleProductsActions/index';
+import ColorCircle from '../../DummyComponents/colorCircle/ColorCircle';
 import './productList.css';
-import {userToken} from '../../app/reducers/registerReducer';
+import {userToken} from '../../../app/reducers/registerReducer';
 import swal from 'sweetalert2';
 
 function ProductList(props:any): JSX.Element {

@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 import React, {useEffect} from 'react';
-import {useAppSelector, useAppDispatch} from '../../app/hooks';
-import {orderInfo} from '../../app/reducers/orderReducer';
+import {useAppSelector, useAppDispatch} from '../../../app/hooks';
+import {orderInfo} from '../../../app/reducers/orderReducer';
 import OrderInfoProduct from '../orderInfoProduct/orderInfoProduct';
-import {clearOneOrder} from '../../app/actions/orderActions';
+import {clearOneOrder} from '../../../app/actions/orderActions';
 import './orderInfoComp.css';
 
 const OrderInfoComp = () => {

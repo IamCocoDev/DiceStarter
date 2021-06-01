@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {useAppSelector, useAppDispatch} from '../../app/hooks';
-import {userInfo, userToken} from '../../app/reducers/registerReducer';
-import {getAllReviews} from '../../app/actions/reviewsActions/index';
-import {allReviews} from '../../app/reducers/reviewsReducer';
+import {useAppSelector, useAppDispatch} from '../../../app/hooks';
+import {userInfo, userToken} from '../../../app/reducers/registerReducer';
+import {getAllReviews} from '../../../app/actions/reviewsActions/index';
+import {allReviews} from '../../../app/reducers/reviewsReducer';
 import ReviewList from '../reviewList/reviewList';
 import './reviewsList.css';
 

@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {getUsers} from '../../app/actions/actionsUser/index';
-import {users, userToken} from '../../app/reducers/registerReducer';
-import {User} from '../../types';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import {getUsers} from '../../../app/actions/actionsUser/index';
+import {users, userToken} from '../../../app/reducers/registerReducer';
+import {User} from '../../../types';
 import UserList from '../userList/userList';
 import './usersList.css';
 

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import Select from 'react-select';
-import {userChanges} from '../../types';
-import {modifyUser} from '../../app/actions/actionsUser/index';
-import {useAppSelector, useAppDispatch} from '../../app/hooks';
-import {userToken} from '../../app/reducers/registerReducer';
+import {userChanges} from '../../../types';
+import {modifyUser} from '../../../app/actions/actionsUser/index';
+import {useAppSelector, useAppDispatch} from '../../../app/hooks';
+import {userToken} from '../../../app/reducers/registerReducer';
 import {Link} from 'react-router-dom';
 import './userList.css';
 

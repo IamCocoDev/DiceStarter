@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, {useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {userToken} from '../../app/reducers/registerReducer';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import {userToken} from '../../../app/reducers/registerReducer';
 import {putCategory, deleteCategory} from
-  '../../app/actions/handleProductsActions';
+  '../../../app/actions/handleProductsActions';
 import './categoriesList.css';
 
 const CategoriesList = (props) => {

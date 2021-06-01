@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
 
 import './productsList.css';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import {
   productsList,
   totalPages,
   productCategories,
-} from '../../app/reducers/handleProductsReducer';
+} from '../../../app/reducers/handleProductsReducer';
 import ProductList from '../productList/productList';
-import {Categories, SearchInput} from '../../types';
+import {Categories, SearchInput} from '../../../types';
 import Select from 'react-select';
 import {getCategoriesAsync, getProductsAsync} from
-  '../../app/actions/handleProductsActions';
-import {userInfo} from '../../app/reducers/registerReducer';
+  '../../../app/actions/handleProductsActions';
+import {userInfo} from '../../../app/reducers/registerReducer';
 const sortType: Array<Categories> = [{
   value: '',
   label: 'None',

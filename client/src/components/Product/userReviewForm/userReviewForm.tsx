@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import './userReviewForm.css';
-import {postReview} from '../../app/actions/reviewsActions/index';
-import {reviewsResponse} from '../../app/reducers/reviewsReducer';
+import {postReview} from '../../../app/actions/reviewsActions/index';
+import {reviewsResponse} from '../../../app/reducers/reviewsReducer';
 import swal from 'sweetalert2';
-import {userInfo, userToken} from '../../app/reducers/registerReducer';
+import {userInfo, userToken} from '../../../app/reducers/registerReducer';
 import {Redirect} from 'react-router-dom';
 
 const UserReviewForm = (props: {id:string}) => {

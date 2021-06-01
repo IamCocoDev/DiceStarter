@@ -1,19 +1,19 @@
 /* eslint-disable max-len */
 import React, {useEffect, useState} from 'react';
 import './productDetail.css';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {productDetail} from '../../app/reducers/handleProductsReducer';
-import ColorCircle from '../colorCircle/ColorCircle';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import {productDetail} from '../../../app/reducers/handleProductsReducer';
+import ColorCircle from '../../DummyComponents/colorCircle/ColorCircle';
 import {changeProductInDBAsync, getProductByIdAsync}
-  from '../../app/actions/handleProductsActions/index';
+  from '../../../app/actions/handleProductsActions/index';
 import UserReviews from '../userReviews/userReviews';
-import Carousel from '../carousel/carousel';
-import {userInfo, userToken} from '../../app/reducers/registerReducer';
-import {addProductInCart} from '../../app/actions/cartActions/index';
-import RatingStars from '../ratingStars/ratingStars';
+import Carousel from '../../DummyComponents/carousel/carousel';
+import {userInfo, userToken} from '../../../app/reducers/registerReducer';
+import {addProductInCart} from '../../../app/actions/cartActions/index';
+import RatingStars from '../../DummyComponents/ratingStars/ratingStars';
 import swal from 'sweetalert2';
-import {addProductInWishlist} from '../../app/actions/wishlistActions';
-import LoadingScreen from '../loadingScreen/loadingScreen';
+import {addProductInWishlist} from '../../../app/actions/wishlistActions';
+import LoadingScreen from '../../DummyComponents/loadingScreen/loadingScreen';
 
 function ProductDetail(props:any ) {
   const token = useAppSelector(userToken);

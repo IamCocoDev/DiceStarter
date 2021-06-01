@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {wishlistsReducer} from '../../app/reducers/wishlistReducer';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import {wishlistsReducer} from '../../../app/reducers/wishlistReducer';
 import {deleteAllWishlist, getProductsInWishlist}
-  from '../../app/actions/wishlistActions';
-import {userInfo} from '../../app/reducers/registerReducer';
+  from '../../../app/actions/wishlistActions';
+import {userInfo} from '../../../app/reducers/registerReducer';
 import swal from 'sweetalert2';
 import './wishlist.css';
-import ProductCard from '../productCard/productCard';
+import ProductCard from '../../HomeCatalogue/productCard/productCard';
 
 const Wishlist = () => {
   const dispatch = useAppDispatch();

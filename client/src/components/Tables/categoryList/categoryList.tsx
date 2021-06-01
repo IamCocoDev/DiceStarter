@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import {
   productCategories,
-} from '../../app/reducers/handleProductsReducer';
+} from '../../../app/reducers/handleProductsReducer';
 import {
   getCategoriesAsync,
-} from '../../app/actions/handleProductsActions/index';
+} from '../../../app/actions/handleProductsActions/index';
 import CategoriesList from '../categoriesList/categoriesList';
 import './categoryList.css';
 

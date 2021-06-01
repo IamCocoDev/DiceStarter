@@ -1,9 +1,9 @@
 import React from 'react';
 import './reviewList.css';
-import RatingStars from '../ratingStars/ratingStars';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {deleteReviews} from '../../app/actions/reviewsActions/index';
-import {userToken} from '../../app/reducers/registerReducer';
+import RatingStars from '../../DummyComponents/ratingStars/ratingStars';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import {deleteReviews} from '../../../app/actions/reviewsActions/index';
+import {userToken} from '../../../app/reducers/registerReducer';
 import {NavLink} from 'react-router-dom';
 
 const ReviewList = (props:{

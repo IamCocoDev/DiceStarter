@@ -3,11 +3,11 @@
 import React, {useState, useEffect} from 'react';
 import './orderListItem.css';
 import Select from 'react-select';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {userToken} from '../../app/reducers/registerReducer';
-import {putOrderStatus} from '../../app/actions/orderActions';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import {userToken} from '../../../app/reducers/registerReducer';
+import {putOrderStatus} from '../../../app/actions/orderActions';
 import {Redirect} from 'react-router';
-import {getOneOrder} from '../../app/actions/orderActions';
+import {getOneOrder} from '../../../app/actions/orderActions';
 
 const process = (array) => {
   let total = 0;

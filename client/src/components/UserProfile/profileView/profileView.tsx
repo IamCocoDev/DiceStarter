@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 import React, {useEffect} from 'react';
 import {NavLink} from 'react-router-dom';
-import {userProfile, userToken} from '../../app/reducers/registerReducer';
-import {useAppSelector, useAppDispatch} from '../../app/hooks';
-import {getUser} from '../../app/actions/actionsUser/index';
-import user from '../../img/user.png';
+import {userProfile, userToken} from '../../../app/reducers/registerReducer';
+import {useAppSelector, useAppDispatch} from '../../../app/hooks';
+import {getUser} from '../../../app/actions/actionsUser/index';
+import user from '../../../img/user.png';
 import './profileView.css';
 
 const ProfileView = (props:any) => {

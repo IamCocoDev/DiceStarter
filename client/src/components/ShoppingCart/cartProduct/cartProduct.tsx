@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 // import Redirect from 'react-router';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import {
   deleteProductFromCart,
   changeProductQuantity,
-} from '../../app/actions/cartActions/index';
-import {userInfo, userToken} from '../../app/reducers/registerReducer';
+} from '../../../app/actions/cartActions/index';
+import {userInfo, userToken} from '../../../app/reducers/registerReducer';
 import './cartProduct.css';
 import swal from 'sweetalert2';
 

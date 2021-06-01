@@ -63,6 +63,7 @@ function App() {
         '/address',
         '/about',
         '/profile',
+        '/wishlist',
         '/rules',
       ]} component={NavBar}/> :
       <Route path={['/home',

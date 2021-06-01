@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
+export const SET_SUBSCRIBE = 'SET_SUBSCRIBE';
 import {BACK_ROUTE} from '../../../ROUTE.js';
-
 import axios from 'axios';
 import {getProductsInCart} from '../cartActions';
 import {SET_USER,
@@ -31,6 +31,13 @@ const setUser = (user: any) => {
   return {
     type: SET_USER,
     payload: user,
+  };
+};
+
+const setStatusSubscribe = (status) => {
+  return {
+    type: SET_SUBSCRIBE,
+    payload: status,
   };
 };
 
@@ -201,9 +208,10 @@ const getUsers = (token:string) => {
   };
 };
 
-const setSubscribe = (email:string) => {
+const setSubscribe = (email:string, status) => {
   return async (dispatch:any) => {
     try {
+      dispatch(setStatusSubscribe(status));
       await axios.put(`${BACK_ROUTE}/user/${email}/subscribe`);
     } catch (err) {
       console.error(err);

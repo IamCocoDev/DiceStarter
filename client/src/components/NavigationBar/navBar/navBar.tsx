@@ -1,9 +1,9 @@
 import './navBar.css';
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {useAppSelector} from '../../app/hooks';
-import {userInfo} from '../../app/reducers/registerReducer';
-import {cartsReducer} from '../../app/reducers/cartReducer';
+import {useAppSelector} from '../../../app/hooks';
+import {userInfo} from '../../../app/reducers/registerReducer';
+import {cartsReducer} from '../../../app/reducers/cartReducer';
 
 function NavBar(props: any): JSX.Element {
   const cart = useAppSelector(cartsReducer);

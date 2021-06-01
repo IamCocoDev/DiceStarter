@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {useAppSelector, useAppDispatch} from '../../app/hooks';
-import {cartsReducer} from '../../app/reducers/cartReducer';
+import {useAppSelector, useAppDispatch} from '../../../app/hooks';
+import {cartsReducer} from '../../../app/reducers/cartReducer';
 import {getProductsInCart, goToCheckout} from
-  '../../app/actions/cartActions/index';
+  '../../../app/actions/cartActions/index';
 import './cartTotal.css';
 import {NavLink} from 'react-router-dom';
-import {userInfo} from '../../app/reducers/registerReducer';
+import {userInfo} from '../../../app/reducers/registerReducer';
 import swal from 'sweetalert2';
 
 const CartTotal = () => {
