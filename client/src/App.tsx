@@ -1,41 +1,46 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
-import Home from '../src/components/home/home';
-import Landing from './components/landing/landing';
-import NavBar from '../src/components/navBar/navBar';
-import ProductDetail from '../src/components/productDetail/productDetail';
+import Home from './components/HomeCatalogue/home/home';
+import Landing from './components/DummyComponents/landing/landing';
+import NavBar from '../src/components/NavigationBar/navBar/navBar';
+import ProductDetail
+  from '../src/components/Product/productDetail/productDetail';
 import formCreateProduct
-  from '../src/components/formCreateProduct/formCreateProduct';
-import ProductsList from '../src/components/productsList/productsList';
+  from '../src/components/Forms/formCreateProduct/formCreateProduct';
+import ProductsList from '../src/components/Tables/productsList/productsList';
 import './App.css';
-import About from './components/about/about';
+import About from './components/DummyComponents/about/about';
 import CreateButtonRouter
-  from '../src/components/createButtonRouter/createButtonRouter';
-import listButtonRouter from './components/listButtonRouter/listButtonRouter';
+  from '../src/components/Forms/createButtonRouter/createButtonRouter';
+import listButtonRouter from
+  './components/Tables/listButtonRouter/listButtonRouter';
 import FormCategoryCreation
-  from '../src/components/formCategoryCreation/formCategoryCreation';
+  from '../src/components/Forms/formCategoryCreation/formCategoryCreation';
 import Profile
-  from './components/profile/profile';
-import FormRegisterForm from './components/formRegisterUser/formRegisterForm';
-import Cart from './components/cart/cart';
+  from './components/UserProfile/profile/profile';
+import FormRegisterForm from
+  './components/Forms/formRegisterUser/formRegisterForm';
+import Cart from './components/ShoppingCart/cart/cart';
 import {userInfo} from './app/reducers/registerReducer';
 import {useAppSelector} from './app/hooks';
 // eslint-disable-next-line no-unused-vars
-import UserList from './components/usersList/usersList';
-import CategoryList from './components/categoryList/categoryList';
-import searchBar from './components/searchBar/searchBar';
-import OrderList from './components/orderList/orderList';
-import FormAddress from './components/formAddress/formAddress';
-import ReviewsList from './components/reviewsList/reviewsList';
-import ProfileView from './components/profileView/profileView';
-import UserOrders from './components/userOrders/userOrders';
-import OrderInfoComp from './components/orderInfoComp/orderInfoComp';
+import UserList from './components/Tables/usersList/usersList';
+import CategoryList from './components/Tables/categoryList/categoryList';
+import searchBar from './components/DummyComponents/searchBar/searchBar';
+import OrderList from './components/Tables/orderList/orderList';
+import FormAddress from './components/Forms/formAddress/formAddress';
+import ReviewsList from
+  './components/Tables/reviewsList/reviewsList';
+import ProfileView from './components/UserProfile/profileView/profileView';
+import UserOrders from './components/Orders/userOrders/userOrders';
+import OrderInfoComp from './components/Orders/orderInfoComp/orderInfoComp';
 import ResetPasswordEmail from
-  './components/resetPasswordEmail/resetPasswordEmail';
-import ResetNewPassword from './components/resetNewPassword/resetNewPassword';
-import Footer from './components/footer/footer';
-import Wishlist from './components/wishlist/wishlist';
-import Rules from './components/rules/rules';
+  './components/Forms/resetPasswordEmail/resetPasswordEmail';
+import ResetNewPassword from
+  './components/Forms/resetNewPassword/resetNewPassword';
+import Footer from './components/DummyComponents/footer/footer';
+import Wishlist from './components/UserProfile/wishlist/wishlist';
+import Rules from './components/DummyComponents/rules/rules';
 
 function App() {
   const user = useAppSelector(userInfo);
