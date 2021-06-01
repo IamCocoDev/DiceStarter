@@ -1,35 +1,35 @@
-
+.cartFlex{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 100vh;
+}
 
 .cartFlexItems{
     display: flex;
     flex-direction: column;
     margin: 1vw;
     width: 60%;
-    position: absolute;
-    left: 0;
 }
 
 .cartFlexTotal{
   display: flex;
   flex-direction: column;
   text-align: center;
-  align-self: center;
+  align-self: flex-start;
   justify-self: center;
   color: white;
   width: 25%;
-  height: 50%;
-  position: fixed;
-  right: 6rem;
-  top: 10rem;
   background-color: #101010;
   border-radius: 0.5rem;
+  margin: 5rem;
 }
 
 .cartDeleteButton{
   cursor: pointer;
   border: none;
   color: white;
-  margin: 1rem;
+  margin: 0.5rem 0 1rem 0;
   width: 10rem;
   height: 3rem;
   justify-self: center;
