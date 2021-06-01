@@ -15,17 +15,17 @@
 }
 
 .carouselAll::-webkit-scrollbar {
-  /* width: 10px;
-  height: 10px; */
+  width: 10px;
+  height: 10px; 
   display: none;
 }
 .carouselAll::-webkit-scrollbar-thumb {
- /*  background: black;
-  border-radius: 10px; */
+  background: black;
+  border-radius: 10px; 
   display: none;
 }
 .carouselAll::-webkit-scrollbar-track {
-  /* background: transparent; */
+  background: transparent; 
   display: none;
 }
 

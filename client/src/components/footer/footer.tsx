@@ -8,9 +8,9 @@ const Footer = () => {
     <div className='FooterAll'>
       <NavLink className='FooterAbout' to='/about'>About Us</NavLink>
       <NavLink className='FooterRules' to='/rules'>Rules</NavLink>
-      <a href='https://www.instagram.com/DiceStarter/'><p className="fa fa-facebook"></p></a>
+      <a href='https://www.instagram.com/DiceStarter/'><p className="fa fa-instagram"></p></a>
       <a href='https://twitter.com/DiceStarter'><p className='fa fa-twitter'></p></a>
-      <a className='fa fa-instagram'href='https://www.facebook.com/DiceStarter'><p></p></a>
+      <a className='fa fa-facebook'href='https://www.facebook.com/DiceStarter'><p></p></a>
       <p className='FooterName'>©Dicestarter</p>
     </div>
   );
