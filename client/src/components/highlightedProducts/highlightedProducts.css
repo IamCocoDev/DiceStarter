@@ -1,16 +1,13 @@
 .HighlightedProductsAll{
     display: flex;
     justify-content: center;
-    width: 50rem;
+    width: 70rem;
     height: 20rem;
     flex-direction: row;
     background-color: rgba(0, 0, 0, 0.412);
     border-radius: 0.5rem;
     margin-left: 8rem;
     margin-top: 1rem;
-    overflow-x: scroll;
-  scroll-padding: 0 50%;
-  scroll-snap-type: x mandatory;
 }
 
 .HighlightedProductsButtonBackward{
