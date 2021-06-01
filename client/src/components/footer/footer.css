@@ -1,5 +1,8 @@
 
 .FooterAll{
+    position:fixed;
+    bottom:0;
+    width:100%;
     padding-top: 2rem;
     display: flex;
     justify-content: center;
