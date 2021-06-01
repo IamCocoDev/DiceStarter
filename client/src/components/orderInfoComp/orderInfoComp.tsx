@@ -4,6 +4,7 @@ import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {orderInfo} from '../../app/reducers/orderReducer';
 import OrderInfoProduct from '../orderInfoProduct/orderInfoProduct';
 import {clearOneOrder} from '../../app/actions/orderActions';
+import './orderInfoComp.css';
 
 const OrderInfoComp = () => {
   const dispatch = useAppDispatch();
@@ -16,11 +17,11 @@ const OrderInfoComp = () => {
   }, []);
   return (
     order.id ?
-    <div>
-      <h1>ID: {order.id}</h1>
-      <h1>Fecha: {order.modificationDate.slice(0, 10)}</h1>
+    <div className='orderInfoCompAll'>
+      <h3>ID: {order.id}</h3>
+      <h3>Fecha: {order.modificationDate.slice(0, 10)}</h3>
       {products ? products.map((el) => <OrderInfoProduct key={el.id} id={el.id} product={el} />) : null}
-      <h1>TOTAL: ${order.price}</h1>
+      <h3 className='orderInfoCompTotal'>TOTAL: ${order.price}</h3>
     </div> :
     <div>
       You don`t have any orders yet!

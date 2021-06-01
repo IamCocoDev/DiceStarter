@@ -1,18 +1,19 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {Link} from 'react-router-dom';
+import './orderInfoProduct.css';
 
 const OrderInfoProduct = (props) => {
   const {name, price} = props.product;
   const total = parseFloat(price) * props.product.productxorder.amount;
   return (
-    <div>
-      <h1>{name}</h1>
-      <h1>Price: $ {price}</h1>
-      <h1>Amount: {props.product.productxorder.amount}</h1>
-      <h1>Sub total: $ {total}</h1>
+    <div className='orderInfoProductAll'>
+      <p>{name}</p>
+      <p>Price: $ {price}</p>
+      <p>Amount: {props.product.productxorder.amount}</p>
+      <p>Sub total: $ {total}</p>
       <Link to={`/product/${props.id}`} >
-        <h1>See Product</h1>
+        <h3>See Product</h3>
       </Link>
     </div>
   );
