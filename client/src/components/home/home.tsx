@@ -52,11 +52,9 @@ function Home(props: any) {
     <div className='homeBackground'>
       <div className='homeProductCarousel'><HighlightedProducts /></div>
       <ProductsSelect />
-      <div>
-        <div className='homeGood'>
-          <ProductCards></ProductCards>
-          <Paginate page={page} pagesTotal={pagesTotal}/>
-        </div>
+      <div className='homeGood'>
+        <ProductCards></ProductCards>
+        <Paginate page={page} pagesTotal={pagesTotal}/>
       </div>
     </div> :
     <div className='homeLoadingScreen'>
