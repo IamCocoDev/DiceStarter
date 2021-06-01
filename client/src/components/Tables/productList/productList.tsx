@@ -56,7 +56,7 @@ function ProductList(props:any): JSX.Element {
   const handleDiscountChange = (e:any) => {
     setInput({...input, [e.target.name]: parseInt(e.target.value)});
   };
-
+  console.log(input.discount);
   const addColor = (color: string) => {
     const repColor = input.color.find((el: string) => el === color);
     if (!repColor) {
@@ -83,7 +83,6 @@ function ProductList(props:any): JSX.Element {
       });
     }
   };
-  console.log(input);
   return (
     <div className="productListGrid">
       <input
@@ -110,7 +109,7 @@ function ProductList(props:any): JSX.Element {
         type='number'
         name='discount'
         onChange={handleDiscountChange}
-        value={props.discount || 0}
+        value={input.discount}
         min='0'
         max='99'
         step='1'
