@@ -1,5 +1,4 @@
 const express = require('express');
-
 const { v4: uuidv4 } = require('uuid');
 const isAdmin = require('../middleware/auth');
 const { isLogged } = require('../middleware/logged');
@@ -9,7 +8,7 @@ const { transporter } = require('../configs/mailer');
 const template = require('./emails/emailNewProduct');
 
 const {
-  Product, Category, Reviews, User,
+  Product, Category, Reviews, User, Wishlist,
 } = require('../db');
 
 router.get('/:id', (req, res, next) => {
@@ -69,14 +68,34 @@ router.put('/stock/:productId', async (req, res, next) => {
     next(err);
   }
 });
+// a3394b85-7aba-4440-9ff6-c26a472124d9
 
 router.put('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const { body } = req;
     if (typeof (body.categories[0]) !== 'number') return res.send('You must send a value as ID');
+    // eslint-disable-next-line no-mixed-operators
     body.priceDiscount = body.price - (body.price * body.discount / 100).toFixed(2);
     const product = await Product.findByPk(id, { include: Category });
+    if (product.stock === 0 && body.stock > 0) {
+      const wishlist = await Wishlist.findAll();
+      for (let i = 0; i < wishlist.length; i += 1) {
+        if (wishlist[i].dataValues.products.includes(id)) {
+          // eslint-disable-next-line no-await-in-loop
+          const user = await User.findByPk(wishlist[i].dataValues.userId);
+          if (user.dataValues.subscriber === 'true') {
+            // eslint-disable-next-line no-await-in-loop
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: user.dataValues.email, // list of receivers
+              subject: 'Your product is available ✔', // Subject line
+              text: `${user.dataValues.firstName} your product is available`, // html body
+            });
+          }
+        }
+      }
+    }
     if (body.discount !== product.discount) {
       User.findAll({ where: { subscriber: 'true' } })
         .then(async (users) => {
