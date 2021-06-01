@@ -35,7 +35,7 @@ const UserReview = (props:{review, token, user, id}) => {
       <div className='userReviewBox'>
         {
           user.role === 'Admin' ?
-          <NavLink className='userReviewTitle' to={`/profile${user.id}`}>
+          <NavLink className='userReviewTitle' to={`/profile/${review.user.id}`}>
             {review.user?.name}
           </NavLink> :
           <h2 className='userReviewTitle'>{review.user?.name}</h2>

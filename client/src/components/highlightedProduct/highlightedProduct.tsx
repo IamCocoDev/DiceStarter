@@ -31,11 +31,14 @@ const HighlightedProduct = (props:{
         </div>
         <img className='HighlightedProductImage' src={photo}/>
         <p className='HighlightedProductPrice'>
-          {price}
+          ${price}
         </p>
-        <p>
-          {priceDiscount}
-        </p>
+        {
+          priceDiscount !== null &&
+          <p>
+            ${priceDiscount}
+          </p>
+        }
       </div>
     </NavLink>
   );

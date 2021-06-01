@@ -8,7 +8,6 @@ const Paginate = (props:any) => {
     pages.push(i + 1);
   }
   // eslint-disable-next-line max-len
-  const dynamicPages = pages.slice(props.page-1, props.page);
   return (
     <div className='paginateGrid'>
       {
@@ -20,7 +19,7 @@ const Paginate = (props:any) => {
       }
       <ul className='paginateNumbers'>
         {
-          dynamicPages.map((p:number) => (
+          pages.map((p:number) => (
             props.page === p ?
             <li key={p}>
               <NavLink className='paginateCurrentPage' to={`/home?page=${p}`}>
