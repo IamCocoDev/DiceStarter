@@ -8,7 +8,13 @@
     align-self: center;
     text-align: center;
     scroll-snap-align: center;
+    transition-duration: 0.8s;
 }
+
+.HighlightedProductAll:hover {
+    background-color: rgba(0, 0, 0, 0.645);
+}
+
 .HighlightedProductImage {
     grid-row: 2/3;
     max-width: 10rem;
