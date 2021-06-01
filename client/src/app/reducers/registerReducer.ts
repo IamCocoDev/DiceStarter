@@ -6,6 +6,8 @@ import {
   SET_USER_PROFILE,
 } from '../constants/constants';
 
+import {SET_SUBSCRIBE} from '../actions/actionsUser';
+
 // Types
 import {FormRegisterState} from '../../types';
 import {RootState} from '../store';
@@ -43,6 +45,14 @@ const formReducer = (state = initialState, action: any) => {
       return {
         ...state,
         userProfile: action.payload,
+      };
+    case SET_SUBSCRIBE:
+      return {
+        ...state,
+        inputs: {
+          ...state.inputs,
+          subscriber: action.payload,
+        },
       };
     default:
       return state;
