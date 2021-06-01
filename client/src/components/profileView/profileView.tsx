@@ -14,7 +14,7 @@ const ProfileView = (props:any) => {
 
   let birthDate;
 
-  if (userView.birthday) birthDate = userView.birthday.slice(0, 10);
+  if (userView?.birthday) birthDate = userView?.birthday.slice(0, 10);
 
   const id = props.match.params.id;
 
@@ -24,22 +24,23 @@ const ProfileView = (props:any) => {
     }
   }, []);
   return (
+      userView ?
     <div className='profileViewAll'>
       <div className='profileViewLeft'>
-        <img className='profileViewPhoto' src={userView.profilePicture || user} alt='profile Pic'/>
+        <img className='profileViewPhoto' src={userView?.profilePicture || user} alt='profile Pic'/>
         <div className='profileViewNames'>
           <h3 className='profileViewName'>
             <p>
-              {userView.firstName}
+              {userView?.firstName}
             </p>
           </h3>
           <h3 className='profileViewLastName'>
             <p>
-              {userView.lastName}
+              {userView?.lastName}
             </p>
           </h3>
         </div>
-        <h4 className='profileViewUsername'>{userView.name}</h4>
+        <h4 className='profileViewUsername'>{userView?.name}</h4>
       </div>
       <div className='profileViewRight'>
         <h1 className='profileViewBirthday'>
@@ -49,39 +50,39 @@ const ProfileView = (props:any) => {
           </p>
         </h1>
         {
-      userView.address ?
+      userView?.address ?
       <div>
         <p className='profileViewAddress'>
            Address:
           <p>
-            {userView.address}
+            {userView?.address}
           </p>
         </p>
         <div className='profileViewNationality'>
           <p className='profileViewCity'>
           City:
             <p>
-              {userView.city},
+              {userView?.city},
             </p>
           </p>
           <p className='profileViewCountry'>
             Country:
             <p>
-              {userView.country}
+              {userView?.country}
             </p>
           </p>
         </div>
         <p className='profileViewPostal'>
           Postal Code:
           <p>
-            {userView.postalCode}
+            {userView?.postalCode}
           </p>
         </p>
-        { userView.phoneNumber &&
+        { userView?.phoneNumber &&
            <p className='profileViewPhoneNumber'>
            Phone Number:
              <p>
-               {userView.phoneNumber}
+               {userView?.phoneNumber}
              </p>
            </p>
         }
@@ -93,11 +94,12 @@ const ProfileView = (props:any) => {
         <p className='profileViewEmail'>
       Email Adress:
           <p>
-            {userView.email}
+            {userView?.email}
           </p>
         </p>
       </div>
-    </div>
+    </div> :
+    <h1 className='profileView404'>404 Not found</h1>
   );
 };
 

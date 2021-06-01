@@ -36,30 +36,33 @@ const HighlightedProducts = () => {
     }
   };
   return (
-    <div className='HighlightedProductsAll'>
-      <h1 className='HighlightedProductFeatured'>
+    <div className='HighlightedProductsGeneral'>
+      <h1 className='HighlightedProductsFeatured'>
         Featured Products
       </h1>
-      <button onClick={changeFirstItem}
-        className='material-icons HighlightedProductsButtonBackward'>
+      <div className='HighlightedProductsAll'>
+        <button onClick={changeFirstItem}
+          className='material-icons HighlightedProductsButtonBackward'>
           chevron_left
-      </button>
-      {
-        highlights !== undefined && highlights.map((p, i) => (
-          <HighlightedProduct key={i}
-            id={p.id}
-            name={p.name}
-            rating={p.rating}
-            picture={p.picture}
-            price={p.price}
-            priceDiscount={p.priceDiscount}
-          />
-        ))
-      }
-      <button onClick={changeLastItem}
-        className='material-icons HighlightedProductsButtonForward'>
+        </button>
+        {
+          highlights !== undefined && highlights.map((p, i) => (
+            <HighlightedProduct key={i}
+              id={p.id}
+              name={p.name}
+              rating={p.rating}
+              picture={p.picture}
+              price={p.price}
+              priceDiscount={p.priceDiscount}
+            />
+          ))
+        }
+        <button onClick={changeLastItem}
+          className='material-icons HighlightedProductsButtonForward'>
         chevron_right
-      </button>
+        </button>
+      </div>
+
     </div>
   );
 };

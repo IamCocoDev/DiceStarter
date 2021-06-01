@@ -16,6 +16,7 @@ import {userInfo} from '../../app/reducers/registerReducer';
 import {useLocation} from 'react-router-dom';
 import HighlightedProducts from '../highlightedProducts/highlightedProducts';
 import {getProductsInWishlist} from '../../app/actions/wishlistActions';
+import LoadingScreen from '../loadingScreen/loadingScreen';
 
 function Home(props: any) {
   const searchName = useAppSelector(queryName);
@@ -48,16 +49,16 @@ function Home(props: any) {
   }, []);
   return (
     <div className='homeBackground'>
-      {
+      { products !== null &&
         <div className='homeProductCarousel'><HighlightedProducts /></div>
       }
-      {
+      { products !== null &&
         <ProductsSelect />
       }
       {
         products === null &&
        <div className='homeLoading'>
-         Loading...
+         <LoadingScreen />
        </div>
       }
       <div>

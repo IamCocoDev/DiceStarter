@@ -40,6 +40,7 @@ import Rules from './components/rules/rules';
 function App() {
   const user = useAppSelector(userInfo);
   return (
+    user?.status !== 'Banned' ?
     <div>
       <Route exact path={['/']} component={Landing}/>
       {user.role === 'Admin' ?
@@ -104,7 +105,8 @@ function App() {
       <Route path='/wishlist' component={Wishlist}/>
       <Route exact path='/rules' component={Rules}/>
       <Route path='/' component={Footer} />
-    </div>
+    </div> :
+    <div>Your account is Banned from this site</div>
   );
 }
 
