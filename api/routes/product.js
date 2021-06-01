@@ -68,7 +68,6 @@ router.put('/stock/:productId', async (req, res, next) => {
     next(err);
   }
 });
-// a3394b85-7aba-4440-9ff6-c26a472124d9
 
 router.put('/:id', async (req, res, next) => {
   try {
@@ -97,9 +96,41 @@ router.put('/:id', async (req, res, next) => {
       }
     }
     if (body.discount !== product.discount) {
+      const wishlist = await Wishlist.findAll();
+      for (let i = 0; i < wishlist.length; i += 1) {
+        if (wishlist[i].dataValues.products.includes(id)) {
+          // eslint-disable-next-line no-await-in-loop
+          const user = await User.findByPk(wishlist[i].dataValues.userId);
+          if (user.dataValues.subscriber === 'true') {
+            // eslint-disable-next-line no-await-in-loop
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: user.dataValues.email, // list of receivers
+              subject: 'Your product has a new discount ✔', // Subject line
+              text: `${user.dataValues.firstName} your product has a new discount`, // html body
+            });
+          } else {
+            // eslint-disable-next-line no-await-in-loop
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: user.dataValues.email, // list of receivers
+              subject: 'Check it this new discount ✔', // Subject line
+              text: `${user.dataValues.firstName} check it this new discount`, // html body
+            });
+          }
+        }
+      }
       User.findAll({ where: { subscriber: 'true' } })
         .then(async (users) => {
           for (let i = 0; i < users.length; i += 1) {
+            // eslint-disable-next-line no-await-in-loop
+            const wish = await Wishlist.findOne({ where: { userId: users[i].dataValues.id } });
+            if (wish) {
+              if (wish.products.includes(id)) {
+              // eslint-disable-next-line no-continue
+                continue;
+              }
+            }
             if (users[i].dataValues.subscriber === 'true') {
             // eslint-disable-next-line no-await-in-loop
               await transporter.sendMail({
