@@ -18,21 +18,15 @@ const HighlightedProducts = () => {
   // input ruleta carrusel: ([1, 2, 3])
   // output ruleta carrusel: ([3, 2, 1])
   const changeFirstItem = () => {
-    const productsRoulette = [];
     if (firstItem === 0) {
       setFirstItem(2);
       setLastItem(5);
-      for (let i = 0; i < bestProducts.length; i++) {
-        const bestProductName = bestProducts[i].id;
-        console.log(bestProductName, productsRoulette);
-      }
     } else {
       setFirstItem(firstItem - 1);
       setLastItem(lastItem - 1);
     }
   };
   const changeLastItem = () => {
-    // const productsRoulette = [...bestProducts];
     if (lastItem === 5) {
       setFirstItem(0);
       setLastItem(3);

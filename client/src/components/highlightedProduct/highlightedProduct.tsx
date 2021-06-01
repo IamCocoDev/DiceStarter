@@ -1,6 +1,7 @@
 import React from 'react';
 import RatingStars from '../ratingStars/ratingStars';
 import './highlightedProduct.css';
+import {NavLink} from 'react-router-dom';
 
 const HighlightedProduct = (props:{
     id:string
@@ -11,6 +12,7 @@ const HighlightedProduct = (props:{
     priceDiscount:number,
 }) => {
   const {
+    id,
     name,
     rating,
     picture,
@@ -19,21 +21,23 @@ const HighlightedProduct = (props:{
   } = props;
   const photo = picture[0];
   return (
-    <div className='HighlightedProductAll'>
-      <h1 className='HighlightedProductTitle'>
-        {name}
-      </h1>
-      <div className='HighlightedProductRating'>
-        <RatingStars rating={rating}/>
+    <NavLink to={`/product/${id}`}>
+      <div className='HighlightedProductAll'>
+        <h1 className='HighlightedProductTitle'>
+          {name}
+        </h1>
+        <div className='HighlightedProductRating'>
+          <RatingStars rating={rating}/>
+        </div>
+        <img className='HighlightedProductImage' src={photo}/>
+        <p className='HighlightedProductPrice'>
+          {price}
+        </p>
+        <p>
+          {priceDiscount}
+        </p>
       </div>
-      <img className='HighlightedProductImage' src={photo}/>
-      <p className='HighlightedProductPrice'>
-        {price}
-      </p>
-      <p>
-        {priceDiscount}
-      </p>
-    </div>
+    </NavLink>
   );
 };
 

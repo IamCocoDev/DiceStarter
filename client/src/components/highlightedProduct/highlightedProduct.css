@@ -7,6 +7,7 @@
     width: 15rem;
     align-self: center;
     text-align: center;
+    scroll-snap-align: center;
 }
 .HighlightedProductImage {
     grid-row: 2/3;
