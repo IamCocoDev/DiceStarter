@@ -13,6 +13,7 @@ import {addProductInCart} from '../../app/actions/cartActions/index';
 import RatingStars from '../ratingStars/ratingStars';
 import swal from 'sweetalert2';
 import {addProductInWishlist} from '../../app/actions/wishlistActions';
+import LoadingScreen from '../loadingScreen/loadingScreen';
 
 function ProductDetail(props:any ) {
   const token = useAppSelector(userToken);
@@ -113,9 +114,7 @@ function ProductDetail(props:any ) {
     <div className='productDetailBackground'>
       {
         product === null &&
-            <h1 className='ProductDetailLoadingHeader'>
-              Loading...
-            </h1>
+            <LoadingScreen />
       }
       { product !== null &&
       <div>

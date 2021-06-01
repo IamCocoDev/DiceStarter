@@ -36,6 +36,7 @@ const HighlightedProducts = () => {
     }
   };
   return (
+    highlights !== undefined &&
     <div className='HighlightedProductsGeneral'>
       <h1 className='HighlightedProductsFeatured'>
         Featured Products
