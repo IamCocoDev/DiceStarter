@@ -4,6 +4,7 @@ import {userChanges} from '../../types';
 import {modifyUser} from '../../app/actions/actionsUser/index';
 import {useAppSelector, useAppDispatch} from '../../app/hooks';
 import {userToken} from '../../app/reducers/registerReducer';
+import {Link} from 'react-router-dom';
 import './userList.css';
 
 const UserList = (props:any) => {
@@ -31,20 +32,66 @@ const UserList = (props:any) => {
   const handleSubmit = () => {
     dispatch(modifyUser(changes, token));
   };
+
+  const style = {
+    container: (provided, state) => ({
+      ...provided,
+      outline: 'none',
+      backgroundColor: '#101010',
+      color: 'white',
+      width: '70%',
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      border: state.isSelected ? 'none' : 'white',
+      boxShadow: 'none',
+      backgroundColor: '#101010',
+      color: 'white',
+    }),
+    ValueContainer: () => ({
+      backgroundColor: '#101010',
+      color: 'white',
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isFocused ? '#74009D': '#101010',
+      cursor: state.isFocused ? 'pointer': 'default',
+      color: 'white',
+      width: '100%',
+    }),
+    IndicatorsContainer: (provided, state) => ({
+      ...provided,
+      backgroundColor: '#101010',
+      cursor: state.isFocused ? 'pointer': 'default',
+      color: 'white',
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      backgroundColor: '#101010',
+      color: 'white',
+    }),
+  };
+
   return (
     <div className='userListGrid'>
-      <h1 className='userListName'>{props.name}</h1>
-      <p className='userListFirstName'>{props.firstName}</p>
-      <p className='userListLastName'>{props.lastName}</p>
-      <p className='userListBirthday'>{props.birthday}</p>
-      <p className='userListCountry'>{props.country}</p>
+      <Link to={`/profile/${props.id}`} className='userListName'>
+        {props.name}
+      </Link>
       <p className='userListEmail'>{props.email}</p>
-      <Select className='userListRole' placeholder={props.role}
-        onChange={handleRoleChange} options={props.roles}></Select>
-      <Select className='userListStatus' placeholder={props.status}
-        onChange={handleStatusChange} options={props.statuses}></Select>
+      <div className='userListRole'>
+        <Select
+          styles={style}
+          placeholder={props.role}
+          onChange={handleRoleChange} options={props.roles}></Select>
+      </div>
+      <div className='userListStatus'>
+        <Select
+          styles={style}
+          placeholder={props.status}
+          onChange={handleStatusChange} options={props.statuses}></Select>
+      </div>
       <button className='userListSubmitButton' onClick={handleSubmit}>
-        Send Changes
+        <i className='material-icons'>save</i>
       </button>
     </div>
   );
