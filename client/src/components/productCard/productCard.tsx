@@ -79,7 +79,7 @@ function ProductCard(
     const duplicate = JSON.parse(localStorage
         .getItem('wishlist') || '[]').filter((p) => p.id === props.id);
     if (duplicate.length > 0) {
-      dispatch(deleteProductInWishlist(props.id, user.id));
+      dispatch(deleteProductInWishlist(props.id));
     } else {
       dispatch(addProductInWishlist({
         id: props.id,

@@ -9,6 +9,11 @@
     border-radius: 1rem;
 }
 
+.profileView404 {
+  height: 74vh;
+  text-align: center;
+}
+
 .profileViewName{
     font-size: 2rem;
     color: white;
