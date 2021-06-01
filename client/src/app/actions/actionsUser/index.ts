@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
+export const SET_SUBSCRIBE = 'SET_SUBSCRIBE';
 import {BACK_ROUTE} from '../../../ROUTE.js';
-
 import axios from 'axios';
 import {getProductsInCart} from '../cartActions';
 import {SET_USER,
   SET_USERS,
   SET_TOKEN,
   USER_LOGIN_FAILED,
+  SET_USER_PROFILE,
 } from '../../constants/constants';
+import {DELETE_ALL_CART} from '../cartActions';
 import {userChanges, Address} from '../../../types';
 
 function arrayUnique(array) {
@@ -32,6 +34,13 @@ const setUser = (user: any) => {
   };
 };
 
+const setStatusSubscribe = (status) => {
+  return {
+    type: SET_SUBSCRIBE,
+    payload: status,
+  };
+};
+
 // sets users locally
 const setUsers = (users:any) => ({
   type: SET_USERS,
@@ -50,11 +59,18 @@ const loginFailed = () => ({
   payload: {},
 });
 
+// sets the user for profile page
+const setUserProfile = (user:any) => ({
+  type: SET_USER_PROFILE,
+  payload: user,
+});
+
 // requests register to back-end
 const sendFormAsync = (form: any) => {
   return async (dispatch: any) => {
     try {
       await axios.post(`${BACK_ROUTE}/user/signup`, form);
+      dispatch(loginFormAsync(form));
     } catch (err) {
       console.log(err);
       // this is for error handling
@@ -124,10 +140,12 @@ const loginGoogle = (googleUser) => {
 const logout = () => {
   return async (dispatch: any) => {
     try {
-      localStorage.setItem('user', '{}');
-      localStorage.setItem('token', '');
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
       localStorage.removeItem('cart');
-      dispatch(setUser({}));
+      localStorage.removeItem('wishlist');
+      await dispatch(setUser({}));
+      await dispatch({type: DELETE_ALL_CART});
     } catch (err) {
       console.log(err);
     }
@@ -138,15 +156,16 @@ const logout = () => {
 const modifyUser = (changes:userChanges, token:string) => {
   return async (dispatch:any) => {
     try {
-      dispatch(setUser(changes));
-      dispatch(setToken(token));
+      localStorage.setItem('user', JSON.stringify(changes));
       await axios.put(`${BACK_ROUTE}/user/${changes.id}`, changes, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
       });
+      dispatch(setUser(changes));
     } catch (err) {
       console.error(err);
+      if (err) return 'error';
     }
   };
 };
@@ -158,6 +177,7 @@ const modifyAddress = (address:Address, token:string) => {
     try {
       dispatch(setUser(address));
       dispatch(setToken(token));
+      console.log(address);
       await axios.put(`${BACK_ROUTE}/user/${address.id}`, address, {
         headers: {
           'Authorization': 'Bearer ' + token,
@@ -166,7 +186,7 @@ const modifyAddress = (address:Address, token:string) => {
     } catch (err) {
       console.error(err);
       // this is for error handling
-      return 'error';
+      if (err) return 'error';
     }
   };
 };
@@ -188,6 +208,52 @@ const getUsers = (token:string) => {
   };
 };
 
+const setSubscribe = (email:string, status) => {
+  return async (dispatch:any) => {
+    try {
+      dispatch(setStatusSubscribe(status));
+      await axios.put(`${BACK_ROUTE}/user/${email}/subscribe`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+const getUser = (id:string, token:string) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`${BACK_ROUTE}/user/${id}`, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
+      const userProfile = res.data;
+      dispatch(setUserProfile(userProfile));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+const resetPasswordEmail = (email) => {
+  return async (dispatch) => {
+    try {
+      await axios.get(`${BACK_ROUTE}/user/${email}/recoverpassword`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+const setNewPassword = (email, input) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${BACK_ROUTE}/user/${email}/recoverpassword`, input);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 export {
   sendFormAsync,
@@ -197,4 +263,9 @@ export {
   modifyUser,
   getUsers,
   modifyAddress,
+  setUser,
+  setSubscribe,
+  getUser,
+  resetPasswordEmail,
+  setNewPassword,
 };

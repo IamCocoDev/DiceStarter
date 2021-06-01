@@ -1,13 +1,14 @@
 const express = require('express');
-
 const { v4: uuidv4 } = require('uuid');
 const isAdmin = require('../middleware/auth');
 const { isLogged } = require('../middleware/logged');
 
 const router = express.Router();
+const { transporter } = require('../configs/mailer');
+const template = require('./emails/emailNewProduct');
 
 const {
-  Product, Category, Reviews, User,
+  Product, Category, Reviews, User, Wishlist,
 } = require('../db');
 
 router.get('/:id', (req, res, next) => {
@@ -27,18 +28,34 @@ router.post('/', isAdmin, async (req, res, next) => {
     const {
       name, size, color, picture, price, stock, description, categories,
     } = req.body;
-    const rating = 0.00;
-
     const newProduct = {
-      id, name, size, color, picture, price, stock, description, rating,
+      id, name, size, color, picture, price, stock, description,
     };
+    if (typeof (categories[0]) !== 'number') return res.send('You must send a value as ID');
     const info = await Product.create(newProduct);
-    info.setCategories(categories);
+    info.setCategories(categories).then().catch((e) => next(e));
+    User.findAll({ where: { subscriber: 'true' } })
+      .then(async (users) => {
+        for (let i = 0; i < users.length; i += 1) {
+          if (users[i].dataValues.subscriber === 'true') {
+            // eslint-disable-next-line no-await-in-loop
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: users[i].dataValues.email, // list of receivers
+              subject: 'Check it this new product ✔', // Subject line
+              html: template(users[i].dataValues.firstName,
+                users[i].dataValues.lastName,
+                picture[0]), // html body
+            });
+          }
+        }
+      }).catch((e) => next(e));
     res.status(200).json(info);
   } catch (e) {
     res.status(400);
     next(e);
   }
+  return null;
 });
 
 router.put('/stock/:productId', async (req, res, next) => {
@@ -53,17 +70,87 @@ router.put('/stock/:productId', async (req, res, next) => {
 });
 
 router.put('/:id', async (req, res, next) => {
-  const { id } = req.params;
-  const { body } = req;
   try {
+    const { id } = req.params;
+    const { body } = req;
+    if (typeof (body.categories[0]) !== 'number') return res.send('You must send a value as ID');
+    // eslint-disable-next-line no-mixed-operators
+    body.priceDiscount = body.price - (body.price * body.discount / 100).toFixed(2);
     const product = await Product.findByPk(id, { include: Category });
+    if (product.stock === 0 && body.stock > 0) {
+      const wishlist = await Wishlist.findAll();
+      for (let i = 0; i < wishlist.length; i += 1) {
+        if (wishlist[i].dataValues.products.includes(id)) {
+          // eslint-disable-next-line no-await-in-loop
+          const user = await User.findByPk(wishlist[i].dataValues.userId);
+          if (user.dataValues.subscriber === 'true') {
+            // eslint-disable-next-line no-await-in-loop
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: user.dataValues.email, // list of receivers
+              subject: 'Your product is available ✔', // Subject line
+              text: `${user.dataValues.firstName} your product is available`, // html body
+            });
+          }
+        }
+      }
+    }
+    if (body.discount !== product.discount) {
+      const wishlist = await Wishlist.findAll();
+      for (let i = 0; i < wishlist.length; i += 1) {
+        if (wishlist[i].dataValues.products.includes(id)) {
+          // eslint-disable-next-line no-await-in-loop
+          const user = await User.findByPk(wishlist[i].dataValues.userId);
+          if (user.dataValues.subscriber === 'true') {
+            // eslint-disable-next-line no-await-in-loop
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: user.dataValues.email, // list of receivers
+              subject: 'Your product has a new discount ✔', // Subject line
+              text: `${user.dataValues.firstName} your product has a new discount`, // html body
+            });
+          } else {
+            // eslint-disable-next-line no-await-in-loop
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: user.dataValues.email, // list of receivers
+              subject: 'Check it this new discount ✔', // Subject line
+              text: `${user.dataValues.firstName} check it this new discount`, // html body
+            });
+          }
+        }
+      }
+      User.findAll({ where: { subscriber: 'true' } })
+        .then(async (users) => {
+          for (let i = 0; i < users.length; i += 1) {
+            // eslint-disable-next-line no-await-in-loop
+            const wish = await Wishlist.findOne({ where: { userId: users[i].dataValues.id } });
+            if (wish) {
+              if (wish.products.includes(id)) {
+              // eslint-disable-next-line no-continue
+                continue;
+              }
+            }
+            if (users[i].dataValues.subscriber === 'true') {
+            // eslint-disable-next-line no-await-in-loop
+              await transporter.sendMail({
+                from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+                to: users[i].dataValues.email, // list of receivers
+                subject: 'Check it this new discount ✔', // Subject line
+                text: `${users[i].dataValues.firstName} check it this new discount`, // html body
+              });
+            }
+          }
+        }).catch((e) => next(e));
+    }
     await product.update(body, { where: { id }, include: Category });
-    product.setCategories(body.categories);
+    product.setCategories(body.categories).then().catch((e) => next(e));
     res.send(product);
   } catch (err) {
     res.status(400);
     next(err);
   }
+  return null;
 });
 
 router.delete('/:id', isAdmin, (req, res, next) => {
@@ -93,13 +180,11 @@ router.post('/:id/review', isLogged, (req, res, next) => {
   })
     .then((r) => {
       Product.findByPk(id)
-        .then(async (r) => {
+        .then(async (resp) => {
           const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
           const quantityRev = await Reviews.count({ where: { productId: id } });
           const average = sumReviews / quantityRev;
-          console.log(sumReviews);
-          console.log(quantityRev);
-          r.update({ rating: parseFloat(average.toFixed(2)) });
+          resp.update({ rating: parseFloat(average.toFixed(2)) });
         });
       User.findByPk(userId)
         .then((u) => {
@@ -113,8 +198,8 @@ router.post('/:id/review', isLogged, (req, res, next) => {
 });
 
 router.get('/reviews/allreviews', isAdmin, (req, res, next) => {
-  Reviews.findAll({ attributes: { exclude: ['userId'] }, include: { model: User, attributes: ['name'] } })
-    .then((data) => res.send(data))
+  Reviews.findAll({ attributes: { exclude: ['userId'] }, include: { model: User, attributes: ['name', 'id'] } })
+    .then((data) => res.status(200).send(data))
     .catch((e) => {
       res.status(400);
       next(e);
@@ -125,14 +210,12 @@ router.put('/review/:idReview', (req, res, next) => {
   const { idReview } = req.params;
   const { comment } = req.body;
   const { rating } = req.body;
-  console.log(req.body);
   Reviews.findOne({ where: { id: idReview } })
     .then((resp) => {
       if (resp) {
         resp.update({ comment });
         resp.update({ rating });
       }
-      console.log(resp);
       res.send(resp); // Resultado del UPDATE
     })
     .catch((e) => {
@@ -156,7 +239,7 @@ router.delete('/review/:idReview', isLogged, (req, res, next) => {
 router.get('/:id/review', (req, res, next) => {
   const { id } = req.params;
   try {
-    Reviews.findAll({ attributes: { exclude: ['userId'] }, where: { productId: id }, include: { model: User, attributes: ['name'] } })
+    Reviews.findAll({ attributes: { exclude: ['userId'] }, where: { productId: id }, include: { model: User, attributes: ['name', 'id'] } })
       .then(async (resp) => {
         const sumReviews = await Reviews.sum('rating', { where: { productId: id } });
         const quantityRev = await Reviews.count({ where: { productId: id } });

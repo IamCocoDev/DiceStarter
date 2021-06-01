@@ -3,6 +3,7 @@ import {
   SET_PRODUCTS,
   SET_PRODUCT_BY_ID,
   SET_CATEGORIES,
+  SET_BEST_PRODUCTS,
 } from '../constants/constants';
 // Types
 import {Products} from '../../types';
@@ -12,7 +13,8 @@ const initialState: Products = {/* Acá definanse un Type en types.ts*/
   // Data
   productsList: null,
   productById: null,
-  productCategories: [{label: '', value: ''}],
+  productCategories: [{label: '', value: '', id: 0}],
+  bestProducts: null,
   totalPages: 0,
   queryFilter: '',
   querySort: '',
@@ -44,6 +46,12 @@ const handleProductsReducer = (state = initialState, action: any) => {
         productCategories: action.payload,
       };
     // ADD CATEGORY
+    // set best products
+    case SET_BEST_PRODUCTS:
+      return {
+        ...state,
+        bestProducts: action.payload,
+      };
     default:
       return state;
   }
@@ -65,3 +73,5 @@ export const querySort = (state: RootState) =>
   state.handleProducts.querySort;
 export const queryName = (state: RootState) =>
   state.handleProducts.queryName;
+export const productHighlights = (state: RootState) =>
+  state.handleProducts.bestProducts;

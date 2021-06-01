@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable max-len */
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -12,6 +14,7 @@ const categoriesRouter = require('./routes/categories');
 const orderRouter = require('./routes/order');
 const userRouter = require('./routes/user');
 const checkoutRouter = require('./routes/checkout');
+const wishlistRouter = require('./routes/wishlist');
 const { Product } = require('./db.js');
 
 const app = express();
@@ -42,6 +45,7 @@ app.use('/categories', categoriesRouter);
 app.use('/orders', orderRouter);
 app.use('/user', userRouter);
 app.use('/checkout', checkoutRouter);
+app.use('/wishlist', wishlistRouter);
 
 app.use((req, res, next) => {
   next(createError(404));

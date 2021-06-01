@@ -25,6 +25,11 @@ export interface FormState {
 export interface cartState {
     productsInCart: ProductRes[]
 }
+
+export interface wishlistState {
+  productsInWishlist: ProductRes[]
+}
+
 export interface User {
         id: string,
         name: string,
@@ -57,9 +62,27 @@ export interface FormRegisterState {
     },
     userToken: string,
     users:User[] | null,
+   userProfile: {
+    id: string,
+    name: string,
+    firstName: string,
+    lastName: string,
+    birthday: string,
+    profilePicture: string,
+    address: string,
+    city: string,
+    postalCode: number,
+    phone: string,
+    country: string,
+    email: string,
+    password: string,
+    role: string,
+    status: string
+   } | {}
 }
 export interface ReviewState {
     reviewsResponse: ReviewRes[] | null,
+    allReviews: ReviewRes[] | null,
     body: string,
     id: string,
 }
@@ -128,6 +151,7 @@ export interface Products {
     productsList: ProductRes[] | null,
     productById: ProductRes | null,
     productCategories: Categories[]
+    bestProducts: ProductRes[] | null,
     // Status
     totalPages: number,
     queryFilter: string,
@@ -137,7 +161,8 @@ export interface Products {
 
 export type Categories = {
     value: string,
-    label: string
+    label: string,
+    id: number,
 };
 
 export interface loginInput {

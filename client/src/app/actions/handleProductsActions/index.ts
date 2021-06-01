@@ -1,11 +1,12 @@
 /* eslint-disable max-len */
 import axios from 'axios';
-import {ProductRes, SearchInput} from '../../../types';
+import {SearchInput} from '../../../types';
 import {BACK_ROUTE} from '../../../ROUTE.js';
 
 import {SET_PRODUCTS,
   SET_PRODUCT_BY_ID,
   SET_CATEGORIES,
+  SET_BEST_PRODUCTS,
 } from '../../constants/constants';
 
 const setProducts = (products: any,
@@ -26,6 +27,12 @@ const setCategories = (categories: any) => ({
   payload: categories,
 });
 
+// Set best products to redux state
+const setBestProducts = (products: any) => ({
+  type: SET_BEST_PRODUCTS,
+  payload: products,
+});
+
 // Actual async functions
 const getProductsAsync = (SearchInput: SearchInput) => {
   return async (dispatch: any) => {
@@ -33,7 +40,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
       dispatch(setProducts([]));
       const res = await axios.get(`${BACK_ROUTE}/products?page=${SearchInput.page}&name=${SearchInput.name}&filter=${SearchInput.filter || ''}&order=${SearchInput.sort || ''}`);
       const totalPages = res.data.totalPages;
-      const products = res.data.products.map((product: ProductRes) => {
+      const products = res.data.products.map((product) => {
         return {
           id: product.id,
           name: product.name,
@@ -46,6 +53,8 @@ const getProductsAsync = (SearchInput: SearchInput) => {
           available: product.available,
           description: product.description,
           rating: product.rating,
+          discount: product.discount,
+          priceDiscount: product.priceDiscount,
         };
       });
       dispatch(setProducts(products,
@@ -60,7 +69,6 @@ const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`${BACK_ROUTE}/product/${id}`);
-      console.log(res.data);
       const {name,
         picture,
         price,
@@ -71,8 +79,10 @@ const getProductByIdAsync = (id: any) => {
         description,
         categories,
         rating,
+        priceDiscount,
+        discount,
       } = res.data;
-      const productResponse: ProductRes = {
+      const productResponse: any = {
         id,
         name,
         picture,
@@ -84,6 +94,8 @@ const getProductByIdAsync = (id: any) => {
         size,
         categories,
         rating,
+        priceDiscount,
+        discount,
       };
       dispatch(setProductById(productResponse));
     } catch (err) {
@@ -110,26 +122,14 @@ const deleteProductByIdAsync = (id: any, token:string) => {
 const changeProductInDBAsync = (product: any, token:string) => {
   return async (dispatch: any) => {
     try {
-      const toSend = {
-        id: product.id,
-        name: product.name,
-        available: product.available,
-        categories: product.categories,
-        color: product.color,
-        description: product.description,
-        picture: product.picture,
-        price: product.price,
-        rating: product.rating,
-        size: product.size,
-        stock: product.stock,
-      };
-      await axios.put(`${BACK_ROUTE}/product/${product.id}`, toSend, {
+      await axios.put(`${BACK_ROUTE}/product/${product.id}`, product, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
       });
     } catch (err) {
       console.log(err);
+      if (err) return 'error';
     }
   };
 };
@@ -143,6 +143,7 @@ const getCategoriesAsync = () => {
         return {
           value: category.name,
           label: category.name,
+          id: category.id,
         };
       });
       dispatch(setCategories(categories));
@@ -156,7 +157,7 @@ const addCategoryAsync = (label: string, token:string) => {
   return async (dispatch: any) => {
     try {
       const name = label;
-      await axios.post('${BACK_ROUTE}/categories', {name}, {
+      await axios.post(`${BACK_ROUTE}/categories`, {name}, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -205,6 +206,17 @@ const deleteCategory = (categoryName, token) => {
   };
 };
 
+const getBestProducts = () => {
+  return async (dispatch:any) => {
+    try {
+      const res = await axios.get(`${BACK_ROUTE}/products/bestRated`);
+      dispatch(setBestProducts(res.data));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 export {
   getProductsAsync,
   getProductByIdAsync,
@@ -214,4 +226,5 @@ export {
   addCategoryAsync,
   putCategory,
   deleteCategory,
+  getBestProducts,
 };

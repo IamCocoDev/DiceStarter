@@ -1,0 +1,62 @@
+.categoriesListAll{
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 30vw 5vw 5vw 1fr;
+    grid-template-rows:10vh;
+    width: 100%;
+    height: 120%;
+    text-align: center;
+    color: white;
+    margin: 0 auto;   
+    font-size: 1.4rem;
+}
+
+.categoriesListAll input{
+    text-align: center;
+    outline: none;
+    color: white;
+    background-color: transparent;
+}
+
+.categoriesListName{
+    grid-column: 2/3;
+    grid-row: 1/2;
+    border: none;
+    border-top: 0.01rem white solid;
+}
+
+.categoriesListSave{
+    grid-column: 3/4;
+    grid-row: 1/2;
+    color: white;
+    background-color: #74009D;
+    border: none;
+    align-self: center;
+    justify-self: center;
+    width: 70%;
+    height: 70%;
+    cursor: pointer;
+    border-radius: 0.5rem;
+}
+
+.categoriesListSave:hover{
+    background-color: #9e00d3;
+}
+
+.categoriesListDelete{
+    grid-column: 4/5;
+    grid-row: 1/2;
+    color: white;
+    background-color: rgb(150 00 00);
+    border: none;
+    width: 70%;
+    height: 70%;
+    align-self: center;
+    justify-self: center;
+    cursor: pointer;
+    border-radius: 0.5rem;
+}
+
+.categoriesListDelete:hover{
+    background-color: rgb(200 00 00);
+}

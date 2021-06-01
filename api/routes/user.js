@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 
 const { v4: uuidv4 } = require('uuid');
@@ -8,6 +9,8 @@ const isAdmin = require('../middleware/auth');
 const { isNotLogged } = require('../middleware/logged');
 const { transporter } = require('../configs/mailer');
 const template = require('./emails/emailRegistration');
+const templateForgottenPassword = require('./emails/emailForgottenPassword');
+const templatePassword = require('./emails/emailPassword');
 
 const {
   accessTokenSecret,
@@ -76,7 +79,7 @@ router.post('/signup', isNotLogged, (req, res, next) => {
         subject: 'SignUp Success ✔', // Subject line
         html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
       });
-      res.send(info);
+      return res.send(info);
     })
       .catch((e) => {
         res.status(400);
@@ -120,7 +123,7 @@ router.post('/signupgoogle', async (req, res, next) => {
   User.create(newUser).then(async () => {
     // send mail with defined transport object
     await transporter.sendMail({
-      from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+      from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
       to: newUser.email, // list of receivers
       subject: 'SignUp Success ✔', // Subject line
       html: template(newUser.name, newUser.firstName, newUser.lastName), // html body
@@ -144,6 +147,8 @@ router.post('/signin', isNotLogged, async (req, res, next) => {
       emailRegEx.test(username)
         ? user = await User.findOne({ where: { email: username } })
         : user = await User.findOne({ where: { name: username } });
+      if (user.status === 'Banned') return res.status(401).send('User banned');
+      if (user.status === 'Closed') return res.status(401).send('Account closed');
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) return res.send('password invalid');
         if (result) {
@@ -163,7 +168,7 @@ router.post('/signin', isNotLogged, async (req, res, next) => {
       return res.send('Input invalid');
     }
   } catch (e) {
-    res.status(400);
+    res.status(400).send('User not Found');
     next(e);
   }
   return null;
@@ -174,8 +179,7 @@ router.post('/logout', (req, res) => {
   res.send('Logout successful');
 });
 
-
-router.post('/admin', isAdmin, (req, res, next) => {
+router.post('/admin', (req, res, next) => {
   const id = uuidv4();
   try {
     let { password } = req.body;
@@ -220,6 +224,7 @@ router.put('/:id', (req, res, next) => {
     User.findByPk(id)
       .then((response) => {
         response.update(body, { where: { id } });
+        res.status(200).send('OK');
       }).catch((e) => next(e));
   } catch (err) {
     res.status(400);
@@ -239,9 +244,95 @@ router.put('/:id/updatePassword', (req, res, next) => {
     User.findByPk(id)
       .then((response) => {
         response.update({ password }, { where: { id } })
-          .then(() => res.send('Password Update'));
+          .then(async () => {
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: response.email, // list of receivers
+              subject: 'Recover your password', // Subject line
+              html: templatePassword(response.firstName, response.lastName), // html body
+            });
+            res.send('Password Update');
+          });
       }).catch((e) => next(e));
   });
+});
+
+router.put('/:email/subscribe', (req, res, next) => {
+  const { email } = req.params;
+  User.findOne({ where: { email } })
+    .then((response) => {
+      const subscriber = response.subscriber === 'false' ? 'true' : 'false';
+      response.update({ subscriber })
+        .then(async () => {
+          if (response.subscriber === 'true') {
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: response.email, // list of receivers
+              subject: 'Subscribe Success ✔', // Subject line
+              text: 'Thank you for subscribe', // html body
+            });
+            res.status(200).send('Thank you for subscribe');
+          } else {
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: response.email, // list of receivers
+              subject: 'Unsubscribe Success ✔', // Subject line
+              text: 'We hope to see you soon', // html body
+            });
+            res.status(200).send('unsubscribe');
+          }
+        });
+    }).catch((e) => next(e));
+});
+
+router.put('/:email/recoverpassword', (req, res, next) => {
+  const { email } = req.params;
+  let { password } = req.body;
+  const { confirmPassword } = req.body;
+  if (password === confirmPassword) {
+    bcrypt.hash(password, 10, (err, hash) => {
+      password = hash;
+      if (err) {
+        return next(err);
+      }
+      req.body.password = password;
+      User.findOne({ where: { email } })
+        .then((response) => {
+          response.update({ password }, { where: { email } })
+            .then(async () => {
+              await transporter.sendMail({
+                from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+                to: response.email, // list of receivers
+                subject: 'Recover your password', // Subject line
+                html: templatePassword(response.firstName, response.lastName), // html body
+              });
+              return res.send('Password Update');
+            });
+        }).catch((e) => next(e));
+    });
+  } else {
+    return res.status(400).send('The two passwords must match');
+  }
+  return null;
+});
+
+router.get('/:email/recoverpassword', (req, res, next) => {
+  const { email } = req.params;
+  User.findOne({ where: { email } })
+    .then(async (response) => {
+      if (response) {
+        await transporter.sendMail({
+          from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+          to: response.email, // list of receivers
+          subject: 'Recover your password', // Subject line
+          html: templateForgottenPassword(response.firstName,
+            response.lastName,
+            email), // html body
+        });
+        return res.send('E-mail sent');
+      }
+      return res.status(404).send('Account no exist');
+    }).catch((e) => next(e));
 });
 
 module.exports = router;

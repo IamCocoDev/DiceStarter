@@ -1,4 +1,4 @@
-function template(first, last) {
+function template(first, last, img) {
   return `
         <!DOCTYPE html>
         <html>
@@ -110,7 +110,8 @@ function template(first, last) {
                             <tr>
                                 <td bgcolor="#000000" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #ffffff; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
                                     <h1 style="font-size: 48px; font-weight: 400; margin: 2;">
-                                    Hi ${first} ${last}!</h1> 
+                                    Hi ${first} ${last}!</h1>
+                                    <img src=${img} /> 
                                 </td>
                             </tr>
                         </table>

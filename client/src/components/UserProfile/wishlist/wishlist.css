@@ -1,0 +1,9 @@
+.wishlistGrid{
+  height: 100vh;
+}
+
+.wishlistNoProducts{
+  margin-top: 10rem;
+  color: white;
+  text-align: center;
+}

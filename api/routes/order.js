@@ -96,9 +96,16 @@ router.get('/search/user/:userId/', (req, res) => {
 router.get('/status/:status', isAdmin, (req, res, next) => {
   const { status } = req.params;
   if (status === 'allorders') {
-    Order.findAll({ include: User }).then((data) => res.send(data));
+    Order.findAll({
+      include: [{ model: User },
+        { model: Product }],
+    }).then((data) => res.send(data));
   } else {
-    Order.findAll({ where: { status } }).then((result) => {
+    Order.findAll({
+      where: { status },
+      include: [{ model: User },
+        { model: Product }],
+    }).then((result) => {
       res.send(result);
     }).catch((e) => {
       res.status(400);
@@ -204,22 +211,34 @@ router.post('/:idUser/c/cart', (req, res, next) => {
     .catch(() => res.status(400).send('ERROR. Order has not been complete'));
 });
 
-router.post('/:idUser/update/cart', (req, res, next) => {
-  const { idUser } = req.params;
-  const { body } = req; // recibe por body: satatus: In process, Canceled , Complete;
-  // eslint-disable-next-line no-console
-  console.log('BODY EN ESTA RUTA: ', body);
-  if (req.body.status === 'Canceled' || req.body.status === 'In process' || req.body.status === 'Complete') {
-    Order.update(body, { where: { userId: idUser, status: 'Created' } }).then(
-      (data) => {
-        if (data[0]) {
-          res.status(200).send('Order has been updated');
-        } else {
-          res.status(404).send('You do not have an order created');
-        }
-      },
-    )
-      .catch((err) => next(err));
+router.post('/:idUser/update/cart', async (req, res, next) => {
+  try {
+    const { idUser } = req.params;
+    const { body } = req; // recibe por body: satatus: In process, Canceled , Complete;
+    body.modificationDate = new Date();
+    if (req.body.status === 'Canceled' || req.body.status === 'In process' || req.body.status === 'Complete') {
+      Order.update(body, { where: { userId: idUser, status: 'Created' } }).then(
+        (data) => {
+          if (data[0]) {
+            res.status(200).send('Order has been updated');
+          } else {
+            res.status(404).send('You do not have an order created');
+          }
+        },
+      )
+        .catch((err) => next(err));
+    }
+    if (req.body.status === 'Complete') {
+      const user = await User.findByPk(idUser);
+      await transporter.sendMail({
+        from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+        to: user.email, // list of receivers
+        subject: 'Successful purchase ✔', // Subject line
+        text: 'Su compra ha sido despachada', // html body
+      });
+    }
+  } catch (e) {
+    next(e);
   }
 });
 
@@ -269,13 +288,26 @@ router.post('/sendorder/:first/:last/:email', async (req, res, next) => {
   const htmlorder = templateorder(first, last, totalPrice);
 
   await transporter.sendMail({
-    from: '"DiceStarter 👻" <dicestarter@gmail.com>', // sender address
+    from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
     to: email, // list of receivers
     subject: 'Successful purchase ✔', // Subject line
     html: htmlorder, // html body
   })
     .catch((err) => next(err));
   res.send('Sending e-mail');
+});
+
+router.put('/:userId/updateorder', async (req, res, next) => {
+  const { userId } = req.params;
+  const { price, address } = req.body;
+  const order = await Order.findOne({ where: { userId, status: 'Created' } });
+  if (order) {
+    order.update({ price, address }, { where: { userId, status: 'Created' } })
+      .then(() => res.send('Order update'))
+      .catch((e) => next(e));
+  } else {
+    res.send('No orders for this user');
+  }
 });
 
 module.exports = router;
