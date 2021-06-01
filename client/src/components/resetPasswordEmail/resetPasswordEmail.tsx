@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from '../../app/hooks';
 import {resetPasswordEmail} from '../../app/actions/actionsUser';
+import './resetPasswordEmail.css';
 
 const ResetPasswordEmail = () => {
   const [input, setInput] = useState('');
@@ -11,12 +12,13 @@ const ResetPasswordEmail = () => {
     alert(`se envio un mail a ${input}`);
   };
   return (
-    <div>
+    <div className='resetPasswordEmail'>
       <form onSubmit={handleSubmit} >
-        <label>Enter your email</label>
-        <input type="email" value={input} onChange={(e) =>
-          setInput(e.target.value)} />
-        <input type="submit"/>
+        <label className='resetPasswordEmailText'>Enter your email</label>
+        <input className='resetPasswordEmailInput'
+          type="email" value={input} onChange={(e) =>
+            setInput(e.target.value)} />
+        <input className='resetPasswordEmailButton' type="submit" value='Send'/>
       </form>
     </div>
   );

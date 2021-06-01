@@ -3,6 +3,7 @@
 import React, {useState, useEffect} from 'react';
 import {useAppDispatch} from '../../app/hooks';
 import {setNewPassword} from '../../app/actions/actionsUser';
+import './resetNewPassword.css';
 
 function deepEqualError(a) {
   return JSON.stringify(a) === JSON.stringify({
@@ -58,23 +59,23 @@ const ResetNewPassword = (props) => {
     }
   };
   return (
-    <div>
+    <div className='resetNewPasswordAll'>
       <form onSubmit={handleSubmit} >
         <div>
-          <label htmlFor="password">New password</label>
-          <input type="password" name='password' value={input.password}
+          <label className='resetNewPasswordText' htmlFor="password">New password</label>
+          <input className='resetNewPasswordInput' type="password" name='password' value={input.password}
             onChange={handleChange}
           />
           <p className='registerError'>{errors.password}</p>
         </div>
         <div>
-          <label htmlFor="confirmPassword">Confirm password</label>
-          <input type="password" name='confirmPassword' value={input.confirmPassword}
+          <label className='resetNewPasswordText' htmlFor="confirmPassword">Confirm password</label>
+          <input className='resetNewPasswordInput' type="password" name='confirmPassword' value={input.confirmPassword}
             onChange={handleChange}
           />
           <p className='registerError'>{errors.confirmPassword}</p>
         </div>
-        <input type="submit" />
+        <input className='resetNewPasswordButton' type="submit" value='Send' />
       </form>
     </div>
   );
