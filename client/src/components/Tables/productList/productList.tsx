@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-unused-vars
 import React, {useState, useEffect} from 'react';
 import {formInputData} from '../../../types';
@@ -9,10 +10,25 @@ import ColorCircle from '../../DummyComponents/colorCircle/ColorCircle';
 import './productList.css';
 import {userToken} from '../../../app/reducers/registerReducer';
 import swal from 'sweetalert2';
+import Select from 'react-select';
+import {productCategories} from '../../../app/reducers/handleProductsReducer';
 
 function ProductList(props:any): JSX.Element {
   const dispatch = useAppDispatch();
   const [color, setColor] = useState('');
+  const [categories, setCategories] = useState(props.categories.map((el) => {
+    return {
+      value: el.id,
+      label: el.name,
+    };
+  }));
+  const Cats = useAppSelector(productCategories);
+  const productCats = Cats.map((el) => {
+    return {
+      value: el.id,
+      label: el.label,
+    };
+  });
   // const [available, setAvailable] = useState('true');
   const [input, setInput] = useState({
     id: props.id,
@@ -24,7 +40,7 @@ function ProductList(props:any): JSX.Element {
     available: props.available,
     stock: props.stock,
     description: props.description,
-    categories: props.categories.map((c) => c.id),
+    categories: categories.map((c) => c.value),
     rating: props.rating,
     discount: props.discount,
     priceDiscount: props.priceDiscount,
@@ -42,8 +58,9 @@ function ProductList(props:any): JSX.Element {
     // setInput({...input, categories: props.categories.map((c) => c.id)});
   }, [props]); */
 
-  // useEffect(() => {
-  // }, [input]);
+  useEffect(() => {
+    setInput({...input, categories: categories.map((c) => c.value)});
+  }, [categories]);
 
   const handleNumberChange = (e: formInputData) => {
     let data: string | number | boolean = e.target.value;
@@ -72,6 +89,9 @@ function ProductList(props:any): JSX.Element {
       setInput({...input, available: false});
     }
   }, [available]); */
+  const handleCategoryChange = (e) => {
+    setCategories(e);
+  };
 
   const handleOnSubmit = () => {
     if (input.discount < 99) {
@@ -149,6 +169,17 @@ function ProductList(props:any): JSX.Element {
         />
         <button className='productListColorsButton'
           onClick={() => addColor(color)}>Add color</button>
+      </div>
+      <div>
+        {/* <Select
+          className='formCreateProductInput'
+          isMulti
+          name="categories"
+          options={productCats}
+          value={categories}
+          onChange={handleCategoryChange}
+        >
+        </Select> */}
       </div>
       <button className="productListEditButton" onClick={handleOnSubmit}>
         <i className='material-icons'>save</i></button>
