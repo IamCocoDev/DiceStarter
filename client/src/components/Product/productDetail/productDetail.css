@@ -51,6 +51,7 @@
 }
 
 .productDetailAddToCart{
+  cursor: pointer;
   font-family: inherit;
   font-size: inherit;
   width: 8rem;
@@ -67,6 +68,7 @@
 }
 
 .productDetailAddToWhishlist{
+  cursor: pointer;
   font-family: inherit;
   font-size: inherit;
   background-color: #74009D;
