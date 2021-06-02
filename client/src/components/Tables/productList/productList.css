@@ -80,7 +80,7 @@
     border:none;
     align-self: center;
     justify-self: center;
-    background-color: #74009D;
+    background-color: rgb(00 150 00);
     width: 70%;
     height: 60%;
     border-radius: 0.5rem;
@@ -89,7 +89,7 @@
 }
 
 .productListEditButton:hover{
-  background-color: #9e00d3;
+  background-color: rgb(00 200 00);
 }
 
 .productListDeleteButton{

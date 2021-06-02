@@ -131,7 +131,8 @@ const OrderListItem = (props) => {
           onClick={handleSubmit}>
           <i className="material-icons">save</i>
         </button> : null}
-      <button onClick={handleClick} >see more</button>
+      <button className='orderListSeeMore' onClick={handleClick} >
+        <i className='material-icons'>read_more</i></button>
       <br />
     </div>
   );

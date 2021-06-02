@@ -53,10 +53,28 @@
     width: 2rem;
     height: 2rem;
     color: white;
-    background-color: #74009D;
+    background-color: rgb(0, 150, 00);
     cursor: pointer;
 }
 
 .orderListEdit:hover{
-  background-color: #9e00d3;
+  background-color: rgb(0, 200, 00);
+}
+
+.orderListSeeMore{
+    grid-column: 4/5;
+    grid-row: 2/3;
+    align-self: flex-end;
+    justify-self: flex-end;
+    border: none;
+    border-radius: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    color: white;
+    background-color: #74009D;
+    cursor: pointer;
+}
+
+.orderListSeeMore:hover{
+    background-color: #9e00d3;
 }
