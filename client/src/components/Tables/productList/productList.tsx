@@ -94,7 +94,15 @@ function ProductList(props:any): JSX.Element {
 
   const handleOnSubmit = () => {
     if (input.discount < 99) {
-      dispatch(changeProductInDBAsync(input, token));
+      if (input.discount === 0) {
+        console.log('descuento 0');
+        dispatch(changeProductInDBAsync({
+          ...input,
+          priceDiscount: null,
+        }, token));
+      } else {
+        dispatch(changeProductInDBAsync(input, token));
+      }
     } else {
       swal.fire({
         text: `You can't add a 100% discount!`,

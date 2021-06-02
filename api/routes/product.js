@@ -75,7 +75,7 @@ router.put('/:id', async (req, res, next) => {
     const { body } = req;
     if (typeof (body.categories[0]) !== 'number') return res.send('You must send a value as ID');
     // eslint-disable-next-line no-mixed-operators
-    body.priceDiscount = body.discount === null
+    body.priceDiscount = body.discount === 0
       ? null
       : body.priceDiscount = body.price - (body.price * body.discount / 100).toFixed(2);
     const product = await Product.findByPk(id, { include: Category });
@@ -97,7 +97,7 @@ router.put('/:id', async (req, res, next) => {
         }
       }
     }
-    if (body.discount !== product.discount) {
+    if (body.discount !== product.discount && body.discount !== 0) {
       const wishlist = await Wishlist.findAll();
       for (let i = 0; i < wishlist.length; i += 1) {
         if (wishlist[i].dataValues.products.includes(id)) {
