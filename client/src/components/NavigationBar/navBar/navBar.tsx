@@ -20,9 +20,10 @@ function NavBar(props: any): JSX.Element {
            <Link className='material-icons cartIcon' to='/cart'>
            shopping_cart
            </Link>
-           <Link className='material-icons wishlistIcon' to='/wishlist'>
+           {User.id &&
+              <Link className='material-icons wishlistIcon' to='/wishlist'>
            favorite
-           </Link>
+              </Link>}
          </div> : null}
         {
           User.role === 'Admin' ?
