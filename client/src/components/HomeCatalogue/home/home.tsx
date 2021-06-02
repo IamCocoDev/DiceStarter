@@ -40,7 +40,9 @@ function Home(props: any) {
     }));
   }, [page]);
   useEffect(() => {
-    dispatch(getProductsInWishlist(User.id));
+    if (User.id) {
+      dispatch(getProductsInWishlist(User.id));
+    }
     const checkout = props.location.search;
     if (checkout.includes('status')) {
       dispatch(getCheckoutTicket(User.firstName,

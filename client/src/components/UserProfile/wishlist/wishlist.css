@@ -1,9 +1,34 @@
 .wishlistGrid{
-  height: 100vh;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.wishlistItems{
+  margin-left: 4vw;
+  margin-top: 1vw;
 }
 
 .wishlistNoProducts{
   margin-top: 10rem;
   color: white;
   text-align: center;
+}
+
+.wishlistDeleteButtonBox{
+  justify-self: center;
+  align-self: center;
+}
+
+.wishlistDeleteButton{
+  color: white;
+  background-color: rgb(150, 0, 0);
+  border: none;
+  width: 4rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+}
+
+.wishlistDeleteButton:hover{
+  background-color: rgb(200, 0, 0);
 }

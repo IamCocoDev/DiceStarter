@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react';
 import {useAppDispatch} from '../../../app/hooks';
 import {setNewPassword} from '../../../app/actions/actionsUser';
 import './resetNewPassword.css';
+import {Redirect} from 'react-router';
 
 function deepEqualError(a) {
   return JSON.stringify(a) === JSON.stringify({
@@ -38,6 +39,7 @@ const ResetNewPassword = (props) => {
     password: '',
     confirmPassword: '',
   });
+  const [redirect, setRedirect] = useState(false);
   const [errors, setErrors] = useState({
     password: '',
     confirmPassword: '',
@@ -54,12 +56,14 @@ const ResetNewPassword = (props) => {
     if (deepEqualError(errors)) {
       dispatch(setNewPassword(email, input));
       alert('Password reseted!');
+      setRedirect(true);
     } else {
       alert('please enter a valid password');
     }
   };
   return (
     <div className='resetNewPasswordAll'>
+      {redirect && <Redirect to={'/home?page=1'} />}
       <form onSubmit={handleSubmit} >
         <div>
           <label className='resetNewPasswordText' htmlFor="password">New password</label>
