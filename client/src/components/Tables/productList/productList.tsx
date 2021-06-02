@@ -177,7 +177,7 @@ function ProductList(props:any): JSX.Element {
         <button className='productListColorsButton'
           onClick={() => addColor(color)}>Add color</button>
       </div>
-      <div>
+      {/*  <div>
         { <Select
           className='formCreateProductInput'
           isMulti
@@ -187,7 +187,7 @@ function ProductList(props:any): JSX.Element {
           onChange={handleCategoryChange}
         >
         </Select> }
-      </div>
+      </div> */}
       <button className="productListEditButton" onClick={handleOnSubmit}>
         <i className='material-icons'>save</i></button>
       <button className="productListDeleteButton" onClick={() => {
