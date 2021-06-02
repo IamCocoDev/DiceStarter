@@ -69,7 +69,11 @@ const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`${BACK_ROUTE}/product/${id}`);
-      dispatch(setProductById(res.data));
+      dispatch(setProductById({
+        ...res.data,
+        price: parseFloat(res.data.price).toFixed(2),
+        priceDiscount: res.data.priceDiscount ? parseFloat(res.data.priceDiscount).toFixed(2) : null,
+      }));
       console.log(res.data);
       return res.data;
     } catch (err) {

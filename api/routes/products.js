@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 const express = require('express');
 
 const router = express.Router();
@@ -19,10 +20,10 @@ function onOrder(param, array) {
       return 0;
     });
     case 'minPrice': return array.sort((a, b) => (
-      a.price - b.price
+      (a.priceDiscount ? a.priceDiscount : a.price) - (b.priceDiscount ? b.priceDiscount : b.price)
     ));
     case 'maxPrice': return array.sort((a, b) => (
-      b.price - a.price
+      (b.priceDiscount ? b.priceDiscount : b.price) - (a.priceDiscount ? a.priceDiscount : a.price)
     ));
     case 'minRating': return array.sort((a, b) => (
       a.rating - b.rating

@@ -51,8 +51,9 @@ const HighlightedProducts = () => {
               name={p.name}
               rating={p.rating}
               picture={p.picture}
-              price={p.price}
-              priceDiscount={p.priceDiscount}
+              price={parseFloat(p.price).toFixed(2)}
+              priceDiscount={p.priceDiscount ?
+                parseFloat(p.priceDiscount).toFixed(2) : null}
             />
           ))
         }
