@@ -1,0 +1,8 @@
+.userOrdersAll{
+  display: flex;
+  flex-direction: column;
+  margin: 10rem auto;
+  color: white;
+  width: 30rem;
+  text-align: center;
+}
