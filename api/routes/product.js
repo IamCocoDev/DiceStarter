@@ -75,7 +75,9 @@ router.put('/:id', async (req, res, next) => {
     const { body } = req;
     if (typeof (body.categories[0]) !== 'number') return res.send('You must send a value as ID');
     // eslint-disable-next-line no-mixed-operators
-    body.priceDiscount = body.price - (body.price * body.discount / 100).toFixed(2);
+    body.priceDiscount = body.discount === null
+      ? null
+      : body.priceDiscount = body.price - (body.price * body.discount / 100).toFixed(2);
     const product = await Product.findByPk(id, { include: Category });
     if (product.stock === 0 && body.stock > 0) {
       const wishlist = await Wishlist.findAll();
