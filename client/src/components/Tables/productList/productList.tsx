@@ -116,8 +116,8 @@ function ProductList(props:any): JSX.Element {
       <input
         className="productListPrice"
         type="number"
-        placeholder={input.priceDiscount ? input.priceDiscount : input.price}
-        value={input.priceDiscount ? input.priceDiscount : input.price}
+        placeholder={input.price}
+        value={input.price}
         name="price"
         step="0.1"
         onChange={handleNumberChange}

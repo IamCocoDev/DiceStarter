@@ -43,7 +43,7 @@ function ProductCard(
         image: props.image,
         stock: props.stock,
         amount: 1,
-      }, user.id));
+      }, user.id, user.address));
       swal.fire({
         text: 'Product added succesfully!',
         icon: 'success',

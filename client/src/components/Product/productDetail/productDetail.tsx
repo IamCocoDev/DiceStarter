@@ -57,7 +57,7 @@ function ProductDetail(props:any ) {
         image: product.picture[0],
         stock: product.stock,
         amount: 1,
-      }, User.id));
+      }, User.id, User.address));
       swal.fire({
         text: 'Product added succesfully!',
         icon: 'success',
