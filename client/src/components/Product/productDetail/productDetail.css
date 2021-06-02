@@ -184,3 +184,24 @@ background-color: #9e00d3;
 .ProductDetailColorButton:hover{
   background-color: #9e00d3;
 }
+
+.inactiveWishlist, .activeWishlist {
+  background-color: transparent;
+  border: none;
+  outline:none;
+  cursor: pointer;
+  margin-right: 2rem;
+  font-size: 2rem !important;
+}
+
+.inactiveWishlist{
+  color: white;
+}
+
+.activeWishlist{
+  color: #74009D;
+}
+
+.inactiveWishlist:hover{
+  color: #74009D;
+}
