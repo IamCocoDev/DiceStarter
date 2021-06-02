@@ -14,7 +14,7 @@ const process = (array) => {
   for (let i = 0; i < array.length; i++) {
     total += array[i].price * array[i].amount;
   }
-  return total;
+  return total.toFixed(2);
 };
 
 const OrderListItem = (props) => {
@@ -24,8 +24,10 @@ const OrderListItem = (props) => {
   console.log(orderProduct);
   const cosas = orderProduct.map((el) => {
     return {
-      price: parseFloat(el.price),
-      amount: el.productxorder.amount,
+      price: el.priceDiscount ?
+        parseFloat(el.priceDiscount).toFixed(2) :
+        parseFloat(el.price).toFixed(2),
+      amount: el.productxorder.amount ? el.productxorder.amount : 1,
     };
   });
   const total = process(cosas);
