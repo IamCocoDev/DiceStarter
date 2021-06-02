@@ -46,6 +46,10 @@ const UserReviewForm = (props: {id:string}) => {
       if (input.comment.length < 255) {
         if (input.rating > 0) {
           dispatch(postReview({...input, id: props.id}, props.id, token));
+          swal.fire({
+            text: 'Review Posted succesfully!',
+            icon: 'success',
+          });
         } else {
           swal.fire({
             text: 'A rating score is required for posting a review',
@@ -67,6 +71,7 @@ const UserReviewForm = (props: {id:string}) => {
     }
   };
   return (
+    user.role !== 'Admin' ?
     redirect === true ? <Redirect to='/register'></Redirect> :
     <form className='userReviewFormAll' onSubmit={handleReviewSubmit}>
       <div className='userReviewFormText'>
@@ -102,7 +107,7 @@ const UserReviewForm = (props: {id:string}) => {
           Send
         </button>
       </div>
-    </form>
+    </form> : null
   );
 };
 

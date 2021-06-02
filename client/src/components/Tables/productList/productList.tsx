@@ -73,7 +73,6 @@ function ProductList(props:any): JSX.Element {
   const handleDiscountChange = (e:any) => {
     setInput({...input, [e.target.name]: parseInt(e.target.value)});
   };
-  console.log(input.discount);
   const addColor = (color: string) => {
     const repColor = input.color.find((el: string) => el === color);
     if (!repColor) {
@@ -171,7 +170,7 @@ function ProductList(props:any): JSX.Element {
           onClick={() => addColor(color)}>Add color</button>
       </div>
       <div>
-        {/* <Select
+        { <Select
           className='formCreateProductInput'
           isMulti
           name="categories"
@@ -179,7 +178,7 @@ function ProductList(props:any): JSX.Element {
           value={categories}
           onChange={handleCategoryChange}
         >
-        </Select> */}
+        </Select> }
       </div>
       <button className="productListEditButton" onClick={handleOnSubmit}>
         <i className='material-icons'>save</i></button>
