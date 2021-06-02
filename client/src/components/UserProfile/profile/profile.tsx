@@ -144,7 +144,7 @@ const Profile = (props:any) => {
             <input className='material-icons profileSaveChangesButton' type='button' value='save' onClick={handleSubmitChanges}/> : null
           }
           <input className='profileLogOut' type='button' value='Log Out' onClick={handleLogout}/>
-        </div>        
+        </div>
         {User.role === 'User' ? <div className='suscribeMail'>
           <input className='suscribeMailBox' type='checkbox'
             onChange={handleSubscribe}
