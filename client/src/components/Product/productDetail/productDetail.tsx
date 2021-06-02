@@ -282,9 +282,9 @@ function ProductDetail(props:any ) {
                           onClick={handleOnCart}>
                         Add to Cart
                         </button>
-                        <button className='productDetailAddToCart'
+                        <button className='productDetailAddToWhishlist'
                           onClick={handleOnWishlist}>
-                        Add to Wishlist
+                          <i className='material-icons'>favorite</i>
                         </button>
                       </div>:
                       <button type='button'
