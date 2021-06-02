@@ -131,6 +131,7 @@ const loginGoogle = (googleUser) => {
         dispatch(setToken(loginUser.token));
       }
     } catch (err) {
+      if (err) return 'error';
       console.log(err);
     }
   };
@@ -177,7 +178,6 @@ const modifyAddress = (address:Address, token:string) => {
     try {
       dispatch(setUser(address));
       dispatch(setToken(token));
-      console.log(address);
       await axios.put(`${BACK_ROUTE}/user/${address.id}`, address, {
         headers: {
           'Authorization': 'Bearer ' + token,

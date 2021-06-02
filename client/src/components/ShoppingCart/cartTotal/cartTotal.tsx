@@ -44,7 +44,7 @@ const CartTotal = () => {
     } else {
       swal.fire({
         html: `it seems you don't have an adress, 
-        <a href='/profile/address'>Add one here</a>`,
+        <a href='/address'>Add one here</a>`,
         icon: 'info',
       });
     };
