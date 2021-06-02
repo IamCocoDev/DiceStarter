@@ -95,7 +95,7 @@ const getOneOrder = (order, total) => {
 const setAddress = (idUser, price, address) => {
   return async (dispatch: any) => {
     try {
-      await axios.put(`${BACK_ROUTE}/orders(${idUser}/updateorder`,
+      await axios.put(`${BACK_ROUTE}/orders/${idUser}/updateorder`,
           {price, address});
       const res = await axios
           .get(`${BACK_ROUTE}/orders/search/user/${idUser}/`);
