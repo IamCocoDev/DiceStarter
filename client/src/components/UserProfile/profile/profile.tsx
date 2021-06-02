@@ -144,18 +144,15 @@ const Profile = (props:any) => {
             <input className='material-icons profileSaveChangesButton' type='button' value='save' onClick={handleSubmitChanges}/> : null
           }
           <input className='profileLogOut' type='button' value='Log Out' onClick={handleLogout}/>
-        </div>
-        {
-          User.role !== 'Admin' &&
-           <div className='suscribeMail'>
-             <input className='suscribeMailBox' type='checkbox'
-               onChange={handleSubscribe}
-               checked={subscribed}
-             />
-             <label className='suscribeMailText'>Subscribe to our Newsletter to get the latest products and offers!</label>
-             <NavLink className='profileHistoryButton' to='/list/orderUser'>Your Purchases</NavLink>
-           </div>
-        }
+        </div>        
+        {User.role === 'User' ? <div className='suscribeMail'>
+          <input className='suscribeMailBox' type='checkbox'
+            onChange={handleSubscribe}
+            checked={subscribed}
+          />
+          <label className='suscribeMailText'>Subscribe to our Newsletter to get the latest products and offers!</label>
+        </div> : null}
+        {User.role === 'User' ? <NavLink className='profileHistoryButton' to='/list/orderUser'>Your Purchases</NavLink> : null}
       </div>
     </div> :
      <div><Login/></div>
