@@ -4,7 +4,9 @@ const isAdmin = require('../middleware/auth');
 
 const router = express.Router();
 const { transporter } = require('../configs/mailer');
-const templateorder = require('./emails/emailOrder.js');
+const templateorder = require('./emails/emailOrder');
+const templateOrderComplete = require('./emails/emailOrderComplete');
+const templateOrderStatus = require('./emails/emailOrderStatus');
 
 const {
   User, Order, Productxorder, Product,
@@ -218,8 +220,26 @@ router.post('/:idUser/update/cart', async (req, res, next) => {
     body.modificationDate = new Date();
     if (req.body.status === 'Canceled' || req.body.status === 'In process' || req.body.status === 'Complete') {
       Order.update(body, { where: { userId: idUser, status: 'Created' } }).then(
-        (data) => {
+        async (data) => {
           if (data[0]) {
+            if (req.body.status === 'Complete') {
+              const user = await User.findByPk(idUser);
+              await transporter.sendMail({
+                from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+                to: user.email, // list of receivers
+                subject: 'Purchase dispatched ✔', // Subject line
+                html: templateOrderComplete(user.firstName, user.lastName), // html body
+              });
+            }
+            const user = await User.findByPk(idUser);
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: user.email, // list of receivers
+              subject: 'Your order has been updated ✔', // Subject line
+              html: templateOrderStatus(user.firstName,
+                user.lastName,
+                req.body.status), // html body
+            });
             res.status(200).send('Order has been updated');
           } else {
             res.status(404).send('You do not have an order created');
@@ -227,15 +247,6 @@ router.post('/:idUser/update/cart', async (req, res, next) => {
         },
       )
         .catch((err) => next(err));
-    }
-    if (req.body.status === 'Complete') {
-      const user = await User.findByPk(idUser);
-      await transporter.sendMail({
-        from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
-        to: user.email, // list of receivers
-        subject: 'Successful purchase ✔', // Subject line
-        text: 'Su compra ha sido despachada', // html body
-      });
     }
   } catch (e) {
     next(e);

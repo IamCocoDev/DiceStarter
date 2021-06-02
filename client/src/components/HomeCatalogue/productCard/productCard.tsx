@@ -131,13 +131,13 @@ function ProductCard(
           {
                 user.role !== 'Admin' && props.stock > 0 ?
                 <div className='productCardUserButtons'>
-                  <button onClick={() => {
+                  {user.id && <button onClick={() => {
                     handleOnWishlist(); toggle();
                   }}
                   className={`${active ? 'activeWishlist' :
                   'inactiveWishlist'} material-icons`}>
                       favorite
-                  </button>
+                  </button>}
                   <button onClick={handleOnCart} className='productCardButton'>
                   Add to cart
                   </button>
