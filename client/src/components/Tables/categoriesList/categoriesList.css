@@ -29,7 +29,7 @@
     grid-column: 3/4;
     grid-row: 1/2;
     color: white;
-    background-color: #74009D;
+    background-color: rgb(00 150 00);
     border: none;
     align-self: center;
     justify-self: center;
@@ -40,7 +40,7 @@
 }
 
 .categoriesListSave:hover{
-    background-color: #9e00d3;
+    background-color: rgb(00 200 00);
 }
 
 .categoriesListDelete{
