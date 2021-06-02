@@ -74,7 +74,6 @@ const getProductByIdAsync = (id: any) => {
         price: parseFloat(res.data.price).toFixed(2),
         priceDiscount: res.data.priceDiscount ? parseFloat(res.data.priceDiscount).toFixed(2) : null,
       }));
-      console.log(res.data);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -106,6 +105,12 @@ const changeProductInDBAsync = (product: any, token:string) => {
           'Authorization': 'Bearer ' + token,
         },
       });
+      // const res = await axios.get(`${BACK_ROUTE}/product/${product.id}`);
+      // dispatch(setProductById({
+      //   ...res.data,
+      //   price: parseFloat(res.data.price).toFixed(2),
+      //   priceDiscount: res.data.priceDiscount ? parseFloat(res.data.priceDiscount).toFixed(2) : null,
+      // }));
     } catch (err) {
       console.log(err);
       if (err) return 'error';
