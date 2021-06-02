@@ -10,13 +10,15 @@ const Paginate = (props:any) => {
   // eslint-disable-next-line max-len
   return (
     <div className='paginateGrid'>
-      {
-        props.page > 1 &&
+      <div className='paginateDivPrevious'>
+        {
+          props.page > 1 &&
           <NavLink className='paginatePrevious material-icons'
             to={`/home?page=${props.page - 1}`}>
               chevron_left
           </NavLink>
-      }
+        }
+      </div>
       <ul className='paginateNumbers'>
         {
           pages.map((p:number) => (
@@ -40,13 +42,15 @@ const Paginate = (props:any) => {
           </li> : null
         }
       </ul>
-      {
-        props.page < props.pagesTotal &&
+      <div className='paginateDivNext'>
+        {
+          props.page < props.pagesTotal &&
           <NavLink className='paginateNext material-icons'
             to={`/home?page=${props.page + 1}`}>
              chevron_right
           </NavLink>
-      }
+        }
+      </div>
     </div>
   );
 };
