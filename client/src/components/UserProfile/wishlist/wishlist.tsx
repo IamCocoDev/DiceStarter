@@ -76,11 +76,14 @@ const Wishlist = () => {
           <div className='wishlistNoProducts'>No products in wishlist</div>
         }
       </div>
-      {
-        wishlistProducts.length > 0 ?
-        <button className='wishlistDeleteButton'
-          onClick={handleDeleteWishlist} >Delete Wishlist</button>:null
-      }
+      <div className='wishlistDeleteButtonBox'>
+        {
+          wishlistProducts.length > 0 ?
+          <button className='wishlistDeleteButton'
+            onClick={handleDeleteWishlist} >
+            <i className='material-icons'>delete</i></button>:null
+        }
+      </div>
     </div>
   );
 };
