@@ -73,7 +73,7 @@ const Wishlist = () => {
               discount={product.discount}
               categories={product.categories ?
                 product.categories.map((el) => el.name) : []} />) :
-          <div>No products in wishlist</div>
+          <div className='wishlistNoProducts'>No products in wishlist</div>
         }
       </div>
       {

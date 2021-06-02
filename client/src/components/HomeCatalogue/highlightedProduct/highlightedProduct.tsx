@@ -35,7 +35,7 @@ const HighlightedProduct = (props:{
         </p>
         {
           priceDiscount !== null &&
-          <p>
+          <p className='HighlightedProductDiscount'>
             ${priceDiscount}
           </p>
         }

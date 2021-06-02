@@ -1,13 +1,14 @@
 .HighlightedProductAll {
-    padding-top: 2rem;
+    padding-top: 1rem;
     display: grid;
     grid-template-rows: 1fr 0.5fr 1fr 1fr;
     grid-template-columns: 1fr;
-    max-height: 20rem;
+    max-height: 19rem;
     width: 15rem;
     align-self: center;
     text-align: center;
     transition-duration: 0.8s;
+    
 }
 
 .HighlightedProductAll:hover {
@@ -19,6 +20,8 @@
     max-width: 10rem;
     max-height: 8rem;
     justify-self: center;
+    background-color: white;
+    border-radius: 0.5rem;
 }
 
 .HighlightedProductTitle {
@@ -35,5 +38,9 @@
 .HighlightedProductPrice{
     grid-row:4/5;
     color: white;
+}
+
+.HighlightedProductDiscount{
+  color: white;
 }
 

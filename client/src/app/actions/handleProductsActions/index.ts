@@ -45,7 +45,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
           id: product.id,
           name: product.name,
           picture: product.picture,
-          price: product.price,
+          price: parseFloat(product.price).toFixed(2),
           size: product.size,
           stock: product.stock,
           categories: product.categories,
@@ -54,7 +54,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
           description: product.description,
           rating: product.rating,
           discount: product.discount,
-          priceDiscount: product.priceDiscount,
+          priceDiscount: product.priceDiscount ? parseFloat(product.priceDiscount).toFixed(2) : null,
         };
       });
       dispatch(setProducts(products,

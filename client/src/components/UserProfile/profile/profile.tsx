@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import {logout, modifyUser, setSubscribe} from '../../../app/actions/actionsUser';
 import {userInfo, userToken} from '../../../app/reducers/registerReducer';
@@ -24,7 +24,7 @@ const Profile = (props:any) => {
   const User = useAppSelector(userInfo);
 
   const [changes, setChanges] = useState(User);
-
+  const [subscribed, setTheSubscribed] = useState(User.subscriber === 'true' ? true : false);
   if (User.birthday) birthDate = User.birthday.slice(0, 10);
 
   const handleAddressChange = (e:any) => setChanges({...changes, address: e.target.innerText});
@@ -56,6 +56,14 @@ const Profile = (props:any) => {
             });
           }
         }).catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(User));
+  }, [User]);
+  const handleSubscribe = () => {
+    dispatch(setSubscribe(User.email, subscribed === true ? 'false' : 'true'));
+    setTheSubscribed(!subscribed);
   };
   return (
   // anidacion de ternarios for the win! el segundo es por si es un administrador quien mira el perfil y el primero para loguearse
@@ -138,10 +146,13 @@ const Profile = (props:any) => {
           <input className='profileLogOut' type='button' value='Log Out' onClick={handleLogout}/>
         </div>
         <div className='suscribeMail'>
-          <input className='suscribeMailBox' type='checkbox' onClick={() => dispatch(setSubscribe(User.email, User.status))}/>
+          <input className='suscribeMailBox' type='checkbox'
+            onChange={handleSubscribe}
+            checked={subscribed}
+          />
           <label className='suscribeMailText'>Subscribe to our Newsletter to get the latest products and offers!</label>
         </div>
-        <NavLink className='profileHistoryButton' to='/list/order/info'>Your Purchases</NavLink>
+        <NavLink className='profileHistoryButton' to='/list/orderUser'>Your Purchases</NavLink>
       </div>
     </div> :
      <div><Login/></div>

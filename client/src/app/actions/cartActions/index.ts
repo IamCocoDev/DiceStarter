@@ -23,8 +23,11 @@ export const getProductsInCart = (idUser = '') => (dispatch) => {
               image: el.picture,
               name: el.name,
               amount: el.productxorder.amount ? el.productxorder.amount : 1,
-              price: parseFloat(el.price),
+              price: el.priceDiscount ? parseFloat(el.priceDiscount).toFixed(2) : parseFloat(el.price).toFixed(2),
               id: el.id,
+              priceDiscount: el.priceDiscount,
+              discount: el.discount,
+              categories: el.categories,
               stock: el.stock,
               idOrder: test.id,
             };
@@ -40,7 +43,7 @@ export const getProductsInCart = (idUser = '') => (dispatch) => {
   }
 };
 
-export const addProductInCart = (product, userId = '') => (dispatch) => {
+export const addProductInCart = (product, userId = '', address) => (dispatch) => {
   const productsInCart = JSON.parse(localStorage
       .getItem('cart') || '[]').concat(product);
   localStorage.setItem('cart', JSON.stringify(productsInCart));
@@ -51,7 +54,7 @@ export const addProductInCart = (product, userId = '') => (dispatch) => {
     return axios.post(`${BACK_ROUTE}/orders/${userId}/cart`, {
       id: product.id,
       price: product.price,
-      address: 'cordoba',
+      address: address,
     })
         .catch((err) => {
           console.error(err);

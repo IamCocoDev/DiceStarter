@@ -48,7 +48,7 @@ function ProductDetail(props:any ) {
         image: product.picture[0],
         stock: product.stock,
         amount: 1,
-      }, User.id));
+      }, User.id, User.address));
       swal.fire({
         text: 'Product added succesfully!',
         icon: 'success',
@@ -116,6 +116,10 @@ function ProductDetail(props:any ) {
     }),
   };
 
+  const handleSelectChange = (e:any) => {
+    setProductDetailCategories(e);
+  };
+
   const handleProductChange = () => {
     dispatch(changeProductInDBAsync(changes, token))
         .then((r) => {
@@ -147,6 +151,17 @@ function ProductDetail(props:any ) {
     rating: product?.rating,
   });
 
+  const [productDetailCategories, setProductDetailCategories] = useState(product?.categories.map((c) => {
+    return {
+      value: c.id,
+      label: c.name,
+    };
+  }));
+
+  /* useEffect(() => {
+    setChanges({...changes, categories: productDetailCategories?.map((c) => c.value)});
+  }, [changes]);
+  */
   useEffect(() => {
     dispatch(getCategoriesAsync());
   }, []);
@@ -156,8 +171,6 @@ function ProductDetail(props:any ) {
   const handleSizeChange = (e:any) => setChanges({...changes, size: e.target.innerText});
   const handlePriceChange = (e:any) => setChanges({...changes, price: e.target.innerText});
   console.log(changes);
-  const productDetailCategories = product.categories.map((p) => ({value: p.name, label: p.name}));
-  console.log(categories);
   return (
     <div className='productDetailBackground'>
       {
@@ -179,7 +192,8 @@ function ProductDetail(props:any ) {
                 <div> {product.categories.map((c, i) => <span key={i} className='productDetailCategories'>{c.name}</span>)}
                 </div> :
                 <div className='ProductDetailSelect'>
-                  <Select styles={style} placeholder={productDetailCategories} options={categories}></Select>
+                  <Select onChange={handleSelectChange} styles={style} isMulti value={productDetailCategories} name='categories' options={categories}>
+                  </Select>
                 </div>
               }
               <div className='productDetailinformation'>
@@ -204,7 +218,7 @@ function ProductDetail(props:any ) {
                   </p>
                   {
                     User.role !== 'Admin' ?
-                      <div>
+                      <div className= 'productDetailUserButtons'>
                         <button className='productDetailAddToCart' onClick={handleOnCart}>
                         Add to Cart
                         </button>

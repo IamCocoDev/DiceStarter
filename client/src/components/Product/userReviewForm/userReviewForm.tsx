@@ -71,6 +71,7 @@ const UserReviewForm = (props: {id:string}) => {
     }
   };
   return (
+    user.role !== 'Admin' ?
     redirect === true ? <Redirect to='/register'></Redirect> :
     <form className='userReviewFormAll' onSubmit={handleReviewSubmit}>
       <div className='userReviewFormText'>
@@ -106,7 +107,7 @@ const UserReviewForm = (props: {id:string}) => {
           Send
         </button>
       </div>
-    </form>
+    </form> : null
   );
 };
 
