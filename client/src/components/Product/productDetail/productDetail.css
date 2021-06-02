@@ -138,6 +138,10 @@
   cursor: default;
 }
 
+.productDetailCategoriesAll {
+  width: fit-content;
+}
+
 .ProductDetailSelect{
   width: 20rem
 }
