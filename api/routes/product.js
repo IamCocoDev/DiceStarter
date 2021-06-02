@@ -6,6 +6,9 @@ const { isLogged } = require('../middleware/logged');
 const router = express.Router();
 const { transporter } = require('../configs/mailer');
 const template = require('./emails/emailNewProduct');
+const templateWishlistStock = require('./emails/emailWishlistStock');
+const templateWishlistDiscount = require('./emails/emailWishlistDiscount');
+const templateEmailDiscount = require('./emails/emailDiscount');
 
 const {
   Product, Category, Reviews, User, Wishlist,
@@ -74,9 +77,9 @@ router.put('/:id', async (req, res, next) => {
     const { id } = req.params;
     const { body } = req;
     if (typeof (body.categories[0]) !== 'number') return res.send('You must send a value as ID');
-    // eslint-disable-next-line no-mixed-operators
     body.priceDiscount = body.discount === 0
       ? null
+      // eslint-disable-next-line no-mixed-operators
       : body.priceDiscount = body.price - (body.price * body.discount / 100).toFixed(2);
     const product = await Product.findByPk(id, { include: Category });
     if (product.stock === 0 && body.stock > 0) {
@@ -91,7 +94,10 @@ router.put('/:id', async (req, res, next) => {
               from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
               to: user.dataValues.email, // list of receivers
               subject: 'Your product is available ✔', // Subject line
-              text: `${user.dataValues.firstName} your product is available`, // html body
+              html: templateWishlistStock(user.dataValues.firstName,
+                user.dataValues.lastName,
+                product.picture[0],
+                product.id), // html body
             });
           }
         }
@@ -109,15 +115,10 @@ router.put('/:id', async (req, res, next) => {
               from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
               to: user.dataValues.email, // list of receivers
               subject: 'Your product has a new discount ✔', // Subject line
-              text: `${user.dataValues.firstName} your product has a new discount`, // html body
-            });
-          } else {
-            // eslint-disable-next-line no-await-in-loop
-            await transporter.sendMail({
-              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
-              to: user.dataValues.email, // list of receivers
-              subject: 'Check it this new discount ✔', // Subject line
-              text: `${user.dataValues.firstName} check it this new discount`, // html body
+              html: templateWishlistDiscount(user.dataValues.firstName,
+                user.dataValues.lastName,
+                product.picture[0],
+                product.id), // html body
             });
           }
         }
@@ -139,7 +140,10 @@ router.put('/:id', async (req, res, next) => {
                 from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
                 to: users[i].dataValues.email, // list of receivers
                 subject: 'Check it this new discount ✔', // Subject line
-                text: `${users[i].dataValues.firstName} check it this new discount`, // html body
+                html: templateEmailDiscount(users[i].dataValues.firstName,
+                  users[i].dataValues.lastName,
+                  product.picture[0],
+                  product.id), // html body
               });
             }
           }
