@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, {useEffect, useState} from 'react';
 import './productDetail.css';
 import {useAppDispatch, useAppSelector} from '../../../app/hooks';
@@ -15,7 +14,8 @@ import swal from 'sweetalert2';
 import {addProductInWishlist} from '../../../app/actions/wishlistActions';
 import LoadingScreen from '../../DummyComponents/loadingScreen/loadingScreen';
 import Select from 'react-select';
-import {getCategoriesAsync} from '../../../app/actions/handleProductsActions/index';
+import {getCategoriesAsync}
+  from '../../../app/actions/handleProductsActions/index';
 import {productCategories} from '../../../app/reducers/handleProductsReducer';
 
 function ProductDetail(props:any ) {
@@ -24,7 +24,14 @@ function ProductDetail(props:any ) {
   const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);
-  const categories = useAppSelector(productCategories);
+  const productCats = useAppSelector(productCategories);
+  const [color, setColor] = useState('');
+  const categories = productCats.map((c) => {
+    return {
+      value: c.id,
+      label: c.value,
+    };
+  });
   const id = props.match.params.id;
   useEffect(() => {
     dispatch(getProductByIdAsync(id))
@@ -116,6 +123,14 @@ function ProductDetail(props:any ) {
     }),
   };
 
+  const [productDetailCategories,
+    setProductDetailCategories] = useState(product?.categories.map((c) => {
+    return {
+      value: c.id,
+      label: c.name,
+    };
+  }));
+
   const handleSelectChange = (e:any) => {
     setProductDetailCategories(e);
   };
@@ -151,25 +166,47 @@ function ProductDetail(props:any ) {
     rating: product?.rating,
   });
 
-  const [productDetailCategories, setProductDetailCategories] = useState(product?.categories.map((c) => {
-    return {
-      value: c.id,
-      label: c.name,
-    };
-  }));
+  useEffect(() => {
+    setChanges({...changes,
+      categories: productDetailCategories?.map((c) => c.value)});
+  }, [productDetailCategories]);
 
-  /* useEffect(() => {
-    setChanges({...changes, categories: productDetailCategories?.map((c) => c.value)});
-  }, [changes]);
-  */
+  const addColor = (color: string) => {
+    changes.color.forEach((c) => {
+      if (c === color) {
+        swal.fire({
+          text: 'You already added this color!',
+          icon: 'info',
+        });
+      }
+    });
+    if (changes.color.length < 5) {
+      const repColor = changes.color.find((el: string) => el === color);
+      if (!repColor) {
+        const newcolor = [...changes.color, color];
+        setChanges({...changes, color: newcolor});
+      }
+    } else {
+      swal.fire({
+        text: 'Products cannot have more than 5 colors!',
+        icon: 'warning',
+      });
+    };
+  };
+
   useEffect(() => {
     dispatch(getCategoriesAsync());
   }, []);
-  const handleNameChange = (e:any) => setChanges({...changes, name: e.target.innerText});
-  const handleDescriptionChange = (e:any) => setChanges({...changes, description: e.target.innerText});
-  const handleStockChange = (e:any) => setChanges({...changes, stock: e.target.innerText});
-  const handleSizeChange = (e:any) => setChanges({...changes, size: e.target.innerText});
-  const handlePriceChange = (e:any) => setChanges({...changes, price: e.target.innerText});
+  const handleNameChange = (e:any) => setChanges({...changes,
+    name: e.target.innerText});
+  const handleDescriptionChange = (e:any) => setChanges({...changes,
+    description: e.target.innerText});
+  const handleStockChange = (e:any) => setChanges({...changes,
+    stock: e.target.innerText});
+  const handleSizeChange = (e:any) => setChanges({...changes,
+    size: e.target.innerText});
+  const handlePriceChange = (e:any) => setChanges({...changes,
+    price: e.target.innerText});
   console.log(changes);
   return (
     <div className='productDetailBackground'>
@@ -183,16 +220,30 @@ function ProductDetail(props:any ) {
           <div className='carouselandinfo'>
             <Carousel pictures={product.picture}/>
             <div className='ProductDetailGrid'>
-              <h2 className={!editMode ? 'ProductDetailName' : 'editableProductDetailName'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleNameChange}>{
-                product.name} </h2>
+              <h2 className={!editMode ?
+              'ProductDetailName' :
+              'editableProductDetailName'}
+              suppressContentEditableWarning={true}
+              contentEditable={editMode} onInput={handleNameChange}>{
+                  product.name}
+              </h2>
               <div className='ProductDetailRating'>
                 <RatingStars rating={product.rating}/>
               </div>
               { editMode === false ?
-                <div> {product.categories.map((c, i) => <span key={i} className='productDetailCategories'>{c.name}</span>)}
+                <div>
+                  {product.categories.map((c, i) =>
+                    <span key={i} className='productDetailCategories'>
+                      {c.name}
+                    </span>)}
                 </div> :
                 <div className='ProductDetailSelect'>
-                  <Select onChange={handleSelectChange} styles={style} isMulti value={productDetailCategories} name='categories' options={categories}>
+                  <Select onChange={handleSelectChange}
+                    styles={style}
+                    isMulti
+                    value={productDetailCategories}
+                    name='categories'
+                    options={categories}>
                   </Select>
                 </div>
               }
@@ -201,17 +252,25 @@ function ProductDetail(props:any ) {
                   <p>Price:
                     { product.priceDiscount || product.discount ?
                   <span className='ProductDetailPrices'>
-                    <span className='productDetailPriceDiscount' onInput={handlePriceChange}>
+                    <span className='productDetailPriceDiscount'
+                      onInput={handlePriceChange}>
                       ${product.price}
                     </span>
                     {product.priceDiscount !== null ?
-                    <span className='productDetailDiscount'> ${product.priceDiscount}</span> :
+                    <span className='productDetailDiscount'>
+                       ${product.priceDiscount}
+                    </span> :
                     <span className='productDetailDiscount'>
                       ${parseFloat(product.price) -
                       parseFloat((parseFloat(product.price) *
                       product.discount/100).toFixed(2))}</span>}
                   </span> :
-                    <span className={editMode ? 'editable' :'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePriceChange}>
+                    <span className={editMode ?
+                    'editable' :
+                    'noteditable'}
+                    suppressContentEditableWarning={true}
+                    contentEditable={editMode}
+                    onInput={handlePriceChange}>
                       ${product.price}
                     </span>
                     }
@@ -219,39 +278,91 @@ function ProductDetail(props:any ) {
                   {
                     User.role !== 'Admin' ?
                       <div className= 'productDetailUserButtons'>
-                        <button className='productDetailAddToCart' onClick={handleOnCart}>
+                        <button className='productDetailAddToCart'
+                          onClick={handleOnCart}>
                         Add to Cart
                         </button>
-                        <button className='productDetailAddToCart' onClick={handleOnWishlist}>
+                        <button className='productDetailAddToCart'
+                          onClick={handleOnWishlist}>
                         Add to Wishlist
                         </button>
                       </div>:
-                      <button type='button' className=' material-icons productDetailEdit' onClick={() => setEditMode(!editMode)}>
+                      <button type='button'
+                        className=' material-icons productDetailEdit'
+                        onClick={() => setEditMode(!editMode)}>
                         edit
                       </button>
                   }
                   {
-                      editMode && (changes?.name !== product.name || changes?.description !== product.description || changes?.price !== product.price || changes?.size !== product.size || changes?.stock !== product.stock) ?
-                      <button className='material-icons productDetailSave' onClick={handleProductChange}>save</button> : null
+                      editMode &&
+                      (changes?.name !== product.name ||
+                          changes?.description !== product.description ||
+                          changes?.price !== product.price ||
+                          changes?.size !== product.size ||
+                          changes?.stock !== product.stock ||
+                          changes?.categories !== product.categories) ?
+                      <button className='material-icons productDetailSave'
+                        onClick={handleProductChange}>
+                          save
+                      </button> : null
                   }
                 </div>
                 <div className='productDetailInfo'>
                   <div className='ProductDetailColors'>
-                    <span className='productDetailColorsTitle'>Color: </span>
-                    {product.color.length ?
-                product.color.map((el:any) => <ColorCircle key={el} color={el}
-                  onClick={() => {
-                    const toChange =
-                product.color.filter((color:any) => el !== color);
-                    setChanges({...changes, color: toChange});
-                  }}/>):null}</div>
+                    <span className='productDetailColorsTitle'>Color: {
+                      editMode === false ?
+                        changes?.color?.length ?
+                        changes.color.map((el:any) =>
+                          <ColorCircle key={el} color={el}
+                            onClick={(e) => e.preventDefault()}/>): null :
+                            <div>
+                              {
+                                changes?.color?.length ?
+                                changes.color.map((el:any, id:number) =>
+                                  <ColorCircle key={id} color={el}
+                                    onClick={() => {
+                                      if (changes.color.length > 1) {
+                                        console.log(changes.color.length > 1);
+                                        const toChange =
+                        changes.color.filter((color:any) => el !== color);
+                                        setChanges({...changes,
+                                          color: toChange});
+                                      } else {
+                                        swal.fire({
+                                          text: `Product must have at least 1
+                                           color!`,
+                                          icon: 'warning',
+                                        });
+                                      }
+                                    }
+                                    }/>) : null
+                              }
+                              <input
+                                className='ProductDetailColorSelector'
+                                type="color"
+                                value={changes.color}
+                                name = "color"
+                                onChange={(e)=> setColor(e.target.value)}
+                              />
+                              <input className='ProductDetailColorButton'
+                                type="button"
+                                value="Add Color"
+                                onClick={() => addColor(color)} />
+                            </div>
+                    }</span>
+                  </div>
                   <p>Stock:
-                    <span className={editMode ? 'editable':'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleStockChange}>
+                    <span className={editMode ? 'editable':'noteditable'}
+                      suppressContentEditableWarning={true}
+                      contentEditable={editMode}
+                      onInput={handleStockChange}>
                       {product.stock}
                     </span>
                   </p>
                   <p>Size:
-                    <span className={editMode ? 'editable':'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleSizeChange}>
+                    <span className={editMode ? 'editable':'noteditable'}
+                      suppressContentEditableWarning={true}
+                      contentEditable={editMode} onInput={handleSizeChange}>
                       {product.size}
                     </span>
                   </p>
@@ -261,7 +372,11 @@ function ProductDetail(props:any ) {
           </div>
           <div className='detailDescription'>
             <h3 className='productDetailDescritionTitle'>Description</h3>
-            <p className={editMode ? 'editableProductDetailDescription': 'ProductDetailDescription'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleDescriptionChange}>
+            <p className={editMode ?
+             'editableProductDetailDescription':
+              'ProductDetailDescription'}
+            suppressContentEditableWarning={true}
+            contentEditable={editMode} onInput={handleDescriptionChange}>
               {product.description}
             </p>
           </div>

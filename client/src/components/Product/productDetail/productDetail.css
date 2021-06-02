@@ -47,6 +47,7 @@
 .productDetailDescritionTitle{
   padding-top: 1rem;
   border-top: 0.1rem solid white;
+  margin-bottom: 1rem;
 }
 
 .productDetailAddToCart{
@@ -121,10 +122,41 @@
 }
 
 .productDetailCategories{
+  margin-top: 1rem;
   margin-right: 0.5rem;
   font-size: 1.2rem;
+  color: black;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.2rem;
+  transition-duration: 0.5s;
+}
+
+.productDetailCategories:hover {
+  background-color: rgba(112, 112, 112, 0.556);
+  color: black;
+  cursor: default;
 }
 
 .ProductDetailSelect{
   width: 20rem
+}
+
+.ProductDetailRating {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ProductDetailColorButton {
+  margin-left: 0.5rem;
+  border: none;
+  padding: 0.3rem;
+  background-color: #74009D;
+  border-radius: 0.5rem;
+  color: white;
+  transition-duration: 0.4s;
+}
+
+.ProductDetailColorButton:hover{
+  background-color: #9e00d3;
 }

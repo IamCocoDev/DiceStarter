@@ -73,7 +73,6 @@ function ProductList(props:any): JSX.Element {
   const handleDiscountChange = (e:any) => {
     setInput({...input, [e.target.name]: parseInt(e.target.value)});
   };
-  console.log(input.discount);
   const addColor = (color: string) => {
     const repColor = input.color.find((el: string) => el === color);
     if (!repColor) {

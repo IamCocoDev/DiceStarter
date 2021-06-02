@@ -4,4 +4,10 @@
 
 .ratingStars{
   color: gold;
+  transition: 0.2s;
+}
+
+.ratingStarsStar:hover{
+  cursor:default;
+  color: goldenrod
 }
