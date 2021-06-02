@@ -4,7 +4,7 @@ const isAdmin = require('../middleware/auth');
 
 const router = express.Router();
 const { transporter } = require('../configs/mailer');
-const templateorder = require('./emails/emailOrder.js');
+const templateorder = require('./emails/emailOrder');
 
 const {
   User, Order, Productxorder, Product,
@@ -234,7 +234,7 @@ router.post('/:idUser/update/cart', async (req, res, next) => {
         from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
         to: user.email, // list of receivers
         subject: 'Successful purchase ✔', // Subject line
-        text: 'Su compra ha sido despachada', // html body
+        html: 'Su compra ha sido despachada', // html body
       });
     }
   } catch (e) {

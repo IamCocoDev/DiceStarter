@@ -100,6 +100,7 @@ const deleteProductByIdAsync = (id: any, token:string) => {
 const changeProductInDBAsync = (product: any, token:string) => {
   return async (dispatch: any) => {
     try {
+      console.log(product);
       await axios.put(`${BACK_ROUTE}/product/${product.id}`, product, {
         headers: {
           'Authorization': 'Bearer ' + token,

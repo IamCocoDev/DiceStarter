@@ -160,7 +160,7 @@ function template(username, firstname, surname) {
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                       <tr>
                           <td bgcolor="#101010" align="left" style="padding: 0px 30px 30px 30px; color: #ffffff; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;"> <br>
-                              <p style="margin: 0;">If these emails get annoying, please feel free to <a href="#" target="_blank" style="color: #ffffff; font-weight: 700;">unsubscribe</a>.</p>
+                          <p style="margin: 0;">If these emails get annoying, please feel free to unsubscribe from your profile.</p>
                           </td>
                       </tr>
                   </table>
