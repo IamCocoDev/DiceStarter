@@ -37,13 +37,15 @@ const UserOrdersItem = (props) => {
     setRedirect(true);
   };
   return (
-    <div>
+    <div className='userOrdersItemAll'>
       {redirect && <Redirect to='/list/order/info' />}
-      <h1>{order.id}</h1>
-      <h1>{order.status}</h1>
-      <h1>{order.modificationDate.slice(0, 10)}</h1>
-      <h1>{total}</h1>
-      <input type="button" value='More' onClick={handleClick} />
+      <p className='userOrdersItemId'>Order number: {order.id}</p>
+      <p className='userOrdersItemStatus'>Status: {order.status}</p>
+      <p className='userOrdersItemAllDate'>
+        Date: {order.modificationDate.slice(0, 10)}</p>
+      <h3 className='userOrdersItemTotal'>Total: {total}</h3>
+      <input className='userOrdersItemButton' type="button"
+        value='More' onClick={handleClick} />
     </div>
   );
 };
