@@ -145,14 +145,14 @@ const Profile = (props:any) => {
           }
           <input className='profileLogOut' type='button' value='Log Out' onClick={handleLogout}/>
         </div>
-        <div className='suscribeMail'>
+        {User.role === 'User' ? <div className='suscribeMail'>
           <input className='suscribeMailBox' type='checkbox'
             onChange={handleSubscribe}
             checked={subscribed}
           />
           <label className='suscribeMailText'>Subscribe to our Newsletter to get the latest products and offers!</label>
-        </div>
-        <NavLink className='profileHistoryButton' to='/list/orderUser'>Your Purchases</NavLink>
+        </div> : null}
+        {User.role === 'User' ? <NavLink className='profileHistoryButton' to='/list/orderUser'>Your Purchases</NavLink> : null}
       </div>
     </div> :
      <div><Login/></div>
