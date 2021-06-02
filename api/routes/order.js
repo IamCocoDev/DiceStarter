@@ -6,6 +6,7 @@ const router = express.Router();
 const { transporter } = require('../configs/mailer');
 const templateorder = require('./emails/emailOrder');
 const templateOrderComplete = require('./emails/emailOrderComplete');
+const templateOrderStatus = require('./emails/emailOrderStatus');
 
 const {
   User, Order, Productxorder, Product,
@@ -221,16 +222,24 @@ router.post('/:idUser/update/cart', async (req, res, next) => {
       Order.update(body, { where: { userId: idUser, status: 'Created' } }).then(
         async (data) => {
           if (data[0]) {
-            console.log(data)
             if (req.body.status === 'Complete') {
               const user = await User.findByPk(idUser);
               await transporter.sendMail({
                 from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
                 to: user.email, // list of receivers
-                subject: 'Successful purchase ✔', // Subject line
-                html: templateOrderComplete(user.firstName, user.lastname), // html body
+                subject: 'Purchase dispatched ✔', // Subject line
+                html: templateOrderComplete(user.firstName, user.lastName), // html body
               });
             }
+            const user = await User.findByPk(idUser);
+            await transporter.sendMail({
+              from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
+              to: user.email, // list of receivers
+              subject: 'Your order has been updated ✔', // Subject line
+              html: templateOrderStatus(user.firstName,
+                user.lastName,
+                req.body.status), // html body
+            });
             res.status(200).send('Order has been updated');
           } else {
             res.status(404).send('You do not have an order created');
