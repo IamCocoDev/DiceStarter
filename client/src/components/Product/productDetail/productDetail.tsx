@@ -16,6 +16,7 @@ import {addProductInWishlist} from '../../../app/actions/wishlistActions';
 import LoadingScreen from '../../DummyComponents/loadingScreen/loadingScreen';
 import Select from 'react-select';
 import {getCategoriesAsync} from '../../../app/actions/handleProductsActions/index';
+import {productCategories} from '../../../app/reducers/handleProductsReducer';
 
 function ProductDetail(props:any ) {
   const token = useAppSelector(userToken);
@@ -23,6 +24,7 @@ function ProductDetail(props:any ) {
   const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);
+  const categories = useAppSelector(productCategories);
   const id = props.match.params.id;
   useEffect(() => {
     dispatch(getProductByIdAsync(id))
@@ -77,6 +79,43 @@ function ProductDetail(props:any ) {
     }
   };
   // saves changes to product
+  const style = {
+    container: (provided, state) => ({
+      ...provided,
+      outline: 'none',
+      backgroundColor: '#101010',
+      color: 'white',
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      border: state.isSelected ? 'none' : 'white',
+      boxShadow: 'none',
+      backgroundColor: '#101010',
+      color: 'white',
+    }),
+    ValueContainer: () => ({
+      backgroundColor: '#101010',
+      color: 'white',
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isFocused ? '#74009D': '#101010',
+      cursor: state.isFocused ? 'pointer': 'default',
+      color: 'white',
+    }),
+    IndicatorsContainer: (provided, state) => ({
+      ...provided,
+      backgroundColor: '#101010',
+      cursor: state.isFocused ? 'pointer': 'default',
+      color: 'white',
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      backgroundColor: '#101010',
+      color: 'white',
+    }),
+  };
+
   const handleProductChange = () => {
     dispatch(changeProductInDBAsync(changes, token))
         .then((r) => {
@@ -110,13 +149,15 @@ function ProductDetail(props:any ) {
 
   useEffect(() => {
     dispatch(getCategoriesAsync());
-  });
+  }, []);
   const handleNameChange = (e:any) => setChanges({...changes, name: e.target.innerText});
   const handleDescriptionChange = (e:any) => setChanges({...changes, description: e.target.innerText});
   const handleStockChange = (e:any) => setChanges({...changes, stock: e.target.innerText});
   const handleSizeChange = (e:any) => setChanges({...changes, size: e.target.innerText});
   const handlePriceChange = (e:any) => setChanges({...changes, price: e.target.innerText});
   console.log(changes);
+  const productDetailCategories = product.categories.map((p) => ({value: p.name, label: p.name}));
+  console.log(categories);
   return (
     <div className='productDetailBackground'>
       {
@@ -137,7 +178,9 @@ function ProductDetail(props:any ) {
               { editMode === false ?
                 <div> {product.categories.map((c, i) => <span key={i} className='productDetailCategories'>{c.name}</span>)}
                 </div> :
-                <Select options={product.categories}></Select>
+                <div className='ProductDetailSelect'>
+                  <Select styles={style} placeholder={productDetailCategories} options={categories}></Select>
+                </div>
               }
               <div className='productDetailinformation'>
                 <div className='productDetailButton'>
