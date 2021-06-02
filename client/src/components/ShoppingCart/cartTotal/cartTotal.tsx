@@ -3,6 +3,7 @@ import {useAppSelector, useAppDispatch} from '../../../app/hooks';
 import {cartsReducer} from '../../../app/reducers/cartReducer';
 import {getProductsInCart, goToCheckout} from
   '../../../app/actions/cartActions/index';
+import {setAddress} from '../../../app/actions/orderActions';
 import './cartTotal.css';
 import {NavLink} from 'react-router-dom';
 import {userInfo} from '../../../app/reducers/registerReducer';
@@ -32,6 +33,7 @@ const CartTotal = () => {
     if (reduxUser.address) {
       if (productsInCart.length > 0) {
         // if it has one adress dispatch checkout
+        dispatch(setAddress(userId, total, reduxUser.address));
         dispatch(goToCheckout(productsInCart));
       } else {
         swal.fire({

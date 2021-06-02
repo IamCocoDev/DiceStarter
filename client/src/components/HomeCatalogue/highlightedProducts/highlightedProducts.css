@@ -17,6 +17,8 @@
 }
 
 .HighlightedProductsButtonBackward{
+    outline: none;
+    cursor: pointer;
     margin-top: 7rem;
     padding: 3px;
     display: flex;
@@ -37,6 +39,8 @@
 }
 
 .HighlightedProductsButtonForward{
+    outline: none;
+    cursor: pointer;
     margin-top: 7rem;
     padding: 3px;
     display: flex;

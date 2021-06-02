@@ -73,7 +73,6 @@ function ProductList(props:any): JSX.Element {
   const handleDiscountChange = (e:any) => {
     setInput({...input, [e.target.name]: parseInt(e.target.value)});
   };
-  console.log(input.discount);
   const addColor = (color: string) => {
     const repColor = input.color.find((el: string) => el === color);
     if (!repColor) {
@@ -95,7 +94,15 @@ function ProductList(props:any): JSX.Element {
 
   const handleOnSubmit = () => {
     if (input.discount < 99) {
-      dispatch(changeProductInDBAsync(input, token));
+      if (input.discount === 0) {
+        console.log('descuento 0');
+        dispatch(changeProductInDBAsync({
+          ...input,
+          priceDiscount: null,
+        }, token));
+      } else {
+        dispatch(changeProductInDBAsync(input, token));
+      }
     } else {
       swal.fire({
         text: `You can't add a 100% discount!`,
@@ -116,8 +123,8 @@ function ProductList(props:any): JSX.Element {
       <input
         className="productListPrice"
         type="number"
-        placeholder={input.priceDiscount ? input.priceDiscount : input.price}
-        value={input.priceDiscount ? input.priceDiscount : input.price}
+        placeholder={input.price}
+        value={input.price}
         name="price"
         step="0.1"
         onChange={handleNumberChange}
@@ -171,7 +178,7 @@ function ProductList(props:any): JSX.Element {
           onClick={() => addColor(color)}>Add color</button>
       </div>
       <div>
-        {/* <Select
+        { <Select
           className='formCreateProductInput'
           isMulti
           name="categories"
@@ -179,7 +186,7 @@ function ProductList(props:any): JSX.Element {
           value={categories}
           onChange={handleCategoryChange}
         >
-        </Select> */}
+        </Select> }
       </div>
       <button className="productListEditButton" onClick={handleOnSubmit}>
         <i className='material-icons'>save</i></button>

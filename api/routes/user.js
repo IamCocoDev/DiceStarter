@@ -11,6 +11,8 @@ const { transporter } = require('../configs/mailer');
 const template = require('./emails/emailRegistration');
 const templateForgottenPassword = require('./emails/emailForgottenPassword');
 const templatePassword = require('./emails/emailPassword');
+const templateSubscribe = require('./emails/emailSubscribe');
+const templateUnsubscribe = require('./emails/emailUnsubscribe');
 
 const {
   accessTokenSecret,
@@ -269,7 +271,7 @@ router.put('/:email/subscribe', (req, res, next) => {
               from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
               to: response.email, // list of receivers
               subject: 'Subscribe Success ✔', // Subject line
-              text: 'Thank you for subscribe', // html body
+              html: templateSubscribe(response.firstName, response.lastName), // html body
             });
             res.status(200).send('Thank you for subscribe');
           } else {
@@ -277,7 +279,7 @@ router.put('/:email/subscribe', (req, res, next) => {
               from: '"DiceStarter 🎲" <dicestarter@gmail.com>', // sender address
               to: response.email, // list of receivers
               subject: 'Unsubscribe Success ✔', // Subject line
-              text: 'We hope to see you soon', // html body
+              html: templateUnsubscribe(response.firstName, response.lastName), // html body
             });
             res.status(200).send('unsubscribe');
           }
@@ -309,6 +311,7 @@ router.put('/:email/recoverpassword', (req, res, next) => {
               return res.send('Password Update');
             });
         }).catch((e) => next(e));
+      return null;
     });
   } else {
     return res.status(400).send('The two passwords must match');

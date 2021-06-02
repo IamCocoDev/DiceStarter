@@ -45,7 +45,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
           id: product.id,
           name: product.name,
           picture: product.picture,
-          price: product.price,
+          price: parseFloat(product.price).toFixed(2),
           size: product.size,
           stock: product.stock,
           categories: product.categories,
@@ -54,7 +54,7 @@ const getProductsAsync = (SearchInput: SearchInput) => {
           description: product.description,
           rating: product.rating,
           discount: product.discount,
-          priceDiscount: product.priceDiscount,
+          priceDiscount: product.priceDiscount ? parseFloat(product.priceDiscount).toFixed(2) : null,
         };
       });
       dispatch(setProducts(products,
@@ -69,35 +69,13 @@ const getProductByIdAsync = (id: any) => {
   return async (dispatch: any) => {
     try {
       const res = await axios.get(`${BACK_ROUTE}/product/${id}`);
-      const {name,
-        picture,
-        price,
-        stock,
-        color,
-        size,
-        available,
-        description,
-        categories,
-        rating,
-        priceDiscount,
-        discount,
-      } = res.data;
-      const productResponse: any = {
-        id,
-        name,
-        picture,
-        price,
-        stock,
-        color,
-        available,
-        description,
-        size,
-        categories,
-        rating,
-        priceDiscount,
-        discount,
-      };
-      dispatch(setProductById(productResponse));
+      dispatch(setProductById({
+        ...res.data,
+        price: parseFloat(res.data.price).toFixed(2),
+        priceDiscount: res.data.priceDiscount ? parseFloat(res.data.priceDiscount).toFixed(2) : null,
+      }));
+      console.log(res.data);
+      return res.data;
     } catch (err) {
       console.log(err);
     }
@@ -122,6 +100,7 @@ const deleteProductByIdAsync = (id: any, token:string) => {
 const changeProductInDBAsync = (product: any, token:string) => {
   return async (dispatch: any) => {
     try {
+      console.log(product);
       await axios.put(`${BACK_ROUTE}/product/${product.id}`, product, {
         headers: {
           'Authorization': 'Bearer ' + token,

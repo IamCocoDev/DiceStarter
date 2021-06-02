@@ -4,12 +4,12 @@ import './highlightedProduct.css';
 import {NavLink} from 'react-router-dom';
 
 const HighlightedProduct = (props:{
-    id:string
-    name:string,
-    rating:string,
-    picture:string[],
-    price:number,
-    priceDiscount:number,
+    id
+    name,
+    rating,
+    picture,
+    price,
+    priceDiscount,
 }) => {
   const {
     id,

@@ -10,3 +10,8 @@
 .orderInfoCompTotal{
   border-top: 0.1rem solid white;
 }
+
+.orderInfoCompNone {
+  height: 100vh;
+  text-align: center;
+}

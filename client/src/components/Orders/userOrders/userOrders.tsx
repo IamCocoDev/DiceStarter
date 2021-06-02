@@ -5,6 +5,7 @@ import {getUserOrders, clearOrders} from '../../../app/actions/orderActions';
 import {orderList} from '../../../app/reducers/orderReducer';
 import {userInfo} from '../../../app/reducers/registerReducer';
 import UserOrdersItem from '../userOrdersItem/userOrdersItem';
+import './userOrders.css';
 
 const UserOrders = () => {
   const dispatch = useAppDispatch();
@@ -20,8 +21,8 @@ const UserOrders = () => {
     console.log(orders);
   }, [orders]);
   return (
-    <div>
-      <h1>Your orders</h1>
+    <div className='userOrdersAll'>
+      <h2>Your orders</h2>
       {orders.length ? orders.map((el) =>
         <UserOrdersItem key={el.id} order={el}
           orderProduct={el.products} />) : null}
