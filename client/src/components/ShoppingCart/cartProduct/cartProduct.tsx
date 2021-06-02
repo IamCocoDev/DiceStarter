@@ -62,7 +62,7 @@ const CartProduct = (props) => {
             </button>
           }
         </div>
-        <div>${totalPrice}</div>
+        <div>${totalPrice.toFixed(2)}</div>
         <button className='cartProductDelete'
           onClick={handleDeleteProduct} ><i className='material-icons'>
             delete
