@@ -1,4 +1,4 @@
-function template(first, last, email) {
+function template(first, last, address, price) {
   return `
           <!DOCTYPE html>
           <html>
@@ -110,7 +110,7 @@ function template(first, last, email) {
                               <tr>
                                   <td bgcolor="#000000" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #ffffff; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
                                       <h1 style="font-size: 48px; font-weight: 400; margin: 2;">
-                                      Hi ${first} ${last}!</h1> 
+                                      Hi ${first} ${last}!</h1>
                                   </td>
                               </tr>
                           </table>
@@ -121,7 +121,7 @@ function template(first, last, email) {
                           <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                           <tr>
                           <td bgcolor="#000000" align="left" style="padding: 20px 30px 40px 30px; color: #CCCCCC; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                              <p style="margin: 0;">You can recover your password by clicking <a href="http://localhost:3000/user/${email}/recoverpassword">here</a>.</p>
+                              <p style="margin: 0;">We are pleased to inform you that your order by ${price} has been dispatched to ${address}.</p>
                           </td>  
                       </tr>
                       <tr>
@@ -143,7 +143,7 @@ function template(first, last, email) {
                       <tr>
                           <td bgcolor="#74009D" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #CCCCCC; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                               <h2 style="font-size: 20px; font-weight: 400; color: #ffffff; margin: 0;">Need more help?</h2>
-                              <p style="margin: 0;"><a href="" target="_blank" style="color: #cccccc;">We&rsquo;re here to help you out</a></p>
+                              <p style="margin: 0;">We&rsquo;re here to help you out</p>
                           </td>
                       </tr>
                   </table>

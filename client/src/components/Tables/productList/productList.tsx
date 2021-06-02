@@ -94,7 +94,15 @@ function ProductList(props:any): JSX.Element {
 
   const handleOnSubmit = () => {
     if (input.discount < 99) {
-      dispatch(changeProductInDBAsync(input, token));
+      if (input.discount === 0) {
+        console.log('descuento 0');
+        dispatch(changeProductInDBAsync({
+          ...input,
+          priceDiscount: null,
+        }, token));
+      } else {
+        dispatch(changeProductInDBAsync(input, token));
+      }
     } else {
       swal.fire({
         text: `You can't add a 100% discount!`,
@@ -169,7 +177,7 @@ function ProductList(props:any): JSX.Element {
         <button className='productListColorsButton'
           onClick={() => addColor(color)}>Add color</button>
       </div>
-      <div>
+      {/*  <div>
         { <Select
           className='formCreateProductInput'
           isMulti
@@ -179,7 +187,7 @@ function ProductList(props:any): JSX.Element {
           onChange={handleCategoryChange}
         >
         </Select> }
-      </div>
+      </div> */}
       <button className="productListEditButton" onClick={handleOnSubmit}>
         <i className='material-icons'>save</i></button>
       <button className="productListDeleteButton" onClick={() => {

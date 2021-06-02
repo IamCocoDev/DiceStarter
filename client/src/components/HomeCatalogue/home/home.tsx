@@ -46,6 +46,7 @@ function Home(props: any) {
       dispatch(getCheckoutTicket(User.firstName,
           User.lastName, User.email, status));
     }
+    window.scrollTo(0, 0);
   }, []);
   return (
     products !== null ?

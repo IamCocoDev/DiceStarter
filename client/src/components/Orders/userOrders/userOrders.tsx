@@ -21,8 +21,8 @@ const UserOrders = () => {
     console.log(orders);
   }, [orders]);
   return (
-    <div className='userOrdersFlex'>
-      <h1>Your orders</h1>
+    <div className='userOrdersAll'>
+      <h2>Your orders</h2>
       {orders.length ? orders.map((el) =>
         <UserOrdersItem key={el.id} order={el}
           orderProduct={el.products} />) : null}

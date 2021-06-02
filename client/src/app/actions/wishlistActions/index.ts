@@ -10,7 +10,6 @@ export const DELETE_PRODUCT_FROM_WISHLIST = 'DELETE_PRODUCT_FROM_WISHLIST';
 export const getProductsInWishlist = (idUser = '') => (dispatch) => {
   return axios.get(`${BACK_ROUTE}/wishlist/${idUser}`)
       .then((res) => {
-        console.log(res);
         const products = res.data.map((el) => {
           return {
             image: el.picture,
@@ -25,7 +24,6 @@ export const getProductsInWishlist = (idUser = '') => (dispatch) => {
           };
         });
         localStorage.setItem('wishlist', JSON.stringify(products));
-        console.log(products);
         return dispatch({
           type: GET_PRODUCTS_IN_WISHLIST,
           payload: products,

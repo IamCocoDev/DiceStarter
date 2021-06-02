@@ -1,4 +1,8 @@
-function template(first, last, email) {
+const {
+  FRONT_END,
+} = process.env;
+
+function template(first, last, img, productId) {
   return `
           <!DOCTYPE html>
           <html>
@@ -110,7 +114,8 @@ function template(first, last, email) {
                               <tr>
                                   <td bgcolor="#000000" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #ffffff; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
                                       <h1 style="font-size: 48px; font-weight: 400; margin: 2;">
-                                      Hi ${first} ${last}!</h1> 
+                                      Hi ${first} ${last}!</h1>
+                                      <img src=${img} /> 
                                   </td>
                               </tr>
                           </table>
@@ -121,7 +126,7 @@ function template(first, last, email) {
                           <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                           <tr>
                           <td bgcolor="#000000" align="left" style="padding: 20px 30px 40px 30px; color: #CCCCCC; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                              <p style="margin: 0;">You can recover your password by clicking <a href="http://localhost:3000/user/${email}/recoverpassword">here</a>.</p>
+                              <p style="margin: 0;">We are happy to inform you that a product on your wish list has a new discount. When you have time take a look <a href="${FRONT_END}/product/${productId}">here</a>.</p>
                           </td>  
                       </tr>
                       <tr>
@@ -154,7 +159,7 @@ function template(first, last, email) {
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                       <tr>
                           <td bgcolor="#101010" align="left" style="padding: 0px 30px 30px 30px; color: #CCCCCC; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;"> <br>
-                          <p style="margin: 0;">If these emails get annoying, please feel free to unsubscribe from your profile.</p>
+                              <p style="margin: 0;">If these emails get annoying, please feel free to unsubscribe from your profile.</p>
                           </td>
                       </tr>
                   </table>
