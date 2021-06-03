@@ -70,7 +70,7 @@ function ProductDetail(props: any) {
         id: product.id,
         name: product.name,
         price: parseFloat(product.price),
-        image: product.picture[0],
+        image: product.picture,
         stock: product.stock,
         amount: 1,
       }, User.id, User.address));

@@ -43,6 +43,7 @@ export const getProductsInCart = (idUser = '') => (dispatch) => {
 };
 
 export const addProductInCart = (product, userId = '', address) => (dispatch) => {
+  console.log(product);
   const productsInCart = JSON.parse(localStorage
       .getItem('cart') || '[]').concat(product);
   localStorage.setItem('cart', JSON.stringify(productsInCart));
@@ -68,6 +69,7 @@ export const deleteAllCart = (userId = '') => (dispatch) => {
   localStorage.removeItem('cart');
   if (userId === '') {
     dispatch({type: DELETE_ALL_CART});
+    return Promise.resolve('correct');
   } else {
     return axios.delete(`${BACK_ROUTE}/orders/${userId}/cart`)
         .then((res) => dispatch({type: DELETE_ALL_CART}))
