@@ -32,10 +32,21 @@ and the finishing step when the npm install finish, put on the console
 and wait for google to open and you can try this project.
 To close that project close the two consoles and finish.
 
+####  If you want to try checkout?
+You need to use these credentials
+- Card Number: 3711 803032 57522
+- Security Code: 1234
+- Due Date: 11/25
+- Dni: 12345678
+
+#### If you want to see the Administrator view?
+- User: Administrator
+- Password: admin
+
 I hope you like it, thank you for your time. Attentively DiceStarter Team.
 
  If you want to contact us. These are the channels.
- 
+
 ## Martin Caime
 
 - Email: martincaime@gmail.com
