@@ -17,12 +17,14 @@ import {useLocation} from 'react-router-dom';
 import HighlightedProducts from '../highlightedProducts/highlightedProducts';
 import {getProductsInWishlist} from '../../../app/actions/wishlistActions';
 import LoadingScreen from '../../DummyComponents/loadingScreen/loadingScreen';
+import {userToken} from '../../../app/reducers/registerReducer';
 
 function Home(props: any) {
   const searchName = useAppSelector(queryName);
   const searchFilter = useAppSelector(queryFilter);
   const searchSort = useAppSelector(querySort);
   const pagesTotal = useAppSelector(totalPages);
+  const token = useAppSelector(userToken);
   const products = useAppSelector(productsList);
   const User = useAppSelector(userInfo);
   const dispatch = useAppDispatch();
@@ -39,17 +41,17 @@ function Home(props: any) {
       filter: searchFilter,
       sort: searchSort,
     }));
+    window.scrollTo(0, 0);
   }, [page]);
   useEffect(() => {
     if (User.id) {
-      dispatch(getProductsInWishlist(User.id));
+      dispatch(getProductsInWishlist(User.id, token));
     }
     const checkout = props.location.search;
     if (checkout.includes('status')) {
       dispatch(getCheckoutTicket(User.firstName,
           User.lastName, User.email, status));
     }
-    window.scrollTo(0, 0);
   }, []);
   return (
     products !== null ?

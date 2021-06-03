@@ -10,6 +10,7 @@ import swal from 'sweetalert2';
 import {addProductInWishlist, deleteProductInWishlist}
   from '../../../app/actions/wishlistActions';
 import {wishlistsReducer} from '../../../app/reducers/wishlistReducer';
+import {userToken} from '../../../app/reducers/registerReducer';
 
 function ProductCard(
     props:{
@@ -27,6 +28,7 @@ function ProductCard(
   const user = useAppSelector(userInfo);
   const wishlist = useAppSelector(wishlistsReducer);
   const dispatch = useAppDispatch();
+  const token = useAppSelector(userToken);
   const handleOnCart = () => {
     const duplicate = JSON.parse(localStorage
         .getItem('cart') || '[]').find((el) => el.id === props.id);
@@ -89,7 +91,7 @@ function ProductCard(
       background: '#202020',
     });
     if (duplicate.length > 0) {
-      dispatch(deleteProductInWishlist(props.id, user.id));
+      dispatch(deleteProductInWishlist(props.id, user.id, token));
     } else {
       dispatch(addProductInWishlist({
         id: props.id,
@@ -98,7 +100,7 @@ function ProductCard(
         image: props.image,
         stock: props.stock,
         amount: 1,
-      }, user.id));
+      }, user.id, token));
       swal.fire({
         text: 'Product added succesfully!',
         icon: 'success',

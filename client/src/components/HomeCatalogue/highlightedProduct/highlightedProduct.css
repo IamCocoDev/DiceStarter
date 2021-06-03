@@ -37,10 +37,11 @@
 
 .HighlightedProductPrice{
     grid-row:4/5;
-    color: white;
+    margin-bottom: 0.5rem;
+    color: rgba(11, 153, 18, 0.782);
 }
 
 .HighlightedProductDiscount{
-  color: white;
+    margin-top: 0.5rem;
+  color: gold;
 }
-

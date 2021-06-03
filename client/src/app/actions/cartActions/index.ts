@@ -68,6 +68,7 @@ export const deleteAllCart = (userId = '') => (dispatch) => {
   localStorage.removeItem('cart');
   if (userId === '') {
     dispatch({type: DELETE_ALL_CART});
+    return Promise.resolve('correct');
   } else {
     return axios.delete(`${BACK_ROUTE}/orders/${userId}/cart`)
         .then((res) => dispatch({type: DELETE_ALL_CART}))
