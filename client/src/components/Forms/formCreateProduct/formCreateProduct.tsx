@@ -157,6 +157,7 @@ const FormCreateProduct = () => {
       swal.fire({
         title: 'Succesfully created!',
         icon: 'success',
+        background: '#202020',
       });
       dispatch(sendFormAsync(input, token));
       setInput({
@@ -175,6 +176,7 @@ const FormCreateProduct = () => {
       swal.fire({
         text: 'Complete the required spaces!',
         icon: 'info',
+        background: '#202020',
       });
     }
   };

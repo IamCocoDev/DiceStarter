@@ -12,6 +12,7 @@ import {SET_USER,
 } from '../../constants/constants';
 import {DELETE_ALL_CART} from '../cartActions';
 import {userChanges, Address} from '../../../types';
+import swal from 'sweetalert2';
 
 function arrayUnique(array) {
   const a = array.concat();
@@ -118,7 +119,11 @@ const loginGoogle = (googleUser) => {
       if (typeof res.data !== 'object') {
         dispatch(loginFailed());
       } else if (!res.data.token || !res.data.user) {
-        alert('SignUp successfuly, please Log in');
+        swal.fire({
+          text: 'Sign up succesfully! login again please',
+          icon: 'success',
+          background: '#202020',
+        });
       } else {
         localStorage.setItem('user', JSON.stringify(loginUser.user));
         localStorage.setItem('token', JSON.stringify(loginUser.token));
@@ -129,6 +134,11 @@ const loginGoogle = (googleUser) => {
         const produsctId = nuevo.map((el) => el.id);
         await axios.post(`${BACK_ROUTE}/orders/${loginUser.user.id}/invited/cart`, {products: produsctId, address: 'cordoba'});
         dispatch(setToken(loginUser.token));
+        swal.fire({
+          text: 'Login successfully!',
+          icon: 'success',
+          background: '#202020',
+        });
       }
     } catch (err) {
       if (err) return 'error';
