@@ -108,6 +108,7 @@ const FormRegisterForm = () => {
               swal.fire({
                 title: 'Register completed!',
                 icon: 'success',
+                background: '#202020',
               });
               const loginInput = {username: input.name,
                 password: input.password};
@@ -120,6 +121,7 @@ const FormRegisterForm = () => {
                 title: 'Register Failed',
                 html: `Email or Username already exists!
                 <a href='/profile'>Log in Here!</a>`,
+                background: '#202020',
               });
             }
           }).catch((err) => console.error(err));
@@ -127,6 +129,7 @@ const FormRegisterForm = () => {
       swal.fire({
         title: 'Complete the required spaces!',
         icon: 'warning',
+        background: '#202020',
       });
     }
   };

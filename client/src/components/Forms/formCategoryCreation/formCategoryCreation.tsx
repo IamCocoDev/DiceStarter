@@ -22,12 +22,14 @@ const FormCategoryCreation = () => {
       return swal.fire({
         text: 'Insert a category name!',
         icon: 'info',
+        background: '#202020',
       });
     }
     flag === true && dispatch(addCategoryAsync(input, token));
     return swal.fire({
       text: 'Category created successfully',
       icon: 'success',
+      background: '#202020',
     });
   };
   return (

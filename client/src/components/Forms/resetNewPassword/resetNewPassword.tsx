@@ -5,6 +5,7 @@ import {useAppDispatch} from '../../../app/hooks';
 import {setNewPassword} from '../../../app/actions/actionsUser';
 import './resetNewPassword.css';
 import {Redirect} from 'react-router';
+import swal from 'sweetalert2';
 
 function deepEqualError(a) {
   return JSON.stringify(a) === JSON.stringify({
@@ -55,7 +56,11 @@ const ResetNewPassword = (props) => {
     e.preventDefault();
     if (deepEqualError(errors)) {
       dispatch(setNewPassword(email, input));
-      alert('Password reseted!');
+      swal.fire({
+        title: 'Password restored',
+        icon: 'success',
+        background: '#202020',
+      });
       setRedirect(true);
     } else {
       alert('please enter a valid password');

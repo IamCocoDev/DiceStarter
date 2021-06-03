@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import {deleteReviews} from '../../../app/actions/reviewsActions/index';
 import {userToken} from '../../../app/reducers/registerReducer';
 import {NavLink} from 'react-router-dom';
+import swal from 'sweetalert2';
 
 const ReviewList = (props:{
     comment:string,
@@ -17,7 +18,25 @@ const ReviewList = (props:{
   const dispatch = useAppDispatch();
   const token = useAppSelector(userToken);
   const handleDelete = () => {
-    dispatch(deleteReviews(props.id, props.productId, token));
+    swal.fire({
+      title: 'Delete review?',
+      text: 'Are you sure you want to Delete this review?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#74009D',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete',
+      background: '#202020',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteReviews(props.id, props.productId, token));
+        swal.fire({
+          text: `Review deleted!`,
+          icon: 'info',
+          background: '#202020',
+        });
+      }
+    }).catch((err) => console.error(err));
   };
   return (
     <div className='reviewListAll'>
