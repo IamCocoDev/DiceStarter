@@ -48,11 +48,13 @@ const Profile = (props:any) => {
             swal.fire({
               text: 'Changes saved succesfully!',
               icon: 'success',
+              background: '#202020',
             });
           } else {
             swal.fire({
               text: 'Oops, something went wrong',
               icon: 'error',
+              background: '#202020',
             });
           }
         }).catch((err) => console.error(err));

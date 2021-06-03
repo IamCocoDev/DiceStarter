@@ -24,15 +24,17 @@ const CartProduct = (props) => {
       text: 'Are you sure you want to delete this product from cart?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#74009D',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes',
+      background: '#202020',
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteProductFromCart(id, idOrder, userId, token));
         swal.fire({
           text: 'Product deleted!',
           icon: 'info',
+          background: '#202020',
         });
       }
     }).catch((err) => console.error(err));

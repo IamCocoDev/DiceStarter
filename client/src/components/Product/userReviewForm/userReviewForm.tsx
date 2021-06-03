@@ -29,7 +29,10 @@ const UserReviewForm = (props: {id:string}) => {
   const handleReviewSubmit = (e: any) => {
     e.preventDefault();
     if (!user.name) {
-      swal.fire('You must be logged in for writing a review!');
+      swal.fire({
+        text: 'You must be logged in for writing a review!',
+        background: '#202020',
+      });
       guestFlag = false;
       setRedirect(true);
     }
@@ -40,6 +43,7 @@ const UserReviewForm = (props: {id:string}) => {
       return swal.fire({
         text: 'You already gave your opinion',
         icon: 'info',
+        background: '#202020',
       });
     }
     if (input.comment && flag === true && guestFlag === true) {
@@ -49,17 +53,20 @@ const UserReviewForm = (props: {id:string}) => {
           swal.fire({
             text: 'Review Posted succesfully!',
             icon: 'success',
+            background: '#202020',
           });
         } else {
           swal.fire({
             text: 'A rating score is required for posting a review',
             icon: 'warning',
+            background: '#202020',
           });
         }
       } else {
         swal.fire({
           text: 'Your review must have less than 255 characters',
           icon: 'warning',
+          background: '#202020',
         });
       }
       // Prevents unnecessary alerts
@@ -67,6 +74,7 @@ const UserReviewForm = (props: {id:string}) => {
       swal.fire({
         text: 'Your review must have something to say',
         icon: 'info',
+        background: '#202020',
       });
     }
   };

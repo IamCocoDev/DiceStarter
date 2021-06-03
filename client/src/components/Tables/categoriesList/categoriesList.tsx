@@ -5,6 +5,7 @@ import {userToken} from '../../../app/reducers/registerReducer';
 import {putCategory, deleteCategory} from
   '../../../app/actions/handleProductsActions';
 import './categoriesList.css';
+import swal from 'sweetalert2';
 
 const CategoriesList = (props) => {
   const [input, setInput] = useState(props.name);
@@ -13,6 +14,11 @@ const CategoriesList = (props) => {
   const token = useAppSelector(userToken);
   const handleClick = (e) => {
     e.preventDefault();
+    swal.fire({
+      text: 'Category updated!',
+      icon: 'success',
+      background: '#202020',
+    });
     const newcategory = {
       name: input,
     };
@@ -20,7 +26,25 @@ const CategoriesList = (props) => {
   };
   const handleDelete = (e) => {
     e.preventDefault();
-    dispatch(deleteCategory(props.name, token));
+    swal.fire({
+      title: 'Delete Category?',
+      text: 'Are you sure you want to delete this Category?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#74009D',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      background: '#202020',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteCategory(props.name, token));
+        swal.fire({
+          text: 'Category deleted!',
+          icon: 'info',
+          background: '#202020',
+        });
+      }
+    }).catch((err) => console.error(err));
   };
   return (
     <div className='categoriesListAll'>

@@ -8,6 +8,7 @@ import {userToken} from '../../../app/reducers/registerReducer';
 import {putOrderStatus} from '../../../app/actions/orderActions';
 import {Redirect} from 'react-router';
 import {getOneOrder} from '../../../app/actions/orderActions';
+import swal from 'sweetalert2';
 
 const process = (array) => {
   let total = 0;
@@ -60,15 +61,33 @@ const OrderListItem = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newOrder = {
-      address,
-      id,
-      price,
-      status: input.value,
-      user,
-      userId,
-    };
-    dispatch(putOrderStatus(userId, newOrder, token));
+    swal.fire({
+      title: 'Update status?',
+      text: 'Are you sure you want to update this Order?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#74009D',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      background: '#202020',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const newOrder = {
+          address,
+          id,
+          price,
+          status: input.value,
+          user,
+          userId,
+        };
+        dispatch(putOrderStatus(userId, newOrder, token));
+        swal.fire({
+          text: `Order updated to ${input.value}!`,
+          icon: 'info',
+          background: '#202020',
+        });
+      }
+    }).catch((err) => console.error(err));
   };
   const handleClick = (e) => {
     e.preventDefault();

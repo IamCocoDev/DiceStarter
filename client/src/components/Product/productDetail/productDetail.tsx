@@ -63,6 +63,7 @@ function ProductDetail(props: any) {
       swal.fire({
         text: 'You already added this product to cart!',
         icon: 'info',
+        background: '#202020',
       });
     } else {
       dispatch(addProductInCart({
@@ -76,6 +77,8 @@ function ProductDetail(props: any) {
       swal.fire({
         text: 'Product added succesfully!',
         icon: 'success',
+        background: '#202020',
+        position: 'top-end',
       });
     }
   };
@@ -87,6 +90,7 @@ function ProductDetail(props: any) {
       swal.fire({
         text: 'Product removed from the wishlist!',
         icon: 'info',
+        background: '#202020',
       });
     } else {
       dispatch(addProductInWishlist({
@@ -100,6 +104,7 @@ function ProductDetail(props: any) {
       swal.fire({
         text: 'Product added succesfully!',
         icon: 'success',
+        background: '#202020',
       });
     }
   };
@@ -170,11 +175,13 @@ function ProductDetail(props: any) {
             swal.fire({
               text: 'Changes Saved!',
               icon: 'success',
+              background: '#202020',
             });
           } else {
             swal.fire({
               text: 'Oops, something went wrong',
               icon: 'error',
+              background: '#202020',
             });
           }
         }).catch((err) => console.error(err));
@@ -204,6 +211,7 @@ function ProductDetail(props: any) {
         swal.fire({
           text: 'You already added this color!',
           icon: 'info',
+          background: '#202020',
         });
       }
     });
@@ -217,6 +225,7 @@ function ProductDetail(props: any) {
       swal.fire({
         text: 'Products cannot have more than 5 colors!',
         icon: 'warning',
+        background: '#202020',
       });
     };
   };
@@ -370,6 +379,7 @@ function ProductDetail(props: any) {
                                           text: `Product must have at least 1
                                            color!`,
                                           icon: 'warning',
+                                          background: '#202020',
                                         });
                                       }
                                     }
