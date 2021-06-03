@@ -83,7 +83,6 @@ function ProductDetail(props: any) {
     const duplicate = JSON.parse(localStorage
         .getItem('wishlist') || '[]').find((el) => el.id === product.id);
     if (duplicate) {
-      console.log(product.id);
       dispatch(deleteProductInWishlist(product.id, User.id));
       swal.fire({
         text: 'Product removed from the wishlist!',
@@ -157,7 +156,6 @@ function ProductDetail(props: any) {
         label: c.name,
       };
     }));
-    console.log(productDetailCategories);
   }, [product]);
 
 
@@ -195,7 +193,6 @@ function ProductDetail(props: any) {
     categories: product?.categories,
     rating: product?.rating,
   });
-  console.log(product);
   useEffect(() => {
     setChanges({...changes,
       categories: productDetailCategories?.map((c) => c.value)});
@@ -246,7 +243,6 @@ function ProductDetail(props: any) {
     size: e.target.innerText});
   const handlePriceChange = (e:any) => setChanges({...changes,
     price: e.target.innerText});
-  console.log(changes);
   return (
     <div className='productDetailBackground'>
       {
@@ -365,7 +361,6 @@ function ProductDetail(props: any) {
                                   <ColorCircle key={id} color={el}
                                     onClick={() => {
                                       if (changes.color.length > 1) {
-                                        console.log(changes.color.length > 1);
                                         const toChange =
                         changes.color.filter((color:any) => el !== color);
                                         setChanges({...changes,

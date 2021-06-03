@@ -42,7 +42,6 @@ const putOrderStatus = (idUser, newStatus, token) => {
         },
       });
       dispatch(setOrders(res.data));
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }

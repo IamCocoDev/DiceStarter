@@ -104,7 +104,6 @@ const FormRegisterForm = () => {
       // using dispatch as a promise for error handling
       dispatch(sendFormAsync(input))
           .then((r:any) => {
-            console.log(r);
             if (r !== 'error') {
               swal.fire({
                 title: 'Register completed!',
