@@ -167,13 +167,11 @@ const logout = () => {
 const modifyUser = (changes:userChanges, token:string) => {
   return async (dispatch:any) => {
     try {
-      localStorage.setItem('user', JSON.stringify(changes));
       await axios.put(`${BACK_ROUTE}/user/${changes.id}`, changes, {
         headers: {
           'Authorization': 'Bearer ' + token,
         },
       });
-      dispatch(setUser(changes));
     } catch (err) {
       console.error(err);
       if (err) return 'error';
