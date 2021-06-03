@@ -95,7 +95,6 @@ function ProductList(props:any): JSX.Element {
   const handleOnSubmit = () => {
     if (input.discount < 99) {
       if (input.discount === 0) {
-        console.log('descuento 0');
         dispatch(changeProductInDBAsync({
           ...input,
           priceDiscount: null,

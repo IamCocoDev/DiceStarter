@@ -27,9 +27,7 @@ const UserOrdersItem = (props) => {
     };
   });
   const total = process(cosas);
-  console.log(cosas);
   useEffect(() => {
-    console.log(info);
   }, [info]);
   const handleClick = (e) => {
     e.preventDefault();

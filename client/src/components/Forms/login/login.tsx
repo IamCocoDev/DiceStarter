@@ -49,7 +49,6 @@ const Login = () => {
     if (deepEqualError(errors)) {
       dispatch(loginFormAsync(input))
           .then((r) => {
-            console.log(r);
             if (r !== 'error') {
               swal.fire({
                 title: 'Logged in succesfully!',

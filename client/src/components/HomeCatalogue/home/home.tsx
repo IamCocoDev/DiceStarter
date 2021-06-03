@@ -29,7 +29,7 @@ function Home(props: any) {
   const status = new URLSearchParams(useLocation().search).get('status');
   const foundQueryNumber = props.location.search.indexOf('=');
   let page = parseInt(props.location.search.slice(foundQueryNumber +1));
-  console.log(User);
+
   useEffect(() => {
     if (!page) page = 1;
     if (page === NaN) page = 1;
