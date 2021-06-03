@@ -220,7 +220,6 @@ const FormCreateProduct = () => {
               .child(image.name)
               .getDownloadURL()
               .then((u) => {
-                console.log(u);
                 setInput({...input, picture: [...input.picture, u]});
               });
         },

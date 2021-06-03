@@ -21,7 +21,6 @@ const OrderListItem = (props) => {
   // eslint-disable-next-line no-unused-vars
   const {address, id, price, status, user, userId} = props.order;
   const orderProduct = props.orderProduct;
-  console.log(orderProduct);
   const cosas = orderProduct.map((el) => {
     return {
       price: el.priceDiscount ?
@@ -69,7 +68,6 @@ const OrderListItem = (props) => {
       user,
       userId,
     };
-    console.log(newOrder);
     dispatch(putOrderStatus(userId, newOrder, token));
   };
   const handleClick = (e) => {

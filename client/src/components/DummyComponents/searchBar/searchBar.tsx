@@ -24,7 +24,7 @@ function searchBar(): JSX.Element {
   }, [input]);
   return (
     <form className='searchBarFlex'>
-      <input type="text" placeholder='Busca tu juego favorito'
+      <input type="text" placeholder='Search your favorite game'
         onChange={handleChange}
         value={input}
         className="searchBarText" />

@@ -33,7 +33,6 @@ export const getProductsInCart = (idUser = '') => (dispatch) => {
             };
           });
           localStorage.setItem('cart', JSON.stringify(products));
-          console.log(products);
           return dispatch({
             type: GET_PRODUCTS_IN_CART,
             payload: products,
@@ -85,7 +84,6 @@ export const deleteProductFromCart =
     if (userId === '') {
       dispatch({type: DELETE_PRODUCT_FROM_CART, payload: id});
     } else {
-      console.log(token);
       return axios.delete(`${BACK_ROUTE}/orders/orderdelete/${idOrder}/${id}`, {
         headers: {
           'Authorization': 'Bearer ' + token,
@@ -148,10 +146,8 @@ export const getCheckoutTicket =
             });
             Promise.all(promises)
                 .then(() => {
-                  console.log('LUEGO DEL PROMISE.ALL');
                   return axios.post(`${BACK_ROUTE}/orders/${userId}/update/cart`, {status: 'Complete'})
                       .then(() => {
-                        console.log('ADENTRO DEL PROMISE.ALL');
                         dispatch({type: DELETE_ALL_CART});
                         localStorage.removeItem('cart');
                       })

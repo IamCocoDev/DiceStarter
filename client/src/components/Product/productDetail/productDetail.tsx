@@ -11,17 +11,23 @@ import {userInfo, userToken} from '../../../app/reducers/registerReducer';
 import {addProductInCart} from '../../../app/actions/cartActions/index';
 import RatingStars from '../../DummyComponents/ratingStars/ratingStars';
 import swal from 'sweetalert2';
-import {addProductInWishlist} from '../../../app/actions/wishlistActions';
+import {
+  addProductInWishlist,
+  deleteProductInWishlist,
+} from '../../../app/actions/wishlistActions';
 import LoadingScreen from '../../DummyComponents/loadingScreen/loadingScreen';
 import Select from 'react-select';
 import {getCategoriesAsync}
   from '../../../app/actions/handleProductsActions/index';
 import {productCategories} from '../../../app/reducers/handleProductsReducer';
+import {wishlistsReducer} from '../../../app/reducers/wishlistReducer';
 
-function ProductDetail(props:any ) {
+function ProductDetail(props: any) {
+  const wishlist = useAppSelector(wishlistsReducer);
   const token = useAppSelector(userToken);
   const User = useAppSelector(userInfo);
   const [editMode, setEditMode] = useState(false);
+  const [active, setActive] = useState(false);
   const dispatch = useAppDispatch();
   const product = useAppSelector(productDetail);
   const productCats = useAppSelector(productCategories);
@@ -39,6 +45,17 @@ function ProductDetail(props:any ) {
           setChanges(p);
         }).catch((err) => console.error(err));
   }, []);
+
+  useEffect(() => {
+    if (product) {
+      if (wishlist.find((el) => el.id === product.id)) {
+        setActive(true);
+      } else {
+        setActive(false);
+      }
+    }
+  }, [product]);
+
   const handleOnCart = () => {
     const duplicate = JSON.parse(localStorage
         .getItem('cart') || '[]').find((el) => el.id === product.id);
@@ -66,8 +83,9 @@ function ProductDetail(props:any ) {
     const duplicate = JSON.parse(localStorage
         .getItem('wishlist') || '[]').find((el) => el.id === product.id);
     if (duplicate) {
+      dispatch(deleteProductInWishlist(product.id, User.id, token));
       swal.fire({
-        text: 'You already added this product to wishlist!',
+        text: 'Product removed from the wishlist!',
         icon: 'info',
       });
     } else {
@@ -130,6 +148,15 @@ function ProductDetail(props:any ) {
       label: c.name,
     };
   }));
+
+  useEffect(() => {
+    setProductDetailCategories(product?.categories?.map((c) => {
+      return {
+        value: c.id,
+        label: c.name,
+      };
+    }));
+  }, [product]);
 
   const handleSelectChange = (e:any) => {
     setProductDetailCategories(e);
@@ -194,8 +221,17 @@ function ProductDetail(props:any ) {
     };
   };
 
+  function toggle() {
+    setActive(!active);
+  }
+
   useEffect(() => {
     dispatch(getCategoriesAsync());
+    if (wishlist.find((el) => el.id === props.id)) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
   }, []);
   const handleNameChange = (e:any) => setChanges({...changes,
     name: e.target.innerText});
@@ -207,7 +243,6 @@ function ProductDetail(props:any ) {
     size: e.target.innerText});
   const handlePriceChange = (e:any) => setChanges({...changes,
     price: e.target.innerText});
-  console.log(changes);
   return (
     <div className='productDetailBackground'>
       {
@@ -286,6 +321,13 @@ function ProductDetail(props:any ) {
                           onClick={handleOnWishlist}>
                         Add to Wishlist
                         </button>
+                        {User.id && <button onClick={() => {
+                          handleOnWishlist(); toggle();
+                        }}
+                        className={`${active ? 'activeWishlist' :
+                            'inactiveWishlist'} material-icons`}>
+                          favorite
+                        </button>}
                       </div>:
                       <button type='button'
                         className=' material-icons productDetailEdit'
@@ -322,7 +364,6 @@ function ProductDetail(props:any ) {
                                   <ColorCircle key={id} color={el}
                                     onClick={() => {
                                       if (changes.color.length > 1) {
-                                        console.log(changes.color.length > 1);
                                         const toChange =
                         changes.color.filter((color:any) => el !== color);
                                         setChanges({...changes,

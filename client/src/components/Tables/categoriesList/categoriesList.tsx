@@ -16,7 +16,6 @@ const CategoriesList = (props) => {
     const newcategory = {
       name: input,
     };
-    console.log(token);
     dispatch(putCategory(props.name, newcategory, token));
   };
   const handleDelete = (e) => {
