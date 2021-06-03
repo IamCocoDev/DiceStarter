@@ -86,58 +86,58 @@ const Profile = (props:any) => {
         <h2 className='profileUsername'>{User.name}</h2>
       </div>
       <div className='profileRight'>
-        <p className='profileBirthday'>
+        <div className='profileBirthday'>
           Birthday:
           <p className= 'noteditable'>
             {birthDate}
           </p>
-        </p>
+        </div>
         {
           User.address ?
           <div>
-            <p className='profileAddress'>
+            <div className='profileAddress'>
                Address:
               <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleAddressChange}>
                 {User.address}
               </p>
-            </p>
-            <p className='profileCity'>
+            </div>
+            <div className='profileCity'>
             City:
               <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleCityChange}>
                 {User.city},
               </p>
-            </p>
-            <p className='profileCountry'>
+            </div>
+            <div className='profileCountry'>
             Country:
               <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleCityChange}>
                 {User.country}
               </p>
-            </p>
-            <p className='profilePostal'>
+            </div>
+            <div className='profilePostal'>
               Postal Code:
               <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePCChange}>
                 {User.postalCode}
               </p>
-            </p>
+            </div>
             { User.phoneNumber &&
-               <p className='profilePhoneNumber'>
+               <div className='profilePhoneNumber'>
                Phone Number:
                  <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handlePhoneChange}>
                    {User.phoneNumber}
                  </p>
-               </p>
+               </div>
             }
           </div> :
             <p className='profileAddressForm'>
             It seems you do not have an address, <NavLink to='/address'> create one here!  </NavLink>
             </p>
         }
-        <p className='profileEmail'>
+        <div className='profileEmail'>
           Email:
           <p className={editMode ? 'editable' : 'noteditable'} suppressContentEditableWarning={true} contentEditable={editMode} onInput={handleEmailChange}>
             {User.email}
           </p>
-        </p>
+        </div>
         <div className='profileButtons'>
           <input className='material-icons profileEditButton' type='button' value='edit' onClick={() => setEditMode(!editMode)}/>
           { changes.firstName !== User.firstName || changes.lastName !== User.lastName || changes.address !== User.address || changes.city !== User.city || changes.postalCode !== User.postalCode || changes.email !== User.email || changes.phone !== User.phone ?
@@ -145,14 +145,14 @@ const Profile = (props:any) => {
           }
           <input className='profileLogOut' type='button' value='Log Out' onClick={handleLogout}/>
         </div>
-        <div className='suscribeMail'>
+        {User.role === 'User' ? <div className='suscribeMail'>
           <input className='suscribeMailBox' type='checkbox'
             onChange={handleSubscribe}
             checked={subscribed}
           />
           <label className='suscribeMailText'>Subscribe to our Newsletter to get the latest products and offers!</label>
-        </div>
-        <NavLink className='profileHistoryButton' to='/list/orderUser'>Your Purchases</NavLink>
+        </div> : null}
+        {User.role === 'User' ? <NavLink className='profileHistoryButton' to='/list/orderUser'>Your Purchases</NavLink> : null}
       </div>
     </div> :
      <div><Login/></div>

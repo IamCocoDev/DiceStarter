@@ -22,7 +22,7 @@ const CartTotal = () => {
   productsInCart.forEach((element) => {
     total += element.price * element.amount;
   });
-  total = Math.ceil(total);
+  total = parseFloat(total.toFixed(2));
   // eslint-disable-next-line react/prop-types
   useEffect(() => {
     dispatch(getProductsInCart());
@@ -44,7 +44,7 @@ const CartTotal = () => {
     } else {
       swal.fire({
         html: `it seems you don't have an adress, 
-        <a href='/profile/address'>Add one here</a>`,
+        <a href='/address'>Add one here</a>`,
         icon: 'info',
       });
     };
