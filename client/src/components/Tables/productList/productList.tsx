@@ -207,11 +207,12 @@ function ProductList(props:any): JSX.Element {
           confirmButtonText: 'Yes, delete it!',
         }).then((result) => {
           if (result.isConfirmed) {
-            swal.fire(
-                'Deleted!',
-                'The product has been deleted.',
-                'success',
-            );
+            swal.fire({
+              title: 'Deleted!',
+              text: 'The product has been deleted.',
+              icon: 'success',
+              background: '#202020',
+            });
             dispatch(deleteProductByIdAsync(input.id, token));
           }
         });
