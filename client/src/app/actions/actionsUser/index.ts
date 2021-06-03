@@ -116,9 +116,15 @@ const loginGoogle = (googleUser) => {
     try {
       const res = await axios.post(`${BACK_ROUTE}/user/signupgoogle`, googleUser);
       const loginUser = res.data;
-      if (typeof res.data !== 'object') {
+      console.log(loginUser);
+      if (typeof loginUser !== 'object' || loginUser.user.status === 'Banned' || loginUser.user.status === 'Closed') {
+        swal.fire({
+          text: 'Opps! something wrong happens...',
+          icon: 'warning',
+          background: '#202020',
+        });
         dispatch(loginFailed());
-      } else if (!res.data.token || !res.data.user) {
+      } else if (!loginUser.token || !loginUser.user) {
         swal.fire({
           text: 'Sign up succesfully! login again please',
           icon: 'success',

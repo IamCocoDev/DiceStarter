@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import {loginGoogle} from '../../../app/actions/actionsUser/index';
 import {userInfo} from '../../../app/reducers/registerReducer';
 import {Redirect} from 'react-router';
+import swal from 'sweetalert2';
 
 const GoogleComp = () => {
   const [redirect, setRedirect] = useState(false);
@@ -23,6 +24,13 @@ const GoogleComp = () => {
     dispatch(loginGoogle(loginUser));
     setRedirect(true);
   };
+  const onFailure = () => {
+    swal.fire({
+      text: 'Opps! something wrong happens...',
+      icon: 'warning',
+      background: '#202020',
+    });
+  };
   useEffect(() => {
   }, [User]);
   return (
@@ -33,7 +41,7 @@ const GoogleComp = () => {
         clientId='196643905398-a4uprd8n3b6k4bop2rvgeb1bpv6p4t87.apps.googleusercontent.com'
         buttonText='Login with Google'
         onSuccess={onSignIn}
-        onFailure={onSignIn}
+        onFailure={onFailure}
         cookiePolicy={'single_host_origin'}
       />
     </div>
