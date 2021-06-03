@@ -1,4 +1,4 @@
-# # DiceStarter
+## DiceStarter
 
 <img height="250" width="400" src='https://user-images.githubusercontent.com/48165276/120648699-522d6080-c452-11eb-88c1-d1b911854692.png'><img height="250" width="400" src='https://user-images.githubusercontent.com/48165276/120648741-5e192280-c452-11eb-85e2-885c062510d0.png'>
 <img height="250" width="400" src='https://user-images.githubusercontent.com/48165276/120648794-6a9d7b00-c452-11eb-9622-7c5f6d54a6f7.png'><img height="250" width="400" src='https://user-images.githubusercontent.com/48165276/120648822-71c48900-c452-11eb-881c-29b77ce436a2.png'>
