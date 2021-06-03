@@ -21,6 +21,7 @@ const FormAddress = () => {
   const phoneValidator = (phone:string) => {
     // eslint-disable-next-line max-len
     const phoneValidator = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+    console.log(phone);
     if (phone?.length > 0) {
       phoneValidator.test(phone) === false ? false : true;
     } else {

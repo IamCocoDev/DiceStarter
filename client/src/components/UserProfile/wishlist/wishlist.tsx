@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import {wishlistsReducer} from '../../../app/reducers/wishlistReducer';
 import {deleteAllWishlist, getProductsInWishlist}
   from '../../../app/actions/wishlistActions';
-import {userInfo} from '../../../app/reducers/registerReducer';
+import {userInfo, userToken} from '../../../app/reducers/registerReducer';
 import swal from 'sweetalert2';
 import './wishlist.css';
 import ProductCard from '../../HomeCatalogue/productCard/productCard';
@@ -13,6 +13,7 @@ const Wishlist = () => {
   const wishlistProducts = useAppSelector(wishlistsReducer);
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
+  const token = useAppSelector(userToken);
   console.log(wishlistProducts);
   const handleDeleteWishlist = () => {
     if (wishlistProducts.length <= 0) {
@@ -32,10 +33,10 @@ const Wishlist = () => {
       })
           .then((result) => {
             if (result.isConfirmed) {
-              dispatch(deleteAllWishlist(userId))
+              dispatch(deleteAllWishlist(userId, token))
                   .then((r) => {
                     if (r !== 'error') {
-                      dispatch(getProductsInWishlist(userId));
+                      dispatch(getProductsInWishlist(userId, token));
                       swal.fire({
                         text: 'Wishlist deleted successfully',
                         icon: 'info',
@@ -53,7 +54,7 @@ const Wishlist = () => {
   };
 
   useEffect(() => {
-    dispatch(getProductsInWishlist(userId));
+    dispatch(getProductsInWishlist(userId, token));
   }, []);
 
   return (

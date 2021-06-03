@@ -8,16 +8,14 @@ const HighlightedProduct = (props:{
     name,
     rating,
     picture,
-    price,
-    priceDiscount,
+    discount
 }) => {
   const {
     id,
     name,
     rating,
     picture,
-    price,
-    priceDiscount,
+    discount,
   } = props;
   const photo = picture[0];
   return (
@@ -30,14 +28,13 @@ const HighlightedProduct = (props:{
           <RatingStars rating={rating}/>
         </div>
         <img className='HighlightedProductImage' src={photo}/>
-        <p className='HighlightedProductPrice'>
-          ${price}
-        </p>
-        {
-          priceDiscount !== null &&
+        { discount > 0 ?
+        <div className='HighlightedProductPrice'>
+           OFFER
           <p className='HighlightedProductDiscount'>
-            ${priceDiscount}
+          - %{discount}
           </p>
+        </div> : null
         }
       </div>
     </NavLink>

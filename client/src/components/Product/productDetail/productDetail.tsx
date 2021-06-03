@@ -78,7 +78,7 @@ function ProductDetail(props:any ) {
         image: product.picture[0],
         stock: product.stock,
         amount: 1,
-      }, User.id));
+      }, User.id, token));
       swal.fire({
         text: 'Product added succesfully!',
         icon: 'success',
@@ -131,17 +131,6 @@ function ProductDetail(props:any ) {
     };
   }));
 
-  useEffect(() => {
-    setProductDetailCategories(product?.categories?.map((c) => {
-      return {
-        value: c.id,
-        label: c.name,
-      };
-    }));
-    console.log(productDetailCategories);
-  }, [product]);
-
-
   const handleSelectChange = (e:any) => {
     setProductDetailCategories(e);
   };
@@ -176,7 +165,7 @@ function ProductDetail(props:any ) {
     categories: product?.categories,
     rating: product?.rating,
   });
-  console.log(product);
+
   useEffect(() => {
     setChanges({...changes,
       categories: productDetailCategories?.map((c) => c.value)});
@@ -242,12 +231,11 @@ function ProductDetail(props:any ) {
                 <RatingStars rating={product.rating}/>
               </div>
               { editMode === false ?
-                <div className='productDetailCategoriesAll'>
-                  {
-                    productDetailCategories?.map((c, i) =>
-                      <span key={i} className='productDetailCategories'>
-                        {c.label}
-                      </span>)}
+                <div>
+                  {product.categories.map((c, i) =>
+                    <span key={i} className='productDetailCategories'>
+                      {c.name}
+                    </span>)}
                 </div> :
                 <div className='ProductDetailSelect'>
                   <Select onChange={handleSelectChange}
@@ -294,9 +282,9 @@ function ProductDetail(props:any ) {
                           onClick={handleOnCart}>
                         Add to Cart
                         </button>
-                        <button className='productDetailAddToWhishlist'
+                        <button className='productDetailAddToCart'
                           onClick={handleOnWishlist}>
-                          <i className='material-icons'>favorite</i>
+                        Add to Wishlist
                         </button>
                       </div>:
                       <button type='button'

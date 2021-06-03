@@ -17,12 +17,14 @@ import {useLocation} from 'react-router-dom';
 import HighlightedProducts from '../highlightedProducts/highlightedProducts';
 import {getProductsInWishlist} from '../../../app/actions/wishlistActions';
 import LoadingScreen from '../../DummyComponents/loadingScreen/loadingScreen';
+import {userToken} from '../../../app/reducers/registerReducer';
 
 function Home(props: any) {
   const searchName = useAppSelector(queryName);
   const searchFilter = useAppSelector(queryFilter);
   const searchSort = useAppSelector(querySort);
   const pagesTotal = useAppSelector(totalPages);
+  const token = useAppSelector(userToken);
   const products = useAppSelector(productsList);
   const User = useAppSelector(userInfo);
   const dispatch = useAppDispatch();
@@ -42,7 +44,7 @@ function Home(props: any) {
   }, [page]);
   useEffect(() => {
     if (User.id) {
-      dispatch(getProductsInWishlist(User.id));
+      dispatch(getProductsInWishlist(User.id, token));
     }
     const checkout = props.location.search;
     if (checkout.includes('status')) {

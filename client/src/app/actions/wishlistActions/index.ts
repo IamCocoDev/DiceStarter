@@ -7,7 +7,7 @@ export const DELETE_ALL_WISHLIST = 'DELETE_ALL_WISHLIST';
 export const DELETE_PRODUCT_FROM_WISHLIST = 'DELETE_PRODUCT_FROM_WISHLIST';
 
 
-export const getProductsInWishlist = (idUser = '') => (dispatch) => {
+export const getProductsInWishlist = (idUser = '', token) => (dispatch) => {
   return axios.get(`${BACK_ROUTE}/wishlist/${idUser}`)
       .then((res) => {
         const products = res.data.map((el) => {
@@ -32,7 +32,8 @@ export const getProductsInWishlist = (idUser = '') => (dispatch) => {
       .catch((err) => console.error(err));
 };
 
-export const addProductInWishlist = (product, userId = '') => (dispatch) => {
+export const addProductInWishlist =
+(product, userId = '', token) => (dispatch) => {
   const productsInWishlist = JSON.parse(localStorage
       .getItem('wishlist') || '[]').concat(product);
   const products = productsInWishlist.map((p) => p.id);
@@ -48,7 +49,8 @@ export const addProductInWishlist = (product, userId = '') => (dispatch) => {
   });
 };
 
-export const deleteProductInWishlist = (id, userId= '') => (dispatch) => {
+export const deleteProductInWishlist =
+(id, userId= '', token) => (dispatch) => {
   const productsInWishlist = JSON
       .parse(localStorage
           .getItem('wishlist') || '[]').filter((product) => product.id !== id);
@@ -70,7 +72,7 @@ export const deleteAllLocalWishlist = () => (dispatch) => {
   dispatch({type: DELETE_ALL_WISHLIST});
 };
 
-export const deleteAllWishlist = (userId = '') => (dispatch) => {
+export const deleteAllWishlist = (userId = '', token) => (dispatch) => {
   localStorage.removeItem('wishlist');
   if (userId === '') {
     dispatch({type: DELETE_ALL_WISHLIST});
