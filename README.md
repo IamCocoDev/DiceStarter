@@ -62,6 +62,9 @@ I hope you like it, thank you for your time. Attentively DiceStarter Team.
  - Likedin: **https://www.linkedin.com/in/benjamin-guerra-dev/**
  
 ## Federico Giovenco
+
+<img height="100" width="100" src='https://media.licdn.com/media/AAYQAQSOAAgAAQAAAAAAAB-zrMZEDXI2T62PSuT6kpB6qg.png'>
+
 <a href="https://www.linkedin.com/in/federico-giovenco-96929320b/" ><img width="5%" src="https://image.flaticon.com/icons/png/512/174/174857.png"> &nbsp;<a href="mailto:giovencofede@gmail.com" ><img width="5%" src="https://cdn.icon-icons.com/icons2/2631/PNG/512/gmail_new_logo_icon_159149.png"><a href="https://twitter.com/cocofexe" ><img width="5%" src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c53e.png"><a href="https://www.instagram.com/fedegiovenco/" ><img width="5%" src="https://image.flaticon.com/icons/png/512/174/174855.png">
  
  <a><img src='https://img.shields.io/badge/+541167910548-my_phone_number-1B8C26?style=for-the-badge&logo=phone&logoColor=white&labelColor=101010' /></a>
