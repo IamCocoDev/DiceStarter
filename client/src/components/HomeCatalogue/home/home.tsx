@@ -41,6 +41,7 @@ function Home(props: any) {
       filter: searchFilter,
       sort: searchSort,
     }));
+    window.scrollTo(0, 0);
   }, [page]);
   useEffect(() => {
     if (User.id) {
@@ -51,7 +52,6 @@ function Home(props: any) {
       dispatch(getCheckoutTicket(User.firstName,
           User.lastName, User.email, status));
     }
-    window.scrollTo(0, 0);
   }, []);
   return (
     products !== null ?

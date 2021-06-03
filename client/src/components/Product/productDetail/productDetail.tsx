@@ -326,10 +326,6 @@ function ProductDetail(props: any) {
                           onClick={handleOnCart}>
                         Add to Cart
                         </button>
-                        <button className='productDetailAddToCart'
-                          onClick={handleOnWishlist}>
-                        Add to Wishlist
-                        </button>
                         {User.id && <button onClick={() => {
                           handleOnWishlist(); toggle();
                         }}

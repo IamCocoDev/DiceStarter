@@ -25,7 +25,6 @@ const getOrders = (token, orderStatus) => {
         },
       });
       dispatch(setOrders(res.data));
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
