@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable max-len */
 import React, {useState, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../app/hooks';
@@ -8,6 +9,8 @@ import {userInfo} from '../../../app/reducers/registerReducer';
 import './userReview.css';
 import {NavLink} from 'react-router-dom';
 import RatingStars from '../../DummyComponents/ratingStars/ratingStars';
+import swal from 'sweetalert2';
+
 const UserReview = (props:{review, token, user, id}) => {
   const user = useAppSelector(userInfo);
   const [toggle, setToggle] = useState(false);
@@ -24,8 +27,24 @@ const UserReview = (props:{review, token, user, id}) => {
     setChanges({...changes, comment: e.target.innerText});
   };
   const handleDelete = (e) => {
-    dispatch(deleteReviews(e.target.value, props.id, token));
-    dispatch(getReviews(props.id));
+    swal.fire({
+      title: 'Are you sure?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#74009D',
+      cancelButtonColor: '#d33',
+      background: '#202020',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        swal.fire(
+            'Deleted!',
+            'success',
+        );
+        dispatch(deleteReviews(e.target.value, props.id, token));
+        dispatch(getReviews(props.id));
+      }
+    });
   };
   useEffect(() => {
     review.user?.name === user.name ? setToggle(true) : null;

@@ -21,6 +21,7 @@ const Cart = () => {
       swal.fire({
         text: 'You already deleted all the products from this cart!',
         icon: 'info',
+        background: '#202020',
       });
     } else {
       swal.fire({
@@ -28,9 +29,10 @@ const Cart = () => {
         text: 'This will delete the whole cart!',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
+        confirmButtonColor: '#74009D',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes',
+        background: '#202020',
       })
           .then((result) => {
             if (result.isConfirmed) {
@@ -42,11 +44,13 @@ const Cart = () => {
                       swal.fire({
                         text: 'Cart deleted successfully',
                         icon: 'info',
+                        background: '#202020',
                       });
                     } else {
                       swal.fire({
                         text: 'Oops, something went wrong',
                         icon: 'error',
+                        background: '#202020',
                       });
                     }
                   }).catch((err) => console.error(err));

@@ -36,6 +36,7 @@ function ProductCard(
       swal.fire({
         text: 'You already added this product to cart!',
         icon: 'info',
+        background: '#202020',
       });
     } else {
       dispatch(addProductInCart({
@@ -49,6 +50,10 @@ function ProductCard(
       swal.fire({
         text: 'Product added succesfully!',
         icon: 'success',
+        background: '#202020',
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
       });
     }
   };
@@ -80,6 +85,11 @@ function ProductCard(
   const handleOnWishlist = () => {
     const duplicate = JSON.parse(localStorage
         .getItem('wishlist') || '[]').filter((p) => p.id === props.id);
+    swal.fire({
+      text: 'Product removed from the wishlist!',
+      icon: 'info',
+      background: '#202020',
+    });
     if (duplicate.length > 0) {
       dispatch(deleteProductInWishlist(props.id, user.id, token));
     } else {
@@ -91,6 +101,11 @@ function ProductCard(
         stock: props.stock,
         amount: 1,
       }, user.id, token));
+      swal.fire({
+        text: 'Product added succesfully!',
+        icon: 'success',
+        background: '#202020',
+      });
     }
   };
   useEffect(() => {

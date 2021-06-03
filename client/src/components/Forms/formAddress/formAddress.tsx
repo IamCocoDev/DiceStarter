@@ -40,40 +40,51 @@ const FormAddress = () => {
               dispatch(modifyAddress(address, token))
                   .then((r) => {
                     if (r !== 'error') {
-                      swal.fire('Address changed succesfully!');
+                      swal.fire({
+                        text: 'Address changed succesfully!',
+                        background: '#202020',
+                      });
                       setRedirect(true);
                     } else {
-                      swal.fire('Oops, something went wrong');
+                      swal.fire({
+                        text: 'Oops, something went wrong',
+                        background: '#202020',
+                      });
                     }
                   }).catch((err) => console.error(err));
             } else {
               swal.fire({
                 text: 'You need to insert a proper phone number!',
                 icon: 'warning',
+                background: '#202020',
               });
             }
           } else {
             swal.fire({
               text: 'You need to insert your Postal Code!',
               icon: 'warning',
+              background: '#202020',
             });
           }
         } else {
           swal.fire({
             text: 'You need to insert your city!',
             icon: 'warning',
+            background: '#202020',
           });
         }
       } else {
         swal.fire({
           text: 'You need to insert your address!',
           icon: 'warning',
+          background: '#202020',
         });
       }
     } else {
       swal.fire({
         text: 'The phone you added is not correct!',
         icon: 'warning',
+        background: '#202020',
       });
     }
   };
