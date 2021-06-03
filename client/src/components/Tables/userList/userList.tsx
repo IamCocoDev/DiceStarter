@@ -24,7 +24,6 @@ const UserList = (props:any) => {
   const token = useAppSelector(userToken);
   const handleRoleChange = (e: any) => {
     setChanges({...changes, role: e.label});
-    console.log(changes);
   };
   const handleStatusChange = (e:any) => {
     setChanges({...changes, status: e.label});

@@ -47,7 +47,6 @@ const OrderList = () => {
     dispatch(getOrders(token, input.value));
   }, [input]);
   useEffect(() => {
-    console.log(orders);
   }, [orders]);
   const handleChange = (e) => {
     setInput(e);

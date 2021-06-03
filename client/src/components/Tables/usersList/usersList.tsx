@@ -29,7 +29,6 @@ const UsersList = () => {
   const dispatch = useAppDispatch();
   const token = useAppSelector(userToken);
   const usersArray = useAppSelector(users);
-  console.log(token);
   useEffect(() => {
     dispatch(getUsers(token));
   }, []);

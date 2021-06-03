@@ -13,7 +13,6 @@ const Wishlist = () => {
   const wishlistProducts = useAppSelector(wishlistsReducer);
   const userInf = useAppSelector(userInfo);
   const userId = userInf.id;
-  console.log(wishlistProducts);
   const handleDeleteWishlist = () => {
     if (wishlistProducts.length <= 0) {
       swal.fire({

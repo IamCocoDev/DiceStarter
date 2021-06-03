@@ -18,7 +18,6 @@ const UserOrders = () => {
     };
   }, []);
   useEffect(() => {
-    console.log(orders);
   }, [orders]);
   return (
     <div className='userOrdersAll'>
