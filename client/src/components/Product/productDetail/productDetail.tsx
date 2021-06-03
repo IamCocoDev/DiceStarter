@@ -86,7 +86,7 @@ function ProductDetail(props: any) {
     const duplicate = JSON.parse(localStorage
         .getItem('wishlist') || '[]').find((el) => el.id === product.id);
     if (duplicate) {
-      dispatch(deleteProductInWishlist(product.id, User.id));
+      dispatch(deleteProductInWishlist(product.id, User.id, token));
       swal.fire({
         text: 'Product removed from the wishlist!',
         icon: 'info',
@@ -100,7 +100,7 @@ function ProductDetail(props: any) {
         image: product.picture[0],
         stock: product.stock,
         amount: 1,
-      }, User.id));
+      }, User.id, token));
       swal.fire({
         text: 'Product added succesfully!',
         icon: 'success',
@@ -163,7 +163,6 @@ function ProductDetail(props: any) {
     }));
   }, [product]);
 
-
   const handleSelectChange = (e:any) => {
     setProductDetailCategories(e);
   };
@@ -200,6 +199,7 @@ function ProductDetail(props: any) {
     categories: product?.categories,
     rating: product?.rating,
   });
+
   useEffect(() => {
     setChanges({...changes,
       categories: productDetailCategories?.map((c) => c.value)});
@@ -275,12 +275,11 @@ function ProductDetail(props: any) {
                 <RatingStars rating={product.rating}/>
               </div>
               { editMode === false ?
-                <div className='productDetailCategoriesAll'>
-                  {
-                    productDetailCategories?.map((c, i) =>
-                      <span key={i} className='productDetailCategories'>
-                        {c.label}
-                      </span>)}
+                <div>
+                  {product.categories.map((c, i) =>
+                    <span key={i} className='productDetailCategories'>
+                      {c.name}
+                    </span>)}
                 </div> :
                 <div className='ProductDetailSelect'>
                   <Select onChange={handleSelectChange}

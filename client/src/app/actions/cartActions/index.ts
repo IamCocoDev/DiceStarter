@@ -43,7 +43,6 @@ export const getProductsInCart = (idUser = '') => (dispatch) => {
 };
 
 export const addProductInCart = (product, userId = '', address) => (dispatch) => {
-  console.log(product);
   const productsInCart = JSON.parse(localStorage
       .getItem('cart') || '[]').concat(product);
   localStorage.setItem('cart', JSON.stringify(productsInCart));

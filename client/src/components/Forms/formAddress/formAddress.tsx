@@ -20,11 +20,10 @@ const FormAddress = () => {
   };
   const phoneValidator = (phone:string) => {
     // eslint-disable-next-line max-len
-    const phoneValidator = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
-    if (phone?.length > 0) {
-      phoneValidator.test(phone) === false ? false : true;
-    } else {
+    if ( typeof parseInt(phone) === 'number') {
       return true;
+    } else {
+      return false;
     }
   };
 
@@ -103,7 +102,7 @@ const FormAddress = () => {
           type='text'
           onChange={handleAddressChange}
           value={address.address}
-          placeholder='Adress...' />
+          placeholder='Address...' />
         <input name='city'
           className='formAdressCity'
           type='text'
