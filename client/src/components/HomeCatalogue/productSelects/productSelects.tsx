@@ -19,7 +19,7 @@ const sortType: Array<Categories> = [{
   label: 'A-Z',
   id: 0,
 }, {
-  value: 'Z-Z',
+  value: 'Z-A',
   label: 'Z-A',
   id: 0,
 },
