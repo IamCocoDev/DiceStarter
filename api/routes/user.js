@@ -103,6 +103,8 @@ router.post('/signupgoogle', async (req, res, next) => {
   } = req.body;
   const user = await User.findOne({ where: { email } });
   if (user) {
+    if (user.status === 'Banned') return res.status(401).send('User banned');
+    if (user.status === 'Closed') return res.status(401).send('Account closed');
     const accessToken = jwt.sign({
       name: user.name,
       role: user.role,
