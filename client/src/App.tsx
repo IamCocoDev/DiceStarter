@@ -46,8 +46,8 @@ function App() {
   const user = useAppSelector(userInfo);
   return (
     user?.status !== 'Banned' ?
-    <div>
-      <Route exact path={'/'} component={Landing}/>
+    <div className='AppAll'>
+      <Route exact path={['/']} component={Landing}/>
       {user.role === 'Admin' ?
       <Route path={['/home',
         '/product',
@@ -110,24 +110,7 @@ function App() {
       <Route exact path='/list/reviews' component={ReviewsList}/>
       <Route path='/wishlist' component={Wishlist}/>
       <Route exact path='/rules' component={Rules}/>
-      <Route path={['/home',
-        '/product',
-        '/create',
-        '/create/product',
-        '/list',
-        '/login',
-        '/register',
-        '/list/productlist',
-        '/create/category',
-        '/cart',
-        '/list/userlist',
-        '/address',
-        '/about',
-        '/profile',
-        '/wishlist',
-        '/rules',
-        '/user',
-      ]}component={Footer} />
+      <Route path={'/home'} component={Footer} />
     </div> :
     <div>Your account is Banned from this site</div>
   );
