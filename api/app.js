@@ -74,6 +74,7 @@ producto1.then((prod) => {
   prod.addCategory(6);
   console.log('It works!');
 }).catch((e) => new Error(e));
+
 const producto2 = Product.create({
   id: 'a3394b85-7aba-4440-9ff6-c26a472124d9',
   name: 'D&D (5e) Van Richtens Guide to Ravenloft',
@@ -89,6 +90,7 @@ producto2.then((prod) => {
   console.log('It works!');
   prod.addCategory(2);
 }).catch((e) => new Error(e));
+
 const producto3 = Product.create({
   id: '191d5bf1-fbfb-4033-b6f6-56161f896890',
   name: 'Call of Cthulhu (7th ed) Keeper Screen',
@@ -104,6 +106,7 @@ producto3.then((prod) => {
   console.log('It works!');
   prod.addCategory(6);
 }).catch((e) => new Error(e));
+
 const producto4 = Product.create({
   id: '15670bea-b30f-4948-850b-12e320293493',
   name: 'D&D (5e) Mythic Odysseys of Theros',
@@ -118,6 +121,7 @@ producto4.then((prod) => {
   console.log('It works!');
   prod.addCategory(2);
 }).catch((e) => new Error(e));
+
 const producto5 = Product.create({
   id: '303e99fc-b698-4d57-9968-babd3a9db6f9',
   name: 'Call of Cthulhu (7th ed) Quick Start',
@@ -133,6 +137,7 @@ producto5.then((prod) => {
   console.log('It works!');
   prod.addCategory(6);
 }).catch((e) => new Error(e));
+
 const producto6 = Product.create({
   id: 'be4c2dbb-4699-4b07-a5b8-7aba780fe8db',
   name: 'D&D (5e) A Young Adventurers Guide : Monsters & Creatures',
@@ -147,6 +152,7 @@ producto6.then((prod) => {
   console.log('It works!');
   prod.addCategory(2);
 }).catch((e) => new Error(e));
+
 const producto7 = Product.create({
   id: '6a1dee0c-cabe-4bb5-907f-634b499156b6',
   name: 'D&D (5e) Players Handbook',
@@ -161,6 +167,7 @@ producto7.then((prod) => {
   console.log('It works!');
   prod.addCategory(2);
 }).catch((e) => new Error(e));
+
 const producto8 = Product.create({
   id: 'f973809e-c7e6-4399-9daa-667197327b9e',
   name: 'Call of Cthulhu (7th ed) Core Rulebook Keeper Rulebook',
@@ -175,6 +182,7 @@ producto8.then((prod) => {
   console.log('It works!');
   prod.addCategory(6);
 }).catch((e) => new Error(e));
+
 const producto9 = Product.create({
   id: '8a2c060c-69e1-4afa-afcc-aa451b0673e8',
   name: 'Star Wars RPG Classic (30th Anniversary ed) Box Set',
@@ -189,6 +197,7 @@ producto9.then((prod) => {
   console.log('It works!');
   prod.addCategory(5);
 }).catch((e) => new Error(e));
+
 const producto10 = Product.create({
   id: '472377c9-6b1d-4a19-ae1e-ea58fd29404c',
   name: 'Call of Cthulhu (7th ed) Core Rulebook Investigator Handbook',
@@ -204,6 +213,7 @@ producto10.then((prod) => {
   console.log('It works!');
   prod.addCategory(6, 8);
 }).catch((e) => new Error(e));
+
 const producto11 = Product.create({
   id: 'a9b805b3-5fc0-4507-b7d2-4ad65c23b4be',
   name: 'Star Wars Edge of the Empire Beginner Box',
@@ -218,6 +228,7 @@ producto11.then((prod) => {
   console.log('It works!');
   prod.addCategory(5);
 }).catch((e) => new Error(e));
+
 const producto12 = Product.create({
   id: '871f3f79-e31f-40a5-bdf3-bcd815237581',
   name: 'D&D (5e) Players Handbook',
@@ -232,6 +243,7 @@ producto12.then((prod) => {
   console.log('It works!');
   prod.addCategory(2);
 }).catch((e) => new Error(e));
+
 const producto13 = Product.create({
   id: '63c5fd31-f9d6-48a8-85c3-6f090d6bcc22',
   name: 'Star Wars Age of Rebellion Beginner Box',
@@ -246,6 +258,7 @@ producto13.then((prod) => {
   console.log('It works!');
   prod.addCategory(5);
 }).catch((e) => new Error(e));
+
 const producto14 = Product.create({
   id: '02e1c239-5082-4d55-ac72-49bbe3d792a4',
   name: 'Star Trek Adventures Command Division',
@@ -257,9 +270,11 @@ const producto14 = Product.create({
     'https://cdn.shopify.com/s/files/1/1633/7907/products/command_preview_1_crop_480x320.jpg?v=1578074318'],
   color: ['#326495'],
 });
+
 producto14.then((prod) => {console.log('It works!');
   prod.addCategory(4, 8);
 }).catch((e) => new Error(e));
+
 const producto15 = Product.create({
   id: 'ed27f4ef-ada2-4200-b43a-5c8f03fc5249',
   name: 'Star Wars Force Awakens Beginner Box',
@@ -274,6 +289,7 @@ producto15.then((prod) => {
   console.log('It works!');
   prod.addCategory(5);
 }).catch((e) => new Error(e));
+
 const producto16 = Product.create({
   id: '45a5aae6-1c84-439f-810e-5e3fa0dabb5d',
   name: 'Star Trek Adventures Core Rulebook',
@@ -289,6 +305,7 @@ producto16.then((prod) => {
   console.log('It works!');
   prod.addCategory(4, 8);
 }).catch((e) => new Error(e));
+
 const producto17 = Product.create({
   id: '24caa9f4-136e-4540-a138-931e862bcdc4',
   name: 'Alien RPG',
@@ -301,9 +318,11 @@ const producto17 = Product.create({
   color: ['#0F151C'],
 });
 producto17.then((prod) => {
+
   console.log('It works!');
   prod.addCategory(9, 7);
 }).catch((e) => new Error(e));
+
 const producto18 = Product.create({
   id: '795ebbe6-b07d-49c9-bd54-3a4757bc223c',
   name: 'Bite Marks',
@@ -318,6 +337,7 @@ producto18.then((prod) => {
   console.log('It works!');
   prod.addCategory(3);
 }).catch((e) => new Error(e));
+
 const producto19 = Product.create({
   id: 'af32dbc-7fcc-4d28-856b-86a7260050fe',
   name: 'Ruma : Dawn of Empire',
@@ -332,6 +352,7 @@ producto19.then((prod) => {
   console.log('It works!');
   prod.addCategory(3);
 }).catch((e) => new Error(e));
+
 const producto20 = Product.create({
   id: 'd825ca84-f77b-4bc2-8b85-874d2df67fec',
   name: 'Cyberpunk Red Jumpstart Kit',
@@ -343,9 +364,11 @@ const producto20 = Product.create({
   color: ['#0F151C'],
 });
 producto20.then((prod) => {
+
   console.log('It works!');
   prod.addCategory(9);
 }).catch((e) => new Error(e));
+
 const producto21 = Product.create({
   id: '1cb1b1e7-68cf-4dcb-8fe1-998be04ff37b',
   name: 'D&D (5e) Character Sheets',
@@ -360,6 +383,7 @@ producto21.then((prod) => {
   console.log('It works!');
   prod.addCategory(2, 10);
 }).catch((e) => new Error(e));
+
 const producto22 = Product.create({
   id: 'b70c8e05-4a3d-40ae-b11d-31b8f3d860da',
   name: 'Metal 12-sided d4',
@@ -374,4 +398,5 @@ producto22.then((prod) => {
   console.log('It works!');
   prod.addCategory(1);
 }).catch((e) => new Error(e));
+
 module.exports = app;
