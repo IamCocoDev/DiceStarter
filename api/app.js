@@ -59,7 +59,7 @@ app.use((err, req, res) => {
   res.render('error');
 });
 
-/*
+
 const producto1 = Product.create({
   id: '4875e178-655d-41d8-a532-c8c3e12b7f62',
   name: 'Lovecraftesque',
@@ -375,7 +375,7 @@ const producto22 = Product.create({
 producto22.then((prod) => {
   prod.addCategory(1);
 }).catch((e) => new Error(e));
-*/
+
 
 
 module.exports = app;
