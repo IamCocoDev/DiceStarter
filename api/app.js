@@ -72,6 +72,7 @@ const producto1 = Product.create({
 });
 producto1.then((prod) => {
   prod.addCategory(6);
+  console.log('It works!');
 }).catch((e) => new Error(e));
 
 const producto2 = Product.create({
@@ -86,6 +87,7 @@ const producto2 = Product.create({
   color: ['#295B12'],
 });
 producto2.then((prod) => {
+  console.log('It works!');
   prod.addCategory(2);
 }).catch((e) => new Error(e));
 
@@ -101,6 +103,7 @@ const producto3 = Product.create({
   color: ['#295B12'],
 });
 producto3.then((prod) => {
+  console.log('It works!');
   prod.addCategory(6);
 }).catch((e) => new Error(e));
 
@@ -115,6 +118,7 @@ const producto4 = Product.create({
   color: ['#295B12'],
 });
 producto4.then((prod) => {
+  console.log('It works!');
   prod.addCategory(2);
 }).catch((e) => new Error(e));
 
@@ -130,6 +134,7 @@ const producto5 = Product.create({
   color: ['#295B12'],
 });
 producto5.then((prod) => {
+  console.log('It works!');
   prod.addCategory(6);
 }).catch((e) => new Error(e));
 
@@ -144,6 +149,7 @@ const producto6 = Product.create({
   color: ['#295B12'],
 });
 producto6.then((prod) => {
+  console.log('It works!');
   prod.addCategory(2);
 }).catch((e) => new Error(e));
 
@@ -158,6 +164,7 @@ const producto7 = Product.create({
   color: ['#295B12'],
 });
 producto7.then((prod) => {
+  console.log('It works!');
   prod.addCategory(2);
 }).catch((e) => new Error(e));
 
@@ -172,6 +179,7 @@ const producto8 = Product.create({
   color: ['#264386'],
 });
 producto8.then((prod) => {
+  console.log('It works!');
   prod.addCategory(6);
 }).catch((e) => new Error(e));
 
@@ -186,6 +194,7 @@ const producto9 = Product.create({
   color: ['#295B12'],
 });
 producto9.then((prod) => {
+  console.log('It works!');
   prod.addCategory(5);
 }).catch((e) => new Error(e));
 
@@ -201,6 +210,7 @@ const producto10 = Product.create({
   color: ['#684E16'],
 });
 producto10.then((prod) => {
+  console.log('It works!');
   prod.addCategory(6, 8);
 }).catch((e) => new Error(e));
 
@@ -215,6 +225,7 @@ const producto11 = Product.create({
   color: ['#295B12'],
 });
 producto11.then((prod) => {
+  console.log('It works!');
   prod.addCategory(5);
 }).catch((e) => new Error(e));
 
@@ -229,6 +240,7 @@ const producto12 = Product.create({
   color: ['#295B12'],
 });
 producto12.then((prod) => {
+  console.log('It works!');
   prod.addCategory(2);
 }).catch((e) => new Error(e));
 
@@ -243,6 +255,7 @@ const producto13 = Product.create({
   color: ['#295B12'],
 });
 producto13.then((prod) => {
+  console.log('It works!');
   prod.addCategory(5);
 }).catch((e) => new Error(e));
 
@@ -257,7 +270,8 @@ const producto14 = Product.create({
     'https://cdn.shopify.com/s/files/1/1633/7907/products/command_preview_1_crop_480x320.jpg?v=1578074318'],
   color: ['#326495'],
 });
-producto14.then((prod) => {
+
+producto14.then((prod) => {console.log('It works!');
   prod.addCategory(4, 8);
 }).catch((e) => new Error(e));
 
@@ -272,6 +286,7 @@ const producto15 = Product.create({
   color: ['#295B12'],
 });
 producto15.then((prod) => {
+  console.log('It works!');
   prod.addCategory(5);
 }).catch((e) => new Error(e));
 
@@ -287,6 +302,7 @@ const producto16 = Product.create({
   color: ['#326495'],
 });
 producto16.then((prod) => {
+  console.log('It works!');
   prod.addCategory(4, 8);
 }).catch((e) => new Error(e));
 
@@ -302,6 +318,8 @@ const producto17 = Product.create({
   color: ['#0F151C'],
 });
 producto17.then((prod) => {
+
+  console.log('It works!');
   prod.addCategory(9, 7);
 }).catch((e) => new Error(e));
 
@@ -316,6 +334,7 @@ const producto18 = Product.create({
   color: ['#295B12'],
 });
 producto18.then((prod) => {
+  console.log('It works!');
   prod.addCategory(3);
 }).catch((e) => new Error(e));
 
@@ -330,6 +349,7 @@ const producto19 = Product.create({
   color: ['#295B12'],
 });
 producto19.then((prod) => {
+  console.log('It works!');
   prod.addCategory(3);
 }).catch((e) => new Error(e));
 
@@ -344,6 +364,8 @@ const producto20 = Product.create({
   color: ['#0F151C'],
 });
 producto20.then((prod) => {
+
+  console.log('It works!');
   prod.addCategory(9);
 }).catch((e) => new Error(e));
 
@@ -358,6 +380,7 @@ const producto21 = Product.create({
   color: ['#295B12'],
 });
 producto21.then((prod) => {
+  console.log('It works!');
   prod.addCategory(2, 10);
 }).catch((e) => new Error(e));
 
@@ -372,9 +395,8 @@ const producto22 = Product.create({
   color: ['#585858'],
 });
 producto22.then((prod) => {
+  console.log('It works!');
   prod.addCategory(1);
 }).catch((e) => new Error(e));
-
-
 
 module.exports = app;

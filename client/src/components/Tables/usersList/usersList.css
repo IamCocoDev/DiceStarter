@@ -3,6 +3,7 @@
    flex-flow: row wrap;
    justify-content: space-around;
    color: white;
+   min-height: 100vh;
 }
 
 .usersListHeaders {
