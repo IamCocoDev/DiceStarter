@@ -1,0 +1,69 @@
+.cartProductGrid{
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-evenly;
+  border-top: 0.1rem solid white;
+}
+
+.cartProductImage{
+  background-color: white;
+  height: 7rem;
+  width: 7rem;
+  margin: 1rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.cartProductInfo{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #101010;
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 7rem;
+}
+
+.cartProductName{
+  text-align: center;
+  width: 16rem;
+}
+
+.cartProductAmout{
+  display: flex;
+  align-items: center;  
+}
+
+.cartProductNumber{
+  margin: 0 0.5rem;
+}
+
+.cartProductDelete{
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  color: white;
+  background-color: rgb(150, 0, 0);
+  border-radius: 0.5rem;
+  border:none;
+  outline: none;
+}
+
+.cartProductDelete:hover{
+  background-color: rgb(200, 0, 0);
+}
+
+.cartProductAmountIncrease, .cartProductAmountDecrease{
+  cursor: pointer;
+  width: 1.7rem;
+  height: 1.7rem;
+  background-color: #74009D;
+  border: none;
+  outline: none;
+  color: white;
+  border-radius: 0.5rem;
+}
+
+.cartProductAmountIncrease:hover, .cartProductAmountDecrease:hover{
+  background-color: #9e00d3;
+}

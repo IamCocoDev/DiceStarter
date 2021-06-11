@@ -1,0 +1,73 @@
+.registerBackground{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.registerGrid{  
+  margin: 5rem 0;
+  padding-bottom: 2rem;
+  background-color: #101010;
+  height: 100%;
+  width: 50rem;
+  border-radius: 0.5rem;
+}
+
+.registerName, .registerFirstName, .registerLastName, .registerEmail, 
+.registerBirthDay, .registerCountry, .registerPassword, .registerConfirmPassword {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem; 
+}
+
+.registerSendRegister{
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 5rem;
+  height: 2rem;
+  font-size: 1.1rem;
+  align-self: center;
+  justify-self: center;
+  margin: 1rem auto;
+  color: white;
+  background-color: #74009D;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+
+.registerSendRegister:hover{
+  background-color: #9e00d3;
+}
+
+.loginGoogle1{
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+  margin: auto;
+}
+
+.registerInput{
+  border: none;
+  outline: none;
+  margin-top: 0.5rem;
+  height: 2rem;
+  width: 20rem;
+  border-radius: 0.5rem;
+}
+
+.registerError{
+  margin-top: 0.5rem;
+  color: rgb(200, 0, 0);
+}
+
+.registerH1{
+  font-size: 1.2rem;
+}

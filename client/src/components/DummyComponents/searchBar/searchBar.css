@@ -1,0 +1,33 @@
+.searchBarFlex{
+  display: flex;
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  width: 20rem;
+  height: 2rem;
+}
+
+.searchBarButton {
+  border: 0.1rem solid #101010;
+  border-left: none;
+  background: #9e00d3;
+  color: #ffffff;
+  cursor: pointer;
+  width: 4rem;
+  border-radius: 0 0.5rem 0.5rem 0 ;
+}
+
+.searchBarText {
+  border: 0.1rem solid #101010;
+  border-right: none;
+  border-radius: 0.5rem 0 0 0.5rem;
+  width: 20rem;
+  padding: 0 1rem;
+}
+
+.searchBarText:focus {
+  outline: none;
+}

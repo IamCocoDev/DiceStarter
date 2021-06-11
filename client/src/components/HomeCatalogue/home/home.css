@@ -1,0 +1,17 @@
+.homeLoadingScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homeProductCarousel {
+  justify-self: center;
+  width: 100%;
+  max-width: 98vw;
+  margin: 0px;
+}
+.homeBackground{
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+}

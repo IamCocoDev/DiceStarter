@@ -1,0 +1,29 @@
+.listButtonRouterGrid{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 4rem 0;
+}
+
+.listButtonRouterProductButton, .listButtonRouterCategoryButton, .listButtonRouterUsersButton{
+  cursor: pointer;
+  border: none;
+  margin: 1.5rem 0;;
+  font-size: 1.25rem;
+  width: 10rem;
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  background-color: #74009D;
+  color: white;
+}
+
+.listButtonRouterProductButton:hover, .listButtonRouterCategoryButton:hover, .listButtonRouterUsersButton:hover{
+  background-color: #9e00d3;
+}
+
+.listButtonRouterUsers, .listButtonRouterCategory, .listButtonRouterProduct {
+  color: white;
+  outline: none;
+}
+

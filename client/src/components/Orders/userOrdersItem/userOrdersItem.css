@@ -1,0 +1,39 @@
+h1{
+  color: white
+}
+
+.userOrdersItemAll{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  color: white;
+  border-top: 0.1rem solid white;
+  width: 30rem;
+}
+
+.userOrdersItemTotal{
+  border-top: 0.1rem solid white;
+}
+
+.userOrdersItemButton{
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  margin: auto;
+  margin-top: 1rem;
+  width: 4rem;
+  height: 2rem;
+  color: white;
+  background-color: #74009D;
+}
+
+.userOrdersItemButton:hover{
+  background-color: #9e00d3;
+}
+
+.userOrdersItemId, .userOrdersItemStatus, .userOrdersItemAllDate, .userOrdersItemTotal{
+  margin-top: 0.5rem;
+}

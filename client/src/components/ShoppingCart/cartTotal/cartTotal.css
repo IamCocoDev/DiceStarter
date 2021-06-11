@@ -1,0 +1,29 @@
+.cartTotal{
+  background-color: #101010;
+  border-radius: 0.5rem;
+}
+
+.cartTotalText{
+  font-size: 2rem;
+  margin-top: 2rem;
+}
+.cartTotalProductTotal{
+  font-size: 1rem;
+  margin-top: 2rem;
+}
+
+.cartButtonToCheckout, .cartButtonSignIn{
+  cursor: pointer;
+  border: none;
+  color: white;
+  margin: 1rem 0 0.5rem 0;
+  width: 10rem;
+  height: 3rem;
+  font-size: 1rem;
+  background-color: #74009D;
+  border-radius: 0.5rem;
+}
+
+.cartButtonToCheckout:hover, .cartButtonSignIn:hover{
+  background-color: #9e00d3;
+}

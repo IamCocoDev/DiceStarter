@@ -1,0 +1,45 @@
+.RulesAll {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 90vh;
+    padding-top: 5rem;
+}
+
+.RulesText {
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    max-width: 80vw;
+    align-self: center;
+}
+
+.RulesButton {
+    border:none;
+    color: white;   
+    width: 4rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    background-color: #74009D;
+    margin-left: 0.5rem;
+}
+
+.RulesButton:hover {
+    color:red;
+    background-color: #400057;
+}
+
+.RulesImage {
+    margin: 1rem 0 1rem 0;
+    max-width: 10rem;
+    max-height: 10rem;
+    border-radius: 1rem;
+}
+
+.RulesAudio {
+    display:none;
+}
+
+.RulesEasterEggText {
+    color: white;
+}
