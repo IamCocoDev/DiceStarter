@@ -202,7 +202,7 @@ const products = [
     categories: [2, 10],
   }, {
     name: 'Metal 12-sided d4',
-    description: 'A metal d4. This is a regular dodecahedron (12 sides) triply numbered 1-4. Rolls much better than a standard d4.',
+    description: 'A metal d4. This is a regular dodecahedron (12 sides) triply numbered 1-4. Rolls much better than a d4.',
     price: 8.00,
     stock: 30,
     size: '13mm',
