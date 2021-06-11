@@ -25,4 +25,4 @@ conn.sync({ force: false }).then(() => {
   server.listen(process.env.PORT || 3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
-}).catch((e) => ((console.log('error en el archivo index.js pricipal', e))));// eslint-disable-line no-console
+}).catch((e) => ((console.log('error en el archivo index.js', e))));// eslint-disable-line no-console
